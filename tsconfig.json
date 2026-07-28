@@ -19,7 +19,11 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "fashion-atelier-v1": ["./templates/fashion-atelier-v1/src/index.ts"],
+      "fashion-atelier-v1/*": ["./templates/fashion-atelier-v1/src/*"],
+      "jewelry-orion-v1": ["./templates/jewelry-orion-v1/src/index.ts"],
+      "jewelry-orion-v1/*": ["./templates/jewelry-orion-v1/src/*"]
     }
   },
   "include": [
@@ -30,5 +34,5 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "hosts", "dist"]
 }

@@ -1,0 +1,144 @@
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+import { Menu, ShoppingBag, X } from "lucide-react";
+import { useCart } from "../lib/cart-context";
+import { useSiteContent } from "../lib/site-content";
+import { withBasePath } from "../content/resolve";
+
+export function Header() {
+  const { payload, basePath } = useSiteContent();
+  const pathname = usePathname();
+  const { itemCount, openCart } = useCart();
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  const isHome = pathname === basePath || pathname === `${basePath}/`;
+  const useDark = isHome && !scrolled && !mobileOpen;
+
+  const primaryLinks = payload.navigation.primary;
+  const mainLinks = primaryLinks.slice(0, 3);
+  const extraLink = primaryLinks[3];
+  const logoText = payload.brand.displayName || payload.brand.name;
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileOpen]);
+
+  return (
+    <>
+      <header
+        className={`fixed left-4 right-4 top-4 z-50 transition-all duration-300 ${
+          useDark ? "glass-dark" : "glass shadow-sm"
+        }`}
+      >
+        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 md:h-[4.25rem] md:px-8">
+          <nav className="hidden items-center gap-8 md:flex" aria-label="Principal">
+            {mainLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={withBasePath(basePath, link.href)}
+                className={`cursor-pointer text-[11px] font-medium uppercase tracking-[0.18em] transition-colors duration-200 ${
+                  useDark
+                    ? "text-white/80 hover:text-white"
+                    : "text-secondary hover:text-primary"
+                }`}
+              >
+                {link.label}
+              </Link>
+            ))}
+          </nav>
+
+          <Link
+            href={withBasePath(basePath, "/")}
+            className={`font-serif text-2xl tracking-[0.22em] transition-colors duration-200 md:absolute md:left-1/2 md:-translate-x-1/2 md:text-[1.75rem] ${
+              useDark ? "text-white" : "text-primary"
+            }`}
+          >
+            {logoText}
+          </Link>
+
+          <div className="flex items-center gap-3 md:gap-5">
+            {extraLink && (
+              <Link
+                href={withBasePath(basePath, extraLink.href)}
+                className={`hidden cursor-pointer text-[11px] font-medium uppercase tracking-[0.18em] transition-colors duration-200 md:inline ${
+                  useDark
+                    ? "text-white/80 hover:text-white"
+                    : "text-secondary hover:text-primary"
+                }`}
+              >
+                {extraLink.label}
+              </Link>
+            )}
+            <button
+              type="button"
+              onClick={openCart}
+              className={`relative cursor-pointer rounded-full p-2 transition-colors duration-200 ${
+                useDark
+                  ? "text-white hover:bg-white/10"
+                  : "text-primary hover:bg-surface"
+              }`}
+              aria-label={`Abrir carrito${itemCount ? `, ${itemCount} artículos` : ""}`}
+            >
+              <ShoppingBag className="h-5 w-5" strokeWidth={1.5} />
+              {itemCount > 0 && (
+                <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-cta px-1 text-[10px] font-semibold text-white">
+                  {itemCount}
+                </span>
+              )}
+            </button>
+            <button
+              type="button"
+              className={`cursor-pointer rounded-full p-2 md:hidden ${
+                useDark ? "text-white" : "text-primary"
+              }`}
+              onClick={() => setMobileOpen((v) => !v)}
+              aria-label={mobileOpen ? "Cerrar menú" : "Abrir menú"}
+              aria-expanded={mobileOpen}
+            >
+              {mobileOpen ? (
+                <X className="h-5 w-5" strokeWidth={1.5} />
+              ) : (
+                <Menu className="h-5 w-5" strokeWidth={1.5} />
+              )}
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {mobileOpen && (
+        <div className="fixed inset-0 z-40 bg-background pt-28 animate-fade-in md:hidden">
+          <nav className="flex flex-col gap-1 px-8" aria-label="Móvil">
+            {primaryLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={withBasePath(basePath, link.href)}
+                onClick={() => setMobileOpen(false)}
+                className="cursor-pointer border-b border-border py-5 font-serif text-3xl tracking-wide text-primary transition-colors duration-200 hover:text-cta"
+              >
+                {link.label}
+              </Link>
+            ))}
+          </nav>
+        </div>
+      )}
+    </>
+  );
+}

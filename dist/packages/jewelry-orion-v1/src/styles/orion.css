@@ -1,0 +1,125 @@
+:root {
+  --color-primary: #141210;
+  --color-secondary: #5c564f;
+  --color-cta: #b8956a;
+  --color-cta-hover: #9a7a55;
+  --color-background: #fafaf8;
+  --color-surface: #f0ede8;
+  --color-text: #121212;
+  --color-muted: #6b6560;
+  --color-border: #ddd6cc;
+  --color-ink: #0e0e10;
+  --color-champagne-soft: rgba(184, 149, 106, 0.14);
+}
+
+@theme inline {
+  --color-primary: var(--color-primary);
+  --color-secondary: var(--color-secondary);
+  --color-cta: var(--color-cta);
+  --color-cta-hover: var(--color-cta-hover);
+  --color-background: var(--color-background);
+  --color-surface: var(--color-surface);
+  --color-text: var(--color-text);
+  --color-muted: var(--color-muted);
+  --color-border: var(--color-border);
+  --color-ink: var(--color-ink);
+  --font-serif: var(--font-bodoni);
+  --font-sans: var(--font-jost);
+}
+
+.orion-root {
+  background: var(--color-background);
+  color: var(--color-text);
+  font-family: var(--font-jost), ui-sans-serif, system-ui, sans-serif;
+}
+
+.orion-root ::selection {
+  background: var(--color-champagne-soft);
+  color: var(--color-text);
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes soft-zoom {
+  from {
+    transform: scale(1.04);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.6s ease-out both;
+}
+
+.animate-soft-zoom {
+  animation: soft-zoom 20s ease-out forwards;
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-up,
+  .animate-fade-in,
+  .animate-soft-zoom,
+  .animate-slide-in-right {
+    animation: none;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

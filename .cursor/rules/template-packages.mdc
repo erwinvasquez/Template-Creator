@@ -1,0 +1,74 @@
+---
+description: Lineamientos para templates parametrizables (packages) del Web Generator / IA Builder v2. No impone la misma estructura de secciones entre templates.
+alwaysApply: true
+---
+
+# Template packages — lineamientos (no estructura fija)
+
+## Principio rector
+
+Cada template es un **package autónomo** con identidad visual fija.  
+La IA / Builder **nunca** regenera HTML/CSS/React del template: solo produce o edita un **Content Payload** validado contra el **schema de ese template**.
+
+Los templates **pueden ser totalmente distintos** entre sí (rubro, layout, número y tipo de secciones, rutas, tipografías). No copies la estructura de secciones de `fashion-atelier-v1` a un template nuevo salvo que el diseño lo exija.
+
+## Qué es común (contrato de plataforma)
+
+Todo template nuevo debe exponer, a su manera:
+
+1. **`manifest.json`** — `templateId`, versión, capabilities, rutas/páginas que declara, media slots que necesita.
+2. **`schema.json`** — contrato del Content Payload **de ese template** (secciones propias).
+3. **`defaults.json`** — payload golden que reproduce el diseño aprobado.
+4. **Runtime aislado** en el package (`src/` o equivalente) + API de montaje documentada.
+5. **Export inmutable** a `dist/packages/<templateId>/` con `BUILD_INFO.json` (`contentHash`) + señal `IMMUTABLE`.
+6. **Peer dependencies** claras; el host aporta Next/React/etc.
+
+Lo que **no** es común: nombres de secciones, orden de home, presencia de catálogo, about, newsletter, etc.
+
+## Qué cambia por template (libertad de diseño)
+
+- Secciones del home y de páginas internas.
+- Tipografías, tokens de color, motion.
+- Si hay catálogo, carrito, blog, booking, landing one-page, etc.
+- Forma del renderer (`AtelierApp` es solo el de fashion-atelier; otro template tiene el suyo).
+
+Al crear un template nuevo: diseña primero; **después** extrae schema/defaults. No fuerces slots de otro template.
+
+## Payload vs código
+
+| Pertenece al código del template | Pertenece al Content Payload |
+|----------------------------------|------------------------------|
+| Layout, componentes, CSS, motion | Marca, copy, CTAs |
+| Rutas/páginas que el template soporta | Imágenes (MediaRef) |
+| Lógica UI (carrito local, filtros) | Catálogo / datos de negocio del tenant |
+| Validación semántica específica | SEO texts, nav labels |
+
+Si el usuario pide “otro sitio parecido” → nuevo **payload** (o fixture), mismo `templateId`.  
+Si pide “sitio totalmente diferente” → **nuevo template** (nuevo package + schema + defaults).
+
+## Versionado e inmutabilidad
+
+- Editar **fuente** en `templates/<id>/`, nunca a mano `dist/packages/<id>/`.
+- Regenerar con `npm run template:export -- <id>`.
+- SemVer: PATCH fix; MINOR slots/campos opcionales aditivos; MAJOR rotura de schema/layout.
+- Breaking grande → nuevo `templateId` (`…-v2`) si cambia la identidad del producto template.
+
+## Host limpio / portabilidad
+
+Un consumidor válido:
+
+- Depende del package exportado (`dist/` o registry), no de `templates/` ni del `src/` del lab.
+- Importa solo el nombre del package (ej. `@web-generator/<templateId>`).
+- Inyecta payload vía la API pública del package (`loadPayload()` o JSON externo validado + componente renderer).
+
+## IA Builder v2
+
+- Entrada: `templateId` + contexto de marca/media/catálogo.
+- Salida: JSON válido contra `schema.json` de ese template (idealmente diff sobre `defaults.json`).
+- Prohibido: inventar secciones no declaradas en el schema; emitir JSX/CSS.
+
+## Al auditar o implementar
+
+- Documentar API pública y peers en `audit/` o README del package.
+- Demostrar preview con defaults + al menos un fixture alterno (mismo diseño, otro contenido).
+- No asumir que todos los templates tienen `hero` / `collections` / `tienda`: lee el `manifest` y el `schema` del template en cuestión.

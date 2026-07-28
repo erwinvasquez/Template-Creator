@@ -1,0 +1,7 @@
+@import "tailwindcss";
+@source "../../node_modules/@web-generator/fashion-atelier-v1/src";
+@import "@web-generator/fashion-atelier-v1/styles.css";
+
+html {
+  scroll-behavior: smooth;
+}
