@@ -1,4 +1,12 @@
-import type { ContentPayload, MediaRef, ResolvedProduct } from "./types";
+import type {
+  ContentPayload,
+  MediaRef,
+  NavLink,
+  ResolvedProduct,
+} from "./types";
+
+/** Mount-relative catalog root for Orion (design copy: "colección"). */
+export const SHOP_PATH = "/coleccion" as const;
 
 export function resolveMediaUrl(
   ref: MediaRef,
@@ -23,6 +31,51 @@ export function withBasePath(basePath: string, href: string): string {
     !pathname || pathname === "/" ? base || "/" : `${base}${pathname.startsWith("/") ? pathname : `/${pathname}`}`;
   const withQuery = query ? `${normalized}?${query}` : normalized;
   return hash ? `${withQuery}#${hash}` : withQuery;
+}
+
+/**
+ * Account routes relative to mount. Default root `/cuenta`; SaaS may set
+ * `features.accountBasePath` to `/account` (or similar) without patching UI.
+ */
+export function accountPath(
+  basePath: string,
+  accountBasePath: string | undefined,
+  segment?: string,
+): string {
+  const root = (accountBasePath?.trim() || "/cuenta").replace(/\/$/, "") || "/cuenta";
+  const relative = segment
+    ? `${root.startsWith("/") ? root : `/${root}`}/${segment.replace(/^\//, "")}`
+    : root.startsWith("/")
+      ? root
+      : `/${root}`;
+  return withBasePath(basePath, relative);
+}
+
+/**
+ * Shop route query params (relative to mount, Orion shop path is `/coleccion`):
+ * - `categoria` — category slug from catalog.categories[].slug
+ * - `coleccion` — collection slug from catalog.collections[].slug
+ * Both may combine: `/coleccion?categoria=anillos&coleccion=solitarios`
+ */
+export const SHOP_QUERY = {
+  category: "categoria",
+  collection: "coleccion",
+} as const;
+
+/** Resolve navbar entry to a template-relative href. */
+export function resolveNavHref(link: NavLink): string {
+  if (link.type === "shopFilter") {
+    const params = new URLSearchParams();
+    if (link.categorySlug) {
+      params.set(SHOP_QUERY.category, link.categorySlug);
+    }
+    if (link.collectionSlug) {
+      params.set(SHOP_QUERY.collection, link.collectionSlug);
+    }
+    const q = params.toString();
+    return q ? `${SHOP_PATH}?${q}` : SHOP_PATH;
+  }
+  return link.href;
 }
 
 export function resolveProducts(payload: ContentPayload): ResolvedProduct[] {

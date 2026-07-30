@@ -15,6 +15,9 @@ if (!fs.existsSync(srcRoot)) {
 
 console.log(`Validating ${templateId}...`);
 execSync(`node scripts/template-validate.mjs ${templateId}`, { stdio: "inherit" });
+execSync(`node scripts/validate-template-package.mjs ${templateId}`, {
+  stdio: "inherit",
+});
 
 function rmrf(p) {
   if (fs.existsSync(p)) fs.rmSync(p, { recursive: true, force: true });

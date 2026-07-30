@@ -20,10 +20,18 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
+      "@shopenlinea/commerce-runtime-contract": [
+        "./packages/commerce-runtime-contract/src/index.ts"
+      ],
       "fashion-atelier-v1": ["./templates/fashion-atelier-v1/src/index.ts"],
+      "fashion-atelier-v1/client": ["./templates/fashion-atelier-v1/src/client.ts"],
       "fashion-atelier-v1/*": ["./templates/fashion-atelier-v1/src/*"],
       "jewelry-orion-v1": ["./templates/jewelry-orion-v1/src/index.ts"],
-      "jewelry-orion-v1/*": ["./templates/jewelry-orion-v1/src/*"]
+      "jewelry-orion-v1/client": ["./templates/jewelry-orion-v1/src/client.ts"],
+      "jewelry-orion-v1/*": ["./templates/jewelry-orion-v1/src/*"],
+      "academy-voxa-v1": ["./templates/academy-voxa-v1/src/index.ts"],
+      "academy-voxa-v1/client": ["./templates/academy-voxa-v1/src/client.ts"],
+      "academy-voxa-v1/*": ["./templates/academy-voxa-v1/src/*"]
     }
   },
   "include": [

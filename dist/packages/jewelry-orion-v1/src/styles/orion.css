@@ -12,17 +12,17 @@
   --color-champagne-soft: rgba(184, 149, 106, 0.14);
 }
 
-@theme inline {
-  --color-primary: var(--color-primary);
-  --color-secondary: var(--color-secondary);
-  --color-cta: var(--color-cta);
-  --color-cta-hover: var(--color-cta-hover);
-  --color-background: var(--color-background);
-  --color-surface: var(--color-surface);
-  --color-text: var(--color-text);
-  --color-muted: var(--color-muted);
-  --color-border: var(--color-border);
-  --color-ink: var(--color-ink);
+@theme {
+  --color-primary: #141210;
+  --color-secondary: #5c564f;
+  --color-cta: #b8956a;
+  --color-cta-hover: #9a7a55;
+  --color-background: #fafaf8;
+  --color-surface: #f0ede8;
+  --color-text: #121212;
+  --color-muted: #6b6560;
+  --color-border: #ddd6cc;
+  --color-ink: #0e0e10;
   --font-serif: var(--font-bodoni);
   --font-sans: var(--font-jost);
 }

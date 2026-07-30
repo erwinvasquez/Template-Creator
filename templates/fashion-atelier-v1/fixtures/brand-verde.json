@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
   "templateId": "fashion-atelier-v1",
-  "templateVersion": "1.0.0",
+  "templateVersion": "1.3.0",
   "brand": {
     "name": "Verde",
     "displayName": "VERDE",
@@ -24,26 +24,16 @@
   },
   "features": {
     "cart": true,
-    "newsletter": true
+    "newsletter": true,
+    "account": true,
+    "accountBasePath": "/cuenta"
   },
   "navigation": {
     "primary": [
-      {
-        "label": "Tienda",
-        "href": "/tienda"
-      },
-      {
-        "label": "Mujer",
-        "href": "/tienda?categoria=mujer"
-      },
-      {
-        "label": "Hombre",
-        "href": "/tienda?categoria=hombre"
-      },
-      {
-        "label": "Nosotros",
-        "href": "/nosotros"
-      }
+      { "type": "path", "label": "Tienda", "href": "/tienda" },
+      { "type": "shopFilter", "label": "Mujer", "categorySlug": "mujer" },
+      { "type": "shopFilter", "label": "Hombre", "categorySlug": "hombre" },
+      { "type": "path", "label": "Nosotros", "href": "/nosotros" }
     ]
   },
   "seo": {

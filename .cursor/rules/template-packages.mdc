@@ -1,74 +1,170 @@
 ---
-description: Lineamientos para templates parametrizables (packages) del Web Generator / IA Builder v2. No impone la misma estructura de secciones entre templates.
+description: Todo template nuevo debe salir plug & play (API canónica, commerce contract, taxonomía, builder.manifest). Contrato de routes/hrefs y checklist obligatorio.
 alwaysApply: true
 ---
 
-# Template packages — lineamientos (no estructura fija)
+# Template packages — plug & play (obligatorio)
 
 ## Principio rector
 
 Cada template es un **package autónomo** con identidad visual fija.  
 La IA / Builder **nunca** regenera HTML/CSS/React del template: solo produce o edita un **Content Payload** validado contra el **schema de ese template**.
 
-Los templates **pueden ser totalmente distintos** entre sí (rubro, layout, número y tipo de secciones, rutas, tipografías). No copies la estructura de secciones de `fashion-atelier-v1` a un template nuevo salvo que el diseño lo exija.
+**Default absoluto:** al crear o ampliar un template, el entregable es **plug & play** para el SaaS. Un host genérico debe poder hacer:
 
-## Qué es común (contrato de plataforma)
+```ts
+import { TemplateApp, commerceViews, TEMPLATE_ID } from "@web-generator/{id}/client";
+import builder from "@web-generator/{id}/builder.manifest.json";
+```
 
-Todo template nuevo debe exponer, a su manera:
+…**sin** conocer nombres internos (`AtelierApp`, `JewelryApp`, etc.) y **sin** código por `templateId` en el SaaS.
 
-1. **`manifest.json`** — `templateId`, versión, capabilities, rutas/páginas que declara, media slots que necesita.
-2. **`schema.json`** — contrato del Content Payload **de ese template** (secciones propias).
-3. **`defaults.json`** — payload golden que reproduce el diseño aprobado.
-4. **Runtime aislado** en el package (`src/` o equivalente) + API de montaje documentada.
-5. **Export inmutable** a `dist/packages/<templateId>/` con `BUILD_INFO.json` (`contentHash`) + señal `IMMUTABLE`.
-6. **Peer dependencies** claras; el host aporta Next/React/etc.
+Los templates **pueden** diferir en rubro, layout, secciones, tipografías y paths visibles (`/tienda` vs `/coleccion`). No copies la estructura de secciones de otro template salvo que el diseño lo exija. **Sí** copies el **contrato** (API, routes, commerce, taxonomía).
 
-Lo que **no** es común: nombres de secciones, orden de home, presencia de catálogo, about, newsletter, etc.
+Referencias de cumplimiento: `fashion-atelier-v1`, `jewelry-orion-v1` (≥ 1.3.0). Docs: `audit/TEMPLATE-CATEGORIZATION.md`, `packages/template-taxonomy/templateTaxonomy.json`.
 
-## Qué cambia por template (libertad de diseño)
+---
 
-- Secciones del home y de páginas internas.
-- Tipografías, tokens de color, motion.
-- Si hay catálogo, carrito, blog, booking, landing one-page, etc.
-- Forma del renderer (`AtelierApp` es solo el de fashion-atelier; otro template tiene el suyo).
+## Checklist obligatorio — nuevo template (ecommerce u otro storefront con catálogo)
 
-Al crear un template nuevo: diseña primero; **después** extrae schema/defaults. No fuerces slots de otro template.
+Un template nuevo **no** parte de cero en arquitectura. Completar **todo** antes de dar por cerrado:
+
+### Package y artefactos
+
+1. `templates/{templateId}/` con: `manifest.json`, `builder.manifest.json`, `schema.json`, `defaults.json`, `commerce.schema.json` (si hay bloque commerce), `src/`, `fixtures/` (al menos un alt), `README.md`, `package.json`.
+2. Workspace npm + dep `@shopenlinea/commerce-runtime-contract`.
+3. `package.json` **exports** canónicos:
+   - `.`, `./client`, `./manifest.json`, `./builder.manifest.json`, `./schema.json`, `./defaults.json`, `./styles.css`
+4. Export inmutable: `npm run template:export -- {id}` → `dist/packages/{id}/` + `BUILD_INFO.json` + `IMMUTABLE`.
+
+### API pública Phase 0 (`src/client.ts`)
+
+Exportar **exactamente** estos símbolos (aliases internos deprecated OK 1 release):
+
+| Export | Rol |
+|--------|-----|
+| `TemplateApp` | Renderer (alias del `XxxApp` interno) |
+| `TemplateAppPage` | Tipo de página |
+| `commerceViews` | `CommerceTemplateViews` |
+| `TemplateCommerceProvider` | Provider del bridge |
+| `useRequiredCommerceHost` / `useHostCart` | Host-controlled |
+| `createPayloadCommerceBridge` | Preview sin host SaaS |
+| `resolveNavHref`, `accountPath`, `withBasePath` | Nav helpers |
+| `TEMPLATE_ID`, `TEMPLATE_SLUG`, `DEFAULT_BASE_PATH` | Metadata |
+| Tipos: `ContentPayload`, `NavLink`, `TemplatePage` | Content |
+
+`renderer.tsx`: props estables (`page`, `payload`, `basePath`, `slug?`, `commerceHost?`, checkout/account props del contract) + **`customMain?: ReactNode`** (`<main>{customMain ?? view}</main>`).
+
+### Commerce (UI tipada)
+
+Implementar `CommerceTemplateViews` vía contrato:
+
+- `ProductListing`, `ProductDetail`, `CartPage`, `CartDrawer`
+- `CheckoutPage` + subcomponentes tipados (**no** slots `ReactNode` del host)
+- `OrderConfirmation` si el manifest lo declara
+- `AccountLoginForm`, `AccountRegisterForm`, `AccountDashboard`
+
+Prohibido: `CartProvider` local, Firebase/Firestore en el template, precios/stock/checkout propios.
+
+### Routing
+
+1. `routes[]` solo `page` ∈ `home | shop | product | about` (paths relativos al mount).
+2. Cart / checkout / account **no** van en `routes[]` (URLs de plataforma).
+3. Hrefs de producto = paths del template; nunca `/site/{org}/...`.
+4. Nav: `path` | `shopFilter` (`categorySlug` / `collectionSlug` → query del path `shop` del template).
+5. Lab monta con `TemplateApp`, no con el nombre interno.
+
+### Categorización (taxonomía cerrada)
+
+1. `manifest.category` ∈ `primaryCategories` de `packages/template-taxonomy/templateTaxonomy.json`. Naming: `{websiteType}-{industry}` (ej. `ecommerce-fashion`, `ecommerce-coaching`, `ecommerce-courses`).
+2. `builder.manifest.json` es **fuente de verdad del editor** (el SaaS no bootstrappea):
+   - Root `templateId` = package id (`fashion-atelier-v1`)
+   - `descriptor.templateId` = **slug corto** = `TEMPLATE_SLUG` (`atelier`)
+   - `descriptor.latestVersion` = `package.json` version
+   - `websiteType`, `industryTags` (solo enum), `status` ∈ `draft|published|deprecated`
+   - `displayName` / `description` i18n `{ es, en? }`
+3. Status WG → SaaS: `draft→draft`, `published→active`, `deprecated→archived` (doc en `audit/TEMPLATE-CATEGORIZATION.md`).
+4. `slotDefinitions` viven en `builder.manifest` (o generados en export); `fieldPath` ⊆ payload/schema.
+
+### Validación (antes de cerrar)
+
+```bash
+npm run template:validate -- {templateId}
+npm run validate:template-package -- {templateId}
+```
+
+Debe pasar taxonomía + builder + schema + exports canónicos.
+
+---
+
+## Qué es común vs qué cambia
+
+**Común (contrato):** API `TemplateApp` / `commerceViews`, routes page ids, commerce views tipadas, taxonomía, `builder.manifest`, exports, peers.
+
+**Cambia por diseño:** secciones, tipografías, tokens, motion, path visible de shop/about, copy, presencia de newsletter/cita/etc.
+
+Al crear: diseña identidad primero; **después** schema/defaults. No fuerces slots de otro template.
+
+---
+
+## Routing y hrefs (detalle)
+
+### `manifest.routes[]`
+
+- **`path`**: relativo al mount (ej. `/`, `/tienda`, `/coleccion/[slug]`). Nunca `/site/...`.
+- **`page`**: solo `home` | `shop` | `product` | `about`. Sin `atelier`, `cart`, `checkout` como page id.
+- Path visible libre; page id fijo (`/coleccion` sigue siendo `shop`).
+
+### Carrito y checkout
+
+- Template aporta UI tipada; host pasa VM + state + actions (o `customMain` dentro del shell).
+- Prohibido que el host dibuje inputs/radios/cards de pago en integraciones nuevas.
+
+---
 
 ## Payload vs código
 
-| Pertenece al código del template | Pertenece al Content Payload |
-|----------------------------------|------------------------------|
-| Layout, componentes, CSS, motion | Marca, copy, CTAs |
-| Rutas/páginas que el template soporta | Imágenes (MediaRef) |
-| Lógica UI (carrito local, filtros) | Catálogo / datos de negocio del tenant |
-| Validación semántica específica | SEO texts, nav labels |
+| Código del template | Content Payload |
+|---------------------|-----------------|
+| Layout, CSS, motion, vistas commerce | Marca, copy, CTAs, media |
+| `routes[]`, exports canónicos | Catálogo / datos del tenant |
+| Validación semántica del package | SEO, nav labels (hrefs = paths template) |
 
-Si el usuario pide “otro sitio parecido” → nuevo **payload** (o fixture), mismo `templateId`.  
-Si pide “sitio totalmente diferente” → **nuevo template** (nuevo package + schema + defaults).
+“Otro sitio parecido” → nuevo **payload**/fixture, mismo `templateId`.  
+“Sitio totalmente diferente” → **nuevo template** plug & play.
+
+---
 
 ## Versionado e inmutabilidad
 
-- Editar **fuente** en `templates/<id>/`, nunca a mano `dist/packages/<id>/`.
-- Regenerar con `npm run template:export -- <id>`.
-- SemVer: PATCH fix; MINOR slots/campos opcionales aditivos; MAJOR rotura de schema/layout.
-- Breaking grande → nuevo `templateId` (`…-v2`) si cambia la identidad del producto template.
+- Editar `templates/<id>/`, nunca a mano `dist/packages/<id>/`.
+- `npm run template:export -- <id>`.
+- SemVer: PATCH fix; MINOR aditivo; MAJOR rotura → a menudo nuevo `templateId` (`…-v2`).
 
-## Host limpio / portabilidad
+---
 
-Un consumidor válido:
+## Host / SaaS
 
-- Depende del package exportado (`dist/` o registry), no de `templates/` ni del `src/` del lab.
-- Importa solo el nombre del package (ej. `@web-generator/<templateId>`).
-- Inyecta payload vía la API pública del package (`loadPayload()` o JSON externo validado + componente renderer).
+Consumidor válido:
+
+- Package exportado (registry / `dist/`), no `templates/` del monorepo.
+- Solo exports canónicos (`TemplateApp`, no `AtelierApp`).
+- Lee `builder.manifest.json` + `manifest.category` para catálogo/filtros.
+- Resuelve URLs cart/checkout/account; el template no las declara en `routes[]`.
+
+---
 
 ## IA Builder v2
 
-- Entrada: `templateId` + contexto de marca/media/catálogo.
-- Salida: JSON válido contra `schema.json` de ese template (idealmente diff sobre `defaults.json`).
-- Prohibido: inventar secciones no declaradas en el schema; emitir JSX/CSS.
+- Entrada: `templateId` + contexto marca/media/catálogo.
+- Salida: JSON válido contra `schema.json` (idealmente diff sobre `defaults.json`).
+- Prohibido: inventar secciones no declaradas; emitir JSX/CSS; hrefs `/site/...` o cart/checkout como rutas de template.
+
+---
 
 ## Al auditar o implementar
 
-- Documentar API pública y peers en `audit/` o README del package.
-- Demostrar preview con defaults + al menos un fixture alterno (mismo diseño, otro contenido).
-- No asumir que todos los templates tienen `hero` / `collections` / `tienda`: lee el `manifest` y el `schema` del template en cuestión.
+- Verificar checklist plug & play completo (API + commerce + taxonomía + validate).
+- Preview con defaults + fixture alterno.
+- No asumir `hero` / `collections` / `/tienda`: leer `manifest` + `schema` del template.
+- Si falta taxonomía para un rubro nuevo (ej. categoría no listada), **ampliar** `templateTaxonomy.json` + doc **antes** de inventar strings libres.

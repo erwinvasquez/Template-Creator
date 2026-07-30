@@ -34,3 +34,20 @@ npm run start --prefix hosts/clean-host
 | Export | `dist/packages/fashion-atelier-v1` + `BUILD_INFO.json` + `IMMUTABLE` |
 | Clean host | Depends on `file:../../dist/packages/fashion-atelier-v1` |
 | Same template | Clean host uses `AtelierApp` + `loadPayload()` from dist package |
+
+## Aceptación commerce 1.2.0
+
+```bash
+npm test -- src/commerce/tests/ProductDetailCommerceView.test.tsx
+# Lab:
+# /t/atelier/tienda/abrigo-cashmere-stone?commerce=product-variants
+# /t/atelier/tienda/producto-agotado?commerce=product-out-of-stock
+```
+
+| Check | OK |
+|-------|----|
+| Cantidad > 1 en addToCart | Vitest |
+| compareAt + % | Vitest + UI |
+| Agotado deshabilita CTA | Vitest |
+| Galería ≥3 / pickers | Mock seed + lab |
+| accountBasePath `/cuenta` | defaults + Header |

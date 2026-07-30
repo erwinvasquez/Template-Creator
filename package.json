@@ -2,6 +2,12 @@
   "name": "web-generator",
   "version": "0.1.0",
   "private": true,
+  "workspaces": [
+    "packages/*",
+    "templates/fashion-atelier-v1",
+    "templates/jewelry-orion-v1",
+    "templates/academy-voxa-v1"
+  ],
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -9,10 +15,20 @@
     "lint": "eslint",
     "template:validate": "node scripts/template-validate.mjs",
     "template:export": "node scripts/template-export.mjs",
+    "validate:template-package": "node scripts/validate-template-package.mjs",
     "proof:export": "npm run template:export -- fashion-atelier-v1",
-    "proof:clean-host": "npm run proof:export && npm run build --prefix hosts/clean-host"
+    "proof:clean-host": "npm run proof:export && npm run build --prefix hosts/clean-host",
+    "typecheck:contract": "npm run typecheck -w @shopenlinea/commerce-runtime-contract",
+    "validate:commerce-manifest": "node scripts/validate-commerce-manifest.mjs",
+    "check:template-imports": "node scripts/check-template-imports.mjs",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:commerce": "node scripts/test-commerce.mjs && vitest run",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@shopenlinea/commerce-runtime-contract": "file:packages/commerce-runtime-contract",
     "ajv": "^8.20.0",
     "ajv-formats": "^3.0.1",
     "lucide-react": "^1.27.0",
@@ -21,13 +37,25 @@
     "react-dom": "19.2.4"
   },
   "devDependencies": {
+    "@storybook/addon-essentials": "^8.6.14",
+    "@storybook/react": "^8.6.14",
+    "@storybook/react-vite": "^8.6.14",
     "@tailwindcss/postcss": "^4",
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@vitejs/plugin-react": "^4.7.0",
     "eslint": "^9",
     "eslint-config-next": "16.2.12",
+    "jsdom": "^25.0.1",
+    "storybook": "^8.6.14",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vite": "^6.0.0",
+    "vitest": "^3.2.7"
   }
 }

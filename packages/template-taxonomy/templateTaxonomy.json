@@ -1,0 +1,81 @@
+{
+  "schemaVersion": "1.0.0",
+  "description": "Closed taxonomy for Web Generator template packages. Validated at export. SaaS consumes builder.manifest.descriptor + manifest.category.",
+  "websiteTypes": [
+    "ecommerce",
+    "landing",
+    "booking",
+    "genericBusiness"
+  ],
+  "primaryCategories": [
+    "ecommerce-fashion",
+    "ecommerce-jewelry",
+    "ecommerce-beauty",
+    "ecommerce-food",
+    "ecommerce-home",
+    "ecommerce-electronics",
+    "ecommerce-sports",
+    "ecommerce-pets",
+    "ecommerce-courses",
+    "ecommerce-books",
+    "ecommerce-coaching",
+    "ecommerce-general",
+    "landing-legal",
+    "landing-saas",
+    "landing-coaching",
+    "booking-dental",
+    "booking-wellness",
+    "booking-coaching",
+    "genericBusiness-services"
+  ],
+  "industryTags": [
+    "fashion",
+    "apparel",
+    "jewelry",
+    "luxury",
+    "beauty",
+    "cosmetics",
+    "food",
+    "home",
+    "electronics",
+    "sports",
+    "pets",
+    "retail",
+    "ecommerce",
+    "courses",
+    "education",
+    "coaching",
+    "books",
+    "digital",
+    "membership",
+    "info-products",
+    "minimal",
+    "modern",
+    "editorial",
+    "artisan"
+  ],
+  "statusValues": ["draft", "published", "deprecated"],
+  "statusWgToSaas": {
+    "draft": "draft",
+    "published": "active",
+    "deprecated": "archived"
+  },
+  "naming": {
+    "primaryCategory": "{websiteType}-{industry}",
+    "examples": [
+      "ecommerce-fashion",
+      "ecommerce-courses",
+      "ecommerce-books",
+      "ecommerce-coaching",
+      "landing-coaching",
+      "booking-coaching"
+    ]
+  },
+  "notes": {
+    "ecommerce-courses": "Venta de cursos online / academias digitales.",
+    "ecommerce-books": "Venta de libros físicos o ebooks.",
+    "ecommerce-coaching": "Coaches que venden programas, mentorías o packs (checkout ecommerce).",
+    "landing-coaching": "Landing de captura / lead gen para coaches (sin catálogo completo).",
+    "booking-coaching": "Reserva de sesiones 1:1 (citas), no catálogo de cursos."
+  }
+}

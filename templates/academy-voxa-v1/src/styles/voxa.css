@@ -1,0 +1,139 @@
+:root {
+  --color-primary: #14213d;
+  --color-secondary: #3a506b;
+  --color-cta: #0d9488;
+  --color-cta-hover: #0f766e;
+  --color-background: #f4f6f8;
+  --color-surface: #e8eef2;
+  --color-text: #12141a;
+  --color-muted: #5c6570;
+  --color-border: #d5dde5;
+  --color-ink: #0b1220;
+  --color-glow: rgba(13, 148, 136, 0.18);
+}
+
+@theme {
+  --color-primary: #14213d;
+  --color-secondary: #3a506b;
+  --color-cta: #0d9488;
+  --color-cta-hover: #0f766e;
+  --color-background: #f4f6f8;
+  --color-surface: #e8eef2;
+  --color-text: #12141a;
+  --color-muted: #5c6570;
+  --color-border: #d5dde5;
+  --color-ink: #0b1220;
+  --font-serif: var(--font-fraunces);
+  --font-sans: var(--font-source-sans);
+}
+
+.voxa-root {
+  background: var(--color-background);
+  color: var(--color-text);
+  font-family: var(--font-source-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+.voxa-root ::selection {
+  background: var(--color-glow);
+  color: var(--color-text);
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes soft-zoom {
+  from {
+    transform: scale(1.05);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.65s ease-out both;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.45s ease-out both;
+}
+
+.animate-soft-zoom {
+  animation: soft-zoom 1.2s ease-out both;
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.35s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-up,
+  .animate-fade-in,
+  .animate-soft-zoom,
+  .animate-slide-in-right {
+    animation: none;
+  }
+}
+
+.voxa-hero-scrim {
+  background: linear-gradient(
+    to top,
+    rgba(11, 18, 32, 0.92) 0%,
+    rgba(11, 18, 32, 0.45) 45%,
+    rgba(11, 18, 32, 0.25) 100%
+  );
+}
+
+.voxa-hero-aura {
+  background: radial-gradient(
+    ellipse 70% 55% at 70% 40%,
+    rgba(13, 148, 136, 0.28),
+    transparent 65%
+  );
+}
+
+.voxa-wordmark {
+  font-family: var(--font-fraunces), ui-serif, Georgia, serif;
+  letter-spacing: 0.14em;
+  font-weight: 500;
+}
+
+.voxa-band-ink {
+  background: var(--color-ink);
+  color: #f4f6f8;
+}
+
+.voxa-rule {
+  height: 1px;
+  background: var(--color-border);
+}

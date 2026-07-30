@@ -1,6 +1,6 @@
 import type { ContentPayload, TemplatePage } from "fashion-atelier-v1";
 import {
-  AtelierApp,
+  TemplateApp as AtelierTemplateApp,
   DEFAULT_BASE_PATH,
   TEMPLATE_ID,
   loadManifest,
@@ -11,12 +11,23 @@ import type {
   TemplatePage as OrionTemplatePage,
 } from "jewelry-orion-v1";
 import {
-  JewelryApp,
+  TemplateApp as OrionTemplateApp,
   DEFAULT_BASE_PATH as ORION_DEFAULT_BASE_PATH,
   TEMPLATE_ID as ORION_TEMPLATE_ID,
   loadManifest as loadOrionManifest,
   loadPayload as loadOrionPayload,
 } from "jewelry-orion-v1";
+import type {
+  ContentPayload as VoxaContentPayload,
+  TemplatePage as VoxaTemplatePage,
+} from "academy-voxa-v1";
+import {
+  TemplateApp as VoxaTemplateApp,
+  DEFAULT_BASE_PATH as VOXA_DEFAULT_BASE_PATH,
+  TEMPLATE_ID as VOXA_TEMPLATE_ID,
+  loadManifest as loadVoxaManifest,
+  loadPayload as loadVoxaPayload,
+} from "academy-voxa-v1";
 
 export type TemplateRenderer<TPayload = ContentPayload, TPage = TemplatePage> = {
   templateId: string;
@@ -41,7 +52,7 @@ export const atelierRenderer: TemplateRenderer<ContentPayload, TemplatePage> = {
   getDefaults: () => loadPayload(),
   loadPayload,
   renderApp: ({ page, payload, basePath = DEFAULT_BASE_PATH, slug }) => (
-    <AtelierApp
+    <AtelierTemplateApp
       page={page}
       payload={payload}
       basePath={basePath}
@@ -50,7 +61,10 @@ export const atelierRenderer: TemplateRenderer<ContentPayload, TemplatePage> = {
   ),
 };
 
-export const orionRenderer: TemplateRenderer<OrionContentPayload, OrionTemplatePage> = {
+export const orionRenderer: TemplateRenderer<
+  OrionContentPayload,
+  OrionTemplatePage
+> = {
   templateId: ORION_TEMPLATE_ID,
   slug: "orion",
   basePath: ORION_DEFAULT_BASE_PATH,
@@ -58,7 +72,7 @@ export const orionRenderer: TemplateRenderer<OrionContentPayload, OrionTemplateP
   getDefaults: () => loadOrionPayload(),
   loadPayload: loadOrionPayload,
   renderApp: ({ page, payload, basePath = ORION_DEFAULT_BASE_PATH, slug }) => (
-    <JewelryApp
+    <OrionTemplateApp
       page={page}
       payload={payload}
       basePath={basePath}
@@ -67,7 +81,31 @@ export const orionRenderer: TemplateRenderer<OrionContentPayload, OrionTemplateP
   ),
 };
 
-const renderers: TemplateRenderer<any, any>[] = [atelierRenderer, orionRenderer];
+export const voxaRenderer: TemplateRenderer<
+  VoxaContentPayload,
+  VoxaTemplatePage
+> = {
+  templateId: VOXA_TEMPLATE_ID,
+  slug: "voxa",
+  basePath: VOXA_DEFAULT_BASE_PATH,
+  getManifest: () => loadVoxaManifest(),
+  getDefaults: () => loadVoxaPayload(),
+  loadPayload: loadVoxaPayload,
+  renderApp: ({ page, payload, basePath = VOXA_DEFAULT_BASE_PATH, slug }) => (
+    <VoxaTemplateApp
+      page={page}
+      payload={payload}
+      basePath={basePath}
+      slug={slug}
+    />
+  ),
+};
+
+const renderers: TemplateRenderer<any, any>[] = [
+  atelierRenderer,
+  orionRenderer,
+  voxaRenderer,
+];
 
 export function listRenderers(): TemplateRenderer<any, any>[] {
   return renderers;

@@ -1,0 +1,91 @@
+# Proof of acceptance — academy-voxa-v1
+
+Documento formal ampliado (patrón general): [`audit/PACKAGE-PORTABILITY-CONTRACT.md`](../../audit/PACKAGE-PORTABILITY-CONTRACT.md).
+
+## Commands
+
+```bash
+# 1. Validate payloads + builder + taxonomía
+npm run template:validate -- academy-voxa-v1
+npm run validate:template-package -- academy-voxa-v1
+npm run validate:commerce-manifest
+npm run check:template-imports
+npx tsc --noEmit
+
+# 2. Export immutable package
+npm run template:export -- academy-voxa-v1
+
+# 3. Lab preview desde defaults.json
+npm run dev
+# open http://localhost:3000/t/voxa
+
+# 4. Payload alterno (diseño intacto, contenido distinto)
+# open http://localhost:3000/t/voxa?payload=alt-brand
+```
+
+## Rutas de preview (lab)
+
+| URL | `page` |
+|-----|--------|
+| `/t/voxa` | `home` |
+| `/t/voxa/programas` | `shop` |
+| `/t/voxa/programas/[slug]` | `product` |
+| `/t/voxa/academia` | `about` |
+| `/t/voxa/carrito` | `cart` (URL de plataforma) |
+| `/t/voxa/checkout` | `checkout` (URL de plataforma) |
+| `/t/voxa/cuenta`, `/cuenta/login`, `/cuenta/registro` | cuenta (URL de plataforma, `features.accountBasePath`) |
+
+## Checklist — package portable
+
+| Step | Evidence |
+|------|----------|
+| Sin contenido Voxa hardcodeado en JSX | Runtime en `templates/academy-voxa-v1/src`; todo el copy sale del payload |
+| Render desde `defaults.json` | `/t/voxa` usa `loadPayload()` |
+| Payload alterno | `/t/voxa?payload=alt-brand` → marca **Clarion**, paleta y copy distintos |
+| Diseño intacto | Mismas secciones/componentes; solo cambian copy, media y tokens |
+| Export | `dist/packages/academy-voxa-v1` + `BUILD_INFO.json` + `IMMUTABLE` |
+| Distinto de los demás templates | Secciones propias (`programs`, `method`, `outcomes`, `books`, `about`), tipografías Fraunces/Source Sans 3, paleta navy + teal, hero con halo radial, tarjetas 4/3 |
+| API canónica | `TemplateApp`, `commerceViews`, `customMain` en `src/client.ts` / `src/renderer.tsx` |
+
+## Checklist — Commerce Runtime Contract
+
+| Requisito | Evidencia |
+|-----------|-----------|
+| CommerceHost en vez de CartProvider | `src/lib/commerce-host.tsx` (`TemplateCommerceProvider`, `useHostCart`); sin `cart-context` local |
+| `routes[].page` ∈ `{ home, shop, product, about }` | `manifest.json`; `/academia` → `page: "about"` |
+| Shop path propio (`/programas`) | `SHOP_PATH` en `src/content/resolve.ts`; hrefs del bridge y de las tarjetas |
+| Cart/checkout/account fuera de `routes[]` | `manifest.routes[]` con 4 entradas; URLs las inyecta el host |
+| `CommerceTemplateViews` completo | `commerceViews` en `src/client.ts` |
+| CheckoutPage tipado (sin slots `ReactNode`) | `src/components/commerce/CheckoutPage.tsx` + subcomponentes; `CheckoutLayout` solo compat deprecada |
+| Account UI en el template | `src/components/account/*`; auth la resuelve el host |
+| NavLink `path` \| `shopFilter` | `schema.json` `$defs/NavLink`; `resolveNavHref()` |
+| `features.accountBasePath` | `defaults.json` → `/cuenta`; `accountPath()` |
+| Mock Bridge alimenta el mismo CheckoutPage | `VoxaLabShell` + `useLabCommerceHost(fixture, { shopPath: "/programas" })` |
+
+## Taxonomía
+
+| Campo | Valor |
+|-------|-------|
+| `manifest.category` | `ecommerce-courses` |
+| `descriptor.templateId` | `voxa` (slug corto = `TEMPLATE_SLUG`) |
+| `descriptor.websiteType` | `ecommerce` |
+| `descriptor.industryTags` | `courses`, `coaching`, `education`, `books` |
+| `descriptor.status` | `published` → `active` en el SaaS |
+| Versión | `1.0.0` en `package.json`, `manifest.json`, `defaults.templateVersion`, fixture y descriptor |
+
+## Semántica del catálogo
+
+`metals` = modalidad (`Online` / `Presencial`) o formato del libro (`Digital` / `Impreso`).
+`sizes` = duración y nivel del programa, o extensión y encuadernación del libro. Los nombres de campo
+se conservan por compatibilidad del contrato de catálogo; el copy visible ya es de academia
+(`Modalidad`, `Duración`).
+
+## Gaps conocidos
+
+- `ProductDetailCommerceView` dispara `setState` dentro de un `useEffect` al cambiar de variante
+  (misma deuda heredada del resto de templates).
+- `commerce.mode` sigue en `preview-only`: `contractVersion` se fijará al conectar el runtime real.
+- `src/components/ShopCatalog.tsx` y `src/components/ProductCard.tsx` quedan como render payload-only
+  (el listado de `/programas` ya pasa por `CommerceAwareCatalog`).
+- No hay tests de Vitest específicos de Voxa; la suite existente cubre `fashion-atelier-v1` y
+  `jewelry-orion-v1`.

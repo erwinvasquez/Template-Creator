@@ -1,0 +1,271 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "jewelry-orion-v1",
+  "descriptor": {
+    "templateId": "orion",
+    "latestVersion": "1.3.0",
+    "status": "published",
+    "websiteType": "ecommerce",
+    "industryTags": ["jewelry", "luxury", "ecommerce"],
+    "displayName": {
+      "es": "Orion Alta Joyería",
+      "en": "Orion Fine Jewelry"
+    },
+    "description": {
+      "es": "E-commerce de alta joyería: estética platino/champán, colección y atelier.",
+      "en": "Fine jewelry ecommerce with platinum/champagne aesthetic, collection, and atelier."
+    }
+  },
+  "manifest": {
+    "pages": [
+      {
+        "id": "home",
+        "path": "/",
+        "page": "home",
+        "sections": [
+          {
+            "id": "hero",
+            "contentSlotIds": [
+              "hero.headline",
+              "hero.subheadline",
+              "hero.image",
+              "hero.ctaPrimary"
+            ]
+          },
+          {
+            "id": "signatures",
+            "contentSlotIds": ["signatures.eyebrow", "signatures.title"]
+          },
+          {
+            "id": "craft",
+            "contentSlotIds": [
+              "craft.eyebrow",
+              "craft.title",
+              "craft.body",
+              "craft.image"
+            ]
+          },
+          {
+            "id": "materials",
+            "contentSlotIds": ["materials.eyebrow", "materials.title"]
+          },
+          {
+            "id": "appointment",
+            "contentSlotIds": [
+              "appointment.eyebrow",
+              "appointment.title",
+              "appointment.body",
+              "appointment.cta"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "shop",
+        "path": "/coleccion",
+        "page": "shop",
+        "sections": [
+          {
+            "id": "shop",
+            "contentSlotIds": ["shop.eyebrow", "shop.title", "shop.description"]
+          }
+        ]
+      },
+      {
+        "id": "product",
+        "path": "/coleccion/[slug]",
+        "page": "product",
+        "sections": [{ "id": "product", "contentSlotIds": [] }]
+      },
+      {
+        "id": "about",
+        "path": "/atelier",
+        "page": "about",
+        "sections": [
+          {
+            "id": "atelier",
+            "contentSlotIds": [
+              "atelier.intro.eyebrow",
+              "atelier.intro.title",
+              "atelier.intro.body",
+              "atelier.bannerImage"
+            ]
+          }
+        ]
+      }
+    ],
+    "navigation": {
+      "primaryFromPayload": "navigation.primary"
+    },
+    "themeDefaults": {
+      "colors": {
+        "primary": "#141210",
+        "secondary": "#5C564F",
+        "cta": "#B8956A",
+        "ctaHover": "#9A7A55",
+        "background": "#FAFAF8",
+        "surface": "#F0EDE8",
+        "text": "#121212",
+        "muted": "#6B6560",
+        "border": "#DDD6CC",
+        "ink": "#0E0E10"
+      }
+    },
+    "capabilities": {
+      "contentSupport": {
+        "slotDefinitions": [
+          {
+            "id": "hero.headline",
+            "fieldPath": "sections.hero.headline",
+            "kind": "string",
+            "label": "Hero headline"
+          },
+          {
+            "id": "hero.subheadline",
+            "fieldPath": "sections.hero.subheadline",
+            "kind": "string",
+            "label": "Hero subheadline"
+          },
+          {
+            "id": "hero.image",
+            "fieldPath": "sections.hero.image",
+            "kind": "media",
+            "label": "Hero image"
+          },
+          {
+            "id": "hero.ctaPrimary",
+            "fieldPath": "sections.hero.ctaPrimary",
+            "kind": "link",
+            "label": "Hero primary CTA"
+          },
+          {
+            "id": "signatures.eyebrow",
+            "fieldPath": "sections.signatures.eyebrow",
+            "kind": "string",
+            "label": "Signatures eyebrow"
+          },
+          {
+            "id": "signatures.title",
+            "fieldPath": "sections.signatures.title",
+            "kind": "string",
+            "label": "Signatures title"
+          },
+          {
+            "id": "craft.eyebrow",
+            "fieldPath": "sections.craft.eyebrow",
+            "kind": "string",
+            "label": "Craft eyebrow"
+          },
+          {
+            "id": "craft.title",
+            "fieldPath": "sections.craft.title",
+            "kind": "string",
+            "label": "Craft title"
+          },
+          {
+            "id": "craft.body",
+            "fieldPath": "sections.craft.body",
+            "kind": "text",
+            "label": "Craft body"
+          },
+          {
+            "id": "craft.image",
+            "fieldPath": "sections.craft.image",
+            "kind": "media",
+            "label": "Craft image"
+          },
+          {
+            "id": "materials.eyebrow",
+            "fieldPath": "sections.materials.eyebrow",
+            "kind": "string",
+            "label": "Materials eyebrow"
+          },
+          {
+            "id": "materials.title",
+            "fieldPath": "sections.materials.title",
+            "kind": "string",
+            "label": "Materials title"
+          },
+          {
+            "id": "appointment.eyebrow",
+            "fieldPath": "sections.appointment.eyebrow",
+            "kind": "string",
+            "label": "Appointment eyebrow"
+          },
+          {
+            "id": "appointment.title",
+            "fieldPath": "sections.appointment.title",
+            "kind": "string",
+            "label": "Appointment title"
+          },
+          {
+            "id": "appointment.body",
+            "fieldPath": "sections.appointment.body",
+            "kind": "text",
+            "label": "Appointment body"
+          },
+          {
+            "id": "appointment.cta",
+            "fieldPath": "sections.appointment.cta",
+            "kind": "link",
+            "label": "Appointment CTA"
+          },
+          {
+            "id": "shop.eyebrow",
+            "fieldPath": "sections.shop.eyebrow",
+            "kind": "string",
+            "label": "Shop eyebrow"
+          },
+          {
+            "id": "shop.title",
+            "fieldPath": "sections.shop.title",
+            "kind": "string",
+            "label": "Shop title"
+          },
+          {
+            "id": "shop.description",
+            "fieldPath": "sections.shop.description",
+            "kind": "text",
+            "label": "Shop description"
+          },
+          {
+            "id": "atelier.intro.eyebrow",
+            "fieldPath": "sections.atelier.intro.eyebrow",
+            "kind": "string",
+            "label": "Atelier eyebrow"
+          },
+          {
+            "id": "atelier.intro.title",
+            "fieldPath": "sections.atelier.intro.title",
+            "kind": "string",
+            "label": "Atelier title"
+          },
+          {
+            "id": "atelier.intro.body",
+            "fieldPath": "sections.atelier.intro.body",
+            "kind": "text",
+            "label": "Atelier body"
+          },
+          {
+            "id": "atelier.bannerImage",
+            "fieldPath": "sections.atelier.bannerImage",
+            "kind": "media",
+            "label": "Atelier banner"
+          },
+          {
+            "id": "brand.name",
+            "fieldPath": "brand.name",
+            "kind": "string",
+            "label": "Brand name"
+          },
+          {
+            "id": "brand.tagline",
+            "fieldPath": "brand.tagline",
+            "kind": "string",
+            "label": "Brand tagline"
+          }
+        ]
+      }
+    }
+  }
+}

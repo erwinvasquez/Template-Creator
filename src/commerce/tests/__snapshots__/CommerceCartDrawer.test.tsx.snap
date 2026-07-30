@@ -1,0 +1,328 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`CommerceCartDrawer > empty cart snapshot 1`] = `
+<div>
+  <div
+    class="atelier-root min-h-full flex flex-col"
+    style="--color-primary: #1C1917; --color-secondary: #44403C; --color-cta: #CA8A04; --color-cta-hover: #A16207; --color-background: #FAFAF9; --color-surface: #F5F5F4; --color-text: #0C0A09; --color-muted: #57534E; --color-border: #E7E5E4;"
+  >
+    <div
+      aria-label="Carrito"
+      aria-modal="true"
+      class="fixed inset-0 z-[60]"
+      role="dialog"
+    >
+      <button
+        aria-label="Cerrar carrito"
+        class="absolute inset-0 cursor-pointer bg-primary/40 animate-fade-in"
+        type="button"
+      />
+      <aside
+        class="absolute right-0 top-0 flex h-full w-full max-w-md flex-col bg-background shadow-xl animate-slide-in-right"
+      >
+        <div
+          class="flex items-center justify-between border-b border-border px-6 py-5"
+        >
+          <h2
+            class="font-serif text-2xl tracking-wide"
+          >
+            Tu selección
+          </h2>
+          <button
+            aria-label="Cerrar"
+            class="cursor-pointer rounded-full p-2 text-secondary transition-colors duration-200 hover:bg-surface hover:text-primary"
+            type="button"
+          >
+            <svg
+              aria-hidden="true"
+              class="lucide lucide-x h-5 w-5"
+              fill="none"
+              height="24"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M18 6 6 18"
+              />
+              <path
+                d="m6 6 12 12"
+              />
+            </svg>
+          </button>
+        </div>
+        <div
+          class="flex-1 overflow-y-auto px-6 py-4"
+        >
+          <div
+            class="flex h-full flex-col items-center justify-center gap-4 text-center"
+          >
+            <svg
+              aria-hidden="true"
+              class="lucide lucide-shopping-bag h-10 w-10 text-muted"
+              fill="none"
+              height="24"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1"
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M16 10a4 4 0 0 1-8 0"
+              />
+              <path
+                d="M3.103 6.034h17.794"
+              />
+              <path
+                d="M3.4 5.467a2 2 0 0 0-.4 1.2V20a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6.667a2 2 0 0 0-.4-1.2l-2-2.667A2 2 0 0 0 17 2H7a2 2 0 0 0-1.6.8z"
+              />
+            </svg>
+            <p
+              class="text-sm text-muted"
+            >
+              Tu carrito está vacío.
+            </p>
+            <a
+              class="cursor-pointer text-sm font-medium uppercase tracking-[0.14em] text-cta transition-colors duration-200 hover:text-cta-hover"
+              href="/t/atelier/tienda"
+            >
+              Explorar tienda
+            </a>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`CommerceCartDrawer > promotion cart shows label and lines 1`] = `
+<div>
+  <div
+    class="atelier-root min-h-full flex flex-col"
+    style="--color-primary: #1C1917; --color-secondary: #44403C; --color-cta: #CA8A04; --color-cta-hover: #A16207; --color-background: #FAFAF9; --color-surface: #F5F5F4; --color-text: #0C0A09; --color-muted: #57534E; --color-border: #E7E5E4;"
+  >
+    <div
+      aria-label="Carrito"
+      aria-modal="true"
+      class="fixed inset-0 z-[60]"
+      role="dialog"
+    >
+      <button
+        aria-label="Cerrar carrito"
+        class="absolute inset-0 cursor-pointer bg-primary/40 animate-fade-in"
+        type="button"
+      />
+      <aside
+        class="absolute right-0 top-0 flex h-full w-full max-w-md flex-col bg-background shadow-xl animate-slide-in-right"
+      >
+        <div
+          class="flex items-center justify-between border-b border-border px-6 py-5"
+        >
+          <h2
+            class="font-serif text-2xl tracking-wide"
+          >
+            Tu selección
+          </h2>
+          <button
+            aria-label="Cerrar"
+            class="cursor-pointer rounded-full p-2 text-secondary transition-colors duration-200 hover:bg-surface hover:text-primary"
+            type="button"
+          >
+            <svg
+              aria-hidden="true"
+              class="lucide lucide-x h-5 w-5"
+              fill="none"
+              height="24"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M18 6 6 18"
+              />
+              <path
+                d="m6 6 12 12"
+              />
+            </svg>
+          </button>
+        </div>
+        <div
+          class="flex-1 overflow-y-auto px-6 py-4"
+        >
+          <ul
+            class="space-y-6"
+          >
+            <li
+              class="flex gap-4"
+            >
+              <div
+                class="relative h-28 w-20 shrink-0 overflow-hidden bg-surface"
+              >
+                <img
+                  alt="Abrigo Cashmere Stone"
+                  class="object-cover"
+                  src="https://images.unsplash.com/photo-1544022613-e87ca75a784a?w=1200&q=80"
+                />
+              </div>
+              <div
+                class="flex flex-1 flex-col"
+              >
+                <div
+                  class="flex items-start justify-between gap-2"
+                >
+                  <div>
+                    <p
+                      class="font-serif text-lg leading-tight"
+                    >
+                      Abrigo Cashmere Stone
+                    </p>
+                    <p
+                      class="mt-1 text-xs text-muted"
+                    >
+                      M / Stone
+                    </p>
+                  </div>
+                  <button
+                    aria-label="Eliminar"
+                    class="cursor-pointer text-muted transition-colors duration-200 hover:text-primary"
+                    type="button"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class="lucide lucide-x h-4 w-4"
+                      fill="none"
+                      height="24"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="1.5"
+                      viewBox="0 0 24 24"
+                      width="24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M18 6 6 18"
+                      />
+                      <path
+                        d="m6 6 12 12"
+                      />
+                    </svg>
+                  </button>
+                </div>
+                <div
+                  class="mt-auto flex items-center justify-between pt-3"
+                >
+                  <div
+                    class="flex items-center border border-border"
+                  >
+                    <button
+                      aria-label="Menos"
+                      class="cursor-pointer p-2 transition-colors duration-200 hover:bg-surface"
+                      type="button"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="lucide lucide-minus h-3.5 w-3.5"
+                        fill="none"
+                        height="24"
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="1.5"
+                        viewBox="0 0 24 24"
+                        width="24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M5 12h14"
+                        />
+                      </svg>
+                    </button>
+                    <span
+                      class="w-8 text-center text-sm"
+                    >
+                      1
+                    </span>
+                    <button
+                      aria-label="Más"
+                      class="cursor-pointer p-2 transition-colors duration-200 hover:bg-surface"
+                      type="button"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="lucide lucide-plus h-3.5 w-3.5"
+                        fill="none"
+                        height="24"
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="1.5"
+                        viewBox="0 0 24 24"
+                        width="24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M5 12h14"
+                        />
+                        <path
+                          d="M12 5v14"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                  <p
+                    class="text-sm font-medium"
+                  >
+                    378,00 €
+                  </p>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div
+          class="border-t border-border px-6 py-5"
+        >
+          <p
+            class="mb-2 text-xs text-cta"
+          >
+            −10% bienvenida
+          </p>
+          <div
+            class="mb-4 flex justify-between text-sm"
+          >
+            <span
+              class="text-muted"
+            >
+              Subtotal
+            </span>
+            <span
+              class="font-serif text-xl"
+            >
+              378,00 €
+            </span>
+          </div>
+          <button
+            class="w-full cursor-pointer bg-cta px-6 py-3.5 text-sm font-semibold uppercase tracking-[0.14em] text-white transition-colors duration-200 hover:bg-cta-hover"
+            type="button"
+          >
+            Finalizar compra
+          </button>
+        </div>
+      </aside>
+    </div>
+  </div>
+</div>
+`;

@@ -1,0 +1,312 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "academy-voxa-v1",
+  "descriptor": {
+    "templateId": "voxa",
+    "latestVersion": "1.0.0",
+    "status": "published",
+    "websiteType": "ecommerce",
+    "industryTags": ["courses", "coaching", "education", "books"],
+    "displayName": {
+      "es": "Voxa Academia",
+      "en": "Voxa Academy"
+    },
+    "description": {
+      "es": "Academia de oratoria y comunicación estratégica: venta de programas y libros, estética navy/teal, metodología por pasos y editorial propia.",
+      "en": "Public speaking and strategic communication academy: sells programs and books, navy/teal aesthetic, step-based methodology, and its own publishing strip."
+    }
+  },
+  "manifest": {
+    "pages": [
+      {
+        "id": "home",
+        "path": "/",
+        "page": "home",
+        "sections": [
+          {
+            "id": "hero",
+            "contentSlotIds": [
+              "hero.headline",
+              "hero.subheadline",
+              "hero.image",
+              "hero.ctaPrimary",
+              "hero.ctaSecondary"
+            ]
+          },
+          {
+            "id": "programs",
+            "contentSlotIds": ["programs.eyebrow", "programs.title"]
+          },
+          {
+            "id": "method",
+            "contentSlotIds": ["method.eyebrow", "method.title", "method.body"]
+          },
+          {
+            "id": "outcomes",
+            "contentSlotIds": [
+              "outcomes.eyebrow",
+              "outcomes.title",
+              "outcomes.body",
+              "outcomes.bullets",
+              "outcomes.image"
+            ]
+          },
+          {
+            "id": "books",
+            "contentSlotIds": ["books.eyebrow", "books.title", "books.cta"]
+          }
+        ]
+      },
+      {
+        "id": "shop",
+        "path": "/programas",
+        "page": "shop",
+        "sections": [
+          {
+            "id": "shop",
+            "contentSlotIds": ["shop.eyebrow", "shop.title", "shop.description"]
+          }
+        ]
+      },
+      {
+        "id": "product",
+        "path": "/programas/[slug]",
+        "page": "product",
+        "sections": [{ "id": "product", "contentSlotIds": [] }]
+      },
+      {
+        "id": "about",
+        "path": "/academia",
+        "page": "about",
+        "sections": [
+          {
+            "id": "about",
+            "contentSlotIds": [
+              "about.intro.eyebrow",
+              "about.intro.title",
+              "about.intro.body",
+              "about.bannerImage",
+              "about.faculty.eyebrow",
+              "about.faculty.title"
+            ]
+          }
+        ]
+      }
+    ],
+    "navigation": {
+      "primaryFromPayload": "navigation.primary"
+    },
+    "themeDefaults": {
+      "colors": {
+        "primary": "#14213D",
+        "secondary": "#3A506B",
+        "cta": "#0D9488",
+        "ctaHover": "#0F766E",
+        "background": "#F4F6F8",
+        "surface": "#E8EEF2",
+        "text": "#12141A",
+        "muted": "#5C6570",
+        "border": "#D5DDE5",
+        "ink": "#0B1220"
+      }
+    },
+    "capabilities": {
+      "contentSupport": {
+        "slotDefinitions": [
+          {
+            "id": "hero.headline",
+            "fieldPath": "sections.hero.headline",
+            "kind": "string",
+            "label": "Hero headline"
+          },
+          {
+            "id": "hero.subheadline",
+            "fieldPath": "sections.hero.subheadline",
+            "kind": "text",
+            "label": "Hero support line"
+          },
+          {
+            "id": "hero.image",
+            "fieldPath": "sections.hero.image",
+            "kind": "media",
+            "label": "Hero image (full-bleed)"
+          },
+          {
+            "id": "hero.ctaPrimary",
+            "fieldPath": "sections.hero.ctaPrimary",
+            "kind": "link",
+            "label": "Hero primary CTA"
+          },
+          {
+            "id": "hero.ctaSecondary",
+            "fieldPath": "sections.hero.ctaSecondary",
+            "kind": "link",
+            "label": "Hero secondary CTA"
+          },
+          {
+            "id": "programs.eyebrow",
+            "fieldPath": "sections.programs.eyebrow",
+            "kind": "string",
+            "label": "Programs eyebrow"
+          },
+          {
+            "id": "programs.title",
+            "fieldPath": "sections.programs.title",
+            "kind": "string",
+            "label": "Programs title"
+          },
+          {
+            "id": "method.eyebrow",
+            "fieldPath": "sections.method.eyebrow",
+            "kind": "string",
+            "label": "Method eyebrow"
+          },
+          {
+            "id": "method.title",
+            "fieldPath": "sections.method.title",
+            "kind": "string",
+            "label": "Method title"
+          },
+          {
+            "id": "method.body",
+            "fieldPath": "sections.method.body",
+            "kind": "text",
+            "label": "Method intro"
+          },
+          {
+            "id": "method.steps",
+            "fieldPath": "sections.method.steps",
+            "kind": "list",
+            "label": "Method steps (3–4)"
+          },
+          {
+            "id": "outcomes.eyebrow",
+            "fieldPath": "sections.outcomes.eyebrow",
+            "kind": "string",
+            "label": "Outcomes eyebrow"
+          },
+          {
+            "id": "outcomes.title",
+            "fieldPath": "sections.outcomes.title",
+            "kind": "string",
+            "label": "Outcomes title"
+          },
+          {
+            "id": "outcomes.body",
+            "fieldPath": "sections.outcomes.body",
+            "kind": "text",
+            "label": "Outcomes body"
+          },
+          {
+            "id": "outcomes.bullets",
+            "fieldPath": "sections.outcomes.bullets",
+            "kind": "list",
+            "label": "Outcomes bullets"
+          },
+          {
+            "id": "outcomes.image",
+            "fieldPath": "sections.outcomes.image",
+            "kind": "media",
+            "label": "Outcomes image"
+          },
+          {
+            "id": "books.eyebrow",
+            "fieldPath": "sections.books.eyebrow",
+            "kind": "string",
+            "label": "Books eyebrow"
+          },
+          {
+            "id": "books.title",
+            "fieldPath": "sections.books.title",
+            "kind": "string",
+            "label": "Books title"
+          },
+          {
+            "id": "books.cta",
+            "fieldPath": "sections.books.cta",
+            "kind": "link",
+            "label": "Books CTA"
+          },
+          {
+            "id": "shop.eyebrow",
+            "fieldPath": "sections.shop.eyebrow",
+            "kind": "string",
+            "label": "Shop eyebrow"
+          },
+          {
+            "id": "shop.title",
+            "fieldPath": "sections.shop.title",
+            "kind": "string",
+            "label": "Shop title"
+          },
+          {
+            "id": "shop.description",
+            "fieldPath": "sections.shop.description",
+            "kind": "text",
+            "label": "Shop description"
+          },
+          {
+            "id": "about.intro.eyebrow",
+            "fieldPath": "sections.about.intro.eyebrow",
+            "kind": "string",
+            "label": "Academy eyebrow"
+          },
+          {
+            "id": "about.intro.title",
+            "fieldPath": "sections.about.intro.title",
+            "kind": "string",
+            "label": "Academy title"
+          },
+          {
+            "id": "about.intro.body",
+            "fieldPath": "sections.about.intro.body",
+            "kind": "text",
+            "label": "Academy body"
+          },
+          {
+            "id": "about.bannerImage",
+            "fieldPath": "sections.about.bannerImage",
+            "kind": "media",
+            "label": "Academy banner"
+          },
+          {
+            "id": "about.faculty.eyebrow",
+            "fieldPath": "sections.about.faculty.eyebrow",
+            "kind": "string",
+            "label": "Faculty eyebrow"
+          },
+          {
+            "id": "about.faculty.title",
+            "fieldPath": "sections.about.faculty.title",
+            "kind": "string",
+            "label": "Faculty title"
+          },
+          {
+            "id": "footer.blurb",
+            "fieldPath": "sections.footer.blurb",
+            "kind": "text",
+            "label": "Footer blurb"
+          },
+          {
+            "id": "footer.tagline",
+            "fieldPath": "sections.footer.tagline",
+            "kind": "string",
+            "label": "Footer tagline"
+          },
+          {
+            "id": "brand.name",
+            "fieldPath": "brand.name",
+            "kind": "string",
+            "label": "Brand name"
+          },
+          {
+            "id": "brand.tagline",
+            "fieldPath": "brand.tagline",
+            "kind": "string",
+            "label": "Brand tagline"
+          }
+        ]
+      }
+    }
+  }
+}

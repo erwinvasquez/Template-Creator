@@ -1,0 +1,373 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "academy-voxa-v1",
+  "templateVersion": "1.0.0",
+  "brand": {
+    "name": "Clarion",
+    "displayName": "CLARION",
+    "tagline": "Habla con criterio. Decide con claridad.",
+    "locale": "es-ES",
+    "currency": "EUR"
+  },
+  "theme": {
+    "colors": {
+      "primary": "#10243A",
+      "secondary": "#33526E",
+      "cta": "#C2410C",
+      "ctaHover": "#9A3412",
+      "background": "#F7F5F2",
+      "surface": "#ECE7E1",
+      "text": "#16181D",
+      "muted": "#60666E",
+      "border": "#DED8D0",
+      "ink": "#0A1420"
+    }
+  },
+  "features": {
+    "cart": true,
+    "appointment": false,
+    "account": true,
+    "newsletter": false,
+    "accountBasePath": "/cuenta"
+  },
+  "navigation": {
+    "primary": [
+      { "type": "path", "label": "Programas", "href": "/programas" },
+      { "type": "shopFilter", "label": "Oratoria", "categorySlug": "oratoria" },
+      { "type": "shopFilter", "label": "Liderazgo", "categorySlug": "liderazgo" },
+      { "type": "path", "label": "Escuela", "href": "/academia" }
+    ]
+  },
+  "seo": {
+    "titleTemplate": "%s · Clarion",
+    "default": {
+      "title": "Clarion — Escuela de comunicación profesional",
+      "description": "Programas de oratoria ejecutiva, liderazgo y comunicación técnica, con entrenamiento en vivo y biblioteca propia.",
+      "openGraph": {
+        "title": "Clarion — Escuela de comunicación profesional",
+        "description": "Entrena la claridad: estructura, voz y presencia para decisiones difíciles."
+      }
+    },
+    "pages": {
+      "shop": {
+        "title": "Programas",
+        "description": "Catálogo completo Clarion: oratoria ejecutiva, liderazgo, comunicación técnica y biblioteca."
+      },
+      "academia": {
+        "title": "Escuela",
+        "description": "Cómo entrena Clarion y quién forma parte del equipo docente."
+      }
+    }
+  },
+  "catalog": {
+    "categories": [
+      { "id": "cat_oratoria", "slug": "oratoria", "label": "Oratoria ejecutiva" },
+      { "id": "cat_liderazgo", "slug": "liderazgo", "label": "Liderazgo" },
+      { "id": "cat_marca", "slug": "marca-personal", "label": "Presencia digital" },
+      { "id": "cat_libros", "slug": "libros", "label": "Biblioteca" }
+    ],
+    "collections": [
+      {
+        "id": "col_fundamentos",
+        "slug": "fundamentos",
+        "name": "Ruta Base",
+        "description": "Programas de entrada: claridad, estructura y control del ritmo.",
+        "image": {
+          "url": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1600&q=80",
+          "alt": "Equipo trabajando junto en una sesión de formación"
+        }
+      },
+      {
+        "id": "col_avanzado",
+        "slug": "avanzado",
+        "name": "Ruta Ejecutiva",
+        "description": "Programas para comités, consejos y comunicación de decisiones.",
+        "image": {
+          "url": "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1600&q=80",
+          "alt": "Sala de conferencias durante una intervención"
+        }
+      },
+      {
+        "id": "col_editorial",
+        "slug": "editorial-libros",
+        "name": "Biblioteca Clarion",
+        "description": "Manuales y cuadernos escritos por el equipo docente.",
+        "image": {
+          "url": "https://images.unsplash.com/photo-1495446815901-a7297e633e8d?w=1600&q=80",
+          "alt": "Manuales apilados sobre una mesa de trabajo"
+        }
+      }
+    ],
+    "products": [
+      {
+        "id": "1",
+        "slug": "claridad-ejecutiva",
+        "name": "Claridad Ejecutiva",
+        "description": "Cinco semanas para llevar cualquier tema complejo a una intervención de cinco minutos. Trabajamos con tus propios informes y comités reales.",
+        "price": 420,
+        "categoryId": "cat_oratoria",
+        "collectionId": "col_fundamentos",
+        "metals": ["Online", "Presencial"],
+        "sizes": ["5 semanas", "Nivel inicial"],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=1200&q=80",
+          "alt": "Formadora guiando una sesión con participantes"
+        }
+      },
+      {
+        "id": "2",
+        "slug": "presencia-en-consejo",
+        "name": "Presencia en Consejo",
+        "description": "Programa avanzado para consejos de administración y comités de dirección: apertura, defensa de cifras y cierre con petición explícita.",
+        "price": 780,
+        "categoryId": "cat_liderazgo",
+        "collectionId": "col_avanzado",
+        "metals": ["Presencial"],
+        "sizes": ["9 semanas", "Nivel avanzado"],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&q=80",
+          "alt": "Reunión de dirección frente a una pizarra"
+        },
+        "badges": ["limited"]
+      },
+      {
+        "id": "3",
+        "slug": "comunicacion-tecnica",
+        "name": "Comunicación Técnica",
+        "description": "Para perfiles de ingeniería y ciencia de datos: explicar un modelo, una arquitectura o un riesgo sin perder rigor ni audiencia.",
+        "price": 350,
+        "categoryId": "cat_oratoria",
+        "collectionId": "col_fundamentos",
+        "metals": ["Online"],
+        "sizes": ["6 semanas", "Nivel intermedio"],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1200&q=80",
+          "alt": "Equipo técnico revisando material en una mesa"
+        },
+        "badges": ["new"]
+      },
+      {
+        "id": "4",
+        "slug": "presencia-digital",
+        "name": "Presencia Digital",
+        "description": "Seis semanas para construir autoridad en vídeo y directo: mensaje, ritmo y una rutina de publicación que se sostiene.",
+        "price": 480,
+        "categoryId": "cat_marca",
+        "collectionId": "col_avanzado",
+        "metals": ["Online"],
+        "sizes": ["6 semanas", "Nivel intermedio"],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=1200&q=80",
+          "alt": "Participantes tomando notas durante una clase"
+        }
+      },
+      {
+        "id": "5",
+        "slug": "manual-de-claridad",
+        "name": "Manual de claridad",
+        "description": "260 páginas sobre estructura, evidencia y cierre. Incluye las plantillas de comité que usamos en clase.",
+        "price": 27,
+        "categoryId": "cat_libros",
+        "collectionId": "col_editorial",
+        "metals": ["Digital", "Impreso"],
+        "sizes": ["260 páginas", "Tapa dura"],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=1200&q=80",
+          "alt": "Estantería con manuales de comunicación"
+        }
+      },
+      {
+        "id": "6",
+        "slug": "cuaderno-de-ensayo",
+        "name": "Cuaderno de ensayo",
+        "description": "Cuaderno de 140 páginas para registrar ensayos, tiempos y correcciones de cada intervención.",
+        "price": 18,
+        "categoryId": "cat_libros",
+        "collectionId": "col_editorial",
+        "metals": ["Impreso"],
+        "sizes": ["140 páginas", "Ejercicios"],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=1200&q=80",
+          "alt": "Cuaderno abierto sobre una mesa"
+        }
+      }
+    ]
+  },
+  "sections": {
+    "hero": {
+      "headline": "La claridad se entrena, no se improvisa",
+      "subheadline": "Escuela de comunicación profesional para comités, consejos y equipos técnicos. Cohortes reducidas, práctica grabada y biblioteca propia.",
+      "image": {
+        "url": "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=2400&q=85",
+        "alt": "Ponente interviniendo ante una sala llena"
+      },
+      "ctaPrimary": { "label": "Ver programas", "href": "/programas" },
+      "ctaSecondary": { "label": "Conocer la escuela", "href": "/academia" }
+    },
+    "programs": {
+      "eyebrow": "Programas destacados",
+      "title": "Empieza por donde más te cuesta",
+      "productIds": ["1", "2", "3"]
+    },
+    "method": {
+      "eyebrow": "Método Clarion",
+      "title": "Cuatro pasos, un solo objetivo",
+      "body": "Cada semana intervienes, te grabas y recibes correcciones sobre tu material real. Nada de casos ficticios.",
+      "steps": [
+        {
+          "id": "mapa",
+          "title": "Mapa del mensaje",
+          "body": "Separamos lo que quieres contar de lo que la audiencia necesita decidir."
+        },
+        {
+          "id": "evidencia",
+          "title": "Evidencia",
+          "body": "Elegimos los datos que sostienen la tesis y descartamos el resto sin miedo."
+        },
+        {
+          "id": "ensayo",
+          "title": "Ensayo dirigido",
+          "body": "Practicas con cronómetro, cámara y preguntas hostiles preparadas por el equipo docente."
+        },
+        {
+          "id": "comite",
+          "title": "Comité final",
+          "body": "Cierras con una intervención real ante un tribunal simulado de tres personas."
+        }
+      ]
+    },
+    "outcomes": {
+      "eyebrow": "Resultados",
+      "title": "Qué te llevas de Clarion",
+      "body": "El objetivo no es hablar bonito: es que la sala entienda, pregunte bien y decida a tiempo.",
+      "bullets": [
+        "Reduces cualquier tema complejo a una intervención de cinco minutos",
+        "Respondes preguntas hostiles sin perder el argumento",
+        "Presentas cifras y riesgos con estructura y sin adornos",
+        "Cierras cada intervención con una petición explícita"
+      ],
+      "image": {
+        "url": "https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=1600&q=80",
+        "alt": "Grupo de profesionales practicando en una sesión"
+      }
+    },
+    "books": {
+      "eyebrow": "Biblioteca Clarion",
+      "title": "Material de trabajo, no lectura suelta",
+      "productIds": ["5", "6"],
+      "cta": { "label": "Ver la biblioteca", "href": "/programas?categoria=libros" }
+    },
+    "shop": {
+      "eyebrow": "Catálogo",
+      "title": "Programas y biblioteca",
+      "description": "Oratoria ejecutiva, liderazgo, comunicación técnica y presencia digital. Filtra por categoría o por ruta."
+    },
+    "about": {
+      "intro": {
+        "eyebrow": "La escuela",
+        "title": "Entrenamos decisiones, no discursos",
+        "body": "Clarion trabaja desde 2015 con equipos de dirección, áreas técnicas y despachos profesionales. Cada cohorte se cierra en diez participantes para que todos intervengan en cada sesión."
+      },
+      "bannerImage": {
+        "url": "https://images.unsplash.com/photo-1531058020387-3be344556be6?w=2400&q=85",
+        "alt": "Auditorio durante una intervención de la escuela"
+      },
+      "blocks": [
+        {
+          "id": "material-real",
+          "title": "Tu material, tus comités",
+          "body": "No usamos casos de manual. Entrenamos con la presentación que tienes el mes que viene y con las preguntas que te van a hacer."
+        },
+        {
+          "id": "feedback",
+          "title": "Feedback en 48 horas",
+          "body": "Cada intervención se graba y se devuelve marcada minuto a minuto, con tres correcciones priorizadas."
+        }
+      ],
+      "faculty": {
+        "eyebrow": "Equipo docente",
+        "title": "Quién entrena contigo",
+        "items": [
+          {
+            "name": "Nuria Balaguer",
+            "role": "Directora académica",
+            "focus": "Comités de dirección y comunicación de resultados"
+          },
+          {
+            "name": "Diego Almazán",
+            "role": "Formador senior",
+            "focus": "Comunicación técnica y explicación de riesgo"
+          },
+          {
+            "name": "Pau Riera",
+            "role": "Formador de presencia",
+            "focus": "Voz, ritmo y directo en vídeo"
+          }
+        ]
+      },
+      "closing": {
+        "title": "Reserva tu plaza",
+        "body": "Diez participantes por cohorte. Las inscripciones se cierran dos semanas antes del inicio.",
+        "cta": { "label": "Ver programas", "href": "/programas" }
+      }
+    },
+    "footer": {
+      "blurb": "Escuela de comunicación profesional. Cohortes reducidas, práctica grabada y biblioteca propia.",
+      "columns": [
+        {
+          "title": "Programas",
+          "links": [
+            { "label": "Oratoria ejecutiva", "href": "/programas?categoria=oratoria" },
+            { "label": "Liderazgo", "href": "/programas?categoria=liderazgo" },
+            { "label": "Presencia digital", "href": "/programas?categoria=marca-personal" },
+            { "label": "Biblioteca", "href": "/programas?categoria=libros" }
+          ]
+        },
+        {
+          "title": "Escuela",
+          "links": [
+            { "label": "Sobre Clarion", "href": "/academia" },
+            { "label": "Equipo docente", "href": "/academia#claustro" },
+            { "label": "Contacto", "href": "#" }
+          ]
+        }
+      ],
+      "tagline": "Habla con criterio. Decide con claridad.",
+      "copyrightName": "Clarion"
+    }
+  },
+  "ui": {
+    "cart": {
+      "title": "Tu inscripción",
+      "empty": "Aún no has añadido programas.",
+      "exploreCta": "Ver programas",
+      "checkout": "Confirmar inscripción",
+      "shippingHint": "Acceso al aula en cuanto se confirma el pago"
+    },
+    "product": {
+      "addToCart": "Reservar plaza",
+      "relatedTitle": "Otros programas de esta categoría",
+      "shippingNote": "Cohortes de 10 participantes",
+      "outOfStock": "Agotado",
+      "contact": "Consultar próxima cohorte",
+      "lowStock": "Últimas plazas",
+      "madeToOrderClosed": "Inscripciones cerradas temporalmente",
+      "badges": {
+        "new": "Nueva cohorte",
+        "limited": "Plazas limitadas",
+        "limitedEdition": "Plazas limitadas",
+        "featured": "Destacado",
+        "sale": "Oferta",
+        "bestseller": "Más elegido"
+      }
+    },
+    "shop": {
+      "empty": "No hay programas con estos filtros.",
+      "clearFilter": "Quitar filtro"
+    },
+    "notFound": {
+      "title": "Página no encontrada",
+      "body": "Esta ruta no existe en Clarion."
+    }
+  }
+}

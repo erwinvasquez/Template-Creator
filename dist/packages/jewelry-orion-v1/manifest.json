@@ -4,7 +4,7 @@
   "displayName": "Orion Alta Joyería",
   "description": "Template e-commerce de alta joyería. Identidad visual fija: tipografía Bodoni Moda/Jost, negro platino + acento champán, header sticky con marca a la izquierda, hero full-bleed con wordmark inferior, piezas insignia, atelier 50/50, materiales y banda de cita privada.",
   "category": "ecommerce-jewelry",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "schemaVersion": "1.0.0",
   "locale": "es-ES",
   "preview": {
@@ -20,9 +20,17 @@
   },
   "routes": [
     { "path": "/", "page": "home", "sections": ["hero", "signatures", "craft", "materials", "appointment"] },
-    { "path": "/coleccion", "page": "shop", "sections": ["shop"] },
+    {
+      "path": "/coleccion",
+      "page": "shop",
+      "sections": ["shop"],
+      "queryParams": {
+        "categoria": "Optional category slug (catalog.categories[].slug). Navbar shopFilter.categorySlug resolves here.",
+        "coleccion": "Optional collection slug (catalog.collections[].slug). Navbar shopFilter.collectionSlug resolves here."
+      }
+    },
     { "path": "/coleccion/[slug]", "page": "product", "sections": ["product", "related"] },
-    { "path": "/atelier", "page": "atelier", "sections": ["atelier"] }
+    { "path": "/atelier", "page": "about", "sections": ["atelier"] }
   ],
   "sections": [
     "hero",
@@ -40,8 +48,48 @@
     "cart": true,
     "newsletter": false,
     "appointment": true,
+    "account": true,
     "themeColors": true,
     "fontsConfigurable": false
+  },
+  "commerce": {
+    "mode": "preview-only",
+    "contractVersion": null,
+    "views": {
+      "productListing": true,
+      "productDetail": true,
+      "cartPage": true,
+      "cartDrawer": true,
+      "checkoutLayout": true,
+      "checkoutPage": true,
+      "orderConfirmation": true,
+      "accountLogin": true,
+      "accountRegister": true,
+      "accountDashboard": true
+    },
+    "capabilities": {
+      "productListing": "required",
+      "search": "supported",
+      "categoryFilter": "supported",
+      "collectionFilter": "supported",
+      "brandFilter": "supported",
+      "sorting": "required",
+      "cursorPagination": "required",
+      "productDetail": "required",
+      "variantSelector": "required-when-applicable",
+      "gallery": "supported",
+      "stockIndicator": "supported",
+      "relatedProducts": "supported",
+      "cartDrawer": "supported",
+      "cartPage": "supported",
+      "checkoutLayout": "supported",
+      "checkoutMapPicker": "unsupported",
+      "paymentVoucherUpload": "unsupported",
+      "taxCalculation": "host-controlled",
+      "shippingCalculation": "host-controlled",
+      "inventoryValidation": "host-controlled",
+      "placeOrder": "host-controlled"
+    }
   },
   "mediaSlots": [
     { "id": "hero.image", "section": "hero", "aspect": "full-bleed", "recommendedWidth": 2400 },
@@ -59,6 +107,7 @@
     "files": [
       "manifest.json",
       "schema.json",
+      "commerce.schema.json",
       "defaults.json",
       "package.json",
       "src/",

@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
   "templateId": "jewelry-orion-v1",
-  "templateVersion": "1.0.0",
+  "templateVersion": "1.3.0",
   "brand": {
     "name": "Orion",
     "displayName": "ORION",
@@ -25,14 +25,16 @@
   },
   "features": {
     "cart": true,
-    "appointment": true
+    "appointment": true,
+    "account": true,
+    "accountBasePath": "/cuenta"
   },
   "navigation": {
     "primary": [
-      { "label": "Colección", "href": "/coleccion" },
-      { "label": "Anillos", "href": "/coleccion?categoria=anillos" },
-      { "label": "Collares", "href": "/coleccion?categoria=collares" },
-      { "label": "Atelier", "href": "/atelier" }
+      { "type": "path", "label": "Colección", "href": "/coleccion" },
+      { "type": "shopFilter", "label": "Anillos", "categorySlug": "anillos" },
+      { "type": "shopFilter", "label": "Collares", "categorySlug": "collares" },
+      { "type": "path", "label": "Atelier", "href": "/atelier" }
     ]
   },
   "seo": {
@@ -420,9 +422,17 @@
       "addToCart": "Añadir al estuche",
       "relatedTitle": "Más piezas de esta categoría",
       "shippingNote": "Envío asegurado en 3–5 días laborables",
+      "outOfStock": "Agotada",
+      "contact": "Consultar disponibilidad",
+      "lowStock": "Últimas unidades",
+      "madeToOrderClosed": "Encargos cerrados temporalmente",
       "badges": {
         "new": "Nuevo",
-        "limited": "Edición limitada"
+        "limited": "Edición limitada",
+        "limitedEdition": "Edición limitada",
+        "featured": "Pieza insignia",
+        "sale": "Oferta",
+        "bestseller": "Más vendida"
       }
     },
     "shop": {

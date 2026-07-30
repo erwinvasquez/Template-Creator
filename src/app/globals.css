@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @source "../../templates/fashion-atelier-v1/src";
 @source "../../templates/jewelry-orion-v1/src";
+@source "../../templates/academy-voxa-v1/src";
 
 /* Lab gallery shell — tokens locales (no pisar --color-* de templates) */
 :root {

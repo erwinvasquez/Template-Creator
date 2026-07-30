@@ -1,11 +1,8 @@
 import type { Metadata } from "next";
-import {
-  DEFAULT_BASE_PATH,
-  loadPayload,
-  JewelryApp,
-} from "jewelry-orion-v1";
+import { loadPayload } from "jewelry-orion-v1";
+import { OrionLabShell } from "./OrionLabShell";
 
-type SearchParams = Promise<{ payload?: string }>;
+type SearchParams = Promise<{ payload?: string; commerce?: string }>;
 
 export async function generateMetadata({
   searchParams,
@@ -30,7 +27,5 @@ export default async function OrionHomePage({
 }) {
   const sp = await searchParams;
   const payload = loadPayload(sp.payload);
-  return (
-    <JewelryApp page="home" payload={payload} basePath={DEFAULT_BASE_PATH} />
-  );
+  return <OrionLabShell page="home" payload={payload} commerce={sp.commerce} />;
 }

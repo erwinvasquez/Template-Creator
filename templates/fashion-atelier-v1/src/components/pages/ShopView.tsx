@@ -2,7 +2,7 @@
 
 import { Suspense } from "react";
 import { useSiteContent } from "../../lib/site-content";
-import { ShopCatalog } from "../ShopCatalog";
+import { CommerceAwareCatalog } from "../CommerceAwareCatalog";
 
 function ShopCatalogSkeleton() {
   return (
@@ -37,7 +37,7 @@ export function ShopView() {
       </header>
 
       <Suspense fallback={<ShopCatalogSkeleton />}>
-        <ShopCatalog />
+        <CommerceAwareCatalog />
       </Suspense>
     </div>
   );

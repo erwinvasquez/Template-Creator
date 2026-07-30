@@ -4,10 +4,30 @@ export type MediaRef = {
   alt: string;
 };
 
+/** Generic CTA / footer path link (absolute path relative to mount). */
 export type Link = {
   label: string;
   href: string;
 };
+
+/**
+ * Navbar entry: plain path or shop filter (resolved to /coleccion?…).
+ * Prefer `shopFilter` for category/collection entries so the SaaS can validate slugs.
+ */
+export type PathNavLink = {
+  type: "path";
+  label: string;
+  href: string;
+};
+
+export type ShopFilterNavLink = {
+  type: "shopFilter";
+  label: string;
+  categorySlug?: string;
+  collectionSlug?: string;
+};
+
+export type NavLink = PathNavLink | ShopFilterNavLink;
 
 export type Brand = {
   name: string;
@@ -62,6 +82,14 @@ export type CatalogProduct = {
   badges?: Array<"new" | "limited">;
 };
 
+export type ProductBadgeKey =
+  | "new"
+  | "limited"
+  | "limitedEdition"
+  | "featured"
+  | "sale"
+  | "bestseller";
+
 export type MaterialItem = {
   id: string;
   name: string;
@@ -75,8 +103,15 @@ export type ContentPayload = {
   templateVersion: string;
   brand: Brand;
   theme?: Theme;
-  features?: { cart?: boolean; appointment?: boolean };
-  navigation: { primary: Link[] };
+  features?: {
+    cart?: boolean;
+    appointment?: boolean;
+    account?: boolean;
+    newsletter?: boolean;
+    /** Mount-relative account root. Default `/cuenta`. SaaS may use `/account`. */
+    accountBasePath?: string;
+  };
+  navigation: { primary: NavLink[] };
   seo: {
     titleTemplate: string;
     default: {
@@ -170,7 +205,19 @@ export type ContentPayload = {
       addToCart?: string;
       relatedTitle?: string;
       shippingNote?: string;
-      badges?: { new?: string; limited?: string };
+      outOfStock?: string;
+      contact?: string;
+      lowStock?: string;
+      madeToOrderClosed?: string;
+      badges?: {
+        new?: string;
+        /** Orion legacy badge label; kept alongside `limitedEdition`. */
+        limited?: string;
+        limitedEdition?: string;
+        featured?: string;
+        sale?: string;
+        bestseller?: string;
+      };
     };
     shop?: {
       empty?: string;
@@ -183,7 +230,11 @@ export type ContentPayload = {
   };
 };
 
-export type TemplatePage = "home" | "shop" | "product" | "atelier";
+/**
+ * Contract page ids. Orion's about page lives at `/atelier` (design copy) but the
+ * page id is `about`, as required by the platform routing contract.
+ */
+export type TemplatePage = "home" | "shop" | "product" | "about";
 
 /** View model used by UI after resolving catalog refs */
 export type ResolvedProduct = {

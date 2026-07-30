@@ -1,5 +1,12 @@
 import type { Metadata } from "next";
-import { Cormorant, Montserrat, Bodoni_Moda, Jost } from "next/font/google";
+import {
+  Cormorant,
+  Montserrat,
+  Bodoni_Moda,
+  Jost,
+  Fraunces,
+  Source_Sans_3,
+} from "next/font/google";
 import "./globals.css";
 
 const cormorant = Cormorant({
@@ -30,6 +37,20 @@ const jost = Jost({
   display: "swap",
 });
 
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
+
+const sourceSans = Source_Sans_3({
+  variable: "--font-source-sans",
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: {
     default: "Web Generator — Templates",
@@ -47,7 +68,7 @@ export default function RootLayout({
   return (
     <html
       lang="es"
-      className={`${cormorant.variable} ${montserrat.variable} ${bodoniModa.variable} ${jost.variable} h-full antialiased`}
+      className={`${cormorant.variable} ${montserrat.variable} ${bodoniModa.variable} ${jost.variable} ${fraunces.variable} ${sourceSans.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col font-sans">{children}</body>
     </html>

@@ -1,11 +1,8 @@
 import type { Metadata } from "next";
-import {
-  DEFAULT_BASE_PATH,
-  loadPayload,
-  AtelierApp,
-} from "fashion-atelier-v1";
+import { loadPayload } from "fashion-atelier-v1";
+import { AtelierLabShell } from "./AtelierLabShell";
 
-type SearchParams = Promise<{ payload?: string }>;
+type SearchParams = Promise<{ payload?: string; commerce?: string }>;
 
 export async function generateMetadata({
   searchParams,
@@ -31,6 +28,6 @@ export default async function AtelierHomePage({
   const sp = await searchParams;
   const payload = loadPayload(sp.payload);
   return (
-    <AtelierApp page="home" payload={payload} basePath={DEFAULT_BASE_PATH} />
+    <AtelierLabShell page="home" payload={payload} commerce={sp.commerce} />
   );
 }
