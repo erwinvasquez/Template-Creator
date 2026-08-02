@@ -13,7 +13,8 @@
 | Campo | Valor |
 |-------|--------|
 | Repo | Web Generator |
-| Commit | `dae08a61a63f2b75f9c987b502d53af25a870fd2` (`dae08a6`) |
+| Commit (packages + contract) | `0dae7c7ede36f4266e764fb4c4d42f7b43eb02fe` (`0dae7c7`) |
+| Commit (este handoff) | ver `HEAD` tras docs; sync SaaS desde `0dae7c7` o posterior en `main` |
 | Packages | `dist/packages/{fashion-atelier-v1,fashion-celestine-v1,jewelry-orion-v1,academy-voxa-v1}/` |
 | Contract | `packages/commerce-runtime-contract/` (`@shopenlinea/commerce-runtime-contract`) |
 
