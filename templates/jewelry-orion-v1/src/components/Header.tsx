@@ -1,12 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Menu, ShoppingBag, User, X } from "lucide-react";
-import { useHostCart } from "../lib/commerce-host";
+import { useCommerceCapabilities, useHostCart } from "../lib/commerce-host";
 import { useSiteContent } from "../lib/site-content";
-import { accountPath, resolveNavHref, withBasePath } from "../content/resolve";
+import { accountPath, resolveNavHref, SHOP_QUERY, withBasePath } from "../content/resolve";
+import { showsSalesModeChrome } from "../lib/sales-mode";
 
 function HeaderCartButton({ transparent }: { transparent: boolean }) {
   const { cart, openCart } = useHostCart();
@@ -48,6 +49,68 @@ function HeaderAccountLink({ transparent }: { transparent: boolean }) {
     >
       <User className="h-5 w-5" strokeWidth={1.5} />
     </Link>
+  );
+}
+
+function SalesModeNavLinks({
+  transparent,
+  onNavigate,
+  layout,
+}: {
+  transparent: boolean;
+  onNavigate?: () => void;
+  layout: "desktop" | "mobile";
+}) {
+  const capabilities = useCommerceCapabilities();
+  const { payload, basePath } = useSiteContent();
+  const searchParams = useSearchParams();
+  const activeMode = searchParams.get(SHOP_QUERY.salesMode);
+
+  if (!showsSalesModeChrome(capabilities)) return null;
+  const nav = payload.ui?.salesMode?.nav;
+  if (!nav?.length) return null;
+
+  if (layout === "desktop") {
+    return (
+      <div className="ml-4 flex items-center gap-4 border-l border-border/60 pl-4">
+        {nav.map((item) => {
+          const active = activeMode === item.salesMode;
+          return (
+            <Link
+              key={item.salesMode}
+              href={withBasePath(basePath, item.href)}
+              onClick={onNavigate}
+              className={`cursor-pointer text-[10px] font-medium uppercase tracking-[0.14em] transition-colors duration-200 ${
+                active
+                  ? transparent
+                    ? "text-white"
+                    : "text-primary"
+                  : transparent
+                    ? "text-white/60 hover:text-white"
+                    : "text-muted hover:text-primary"
+              }`}
+            >
+              {item.label}
+            </Link>
+          );
+        })}
+      </div>
+    );
+  }
+
+  return (
+    <>
+      {nav.map((item) => (
+        <Link
+          key={item.salesMode}
+          href={withBasePath(basePath, item.href)}
+          onClick={onNavigate}
+          className="cursor-pointer border-b border-border py-4 text-sm font-medium uppercase tracking-[0.14em] text-muted transition-colors duration-200 hover:text-cta"
+        >
+          {item.label}
+        </Link>
+      ))}
+    </>
   );
 }
 
@@ -121,6 +184,7 @@ export function Header() {
                 {link.label}
               </Link>
             ))}
+            <SalesModeNavLinks transparent={transparent} layout="desktop" />
           </nav>
 
           <div className="flex items-center gap-2 md:gap-4">
@@ -158,6 +222,11 @@ export function Header() {
                 {link.label}
               </Link>
             ))}
+            <SalesModeNavLinks
+              transparent={false}
+              layout="mobile"
+              onNavigate={() => setMobileOpen(false)}
+            />
             {showAccount ? (
               <Link
                 href={accountPath(basePath, payload.features?.accountBasePath)}

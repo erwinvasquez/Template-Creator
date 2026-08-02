@@ -49,6 +49,7 @@ const validateSchema = ajv.compile(schema);
 
 const TEMPLATE_IDS = [
   "fashion-atelier-v1",
+  "fashion-celestine-v1",
   "jewelry-orion-v1",
   "academy-voxa-v1",
 ];

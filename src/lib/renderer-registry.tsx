@@ -28,6 +28,17 @@ import {
   loadManifest as loadVoxaManifest,
   loadPayload as loadVoxaPayload,
 } from "academy-voxa-v1";
+import type {
+  ContentPayload as CelestineContentPayload,
+  TemplatePage as CelestineTemplatePage,
+} from "fashion-celestine-v1";
+import {
+  TemplateApp as CelestineTemplateApp,
+  DEFAULT_BASE_PATH as CELESTINE_DEFAULT_BASE_PATH,
+  TEMPLATE_ID as CELESTINE_TEMPLATE_ID,
+  loadManifest as loadCelestineManifest,
+  loadPayload as loadCelestinePayload,
+} from "fashion-celestine-v1";
 
 export type TemplateRenderer<TPayload = ContentPayload, TPage = TemplatePage> = {
   templateId: string;
@@ -101,10 +112,36 @@ export const voxaRenderer: TemplateRenderer<
   ),
 };
 
+export const celestineRenderer: TemplateRenderer<
+  CelestineContentPayload,
+  CelestineTemplatePage
+> = {
+  templateId: CELESTINE_TEMPLATE_ID,
+  slug: "celestine",
+  basePath: CELESTINE_DEFAULT_BASE_PATH,
+  getManifest: () => loadCelestineManifest(),
+  getDefaults: () => loadCelestinePayload(),
+  loadPayload: loadCelestinePayload,
+  renderApp: ({
+    page,
+    payload,
+    basePath = CELESTINE_DEFAULT_BASE_PATH,
+    slug,
+  }) => (
+    <CelestineTemplateApp
+      page={page}
+      payload={payload}
+      basePath={basePath}
+      slug={slug}
+    />
+  ),
+};
+
 const renderers: TemplateRenderer<any, any>[] = [
   atelierRenderer,
   orionRenderer,
   voxaRenderer,
+  celestineRenderer,
 ];
 
 export function listRenderers(): TemplateRenderer<any, any>[] {

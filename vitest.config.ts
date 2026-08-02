@@ -40,6 +40,14 @@ export default defineConfig({
         __dirname,
         "./templates/academy-voxa-v1/src/client.ts",
       ),
+      "fashion-celestine-v1/client": path.resolve(
+        __dirname,
+        "./templates/fashion-celestine-v1/src/client.ts",
+      ),
+      "fashion-celestine-v1": path.resolve(
+        __dirname,
+        "./templates/fashion-celestine-v1/src/client.ts",
+      ),
       "next/image": path.resolve(__dirname, "./src/commerce/tests/mocks/next-image.tsx"),
       "next/link": path.resolve(__dirname, "./src/commerce/tests/mocks/next-link.tsx"),
       "next/navigation": path.resolve(

@@ -35,6 +35,10 @@ import {
 
 Aliases deprecated (1 release): `AtelierApp`, `atelierCommerceViews`, `AtelierCommerceProvider`.
 
+## Catalog bindings
+
+`manifest.constraints` declara dónde el payload referencia el catálogo (`catalogRefs`) y dónde el SaaS escribe destacados del tenant (`commerceFeaturedProductsPath` / `commerceFeaturedCollectionsPath`). En Atelier: `sections.featured.productIds` y `sections.collections.collectionIds`.
+
 ## Preview en este repo
 
 - Selector: [`/`](/)

@@ -23,6 +23,67 @@ Este documento es la especificación formal de:
 
 ---
 
+## Catalog bindings (`manifest.constraints`)
+
+El host SaaS vacía el catálogo demo del payload y rehidrata el inventario del tenant. Para no hardcodear `templateId`, cada package ecommerce declara **bindings canónicos** en `manifest.json`:
+
+| Clave | Obligatorio | Significado |
+|-------|-------------|-------------|
+| `catalogRefs` | Sí (si hay productos en catalog) | Todos los `sections.*.productIds` / `sections.*.collectionIds` |
+| `catalogBindings` | Sí (uno por cada catalogRef) | Metadata UI: `kind`, `sectionId`, `label` i18n, `maxItems` |
+| `commerceFeaturedProductsPath` | Recomendado | Un path donde el host escribe featured products |
+| `commerceFeaturedCollectionsPath` | Si hay grid de colecciones | Un path para featured collections; omitir si no aplica |
+
+Los **nombres de sección** (`featured`, `signature`, `programs`, `occasions`…) son libres por diseño. Las **claves** anteriores no.
+
+Ejemplo Celestine:
+
+```json
+"constraints": {
+  "catalogRefs": [
+    "sections.signature.productIds",
+    "sections.accessories.productIds",
+    "sections.occasions.collectionIds"
+  ],
+  "catalogBindings": [
+    {
+      "path": "sections.signature.productIds",
+      "kind": "product",
+      "sectionId": "signature",
+      "label": { "es": "Looks firma", "en": "Signature looks" },
+      "maxItems": 8
+    },
+    {
+      "path": "sections.accessories.productIds",
+      "kind": "product",
+      "sectionId": "accessories",
+      "label": { "es": "Accesorios", "en": "Accessories" },
+      "maxItems": 12
+    },
+    {
+      "path": "sections.occasions.collectionIds",
+      "kind": "collection",
+      "sectionId": "occasions",
+      "label": { "es": "Ocasiones", "en": "Occasions" },
+      "maxItems": 4
+    }
+  ],
+  "commerceFeaturedProductsPath": "sections.signature.productIds",
+  "commerceFeaturedCollectionsPath": "sections.occasions.collectionIds"
+}
+```
+
+Aliases legacy (`featuredProductPath`, `collectionIdsPath`, `occasionIdsPath`, …) se mantienen 1 release. `npm run template:validate` exige IDs válidos, paths presentes, `catalogBindings` completo, sync builder↔routes, `listSchema` en slots `list`, y coherencia con `schema.json` `$defs.Sections`.
+
+### Editor SaaS (builder.manifest)
+
+- `pages` + `contentSlotIds` + `slotDefinitions` + `themeDefaults` + `themeEditable`
+- `navigation.primaryFromPayload` → `defaults.navigation.primary`
+- `brand.*` con `editorSurface: "none"`; sin slots `nav.*`
+- React: `data-wb-slot="{slotId}"` en copy estático; `CommerceAwareCatalog` no pisa filtros si el payload no tiene taxonomy demo
+
+---
+
 ## 1. Qué contiene exactamente el export
 
 ### 1.1 Árbol completo de `dist/packages/fashion-atelier-v1/`

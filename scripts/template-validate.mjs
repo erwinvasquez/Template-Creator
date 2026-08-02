@@ -50,29 +50,141 @@ function validatePayload(name, payload) {
     }
   }
 
-  // Optional manifest-driven constraints
+  // Catalog binding constraints (canonical SaaS contract)
   const constraints = manifest.constraints || {};
-  if (constraints.featuredProductPath) {
-    const ids = getPath(payload, constraints.featuredProductPath) || [];
-    for (const id of ids) {
-      if (!productIds.has(id)) {
-        errors.push(`[semantic:${name}] featured product missing ${id}`);
+  const hasCatalog =
+    Array.isArray(payload.catalog?.products) && payload.catalog.products.length > 0;
+  const catalogRefs = constraints.catalogRefs;
+
+  if (hasCatalog && name === "defaults") {
+    if (!Array.isArray(catalogRefs) || catalogRefs.length === 0) {
+      errors.push(
+        `[constraints] ecommerce with catalog requires constraints.catalogRefs (string[])`,
+      );
+    }
+  }
+
+  if (Array.isArray(catalogRefs)) {
+    for (const ref of catalogRefs) {
+      if (typeof ref !== "string" || !ref.startsWith("sections.")) {
+        errors.push(`[constraints:${name}] catalogRefs entry must be sections.* path: ${ref}`);
+        continue;
+      }
+      const value = getPath(payload, ref);
+      if (value === undefined) {
+        errors.push(`[constraints:${name}] catalogRefs path missing in payload: ${ref}`);
+        continue;
+      }
+      if (!Array.isArray(value)) {
+        errors.push(`[constraints:${name}] ${ref} must be an array`);
+        continue;
+      }
+      if (ref.endsWith(".productIds")) {
+        for (const id of value) {
+          if (!productIds.has(id)) {
+            errors.push(`[constraints:${name}] ${ref} missing product ${id}`);
+          }
+        }
+      } else if (ref.endsWith(".collectionIds")) {
+        for (const id of value) {
+          if (!collectionIds.has(id)) {
+            errors.push(`[constraints:${name}] ${ref} missing collection ${id}`);
+          }
+        }
+      } else {
+        errors.push(
+          `[constraints:${name}] catalogRefs path must end with .productIds or .collectionIds: ${ref}`,
+        );
+      }
+    }
+
+    const featuredProducts = constraints.commerceFeaturedProductsPath;
+    const featuredCollections = constraints.commerceFeaturedCollectionsPath;
+    if (featuredProducts != null) {
+      if (typeof featuredProducts !== "string") {
+        errors.push(`[constraints] commerceFeaturedProductsPath must be a string`);
+      } else if (!catalogRefs.includes(featuredProducts)) {
+        errors.push(
+          `[constraints] commerceFeaturedProductsPath must be listed in catalogRefs: ${featuredProducts}`,
+        );
+      }
+    }
+    if (featuredCollections != null) {
+      if (typeof featuredCollections !== "string") {
+        errors.push(`[constraints] commerceFeaturedCollectionsPath must be a string`);
+      } else if (!catalogRefs.includes(featuredCollections)) {
+        errors.push(
+          `[constraints] commerceFeaturedCollectionsPath must be listed in catalogRefs: ${featuredCollections}`,
+        );
+      }
+    }
+
+    // catalogBindings: every catalogRef must have metadata for SaaS section pickers
+    if (hasCatalog && name === "defaults") {
+      const bindings = constraints.catalogBindings;
+      if (!Array.isArray(bindings) || bindings.length === 0) {
+        errors.push(
+          `[constraints] catalogBindings required (one entry per catalogRefs path)`,
+        );
+      } else {
+        const boundPaths = new Set();
+        for (const b of bindings) {
+          if (!b || typeof b.path !== "string") {
+            errors.push(`[constraints] catalogBindings entry needs path`);
+            continue;
+          }
+          boundPaths.add(b.path);
+          if (!catalogRefs.includes(b.path)) {
+            errors.push(
+              `[constraints] catalogBindings.path not in catalogRefs: ${b.path}`,
+            );
+          }
+          if (b.kind !== "product" && b.kind !== "collection") {
+            errors.push(
+              `[constraints] catalogBindings.kind must be product|collection: ${b.path}`,
+            );
+          }
+          if (!b.sectionId || typeof b.sectionId !== "string") {
+            errors.push(
+              `[constraints] catalogBindings.sectionId required: ${b.path}`,
+            );
+          }
+          if (!b.label || typeof b.label !== "object" || !b.label.es) {
+            errors.push(
+              `[constraints] catalogBindings.label.es required: ${b.path}`,
+            );
+          }
+          if (typeof b.maxItems !== "number" || b.maxItems < 1) {
+            errors.push(
+              `[constraints] catalogBindings.maxItems (>=1) required: ${b.path}`,
+            );
+          }
+        }
+        for (const ref of catalogRefs) {
+          if (!boundPaths.has(ref)) {
+            errors.push(
+              `[constraints] catalogRef missing catalogBindings entry: ${ref}`,
+            );
+          }
+        }
       }
     }
   }
-  if (constraints.collectionIdsPath) {
+
+  // Legacy length hints (deprecated aliases still honored)
+  if (constraints.collectionIdsPath && typeof constraints.collectionsCount === "number") {
     const ids = getPath(payload, constraints.collectionIdsPath) || [];
-    for (const id of ids) {
-      if (!collectionIds.has(id)) {
-        errors.push(`[semantic:${name}] collection missing ${id}`);
-      }
-    }
-    if (
-      typeof constraints.collectionsCount === "number" &&
-      ids.length !== constraints.collectionsCount
-    ) {
+    if (Array.isArray(ids) && ids.length !== constraints.collectionsCount) {
       errors.push(
         `[semantic:${name}] ${constraints.collectionIdsPath} must have length ${constraints.collectionsCount}`,
+      );
+    }
+  }
+  if (constraints.occasionIdsPath && typeof constraints.occasionsCount === "number") {
+    const ids = getPath(payload, constraints.occasionIdsPath) || [];
+    if (Array.isArray(ids) && ids.length !== constraints.occasionsCount) {
+      errors.push(
+        `[semantic:${name}] ${constraints.occasionIdsPath} must have length ${constraints.occasionsCount}`,
       );
     }
   }
@@ -92,6 +204,35 @@ if (fs.existsSync(fixturesDir)) {
   }
 }
 
+// Drift check: schema Sections.*productIds|collectionIds vs constraints.catalogRefs
+function discoverCatalogRefsFromSchema(sch) {
+  const sections = sch?.$defs?.Sections?.properties || {};
+  const refs = [];
+  for (const [sec, def] of Object.entries(sections)) {
+    const props = def?.properties || {};
+    if (props.productIds) refs.push(`sections.${sec}.productIds`);
+    if (props.collectionIds) refs.push(`sections.${sec}.collectionIds`);
+  }
+  return refs.sort();
+}
+
+const declaredRefs = [...(manifest.constraints?.catalogRefs || [])].sort();
+const schemaRefs = discoverCatalogRefsFromSchema(schema);
+if (schemaRefs.length > 0 && declaredRefs.length > 0) {
+  const missing = schemaRefs.filter((r) => !declaredRefs.includes(r));
+  const extra = declaredRefs.filter((r) => !schemaRefs.includes(r));
+  for (const r of missing) {
+    errors.push(
+      `[constraints] catalogRefs missing path present in schema: ${r}`,
+    );
+  }
+  for (const r of extra) {
+    errors.push(
+      `[constraints] catalogRefs has path not in schema Sections: ${r}`,
+    );
+  }
+}
+
 // Phase 0 — builder.manifest.json (editor slot contract)
 const builderPath = path.join(root, "builder.manifest.json");
 if (!fs.existsSync(builderPath)) {
@@ -106,9 +247,26 @@ if (!fs.existsSync(builderPath)) {
   if (!builder.descriptor?.displayName) {
     errors.push("[builder] descriptor.displayName required");
   }
+  const bm = builder.manifest || {};
+  if (!bm.themeEditable || typeof bm.themeEditable !== "object") {
+    errors.push("[builder] themeEditable required (primary/secondary/background/fonts flags)");
+  }
+  const navFrom = bm.navigation?.primaryFromPayload;
+  if (navFrom) {
+    const nav = getPath(defaults, navFrom);
+    if (!Array.isArray(nav)) {
+      errors.push(
+        `[builder] navigation.primaryFromPayload not resolvable in defaults: ${navFrom}`,
+      );
+    }
+  } else {
+    errors.push("[builder] navigation.primaryFromPayload required");
+  }
+
   const slots =
-    builder.manifest?.capabilities?.contentSupport?.slotDefinitions || [];
+    bm.capabilities?.contentSupport?.slotDefinitions || [];
   const slotIds = new Set(slots.map((s) => s.id));
+  const slotById = new Map(slots.map((s) => [s.id, s]));
   for (const slot of slots) {
     if (!slot.id || !slot.fieldPath) {
       errors.push("[builder] slotDefinitions entries need id + fieldPath");
@@ -120,8 +278,13 @@ if (!fs.existsSync(builderPath)) {
         `[builder] fieldPath not in defaults: ${slot.fieldPath} (slot ${slot.id})`,
       );
     }
+    if (slot.kind === "list" && !slot.listSchema) {
+      errors.push(
+        `[builder] list slot ${slot.id} requires listSchema metadata`,
+      );
+    }
   }
-  for (const page of builder.manifest?.pages || []) {
+  for (const page of bm.pages || []) {
     for (const section of page.sections || []) {
       for (const sid of section.contentSlotIds || []) {
         if (!slotIds.has(sid)) {
@@ -130,6 +293,61 @@ if (!fs.existsSync(builderPath)) {
           );
         }
       }
+    }
+  }
+
+  // routes[].sections (copy pages) ⊆ builder pages with matching section ids
+  const routeByPage = new Map(
+    (manifest.routes || []).map((r) => [r.page, r]),
+  );
+  for (const page of bm.pages || []) {
+    const route = routeByPage.get(page.page);
+    if (!route) {
+      errors.push(`[builder] page ${page.id} page kind ${page.page} missing in manifest.routes`);
+      continue;
+    }
+    if (page.path && route.path && page.path !== route.path) {
+      errors.push(
+        `[builder] page ${page.id} path ${page.path} !== route path ${route.path}`,
+      );
+    }
+    const routeSecs = new Set(route.sections || []);
+    for (const section of page.sections || []) {
+      // product page may omit related; home/shop/about sections must match
+      if (page.page === "product" && section.id === "product") continue;
+      if (!routeSecs.has(section.id)) {
+        errors.push(
+          `[builder] section ${section.id} on page ${page.id} not in manifest.routes sections`,
+        );
+      }
+    }
+    // Every non-product route section should appear in builder (copy contract)
+    if (page.page !== "product") {
+      const builderSecs = new Set((page.sections || []).map((s) => s.id));
+      for (const sid of route.sections || []) {
+        if (sid === "related" || sid === "footer") continue;
+        if (!builderSecs.has(sid)) {
+          errors.push(
+            `[builder] manifest route section ${sid} missing on builder page ${page.id}`,
+          );
+        }
+      }
+    }
+  }
+
+  // Static mediaSlots ids (no []) must have a media slotDefinition
+  for (const ms of manifest.mediaSlots || []) {
+    if (typeof ms.id !== "string" || ms.id.includes("[]")) continue;
+    if (ms.section === "catalog") continue;
+    const slot = slotById.get(ms.id);
+    if (!slot) {
+      errors.push(
+        `[builder] mediaSlots id ${ms.id} missing matching slotDefinition`,
+      );
+    } else if (slot.kind !== "media") {
+      errors.push(
+        `[builder] mediaSlots id ${ms.id} slotDefinition kind must be media`,
+      );
     }
   }
 }

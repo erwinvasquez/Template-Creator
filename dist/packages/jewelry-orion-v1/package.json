@@ -1,6 +1,6 @@
 {
   "name": "@web-generator/jewelry-orion-v1",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "private": true,
   "description": "Portable jewelry-orion-v1 template package for IA Builder v2",
   "main": "./src/index.ts",
@@ -10,6 +10,7 @@
     "./defaults.json": "./defaults.json",
     "./schema.json": "./schema.json",
     "./manifest.json": "./manifest.json",
+    "./builder.manifest.json": "./builder.manifest.json",
     "./styles.css": "./src/styles/orion.css"
   },
   "dependencies": {
@@ -28,6 +29,7 @@
     "defaults.json",
     "schema.json",
     "manifest.json",
+    "builder.manifest.json",
     "commerce.schema.json",
     "fixtures",
     "README.md",

@@ -40,6 +40,23 @@ export interface ProductFilterViewModel {
   activeBrandId?: string | null;
   activeSort?: string;
   salesMode: SalesMode;
+  /**
+   * Dual-mode + madeToOrder only. Whether the MTO channel accepts orders now.
+   * When `false`, templates show closed warning (listing/cart).
+   */
+  madeToOrderAcceptingOrders?: boolean;
+  /**
+   * Dual-mode + madeToOrder only. Host sends **value only** (e.g. `"3–5 días"`).
+   * Template prefixes with `ui.salesMode.madeToOrder.preparationLabel`.
+   * Do NOT send `"Preparación: 3–5 días"`.
+   */
+  preparationPromiseLabel?: string | null;
+  /**
+   * Dual-mode + madeToOrder closed. Host sends **reopen value only**
+   * (e.g. `"10:00"` or `"lunes 10:00"`). Template may prefix with
+   * `ui.salesMode.madeToOrder.reopensPrefix`.
+   */
+  madeToOrderReopensAtLabel?: string | null;
   categories: TaxonomyOptionViewModel[];
   collections: TaxonomyOptionViewModel[];
   brands: TaxonomyOptionViewModel[];
@@ -63,6 +80,8 @@ export interface ProductCardViewModel {
   bulletPoints?: string[];
   categoryLabels?: string[];
   badges?: string[];
+  /** Optional card-level prep hint from host (made-to-order listings). */
+  preparationPromiseLabel?: string | null;
 }
 
 export interface ProductSearchViewModel {

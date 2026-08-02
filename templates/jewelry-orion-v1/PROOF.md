@@ -80,3 +80,47 @@ Al publicar un payload el SaaS debe:
 - `commerce.mode` sigue en `preview-only`: `contractVersion` se fijará al conectar el runtime real.
 - `src/components/ShopCatalog.tsx` y `src/components/ProductCard.tsx` quedan como render payload-only
   (el listado de `/coleccion` ya pasa por `CommerceAwareCatalog`).
+
+
+## Checklist — SaaS editor / plug-and-play
+
+| Check | Evidence |
+|-------|----------|
+| builder pages ↔ manifest.routes | paths/sections alineados; validate OK |
+| contentSlotIds ⊆ slotDefinitions | 23 slots editables (brand.* = editorSurface none) |
+| catalogBindings | uno por cada catalogRef |
+| themeEditable | primary/secondary/background/fonts |
+| navigation.primaryFromPayload | `navigation.primary` en defaults |
+| data-wb-slot | copy/media/CTA estáticos en src/components |
+| CommerceAwareCatalog | skip setCatalogFilters si !hasPayloadTaxonomy |
+
+### Secciones builder (slots por sección)
+
+| Página | Secciones (nº slots) |
+|--------|----------------------|
+| home `/` | hero(4), signatures(2), craft(4), materials(2), appointment(4) |
+| shop `/coleccion` | shop(3) |
+| product `/coleccion/[slug]` | product(0) |
+| about `/atelier` | atelier(4) |
+
+### catalogBindings
+
+| path | kind | sectionId | label (es) | maxItems |
+|------|------|-----------|------------|----------|
+| `sections.signatures.productIds` | product | `signatures` | Piezas insignia | 6 |
+
+### List slots
+
+- (ninguno)
+
+
+## Checklist — sales mode (stock / a pedido)
+
+| Check | Evidence |
+|-------|----------|
+| Un solo modo | `salesModeSwitch: unsupported` → sin nav de modos, sin banner shop, sin línea en carrito |
+| Ambos modos | Host pone `salesModeSwitch: supported` (+ lab `?dualSalesMode=1`) |
+| maxQuantity | Tope en selector +/-; sin copy "Máx. N" |
+| Prep / cerrado | Solo si el host envía `preparationPromiseLabel` / `madeToOrderClosed` / reopen label |
+| Copy editable | `defaults.ui.salesMode` + schema `UiCopy.salesMode` |
+| Query nav | `?salesMode=stock\|madeToOrder` vía `ui.salesMode.nav` + `SHOP_QUERY.salesMode` |

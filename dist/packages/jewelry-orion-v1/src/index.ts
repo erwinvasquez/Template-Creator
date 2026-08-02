@@ -24,16 +24,22 @@ export {
   SHOP_PATH,
   SHOP_QUERY,
 } from "./content/resolve";
-export { JewelryApp } from "./renderer";
-export type { JewelryAppPage } from "./renderer";
+export {
+  TemplateApp,
+  JewelryApp,
+  type TemplateAppPage,
+  type JewelryAppPage,
+  type OrionTemplateAppProps,
+} from "./renderer";
 export { TEMPLATE_ID, TEMPLATE_SLUG, DEFAULT_BASE_PATH } from "./meta";
 export {
+  OrionCommerceProvider as TemplateCommerceProvider,
   OrionCommerceProvider,
   useOrionCommerceHost,
   useRequiredCommerceHost,
   useHostCart,
 } from "./lib/commerce-host";
-export type { OrionCommerceHost } from "./lib/commerce-host";
+export type { OrionCommerceHost, OrionCommerceHost as TemplateCommerceHost } from "./lib/commerce-host";
 export { createPayloadCommerceBridge } from "./preview/createPayloadCommerceBridge";
 export {
   ProductListingView,
@@ -53,5 +59,6 @@ export {
   AccountLoginForm,
   AccountRegisterForm,
   AccountDashboard,
+  commerceViews,
   orionCommerceViews,
 } from "./client";

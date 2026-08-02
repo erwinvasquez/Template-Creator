@@ -393,9 +393,25 @@ export function ProductDetailCommerceView({
             <p className="mt-6 text-sm text-muted">{stockMessage}</p>
           ) : null}
 
+          {product.preparationPromiseLabel ? (
+            <p className="mt-6 text-sm text-muted">
+              {payload.ui?.salesMode?.madeToOrder?.preparationLabel ?? "Preparación"}
+              : {product.preparationPromiseLabel}
+            </p>
+          ) : null}
+
           {product.madeToOrderClosed ? (
             <p className="mt-6 text-sm text-muted">
-              {uiProduct?.madeToOrderClosed ?? "Pedidos cerrados temporalmente"}
+              {uiProduct?.madeToOrderClosed ??
+                payload.ui?.salesMode?.madeToOrder?.closedMessage ??
+                "Pedidos cerrados temporalmente"}
+              {product.madeToOrderReopensAtLabel
+                ? ` ${
+                    payload.ui?.salesMode?.madeToOrder?.reopensPrefix
+                      ? `${payload.ui.salesMode.madeToOrder.reopensPrefix} `
+                      : ""
+                  }${product.madeToOrderReopensAtLabel}`
+                : ""}
             </p>
           ) : null}
 

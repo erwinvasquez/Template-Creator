@@ -1,3 +1,8 @@
+/*
+  Defaults Atelier. @theme con hex literales (no var circular) para que
+  el package/clean-host genere utilities. El lab también registra estos
+  tokens en src/app/globals.css. Runtime: themeStyle() en .atelier-root.
+*/
 :root {
   --color-primary: #1c1917;
   --color-secondary: #44403c;
@@ -11,16 +16,16 @@
   --color-gold-soft: rgba(202, 138, 4, 0.12);
 }
 
-@theme inline {
-  --color-primary: var(--color-primary);
-  --color-secondary: var(--color-secondary);
-  --color-cta: var(--color-cta);
-  --color-cta-hover: var(--color-cta-hover);
-  --color-background: var(--color-background);
-  --color-surface: var(--color-surface);
-  --color-text: var(--color-text);
-  --color-muted: var(--color-muted);
-  --color-border: var(--color-border);
+@theme {
+  --color-primary: #1c1917;
+  --color-secondary: #44403c;
+  --color-cta: #ca8a04;
+  --color-cta-hover: #a16207;
+  --color-background: #fafaf9;
+  --color-surface: #f5f5f4;
+  --color-text: #0c0a09;
+  --color-muted: #57534e;
+  --color-border: #e7e5e4;
   --font-serif: var(--font-cormorant);
   --font-sans: var(--font-montserrat);
 }

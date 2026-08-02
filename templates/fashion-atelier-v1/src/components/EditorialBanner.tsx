@@ -18,6 +18,7 @@ export function EditorialBanner() {
             src={resolveMediaUrl(editorial.image, payload.media)}
             alt={editorial.image.alt}
             fill
+            data-wb-slot="editorial.image"
             className="object-cover object-center"
             sizes="(max-width: 1024px) 100vw, 58vw"
           />
@@ -31,13 +32,22 @@ export function EditorialBanner() {
           />
 
           <Reveal className="w-full px-6 py-14 md:px-10 md:py-20 lg:px-12 xl:px-16">
-            <p className="text-[11px] font-medium uppercase tracking-[0.22em] text-cta">
+            <p
+              data-wb-slot="editorial.eyebrow"
+              className="text-[11px] font-medium uppercase tracking-[0.22em] text-cta"
+            >
               {editorial.eyebrow}
             </p>
-            <h2 className="mt-4 font-serif text-4xl leading-[1.15] tracking-wide text-balance text-primary md:text-5xl">
+            <h2
+              data-wb-slot="editorial.title"
+              className="mt-4 font-serif text-4xl leading-[1.15] tracking-wide text-balance text-primary md:text-5xl"
+            >
               {editorial.title}
             </h2>
-            <p className="mt-5 max-w-md text-sm leading-relaxed text-muted md:text-base">
+            <p
+              data-wb-slot="editorial.body"
+              className="mt-5 max-w-md text-sm leading-relaxed text-muted md:text-base"
+            >
               {editorial.body}
             </p>
             {editorial.cta && (

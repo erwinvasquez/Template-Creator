@@ -14,13 +14,22 @@ export function AtelierView() {
     <div className="pb-24 pt-12 md:pt-16">
       <section className="mx-auto max-w-7xl px-6 md:px-10">
         <Reveal>
-          <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-cta">
+          <p
+            data-wb-slot="atelier.intro.eyebrow"
+            className="text-[11px] font-medium uppercase tracking-[0.2em] text-cta"
+          >
             {atelier.intro.eyebrow}
           </p>
-          <h1 className="mt-3 max-w-3xl font-serif text-4xl tracking-wide text-balance md:text-6xl">
+          <h1
+            data-wb-slot="atelier.intro.title"
+            className="mt-3 max-w-3xl font-serif text-4xl tracking-wide text-balance md:text-6xl"
+          >
             {atelier.intro.title}
           </h1>
-          <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted md:text-lg">
+          <p
+            data-wb-slot="atelier.intro.body"
+            className="mt-6 max-w-2xl text-base leading-relaxed text-muted md:text-lg"
+          >
             {atelier.intro.body}
           </p>
         </Reveal>
@@ -31,6 +40,7 @@ export function AtelierView() {
           src={resolveMediaUrl(atelier.bannerImage, payload.media)}
           alt={atelier.bannerImage.alt}
           fill
+          data-wb-slot="atelier.bannerImage"
           className="object-cover"
           sizes="100vw"
           priority

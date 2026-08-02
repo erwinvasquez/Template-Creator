@@ -1,14 +1,8 @@
 "use client";
 
 import { useMemo, type ReactNode } from "react";
-import type {
-  AccountDashboardProps,
-  AccountLoginFormProps,
-  AccountRegisterFormProps,
-  CheckoutPageProps,
-  OrderConfirmationViewProps,
-} from "@shopenlinea/commerce-runtime-contract";
-import type { ContentPayload, TemplatePage } from "./content/types";
+import type { TemplateAppProps } from "@shopenlinea/commerce-runtime-contract";
+import type { ContentPayload } from "./content/types";
 import type { OrionCommerceHost } from "./lib/commerce-host";
 import { OrionCommerceProvider } from "./lib/commerce-host";
 import { createPayloadCommerceBridge } from "./preview/createPayloadCommerceBridge";
@@ -27,19 +21,23 @@ import { AccountLoginForm } from "./components/account/AccountLoginForm";
 import { AccountRegisterForm } from "./components/account/AccountRegisterForm";
 import { AccountDashboard } from "./components/account/AccountDashboard";
 
+/** @deprecated Prefer TemplateAppPage */
+export type JewelryAppPage = TemplateAppProps<
+  ContentPayload,
+  OrionCommerceHost
+>["page"];
+
+export type TemplateAppPage = JewelryAppPage;
+
+export type OrionTemplateAppProps = TemplateAppProps<
+  ContentPayload,
+  OrionCommerceHost
+>;
+
 /**
  * Pages the renderer can mount. `TemplatePage` entries come from
  * `manifest.routes[]`; cart/checkout/account URLs are resolved by the platform.
  */
-export type JewelryAppPage =
-  | TemplatePage
-  | "checkout"
-  | "cart"
-  | "orderConfirmation"
-  | "accountLogin"
-  | "accountRegister"
-  | "accountDashboard";
-
 export function JewelryApp({
   page,
   payload,
@@ -51,18 +49,8 @@ export function JewelryApp({
   accountLogin,
   accountRegister,
   accountDashboard,
-}: {
-  page: JewelryAppPage;
-  payload: ContentPayload;
-  basePath: string;
-  slug?: string;
-  commerceHost?: OrionCommerceHost | null;
-  checkoutPage?: CheckoutPageProps | null;
-  orderConfirmation?: OrderConfirmationViewProps | null;
-  accountLogin?: AccountLoginFormProps | null;
-  accountRegister?: AccountRegisterFormProps | null;
-  accountDashboard?: AccountDashboardProps | null;
-}) {
+  customMain,
+}: OrionTemplateAppProps) {
   const showCart = payload.features?.cart !== false;
 
   const resolvedHost = useMemo(
@@ -115,7 +103,7 @@ export function JewelryApp({
   const tree = (
     <SiteContentProvider payload={payload} basePath={basePath}>
       <Header />
-      <main className="flex-1">{view}</main>
+      <main className="flex-1">{customMain ?? view}</main>
       <Footer />
       {showCart ? <CartDrawer /> : null}
     </SiteContentProvider>
@@ -125,3 +113,6 @@ export function JewelryApp({
     <OrionCommerceProvider host={resolvedHost}>{tree}</OrionCommerceProvider>
   );
 }
+
+/** Canonical plug-and-play export (alias of JewelryApp). */
+export const TemplateApp = JewelryApp;

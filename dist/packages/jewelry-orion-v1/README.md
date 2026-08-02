@@ -6,19 +6,29 @@ Template package exportable para **IA Builder v2**.
 
 | Archivo | Rol |
 |---------|-----|
+| `builder.manifest.json` | Descriptor editor + `slotDefinitions` (Phase 0 plug & play) |
 | `manifest.json` | Identidad del template, rutas, capabilities, bloque `commerce`, media slots |
 | `schema.json` | JSON Schema del Content Payload (contrato para la herramienta/IA) |
 | `commerce.schema.json` | JSON Schema del bloque `manifest.commerce` (Commerce Runtime Contract) |
 | `defaults.json` | Payload golden — contenido actual del diseño Orion |
+| `fixtures/alt-brand.json` | Payload alterno (mismo diseño, otra marca) para probar portabilidad |
 | `README.md` | Esta guía |
+| `PROOF.md` | Evidencia de aceptación (portabilidad + commerce) |
 
 ## Entradas del package
 
 | Import | Uso |
 |--------|-----|
 | `@web-generator/jewelry-orion-v1` | Entrada completa (incluye `loadPayload`, requiere Node fs) |
-| `@web-generator/jewelry-orion-v1/client` | Entrada client-safe: `JewelryApp`, vistas commerce, `orionCommerceViews`, helpers de rutas |
+| `@web-generator/jewelry-orion-v1/client` | Entrada client-safe canónica: `TemplateApp`, `commerceViews`, `TemplateCommerceProvider`, helpers |
+| `@web-generator/jewelry-orion-v1/builder.manifest.json` | Slots editables para el Website Builder |
 | `@web-generator/jewelry-orion-v1/styles.css` | CSS de identidad (clase raíz `orion-root`) |
+
+Aliases deprecated (1 release): `JewelryApp`, `orionCommerceViews`, `OrionCommerceProvider`.
+
+## Catalog bindings
+
+`manifest.constraints.catalogRefs` incluye `sections.signatures.productIds`; `commerceFeaturedProductsPath` apunta ahí. No hay grid de colecciones en home → no se declara `commerceFeaturedCollectionsPath`.
 
 ## Preview en este repo
 
@@ -45,7 +55,7 @@ Template package exportable para **IA Builder v2**.
 {
   "siteId": "site_demo",
   "templateId": "jewelry-orion-v1",
-  "templateVersion": "1.2.0",
+  "templateVersion": "1.3.0",
   "payload": { "...": "Content Payload (ver defaults.json como base)" }
 }
 ```
@@ -132,6 +142,7 @@ alimentado por el catálogo del payload, con hrefs `/coleccion/{slug}`.
 
 ## Versión
 
-- Template: `1.2.0`
+- Template: `1.3.0`
 - Schema: `1.0.0`
-- Commerce: `preview-only` (paridad con `fashion-atelier-v1@1.2.0`)
+- Commerce: `preview-only` (paridad con `fashion-atelier-v1@1.3.0`)
+- Categorización: ver [`audit/TEMPLATE-CATEGORIZATION.md`](../../audit/TEMPLATE-CATEGORIZATION.md) (`ecommerce-jewelry`)

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import {
   TemplateApp,
   DEFAULT_BASE_PATH,
@@ -50,11 +51,30 @@ export function AtelierLabShell({
   slug?: string;
   commerce?: string | null;
 }) {
+  const searchParams = useSearchParams();
+  const dualSalesMode =
+    searchParams.get("salesModeSwitch") === "1" ||
+    searchParams.get("dualSalesMode") === "1";
+  const salesModeParam = searchParams.get("salesMode");
+  const salesMode =
+    salesModeParam === "stock" || salesModeParam === "madeToOrder"
+      ? salesModeParam
+      : undefined;
+
   // Lab: catálogo del payload por defecto; Mock Bridge solo con ?commerce=
   const mockHost = useLabCommerceHost(commerce ?? null);
   const payloadHost = useMemo(
-    () => createPayloadCommerceBridge(payload),
-    [payload],
+    () =>
+      createPayloadCommerceBridge(
+        payload,
+        dualSalesMode
+          ? {
+              dualSalesMode: true,
+              ...(salesMode ? { salesMode } : {}),
+            }
+          : {},
+      ),
+    [payload, dualSalesMode, salesMode],
   );
   const host = mockHost ?? payloadHost;
   const [checkoutVm, setCheckoutVm] = useState<CheckoutViewModel | null>(null);

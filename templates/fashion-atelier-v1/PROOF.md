@@ -51,3 +51,48 @@ npm test -- src/commerce/tests/ProductDetailCommerceView.test.tsx
 | Agotado deshabilita CTA | Vitest |
 | Galería ≥3 / pickers | Mock seed + lab |
 | accountBasePath `/cuenta` | defaults + Header |
+
+
+## Checklist — SaaS editor / plug-and-play
+
+| Check | Evidence |
+|-------|----------|
+| builder pages ↔ manifest.routes | paths/sections alineados; validate OK |
+| contentSlotIds ⊆ slotDefinitions | 22 slots editables (brand.* = editorSurface none) |
+| catalogBindings | uno por cada catalogRef |
+| themeEditable | primary/secondary/background/fonts |
+| navigation.primaryFromPayload | `navigation.primary` en defaults |
+| data-wb-slot | copy/media/CTA estáticos en src/components |
+| CommerceAwareCatalog | skip setCatalogFilters si !hasPayloadTaxonomy |
+
+### Secciones builder (slots por sección)
+
+| Página | Secciones (nº slots) |
+|--------|----------------------|
+| home `/` | hero(4), collections(2), featured(2), editorial(4), newsletter(3) |
+| shop `/tienda` | shop(3) |
+| product `/tienda/[slug]` | product(0) |
+| about `/nosotros` | about(4) |
+
+### catalogBindings
+
+| path | kind | sectionId | label (es) | maxItems |
+|------|------|-----------|------------|----------|
+| `sections.featured.productIds` | product | `featured` | Piezas destacadas | 8 |
+| `sections.collections.collectionIds` | collection | `collections` | Colecciones | 3 |
+
+### List slots
+
+- (ninguno)
+
+
+## Checklist — sales mode (stock / a pedido)
+
+| Check | Evidence |
+|-------|----------|
+| Un solo modo | `salesModeSwitch: unsupported` → sin nav de modos, sin banner shop, sin línea en carrito |
+| Ambos modos | Host pone `salesModeSwitch: supported` (+ lab `?dualSalesMode=1`) |
+| maxQuantity | Tope en selector +/-; sin copy "Máx. N" |
+| Prep / cerrado | Solo si el host envía `preparationPromiseLabel` / `madeToOrderClosed` / reopen label |
+| Copy editable | `defaults.ui.salesMode` + schema `UiCopy.salesMode` |
+| Query nav | `?salesMode=stock\|madeToOrder` vía `ui.salesMode.nav` + `SHOP_QUERY.salesMode` |

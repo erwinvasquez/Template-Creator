@@ -1,0 +1,215 @@
+{
+  "templateId": "fashion-celestine-v1",
+  "name": "Celestine",
+  "displayName": "Celestine Atelier",
+  "description": "Template e-commerce de vestidos de ocasión: fiesta, novias, quinceañeras y comunión. Tipografía Cormorant Infant + Jost, rosewood sobre perla, hero full-bleed, ocasiones, craft, looks firma y accesorios artesanales.",
+  "category": "ecommerce-fashion",
+  "version": "1.0.0",
+  "schemaVersion": "1.0.0",
+  "locale": "es-ES",
+  "preview": {
+    "path": "/t/celestine",
+    "thumbnail": "https://images.unsplash.com/photo-1519741497674-611481863552?w=1200&q=80"
+  },
+  "runtime": {
+    "framework": "nextjs-app-router",
+    "mountPath": "/t/celestine",
+    "codeEntry": "src/index.ts",
+    "packageDir": "templates/fashion-celestine-v1",
+    "renderer": "CelestineApp"
+  },
+  "routes": [
+    {
+      "path": "/",
+      "page": "home",
+      "sections": [
+        "hero",
+        "occasions",
+        "craft",
+        "signature",
+        "note",
+        "accessories"
+      ]
+    },
+    {
+      "path": "/vestidos",
+      "page": "shop",
+      "sections": [
+        "shop"
+      ],
+      "queryParams": {
+        "categoria": "Optional category slug (catalog.categories[].slug). Navbar shopFilter.categorySlug resolves here.",
+        "coleccion": "Optional collection slug (catalog.collections[].slug). Navbar shopFilter.collectionSlug resolves here."
+      }
+    },
+    {
+      "path": "/vestidos/[slug]",
+      "page": "product",
+      "sections": [
+        "product",
+        "related"
+      ]
+    },
+    {
+      "path": "/casa",
+      "page": "about",
+      "sections": [
+        "about"
+      ]
+    }
+  ],
+  "sections": [
+    "hero",
+    "occasions",
+    "craft",
+    "signature",
+    "note",
+    "accessories",
+    "shop",
+    "about",
+    "footer"
+  ],
+  "capabilities": {
+    "catalog": true,
+    "collections": true,
+    "cart": true,
+    "newsletter": false,
+    "themeColors": true,
+    "fontsConfigurable": false
+  },
+  "commerce": {
+    "mode": "preview-only",
+    "contractVersion": null,
+    "views": {
+      "productListing": true,
+      "productDetail": true,
+      "cartPage": true,
+      "cartDrawer": true,
+      "checkoutLayout": true,
+      "checkoutPage": true,
+      "orderConfirmation": true,
+      "accountLogin": true,
+      "accountRegister": true,
+      "accountDashboard": true
+    },
+    "capabilities": {
+      "productListing": "required",
+      "search": "supported",
+      "categoryFilter": "supported",
+      "collectionFilter": "supported",
+      "brandFilter": "supported",
+      "sorting": "required",
+      "cursorPagination": "required",
+      "productDetail": "required",
+      "variantSelector": "required-when-applicable",
+      "gallery": "supported",
+      "stockIndicator": "supported",
+      "relatedProducts": "supported",
+      "cartDrawer": "supported",
+      "cartPage": "supported",
+      "checkoutLayout": "supported",
+      "checkoutMapPicker": "unsupported",
+      "paymentVoucherUpload": "unsupported",
+      "taxCalculation": "host-controlled",
+      "shippingCalculation": "host-controlled",
+      "inventoryValidation": "host-controlled",
+      "placeOrder": "host-controlled",
+      "salesModeSwitch": "unsupported"
+    }
+  },
+  "mediaSlots": [
+    {
+      "id": "hero.image",
+      "section": "hero",
+      "aspect": "full-bleed",
+      "recommendedWidth": 2400
+    },
+    {
+      "id": "occasions[].image",
+      "section": "occasions",
+      "aspect": "3/4",
+      "count": 4,
+      "recommendedWidth": 1600
+    },
+    {
+      "id": "about.bannerImage",
+      "section": "about",
+      "aspect": "wide",
+      "recommendedWidth": 2400
+    },
+    {
+      "id": "products[].image",
+      "section": "catalog",
+      "aspect": "3/4",
+      "recommendedWidth": 1200
+    },
+    {
+      "id": "products[].hoverImage",
+      "section": "catalog",
+      "aspect": "3/4",
+      "optional": true
+    }
+  ],
+  "constraints": {
+    "catalogRefs": [
+      "sections.signature.productIds",
+      "sections.accessories.productIds",
+      "sections.occasions.collectionIds"
+    ],
+    "catalogBindings": [
+      {
+        "path": "sections.signature.productIds",
+        "kind": "product",
+        "sectionId": "signature",
+        "label": {
+          "es": "Looks firma",
+          "en": "Signature looks"
+        },
+        "maxItems": 8
+      },
+      {
+        "path": "sections.accessories.productIds",
+        "kind": "product",
+        "sectionId": "accessories",
+        "label": {
+          "es": "Accesorios",
+          "en": "Accessories"
+        },
+        "maxItems": 12
+      },
+      {
+        "path": "sections.occasions.collectionIds",
+        "kind": "collection",
+        "sectionId": "occasions",
+        "label": {
+          "es": "Ocasiones",
+          "en": "Occasions"
+        },
+        "maxItems": 4
+      }
+    ],
+    "commerceFeaturedProductsPath": "sections.signature.productIds",
+    "commerceFeaturedCollectionsPath": "sections.occasions.collectionIds",
+    "signatureProductPath": "sections.signature.productIds",
+    "occasionIdsPath": "sections.occasions.collectionIds",
+    "occasionsCount": 4
+  },
+  "export": {
+    "files": [
+      "manifest.json",
+      "builder.manifest.json",
+      "schema.json",
+      "defaults.json",
+      "package.json",
+      "src/",
+      "fixtures/",
+      "README.md",
+      "PROOF.md",
+      "BUILD_INFO.json",
+      "IMMUTABLE"
+    ],
+    "command": "npm run template:export -- fashion-celestine-v1",
+    "output": "dist/packages/fashion-celestine-v1",
+    "consumer": "IA Builder v2 — solo genera/edita Content Payload validado contra schema.json; nunca modifica el código del template."
+  }
+}

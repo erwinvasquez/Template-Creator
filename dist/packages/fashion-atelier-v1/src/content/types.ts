@@ -4,10 +4,30 @@ export type MediaRef = {
   alt: string;
 };
 
+/** Generic CTA / footer path link (absolute path relative to mount). */
 export type Link = {
   label: string;
   href: string;
 };
+
+/**
+ * Navbar entry: plain path or shop filter (resolved to /tienda?…).
+ * Prefer `shopFilter` for category/collection entries so the SaaS can validate slugs.
+ */
+export type PathNavLink = {
+  type: "path";
+  label: string;
+  href: string;
+};
+
+export type ShopFilterNavLink = {
+  type: "shopFilter";
+  label: string;
+  categorySlug?: string;
+  collectionSlug?: string;
+};
+
+export type NavLink = PathNavLink | ShopFilterNavLink;
 
 export type Brand = {
   name: string;
@@ -67,8 +87,14 @@ export type ContentPayload = {
   templateVersion: string;
   brand: Brand;
   theme?: Theme;
-  features?: { cart?: boolean; newsletter?: boolean };
-  navigation: { primary: Link[] };
+  features?: {
+    cart?: boolean;
+    newsletter?: boolean;
+    account?: boolean;
+    /** Mount-relative account root. Default `/cuenta`. SaaS may use `/account`. */
+    accountBasePath?: string;
+  };
+  navigation: { primary: NavLink[] };
   seo: {
     titleTemplate: string;
     default: {
@@ -167,7 +193,17 @@ export type ContentPayload = {
       addToCart?: string;
       relatedTitle?: string;
       shippingNote?: string;
-      badges?: { new?: string; featured?: string };
+      outOfStock?: string;
+      contact?: string;
+      lowStock?: string;
+      madeToOrderClosed?: string;
+      badges?: {
+        new?: string;
+        featured?: string;
+        sale?: string;
+        bestseller?: string;
+        limitedEdition?: string;
+      };
     };
     shop?: {
       empty?: string;
@@ -176,6 +212,27 @@ export type ContentPayload = {
     notFound?: {
       title?: string;
       body?: string;
+    };
+    salesMode?: {
+      stock?: {
+        navLabel?: string;
+        shopBanner?: string;
+        cartLabel?: string;
+      };
+      madeToOrder?: {
+        navLabel?: string;
+        shopBanner?: string;
+        preparationLabel?: string;
+        closedMessage?: string;
+        reopensPrefix?: string;
+        cartLabel?: string;
+        cartClosedWarning?: string;
+      };
+      nav?: Array<{
+        salesMode: "stock" | "madeToOrder";
+        label: string;
+        href: string;
+      }>;
     };
   };
 };

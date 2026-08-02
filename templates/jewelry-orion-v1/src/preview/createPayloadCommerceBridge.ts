@@ -20,20 +20,72 @@ import type { ContentPayload } from "../content/types";
 import { formatPrice, resolveProducts } from "../content/resolve";
 import type { OrionCommerceHost } from "../lib/commerce-host";
 
+export type PayloadCommerceBridgeOptions = {
+  dualSalesMode?: boolean;
+  salesMode?: "stock" | "madeToOrder";
+  madeToOrderAcceptingOrders?: boolean;
+  preparationPromiseLabel?: string;
+};
+
 /**
  * Preview host backed by Content Payload catalog (clean-host / no Mock Bridge).
  * Implements CommerceRuntimeBridge — not a local CartProvider.
  */
 export function createPayloadCommerceBridge(
   payload: ContentPayload,
+  options: PayloadCommerceBridgeOptions = {},
 ): OrionCommerceHost & CommerceRuntimeBridge {
+  const dualSalesMode = options.dualSalesMode ?? false;
+  const initialSalesMode = options.salesMode ?? "stock";
+  const mtoAccepting = options.madeToOrderAcceptingOrders ?? true;
+  const mtoPrepLabel = options.preparationPromiseLabel ?? null;
+  const capabilities = {
+    ...DEFAULT_PREVIEW_CAPABILITIES,
+    salesModeSwitch: dualSalesMode ? ("supported" as const) : ("unsupported" as const),
+  };
+
   const { locale, currency } = payload.brand;
   const money = (n: number) => formatPrice(n, locale, currency);
+
+  const listeners = new Set<() => void>();
+  let storeVersion = 0;
+  const notify = () => {
+    storeVersion += 1;
+    listeners.forEach((l) => l());
+  };
+
+  let cartDrawerOpen = false;
+  let selectedVariantId: string | null = null;
+  let filterState: CatalogFilterPatch = {
+    searchQuery: null,
+    categoryId: null,
+    collectionId: null,
+    sort: "featured",
+    salesMode: initialSalesMode,
+  };
+
+  const products = resolveProducts(payload);
+
+  function currentSalesMode() {
+    return filterState.salesMode ?? initialSalesMode;
+  }
+
+  function cartSalesMeta(): Pick<
+    CartViewModel,
+    "salesMode" | "madeToOrderAcceptingOrders"
+  > {
+    const mode = currentSalesMode();
+    return {
+      salesMode: mode,
+      madeToOrderAcceptingOrders:
+        dualSalesMode && mode === "madeToOrder" ? mtoAccepting : undefined,
+    };
+  }
 
   function emptyCart(): CartViewModel {
     return {
       cartId: "payload-cart",
-      salesMode: "stock",
+      ...cartSalesMeta(),
       currency,
       itemsCount: 0,
       subtotal: 0,
@@ -46,25 +98,7 @@ export function createPayloadCommerceBridge(
     };
   }
 
-  const listeners = new Set<() => void>();
-  let storeVersion = 0;
-  const notify = () => {
-    storeVersion += 1;
-    listeners.forEach((l) => l());
-  };
-
   let cart = emptyCart();
-  let cartDrawerOpen = false;
-  let selectedVariantId: string | null = null;
-  let filterState: CatalogFilterPatch = {
-    searchQuery: null,
-    categoryId: null,
-    collectionId: null,
-    sort: "featured",
-    salesMode: "stock",
-  };
-
-  const products = resolveProducts(payload);
 
   function toCard(p: (typeof products)[0]): ProductCardViewModel {
     return {
@@ -99,6 +133,7 @@ export function createPayloadCommerceBridge(
     }, 0);
     return {
       ...cart,
+      ...cartSalesMeta(),
       lines,
       itemsCount: lines.reduce((s, l) => s + l.quantity, 0),
       subtotal: sum,
@@ -151,13 +186,20 @@ export function createPayloadCommerceBridge(
   }
 
   function buildFilters(): ProductFilterViewModel {
+    const mode = currentSalesMode();
     return {
       searchQuery: filterState.searchQuery ?? undefined,
       activeCategoryId: filterState.categoryId ?? null,
       activeCollectionId: filterState.collectionId ?? null,
       activeBrandId: null,
       activeSort: filterState.sort ?? "featured",
-      salesMode: "stock",
+      salesMode: mode,
+      ...(dualSalesMode && mode === "madeToOrder"
+        ? {
+            madeToOrderAcceptingOrders: mtoAccepting,
+            preparationPromiseLabel: mtoPrepLabel,
+          }
+        : {}),
       categories: payload.catalog.categories.map((c) => ({
         id: c.id,
         slug: c.slug,
@@ -176,7 +218,8 @@ export function createPayloadCommerceBridge(
     const p = products.find((x) => x.slug === slug);
     if (!p) return null;
     const variantId = selectedVariantId ?? `${p.id}-default`;
-    return {
+    const mode = currentSalesMode();
+    const detail: ProductDetailViewModel = {
       id: p.id,
       slug: p.slug,
       href: `/coleccion/${p.slug}`,
@@ -219,6 +262,11 @@ export function createPayloadCommerceBridge(
         .slice(0, 3)
         .map(toCard),
     };
+    if (dualSalesMode && mode === "madeToOrder") {
+      if (mtoPrepLabel) detail.preparationPromiseLabel = mtoPrepLabel;
+      if (!mtoAccepting) detail.madeToOrderClosed = true;
+    }
+    return detail;
   }
 
   function buildCheckout(): CheckoutViewModel {
@@ -252,7 +300,7 @@ export function createPayloadCommerceBridge(
       ],
       pickupBranches: [],
       appliedPromotions: [],
-      salesMode: "stock",
+      ...cartSalesMeta(),
     };
   }
 
@@ -364,7 +412,7 @@ export function createPayloadCommerceBridge(
   };
 
   return {
-    capabilities: DEFAULT_PREVIEW_CAPABILITIES,
+    capabilities,
     async getProductListing(query) {
       return { data: buildListing(query), filters: buildFilters() };
     },

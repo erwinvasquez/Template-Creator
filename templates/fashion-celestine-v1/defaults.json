@@ -1,0 +1,590 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "fashion-celestine-v1",
+  "templateVersion": "1.0.0",
+  "brand": {
+    "name": "Celestine",
+    "displayName": "CELESTINE",
+    "tagline": "Vestidos para el día que importa.",
+    "locale": "es-ES",
+    "currency": "EUR"
+  },
+  "theme": {
+    "colors": {
+      "primary": "#1A1216",
+      "secondary": "#6B4E56",
+      "cta": "#9C4F5F",
+      "ctaHover": "#7E3E4C",
+      "background": "#F8F4F5",
+      "surface": "#EFE6E8",
+      "text": "#1A1216",
+      "muted": "#746266",
+      "border": "#E0D4D7"
+    }
+  },
+  "features": {
+    "cart": true,
+    "newsletter": false,
+    "account": true,
+    "accountBasePath": "/cuenta"
+  },
+  "navigation": {
+    "primary": [
+      {
+        "type": "path",
+        "label": "Vestidos",
+        "href": "/vestidos"
+      },
+      {
+        "type": "shopFilter",
+        "label": "Novias",
+        "categorySlug": "novias"
+      },
+      {
+        "type": "shopFilter",
+        "label": "Fiesta",
+        "categorySlug": "fiesta"
+      },
+      {
+        "type": "shopFilter",
+        "label": "Accesorios",
+        "categorySlug": "accesorios"
+      },
+      {
+        "type": "path",
+        "label": "La casa",
+        "href": "/casa"
+      }
+    ]
+  },
+  "seo": {
+    "titleTemplate": "%s · Celestine",
+    "default": {
+      "title": "Celestine — Vestidos de fiesta, novias y ocasiones",
+      "description": "Atelier de vestidos de fiesta, novias, quinceañeras y primera comunión. Alta costura a medida y accesorios artesanales.",
+      "openGraph": {
+        "title": "Celestine — Vestidos para el día que importa",
+        "description": "Diseños personalizados, acabados de alta costura y atención cercana para cada ocasión."
+      }
+    },
+    "pages": {
+      "shop": {
+        "title": "Vestidos",
+        "description": "Colección Celestine: fiesta, novias, quinceañeras, comunión y accesorios."
+      },
+      "about": {
+        "title": "La casa",
+        "description": "Quiénes somos, cómo diseñamos y dónde probarte tu vestido."
+      }
+    }
+  },
+  "catalog": {
+    "categories": [
+      {
+        "id": "cat_fiesta",
+        "slug": "fiesta",
+        "label": "Fiesta"
+      },
+      {
+        "id": "cat_novias",
+        "slug": "novias",
+        "label": "Novias"
+      },
+      {
+        "id": "cat_quince",
+        "slug": "quinceaneras",
+        "label": "Quinceañeras"
+      },
+      {
+        "id": "cat_comunion",
+        "slug": "comunion",
+        "label": "Comunión"
+      },
+      {
+        "id": "cat_accesorios",
+        "slug": "accesorios",
+        "label": "Accesorios"
+      }
+    ],
+    "collections": [
+      {
+        "id": "col_novia",
+        "slug": "novia-atelier",
+        "name": "Novia Atelier",
+        "description": "Vestidos nupciales con prueba personalizada y acabados de alta costura.",
+        "image": {
+          "url": "https://images.unsplash.com/photo-1519741497674-611481863552?w=1600&q=80",
+          "alt": "Novia con vestido de encaje en luz suave"
+        }
+      },
+      {
+        "id": "col_noche",
+        "slug": "noche-y-fiesta",
+        "name": "Noche y Fiesta",
+        "description": "Siluetas de cóctel y gala para celebraciones memorables.",
+        "image": {
+          "url": "https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=1600&q=80",
+          "alt": "Vestido de fiesta en pasarela íntima"
+        }
+      },
+      {
+        "id": "col_ritos",
+        "slug": "ritos-de-paso",
+        "name": "Ritos de paso",
+        "description": "Quinceañeras y primera comunión: piezas delicadas y exclusivas.",
+        "image": {
+          "url": "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=1600&q=80",
+          "alt": "Vestido largo claro para ocasión especial"
+        }
+      },
+      {
+        "id": "col_accesorios",
+        "slug": "accesorios-casa",
+        "name": "Accesorios de la casa",
+        "description": "Piezas artesanales para completar el look: tocados, clutches y más.",
+        "image": {
+          "url": "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=1600&q=80",
+          "alt": "Accesorios femeninos artesanales sobre tela"
+        }
+      }
+    ],
+    "products": [
+      {
+        "id": "1",
+        "slug": "vestido-aurora-noche",
+        "name": "Aurora Noche",
+        "description": "Vestido de gala con falda en movimiento y escote suave. Confeccionado en satén y tul, pensado para cenas y celebraciones nocturnas. Incluye una prueba de ajuste en la casa.",
+        "price": 890,
+        "categoryId": "cat_fiesta",
+        "collectionId": "col_noche",
+        "colors": [
+          "Champagne",
+          "Negro"
+        ],
+        "sizes": [
+          "34",
+          "36",
+          "38",
+          "40",
+          "42"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=1200&q=80",
+          "alt": "Vestido de fiesta champagne con falda amplia"
+        },
+        "hoverImage": {
+          "url": "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=1200&q=80",
+          "alt": "Detalle de movimiento del vestido Aurora"
+        },
+        "badges": [
+          "featured"
+        ]
+      },
+      {
+        "id": "2",
+        "slug": "vestido-novia-lilia",
+        "name": "Lilia Novia",
+        "description": "Silueta princesa en encaje cordón y tul seda. Cada Lilia se corta a medida tras la primera prueba: bordado, largo y cauda se afinan contigo.",
+        "price": 2400,
+        "categoryId": "cat_novias",
+        "collectionId": "col_novia",
+        "colors": [
+          "Marfil",
+          "Blanco suave"
+        ],
+        "sizes": [
+          "A medida"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1519741497674-611481863552?w=1200&q=80",
+          "alt": "Vestido de novia Lilia con encaje"
+        },
+        "badges": [
+          "new",
+          "featured"
+        ]
+      },
+      {
+        "id": "3",
+        "slug": "vestido-quince-isabella",
+        "name": "Isabella Quince",
+        "description": "Vestido de quinceañera con corpiño estructurado y falda volumétrica. Disponible en rosa antiguo y perla; incluye asesoría de peinado y accesorio a juego.",
+        "price": 1280,
+        "categoryId": "cat_quince",
+        "collectionId": "col_ritos",
+        "colors": [
+          "Rosa antiguo",
+          "Perla"
+        ],
+        "sizes": [
+          "34",
+          "36",
+          "38",
+          "40"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=1200&q=80",
+          "alt": "Vestido de quinceañera Isabella"
+        },
+        "badges": [
+          "featured"
+        ]
+      },
+      {
+        "id": "4",
+        "slug": "vestido-comunion-clara",
+        "name": "Clara Comunión",
+        "description": "Pieza delicada para primera comunión: organza ligera, manga corta y lazo removible. Se entrega con funda y cuidados de planchado en frío.",
+        "price": 420,
+        "categoryId": "cat_comunion",
+        "collectionId": "col_ritos",
+        "colors": [
+          "Blanco"
+        ],
+        "sizes": [
+          "6",
+          "8",
+          "10",
+          "12"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=1200&q=80",
+          "alt": "Vestido de comunión Clara en organza"
+        }
+      },
+      {
+        "id": "5",
+        "slug": "vestido-coctel-rose",
+        "name": "Rosé Cóctel",
+        "description": "Midi de crepé con drapeado lateral. Ideal para cócteles, firmas y cenas. Corte limpio, cómodo y elegante sin esfuerzo.",
+        "price": 560,
+        "categoryId": "cat_fiesta",
+        "collectionId": "col_noche",
+        "colors": [
+          "Rosa madera",
+          "Negro"
+        ],
+        "sizes": [
+          "34",
+          "36",
+          "38",
+          "40",
+          "42"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1568252542512-9fe8fe9c87bb?w=1200&q=80",
+          "alt": "Vestido cóctel Rosé"
+        },
+        "badges": [
+          "new"
+        ]
+      },
+      {
+        "id": "6",
+        "slug": "tocado-perla-atelier",
+        "name": "Tocado Perla",
+        "description": "Tocado artesanal con perlas de río y alambre forrado. Disponible al detalle y por mayor para salones asociados.",
+        "price": 95,
+        "categoryId": "cat_accesorios",
+        "collectionId": "col_accesorios",
+        "colors": [
+          "Marfil",
+          "Plata suave"
+        ],
+        "sizes": [
+          "Única"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=1200&q=80",
+          "alt": "Tocado de perlas artesanal"
+        }
+      },
+      {
+        "id": "7",
+        "slug": "clutch-seda-noche",
+        "name": "Clutch Seda Noche",
+        "description": "Clutch de seda con cierre oculto y cadena removible. Ideal para gala; también en packs mayoristas para boutiques.",
+        "price": 120,
+        "categoryId": "cat_accesorios",
+        "collectionId": "col_accesorios",
+        "colors": [
+          "Champagne",
+          "Negro"
+        ],
+        "sizes": [
+          "Única"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=1200&q=80",
+          "alt": "Clutch de seda para noche"
+        }
+      },
+      {
+        "id": "8",
+        "slug": "cinturon-bordado-casa",
+        "name": "Cinturón Bordado",
+        "description": "Cinturón bordado a mano que redefine un vestido simple. Hilo seda sobre base firme; cierre de gancho invisible.",
+        "price": 78,
+        "categoryId": "cat_accesorios",
+        "collectionId": "col_accesorios",
+        "colors": [
+          "Marfil",
+          "Rosa antiguo"
+        ],
+        "sizes": [
+          "S/M",
+          "M/L"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=1200&q=80",
+          "alt": "Cinturón y detalle de joyería artesanal"
+        }
+      }
+    ]
+  },
+  "sections": {
+    "hero": {
+      "headline": "El vestido que sostiene tu día.",
+      "subheadline": "Diseños personalizados de alta costura para fiesta, novias, quinceañeras y comunión. Cada detalle, contigo.",
+      "image": {
+        "url": "https://images.unsplash.com/photo-1519741497674-611481863552?w=2400&q=80",
+        "alt": "Novia Celestine en luz natural con vestido de encaje"
+      },
+      "ctaPrimary": {
+        "label": "Ver vestidos",
+        "href": "/vestidos"
+      },
+      "ctaSecondary": {
+        "label": "Reservar prueba",
+        "href": "/casa#prueba"
+      }
+    },
+    "occasions": {
+      "eyebrow": "Ocasiones",
+      "title": "Un vestido para cada rito.",
+      "collectionIds": [
+        "col_novia",
+        "col_noche",
+        "col_ritos",
+        "col_accesorios"
+      ]
+    },
+    "craft": {
+      "eyebrow": "Alta costura",
+      "title": "Del boceto a la prueba.",
+      "body": "Cuidamos cada fase: diseño, confección y ajuste. Nada se entrega sin tu visto bueno en la casa.",
+      "steps": [
+        {
+          "id": "diseno",
+          "title": "Diseño",
+          "body": "Partimos de tu ocasión, tu silueta y el tejido. Boceto y muestras de tela en la primera cita."
+        },
+        {
+          "id": "confeccion",
+          "title": "Confección",
+          "body": "Corte y costura en taller propio. Acabados a mano en escotes, bordados y bajos."
+        },
+        {
+          "id": "prueba",
+          "title": "Prueba",
+          "body": "Una o dos pruebas de ajuste con cita reservada. Salimos solo cuando cae perfecto."
+        }
+      ]
+    },
+    "signature": {
+      "eyebrow": "Looks firma",
+      "title": "Piezas que ya están pidiendo cita.",
+      "productIds": [
+        "2",
+        "1",
+        "3",
+        "5"
+      ],
+      "viewAll": {
+        "label": "Ver todos los vestidos",
+        "href": "/vestidos"
+      }
+    },
+    "note": {
+      "eyebrow": "Atención personalizada",
+      "title": "Te acompañamos vestido a vestido.",
+      "body": "No vendemos de pasillo: citamos, escuchamos y afinamos. También asesoramos packs de accesorios al detalle y por mayor.",
+      "cta": {
+        "label": "Conocer la casa",
+        "href": "/casa"
+      }
+    },
+    "accessories": {
+      "eyebrow": "Accesorios",
+      "title": "El detalle que cierra el look.",
+      "body": "Tocados, clutches y cinturones elaborados artesanalmente. Disponibles al menor y en condiciones de mayor para salones.",
+      "productIds": [
+        "6",
+        "7",
+        "8"
+      ],
+      "cta": {
+        "label": "Ver accesorios",
+        "href": "/vestidos?categoria=accesorios"
+      }
+    },
+    "shop": {
+      "eyebrow": "Colección",
+      "title": "Vestidos y accesorios",
+      "description": "Filtra por ocasión o explora la colección completa de la casa."
+    },
+    "about": {
+      "intro": {
+        "eyebrow": "La casa",
+        "title": "Celestine nace para el día que importa.",
+        "body": "Somos un atelier de moda y accesorios especializado en vestidos de fiesta, novias, quinceañeras y primera comunión. Diseñamos piezas exclusivas con acabados de alta costura y una atención cercana en cada paso."
+      },
+      "bannerImage": {
+        "url": "https://images.unsplash.com/photo-1558171813-4c088753af8f?w=2400&q=80",
+        "alt": "Taller de confección con telas y maniquíes"
+      },
+      "blocks": [
+        {
+          "id": "craft",
+          "title": "Alta costura con criterio",
+          "body": "Cada vestido pasa por diseño, corte y prueba. Preferimos menos piezas y más precisión que un catálogo infinito."
+        },
+        {
+          "id": "personal",
+          "title": "Atención a medida",
+          "body": "Citamos en la casa, escuchamos la ocasión y afinamos silueta, tejido y largo contigo."
+        },
+        {
+          "id": "accesorios",
+          "title": "Accesorios de la casa",
+          "body": "Línea artesanal de tocados y complementos, disponible al detalle y por mayor para salones asociados."
+        }
+      ],
+      "locations": {
+        "eyebrow": "Visítanos",
+        "title": "Sala de pruebas",
+        "items": [
+          {
+            "city": "Madrid",
+            "address": "Calle de la Costura 12, Chamberí",
+            "hours": "Mar–Sáb 10:00–19:00 · Solo con cita"
+          }
+        ]
+      },
+      "closing": {
+        "title": "Reserva tu prueba",
+        "body": "Cuéntanos la ocasión y te proponemos fecha para conocernos en la casa.",
+        "cta": {
+          "label": "Escribir a Celestine",
+          "href": "#"
+        }
+      }
+    },
+    "footer": {
+      "blurb": "Vestidos de ocasión y accesorios artesanales. Alta costura con atención personalizada.",
+      "columns": [
+        {
+          "title": "Colección",
+          "links": [
+            {
+              "label": "Todos los vestidos",
+              "href": "/vestidos"
+            },
+            {
+              "label": "Novias",
+              "href": "/vestidos?categoria=novias"
+            },
+            {
+              "label": "Fiesta",
+              "href": "/vestidos?categoria=fiesta"
+            },
+            {
+              "label": "Accesorios",
+              "href": "/vestidos?categoria=accesorios"
+            }
+          ]
+        },
+        {
+          "title": "Casa",
+          "links": [
+            {
+              "label": "Sobre Celestine",
+              "href": "/casa"
+            },
+            {
+              "label": "Sala de pruebas",
+              "href": "/casa#prueba"
+            },
+            {
+              "label": "Contacto",
+              "href": "#"
+            }
+          ]
+        }
+      ],
+      "tagline": "Vestidos para el día que importa.",
+      "copyrightName": "Celestine"
+    }
+  },
+  "ui": {
+    "cart": {
+      "title": "Tu selección",
+      "empty": "Aún no has reservado ninguna pieza.",
+      "exploreCta": "Ver vestidos",
+      "checkout": "Continuar reserva",
+      "shippingHint": "Las pruebas se confirman tras el pago de la señal"
+    },
+    "product": {
+      "addToCart": "Reservar prueba",
+      "relatedTitle": "Otras piezas de esta ocasión",
+      "shippingNote": "Incluye una prueba de ajuste en la casa · Plazo de confección según pieza",
+      "outOfStock": "Agotado",
+      "contact": "Consultar disponibilidad",
+      "lowStock": "Últimas tallas",
+      "madeToOrderClosed": "Reservas cerradas temporalmente",
+      "badges": {
+        "new": "Nueva temporada",
+        "featured": "Look firma",
+        "sale": "Oferta",
+        "bestseller": "Más pedido",
+        "limitedEdition": "Edición limitada"
+      }
+    },
+    "shop": {
+      "empty": "No hay piezas con estos filtros.",
+      "clearFilter": "Quitar filtro"
+    },
+    "notFound": {
+      "title": "Página no encontrada",
+      "body": "Esta ruta no existe en Celestine."
+    },
+    "salesMode": {
+      "stock": {
+        "navLabel": "Entrega inmediata",
+        "shopBanner": "Catálogo con entrega inmediata según disponibilidad.",
+        "cartLabel": "Compra con entrega inmediata"
+      },
+      "madeToOrder": {
+        "navLabel": "Bajo pedido",
+        "shopBanner": "Catálogo bajo pedido.",
+        "preparationLabel": "Preparación",
+        "closedMessage": "Ahora mismo no aceptamos pedidos a medida.",
+        "reopensPrefix": "Volvemos",
+        "cartLabel": "Compra bajo pedido",
+        "cartClosedWarning": "Los pedidos a medida están cerrados temporalmente. No podrás completar el checkout hasta que reabran."
+      },
+      "nav": [
+        {
+          "salesMode": "stock",
+          "label": "Entrega inmediata",
+          "href": "/vestidos?salesMode=stock"
+        },
+        {
+          "salesMode": "madeToOrder",
+          "label": "Bajo pedido",
+          "href": "/vestidos?salesMode=madeToOrder"
+        }
+      ]
+    }
+  }
+}

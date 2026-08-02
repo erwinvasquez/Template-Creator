@@ -1,0 +1,310 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "fashion-celestine-v1",
+  "descriptor": {
+    "templateId": "celestine",
+    "latestVersion": "1.0.0",
+    "status": "published",
+    "websiteType": "ecommerce",
+    "industryTags": [
+      "fashion",
+      "luxury",
+      "apparel",
+      "artisan"
+    ],
+    "displayName": {
+      "es": "Celestine Atelier",
+      "en": "Celestine Atelier"
+    },
+    "description": {
+      "es": "E-commerce de vestidos de ocasión: fiesta, novias, quinceañeras y comunión, con accesorios artesanales.",
+      "en": "Occasion-wear ecommerce: evening, bridal, quinceañera and communion dresses, plus artisan accessories."
+    }
+  },
+  "manifest": {
+    "pages": [
+      {
+        "id": "home",
+        "path": "/",
+        "page": "home",
+        "sections": [
+          {
+            "id": "hero",
+            "contentSlotIds": [
+              "hero.headline",
+              "hero.subheadline",
+              "hero.image",
+              "hero.ctaPrimary"
+            ]
+          },
+          {
+            "id": "occasions",
+            "contentSlotIds": [
+              "occasions.eyebrow",
+              "occasions.title"
+            ]
+          },
+          {
+            "id": "craft",
+            "contentSlotIds": [
+              "craft.eyebrow",
+              "craft.title",
+              "craft.body"
+            ]
+          },
+          {
+            "id": "signature",
+            "contentSlotIds": [
+              "signature.eyebrow",
+              "signature.title"
+            ]
+          },
+          {
+            "id": "note",
+            "contentSlotIds": [
+              "note.eyebrow",
+              "note.title",
+              "note.body"
+            ]
+          },
+          {
+            "id": "accessories",
+            "contentSlotIds": [
+              "accessories.eyebrow",
+              "accessories.title",
+              "accessories.body"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "shop",
+        "path": "/vestidos",
+        "page": "shop",
+        "sections": [
+          {
+            "id": "shop",
+            "contentSlotIds": [
+              "shop.eyebrow",
+              "shop.title",
+              "shop.description"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "product",
+        "path": "/vestidos/[slug]",
+        "page": "product",
+        "sections": [
+          {
+            "id": "product",
+            "contentSlotIds": []
+          }
+        ]
+      },
+      {
+        "id": "about",
+        "path": "/casa",
+        "page": "about",
+        "sections": [
+          {
+            "id": "about",
+            "contentSlotIds": [
+              "about.intro.eyebrow",
+              "about.intro.title",
+              "about.intro.body",
+              "about.bannerImage"
+            ]
+          }
+        ]
+      }
+    ],
+    "navigation": {
+      "primaryFromPayload": "navigation.primary"
+    },
+    "themeDefaults": {
+      "colors": {
+        "primary": "#1A1216",
+        "secondary": "#6B4E56",
+        "cta": "#9C4F5F",
+        "ctaHover": "#7E3E4C",
+        "background": "#F8F4F5",
+        "surface": "#EFE6E8",
+        "text": "#1A1216",
+        "muted": "#746266",
+        "border": "#E0D4D7"
+      }
+    },
+    "themeEditable": {
+      "primary": true,
+      "secondary": true,
+      "background": true,
+      "fonts": false
+    },
+    "capabilities": {
+      "contentSupport": {
+        "slotDefinitions": [
+          {
+            "id": "hero.headline",
+            "fieldPath": "sections.hero.headline",
+            "kind": "string",
+            "label": "Hero headline"
+          },
+          {
+            "id": "hero.subheadline",
+            "fieldPath": "sections.hero.subheadline",
+            "kind": "string",
+            "label": "Hero subheadline"
+          },
+          {
+            "id": "hero.image",
+            "fieldPath": "sections.hero.image",
+            "kind": "media",
+            "label": "Hero image"
+          },
+          {
+            "id": "hero.ctaPrimary",
+            "fieldPath": "sections.hero.ctaPrimary",
+            "kind": "link",
+            "label": "Hero primary CTA"
+          },
+          {
+            "id": "occasions.eyebrow",
+            "fieldPath": "sections.occasions.eyebrow",
+            "kind": "string",
+            "label": "Occasions eyebrow"
+          },
+          {
+            "id": "occasions.title",
+            "fieldPath": "sections.occasions.title",
+            "kind": "string",
+            "label": "Occasions title"
+          },
+          {
+            "id": "craft.eyebrow",
+            "fieldPath": "sections.craft.eyebrow",
+            "kind": "string",
+            "label": "Craft eyebrow"
+          },
+          {
+            "id": "craft.title",
+            "fieldPath": "sections.craft.title",
+            "kind": "string",
+            "label": "Craft title"
+          },
+          {
+            "id": "craft.body",
+            "fieldPath": "sections.craft.body",
+            "kind": "text",
+            "label": "Craft body"
+          },
+          {
+            "id": "signature.eyebrow",
+            "fieldPath": "sections.signature.eyebrow",
+            "kind": "string",
+            "label": "Signature eyebrow"
+          },
+          {
+            "id": "signature.title",
+            "fieldPath": "sections.signature.title",
+            "kind": "string",
+            "label": "Signature title"
+          },
+          {
+            "id": "note.eyebrow",
+            "fieldPath": "sections.note.eyebrow",
+            "kind": "string",
+            "label": "Note eyebrow"
+          },
+          {
+            "id": "note.title",
+            "fieldPath": "sections.note.title",
+            "kind": "string",
+            "label": "Note title"
+          },
+          {
+            "id": "note.body",
+            "fieldPath": "sections.note.body",
+            "kind": "text",
+            "label": "Note body"
+          },
+          {
+            "id": "accessories.eyebrow",
+            "fieldPath": "sections.accessories.eyebrow",
+            "kind": "string",
+            "label": "Accessories eyebrow"
+          },
+          {
+            "id": "accessories.title",
+            "fieldPath": "sections.accessories.title",
+            "kind": "string",
+            "label": "Accessories title"
+          },
+          {
+            "id": "accessories.body",
+            "fieldPath": "sections.accessories.body",
+            "kind": "text",
+            "label": "Accessories body"
+          },
+          {
+            "id": "shop.eyebrow",
+            "fieldPath": "sections.shop.eyebrow",
+            "kind": "string",
+            "label": "Shop eyebrow"
+          },
+          {
+            "id": "shop.title",
+            "fieldPath": "sections.shop.title",
+            "kind": "string",
+            "label": "Shop title"
+          },
+          {
+            "id": "shop.description",
+            "fieldPath": "sections.shop.description",
+            "kind": "text",
+            "label": "Shop description"
+          },
+          {
+            "id": "about.intro.eyebrow",
+            "fieldPath": "sections.about.intro.eyebrow",
+            "kind": "string",
+            "label": "About eyebrow"
+          },
+          {
+            "id": "about.intro.title",
+            "fieldPath": "sections.about.intro.title",
+            "kind": "string",
+            "label": "About title"
+          },
+          {
+            "id": "about.intro.body",
+            "fieldPath": "sections.about.intro.body",
+            "kind": "text",
+            "label": "About body"
+          },
+          {
+            "id": "about.bannerImage",
+            "fieldPath": "sections.about.bannerImage",
+            "kind": "media",
+            "label": "About banner"
+          },
+          {
+            "id": "brand.name",
+            "fieldPath": "brand.name",
+            "kind": "string",
+            "label": "Brand name",
+            "editorSurface": "none"
+          },
+          {
+            "id": "brand.tagline",
+            "fieldPath": "brand.tagline",
+            "kind": "string",
+            "label": "Brand tagline",
+            "editorSurface": "none"
+          }
+        ]
+      }
+    }
+  }
+}

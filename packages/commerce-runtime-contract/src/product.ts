@@ -39,7 +39,19 @@ export interface ProductDetailViewModel {
   maxQuantity?: number | null;
   cartQuantity?: number;
   canAddToCart: boolean;
+  /** When true (made-to-order context), template blocks add-to-cart and shows closed copy. */
   madeToOrderClosed?: boolean;
+  /**
+   * Made-to-order only. Host sends **value only** (e.g. `"3–5 días"`).
+   * Template prefixes with `ui.salesMode.madeToOrder.preparationLabel`.
+   * Do NOT invent windows; omit when unknown.
+   */
+  preparationPromiseLabel?: string | null;
+  /**
+   * When channel is closed. Host sends **reopen value only** (e.g. `"10:00"`).
+   * Template may prefix with `ui.salesMode.madeToOrder.reopensPrefix`.
+   */
+  madeToOrderReopensAtLabel?: string | null;
   highlights?: string[];
   bulletPoints?: string[];
   keyFeatures?: string[];

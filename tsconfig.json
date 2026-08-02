@@ -31,7 +31,10 @@
       "jewelry-orion-v1/*": ["./templates/jewelry-orion-v1/src/*"],
       "academy-voxa-v1": ["./templates/academy-voxa-v1/src/index.ts"],
       "academy-voxa-v1/client": ["./templates/academy-voxa-v1/src/client.ts"],
-      "academy-voxa-v1/*": ["./templates/academy-voxa-v1/src/*"]
+      "academy-voxa-v1/*": ["./templates/academy-voxa-v1/src/*"],
+      "fashion-celestine-v1": ["./templates/fashion-celestine-v1/src/index.ts"],
+      "fashion-celestine-v1/client": ["./templates/fashion-celestine-v1/src/client.ts"],
+      "fashion-celestine-v1/*": ["./templates/fashion-celestine-v1/src/*"]
     }
   },
   "include": [

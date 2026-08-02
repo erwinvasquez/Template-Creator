@@ -26,6 +26,10 @@ Template package exportable para **IA Builder v2**.
 
 Aliases deprecated (1 release): `JewelryApp`, `orionCommerceViews`, `OrionCommerceProvider`.
 
+## Catalog bindings
+
+`manifest.constraints.catalogRefs` incluye `sections.signatures.productIds`; `commerceFeaturedProductsPath` apunta ahí. No hay grid de colecciones en home → no se declara `commerceFeaturedCollectionsPath`.
+
 ## Preview en este repo
 
 - Selector: [`/`](/)

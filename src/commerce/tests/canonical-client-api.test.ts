@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import * as atelier from "fashion-atelier-v1/client";
 import * as orion from "jewelry-orion-v1/client";
 import * as voxa from "academy-voxa-v1/client";
+import * as celestine from "fashion-celestine-v1/client";
 
 const REQUIRED = [
   "TemplateApp",
@@ -23,6 +24,7 @@ describe("Phase 0 canonical client API", () => {
     ["fashion-atelier-v1", atelier],
     ["jewelry-orion-v1", orion],
     ["academy-voxa-v1", voxa],
+    ["fashion-celestine-v1", celestine],
   ] as const)("%s exports TemplateApp without internal name", (_id, client) => {
     for (const key of REQUIRED) {
       expect(client[key as keyof typeof client], key).toBeDefined();
@@ -37,5 +39,6 @@ describe("Phase 0 canonical client API", () => {
     expect(atelier.TemplateApp).toBe(atelier.AtelierApp);
     expect(orion.TemplateApp).toBe(orion.JewelryApp);
     expect(voxa.TemplateApp).toBe(voxa.VoxaApp);
+    expect(celestine.TemplateApp).toBe(celestine.CelestineApp);
   });
 });

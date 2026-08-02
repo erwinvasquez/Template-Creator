@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
   "templateId": "fashion-atelier-v1",
-  "templateVersion": "1.0.0",
+  "templateVersion": "1.3.0",
   "brand": {
     "name": "Lumen",
     "displayName": "LUMEN",
@@ -24,23 +24,29 @@
   },
   "features": {
     "cart": true,
-    "newsletter": true
+    "newsletter": true,
+    "account": true,
+    "accountBasePath": "/cuenta"
   },
   "navigation": {
     "primary": [
       {
+        "type": "path",
         "label": "Tienda",
         "href": "/tienda"
       },
       {
+        "type": "shopFilter",
         "label": "Mujer",
-        "href": "/tienda?categoria=mujer"
+        "categorySlug": "mujer"
       },
       {
+        "type": "shopFilter",
         "label": "Hombre",
-        "href": "/tienda?categoria=hombre"
+        "categorySlug": "hombre"
       },
       {
+        "type": "path",
         "label": "Nosotros",
         "href": "/nosotros"
       }
@@ -628,6 +634,34 @@
     "notFound": {
       "title": "Página no encontrada",
       "body": "Esta ruta no existe en Atelier."
+    },
+    "salesMode": {
+      "stock": {
+        "navLabel": "Entrega inmediata",
+        "shopBanner": "Catálogo con entrega inmediata según disponibilidad.",
+        "cartLabel": "Compra con entrega inmediata"
+      },
+      "madeToOrder": {
+        "navLabel": "Bajo pedido",
+        "shopBanner": "Catálogo bajo pedido.",
+        "preparationLabel": "Preparación",
+        "closedMessage": "Ahora mismo no aceptamos pedidos a medida.",
+        "reopensPrefix": "Volvemos",
+        "cartLabel": "Compra bajo pedido",
+        "cartClosedWarning": "Los pedidos a medida están cerrados temporalmente. No podrás completar el checkout hasta que reabran."
+      },
+      "nav": [
+        {
+          "salesMode": "stock",
+          "label": "Entrega inmediata",
+          "href": "/tienda?salesMode=stock"
+        },
+        {
+          "salesMode": "madeToOrder",
+          "label": "Bajo pedido",
+          "href": "/tienda?salesMode=madeToOrder"
+        }
+      ]
     }
   }
 }

@@ -86,6 +86,55 @@ Prohibido: `CartProvider` local, Firebase/Firestore en el template, precios/stoc
 3. Status WG → SaaS: `draft→draft`, `published→active`, `deprecated→archived` (doc en `audit/TEMPLATE-CATEGORIZATION.md`).
 4. `slotDefinitions` viven en `builder.manifest` (o generados en export); `fieldPath` ⊆ payload/schema.
 
+### Catalog bindings (`manifest.constraints`) — ecommerce con catálogo
+
+Obligatorio si `defaults.catalog.products` no está vacío. El SaaS vacía el catálogo demo y rehidrata el del tenant; necesita **claves fijas** (las secciones pueden variar):
+
+```json
+"constraints": {
+  "catalogRefs": [
+    "sections.<seccion>.productIds",
+    "sections.<seccion>.collectionIds"
+  ],
+  "catalogBindings": [
+    {
+      "path": "sections.<seccion>.productIds",
+      "kind": "product",
+      "sectionId": "<seccion>",
+      "label": { "es": "…", "en": "…" },
+      "maxItems": 8
+    }
+  ],
+  "commerceFeaturedProductsPath": "sections.<seccion>.productIds",
+  "commerceFeaturedCollectionsPath": "sections.<seccion>.collectionIds"
+}
+```
+
+- `catalogRefs`: **todos** los paths `productIds` / `collectionIds` bajo `sections.*` (incl. listas secundarias: books, accessories…).
+- `catalogBindings`: **uno por cada** `catalogRefs` (metadata UI: kind, sectionId, label, maxItems). Ningún catalogRef huérfano.
+- `commerceFeaturedProductsPath`: un path donde el host escribe featured products del tenant.
+- `commerceFeaturedCollectionsPath`: igual para colecciones; **omitir** la clave si el template no tiene grid de colecciones en home.
+- Legacy (`featuredProductPath`, `collectionIdsPath`, `occasionIdsPath`, …) OK 1 release como alias; no inventar nombres nuevos ad hoc.
+
+### Editor contract (`builder.manifest.json`) — SaaS visual editor
+
+1. `pages[]` alineado con `manifest.routes[]` (mismos `path` / `page` / secciones de copy).
+2. Cada sección con texto/imagen/CTA: `contentSlotIds` + `slotDefinitions` (`id`, `fieldPath`, `kind`, `label`).
+3. Kinds: `string`|`text`|`media`|`link`|`list`. Si `kind: "list"` → **`listSchema`** obligatorio.
+4. `brand.*` → `editorSurface: "none"` (Brand tab del SaaS). No slots `nav.*`.
+5. `navigation.primaryFromPayload: "navigation.primary"` + `defaults.navigation.primary` (`path` | `shopFilter`).
+6. `themeDefaults.colors` + `themeEditable` `{ primary, secondary, background, fonts }`.
+7. Componentes React: `data-wb-slot="{slotId}"` en copy/media/CTA **estáticos** (no product cards).
+8. `CommerceAwareCatalog`: solo `setCatalogFilters` desde payload si hay taxonomy demo (`hasPayloadTaxonomy`); en SaaS el host resuelve slugs.
+9. **Modos de catálogo (stock / a pedido):**
+   - Capability `salesModeSwitch`: chrome de modo (nav, banner shop, línea carrito) **solo** si `=== "supported"` (org con ambos canales). Si no → cero UI de “modo”.
+   - Nunca mostrar “Máx. N” / `maxQuantity` en copy; solo limitar el selector +/-.
+   - A pedido: mostrar `preparationPromiseLabel` y cierre (`madeToOrderClosed` / `madeToOrderAcceptingOrders === false` + `madeToOrderReopensAtLabel`) **solo** si el host los envía; no inventar plazos.
+   - `defaults.ui.salesMode` + `SHOP_QUERY.salesMode`; nav dual vía `ui.salesMode.nav` (hrefs `?salesMode=stock|madeToOrder`).
+   - Helper `src/lib/sales-mode.ts` + `SalesModeShopBanner`; mismo comportamiento en todos los templates ecommerce.
+
+`npm run template:validate` comprueba IDs, paths, catalogBindings, listSchema, sync routes↔pages, mediaSlots estáticos, y drift vs `schema.json` `$defs.Sections`.
+
 ### Validación (antes de cerrar)
 
 ```bash
@@ -99,9 +148,9 @@ Debe pasar taxonomía + builder + schema + exports canónicos.
 
 ## Qué es común vs qué cambia
 
-**Común (contrato):** API `TemplateApp` / `commerceViews`, routes page ids, commerce views tipadas, taxonomía, `builder.manifest`, exports, peers.
+**Común (contrato):** API `TemplateApp` / `commerceViews`, routes page ids, commerce views tipadas, taxonomía, `builder.manifest`, exports, peers, **`manifest.constraints.catalogRefs` + `catalogBindings` + `commerceFeatured*`**, `data-wb-slot`, `themeEditable`, **sales-mode chrome gated by `salesModeSwitch`**.
 
-**Cambia por diseño:** secciones, tipografías, tokens, motion, path visible de shop/about, copy, presencia de newsletter/cita/etc.
+**Cambia por diseño:** secciones, tipografías, tokens, motion, path visible de shop/about, copy, presencia de newsletter/cita/etc. (los *paths* dentro de `catalogRefs` apuntan a esas secciones variables).
 
 Al crear: diseña identidad primero; **después** schema/defaults. No fuerces slots de otro template.
 

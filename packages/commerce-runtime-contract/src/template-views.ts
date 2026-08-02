@@ -63,6 +63,8 @@ export interface CartViewProps {
     | "navigateToCheckout"
     | "openCartDrawer"
   >;
+  /** When omitted, templates may read capabilities from the commerce host context. */
+  capabilities?: CommerceTemplateCapabilities;
   isOpen?: boolean;
   onClose?: () => void;
 }

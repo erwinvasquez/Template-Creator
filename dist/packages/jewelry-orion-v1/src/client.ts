@@ -1,6 +1,11 @@
-/** Client-safe entry — no Node fs / loadPayload. */
-export { JewelryApp } from "./renderer";
-export type { JewelryAppPage } from "./renderer";
+/** Client-safe entry — no Node fs / loadPayload. Plug-and-play Phase 0 API. */
+export {
+  TemplateApp,
+  JewelryApp,
+  type TemplateAppPage,
+  type JewelryAppPage,
+  type OrionTemplateAppProps,
+} from "./renderer";
 export { TEMPLATE_ID, TEMPLATE_SLUG, DEFAULT_BASE_PATH } from "./meta";
 export type {
   ContentPayload,
@@ -13,12 +18,14 @@ export type {
   Link,
 } from "./content/types";
 export {
+  OrionCommerceProvider as TemplateCommerceProvider,
   OrionCommerceProvider,
   useOrionCommerceHost,
   useRequiredCommerceHost,
   useHostCart,
 } from "./lib/commerce-host";
 export type { OrionCommerceHost } from "./lib/commerce-host";
+export type { OrionCommerceHost as TemplateCommerceHost } from "./lib/commerce-host";
 export { createPayloadCommerceBridge } from "./preview/createPayloadCommerceBridge";
 export {
   accountPath,
@@ -63,7 +70,7 @@ import { AccountLoginForm } from "./components/account/AccountLoginForm";
 import { AccountRegisterForm } from "./components/account/AccountRegisterForm";
 import { AccountDashboard } from "./components/account/AccountDashboard";
 
-export const orionCommerceViews: CommerceTemplateViews = {
+export const commerceViews: CommerceTemplateViews = {
   ProductListing: ProductListingView,
   ProductDetail: ProductDetailCommerceView,
   CartPage: CartPageView,
@@ -81,3 +88,6 @@ export const orionCommerceViews: CommerceTemplateViews = {
   AccountRegisterForm,
   AccountDashboard,
 };
+
+/** @deprecated Prefer commerceViews */
+export const orionCommerceViews = commerceViews;

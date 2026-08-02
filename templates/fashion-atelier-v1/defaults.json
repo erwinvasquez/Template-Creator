@@ -30,10 +30,26 @@
   },
   "navigation": {
     "primary": [
-      { "type": "path", "label": "Tienda", "href": "/tienda" },
-      { "type": "shopFilter", "label": "Mujer", "categorySlug": "mujer" },
-      { "type": "shopFilter", "label": "Hombre", "categorySlug": "hombre" },
-      { "type": "path", "label": "Nosotros", "href": "/nosotros" }
+      {
+        "type": "path",
+        "label": "Tienda",
+        "href": "/tienda"
+      },
+      {
+        "type": "shopFilter",
+        "label": "Mujer",
+        "categorySlug": "mujer"
+      },
+      {
+        "type": "shopFilter",
+        "label": "Hombre",
+        "categorySlug": "hombre"
+      },
+      {
+        "type": "path",
+        "label": "Nosotros",
+        "href": "/nosotros"
+      }
     ]
   },
   "seo": {
@@ -59,9 +75,21 @@
   },
   "catalog": {
     "categories": [
-      { "id": "cat_mujer", "slug": "mujer", "label": "Mujer" },
-      { "id": "cat_hombre", "slug": "hombre", "label": "Hombre" },
-      { "id": "cat_accesorios", "slug": "accesorios", "label": "Accesorios" }
+      {
+        "id": "cat_mujer",
+        "slug": "mujer",
+        "label": "Mujer"
+      },
+      {
+        "id": "cat_hombre",
+        "slug": "hombre",
+        "label": "Hombre"
+      },
+      {
+        "id": "cat_accesorios",
+        "slug": "accesorios",
+        "label": "Accesorios"
+      }
     ],
     "collections": [
       {
@@ -104,8 +132,16 @@
         "price": 420,
         "categoryId": "cat_mujer",
         "collectionId": "col_otono",
-        "colors": ["Stone", "Negro"],
-        "sizes": ["XS", "S", "M", "L"],
+        "colors": [
+          "Stone",
+          "Negro"
+        ],
+        "sizes": [
+          "XS",
+          "S",
+          "M",
+          "L"
+        ],
         "image": {
           "url": "https://images.unsplash.com/photo-1544022613-e87ca75a784a?w=1200&q=80",
           "alt": "Abrigo Cashmere Stone"
@@ -114,7 +150,10 @@
           "url": "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=1200&q=80",
           "alt": "Abrigo Cashmere Stone vista alternativa"
         },
-        "badges": ["new", "featured"]
+        "badges": [
+          "new",
+          "featured"
+        ]
       },
       {
         "id": "2",
@@ -124,13 +163,24 @@
         "price": 280,
         "categoryId": "cat_mujer",
         "collectionId": "col_linen",
-        "colors": ["Natural", "Olive"],
-        "sizes": ["XS", "S", "M", "L", "XL"],
+        "colors": [
+          "Natural",
+          "Olive"
+        ],
+        "sizes": [
+          "XS",
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
         "image": {
           "url": "https://images.unsplash.com/photo-1591369822096-ffd140ec948f?w=1200&q=80",
           "alt": "Blazer Lino Natural"
         },
-        "badges": ["featured"]
+        "badges": [
+          "featured"
+        ]
       },
       {
         "id": "3",
@@ -140,13 +190,23 @@
         "price": 195,
         "categoryId": "cat_mujer",
         "collectionId": "col_noir",
-        "colors": ["Negro"],
-        "sizes": ["34", "36", "38", "40", "42"],
+        "colors": [
+          "Negro"
+        ],
+        "sizes": [
+          "34",
+          "36",
+          "38",
+          "40",
+          "42"
+        ],
         "image": {
           "url": "https://images.unsplash.com/photo-1509631179647-0177331693ae?w=1200&q=80",
           "alt": "Pantalón Wide-Leg Noir"
         },
-        "badges": ["featured"]
+        "badges": [
+          "featured"
+        ]
       },
       {
         "id": "4",
@@ -156,13 +216,23 @@
         "price": 145,
         "categoryId": "cat_hombre",
         "collectionId": "col_linen",
-        "colors": ["Marfil", "Sky"],
-        "sizes": ["S", "M", "L", "XL"],
+        "colors": [
+          "Marfil",
+          "Sky"
+        ],
+        "sizes": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
         "image": {
           "url": "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=1200&q=80",
           "alt": "Camisa Oxford Marfil"
         },
-        "badges": ["new"]
+        "badges": [
+          "new"
+        ]
       },
       {
         "id": "5",
@@ -172,13 +242,23 @@
         "price": 365,
         "categoryId": "cat_hombre",
         "collectionId": "col_otono",
-        "colors": ["Arena", "Negro"],
-        "sizes": ["S", "M", "L", "XL"],
+        "colors": [
+          "Arena",
+          "Negro"
+        ],
+        "sizes": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
         "image": {
           "url": "https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?w=1200&q=80",
           "alt": "Trench Técnico Arena"
         },
-        "badges": ["featured"]
+        "badges": [
+          "featured"
+        ]
       },
       {
         "id": "6",
@@ -188,13 +268,24 @@
         "price": 310,
         "categoryId": "cat_mujer",
         "collectionId": "col_noir",
-        "colors": ["Negro", "Champagne"],
-        "sizes": ["XS", "S", "M", "L"],
+        "colors": [
+          "Negro",
+          "Champagne"
+        ],
+        "sizes": [
+          "XS",
+          "S",
+          "M",
+          "L"
+        ],
         "image": {
           "url": "https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=1200&q=80",
           "alt": "Vestido Seda Noche"
         },
-        "badges": ["new", "featured"]
+        "badges": [
+          "new",
+          "featured"
+        ]
       },
       {
         "id": "7",
@@ -204,8 +295,13 @@
         "price": 240,
         "categoryId": "cat_accesorios",
         "collectionId": "col_otono",
-        "colors": ["Cognac", "Negro"],
-        "sizes": ["Único"],
+        "colors": [
+          "Cognac",
+          "Negro"
+        ],
+        "sizes": [
+          "Único"
+        ],
         "image": {
           "url": "https://images.unsplash.com/photo-1590874103328-eac38a67478e?w=1200&q=80",
           "alt": "Tote Cuero Vegetal"
@@ -219,8 +315,18 @@
         "price": 290,
         "categoryId": "cat_hombre",
         "collectionId": "col_noir",
-        "colors": ["Café", "Negro"],
-        "sizes": ["40", "41", "42", "43", "44", "45"],
+        "colors": [
+          "Café",
+          "Negro"
+        ],
+        "sizes": [
+          "40",
+          "41",
+          "42",
+          "43",
+          "44",
+          "45"
+        ],
         "image": {
           "url": "https://images.unsplash.com/photo-1614252237980-3f4c6c0c8c0a?w=1200&q=80",
           "alt": "Derby Café"
@@ -234,13 +340,20 @@
         "price": 95,
         "categoryId": "cat_accesorios",
         "collectionId": "col_otono",
-        "colors": ["Heather", "Charcoal"],
-        "sizes": ["Único"],
+        "colors": [
+          "Heather",
+          "Charcoal"
+        ],
+        "sizes": [
+          "Único"
+        ],
         "image": {
           "url": "https://images.unsplash.com/photo-1520903920243-00d872a2d1c9?w=1200&q=80",
           "alt": "Bufanda Merino Heather"
         },
-        "badges": ["new"]
+        "badges": [
+          "new"
+        ]
       },
       {
         "id": "10",
@@ -250,8 +363,16 @@
         "price": 175,
         "categoryId": "cat_mujer",
         "collectionId": "col_linen",
-        "colors": ["Ivory", "Negro"],
-        "sizes": ["XS", "S", "M", "L"],
+        "colors": [
+          "Ivory",
+          "Negro"
+        ],
+        "sizes": [
+          "XS",
+          "S",
+          "M",
+          "L"
+        ],
         "image": {
           "url": "https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?w=1200&q=80",
           "alt": "Falda Midi Plisada"
@@ -265,8 +386,16 @@
         "price": 210,
         "categoryId": "cat_hombre",
         "collectionId": "col_otono",
-        "colors": ["Camel", "Graphite"],
-        "sizes": ["S", "M", "L", "XL"],
+        "colors": [
+          "Camel",
+          "Graphite"
+        ],
+        "sizes": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
         "image": {
           "url": "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=1200&q=80",
           "alt": "Sweater Lana Oversized"
@@ -280,8 +409,13 @@
         "price": 160,
         "categoryId": "cat_accesorios",
         "collectionId": "col_linen",
-        "colors": ["Ámbar", "Tortoise"],
-        "sizes": ["Único"],
+        "colors": [
+          "Ámbar",
+          "Tortoise"
+        ],
+        "sizes": [
+          "Único"
+        ],
         "image": {
           "url": "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=1200&q=80",
           "alt": "Gafas Acetato Ámbar"
@@ -297,20 +431,39 @@
         "url": "https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=2400&q=85",
         "alt": "Modelo con abrigo de temporada Atelier en estudio de luz natural"
       },
-      "ctaPrimary": { "label": "Comprar ahora", "href": "/tienda" },
-      "ctaSecondary": { "label": "Ver colección", "href": "/tienda?categoria=mujer" }
+      "ctaPrimary": {
+        "label": "Comprar ahora",
+        "href": "/tienda"
+      },
+      "ctaSecondary": {
+        "label": "Ver colección",
+        "href": "/tienda?categoria=mujer"
+      }
     },
     "collections": {
       "eyebrow": "Colecciones",
       "title": "Tres ediciones. Una misma intención.",
       "itemCtaLabel": "Explorar",
-      "collectionIds": ["col_otono", "col_linen", "col_noir"]
+      "collectionIds": [
+        "col_otono",
+        "col_linen",
+        "col_noir"
+      ]
     },
     "featured": {
       "eyebrow": "Selección",
       "title": "Piezas de la temporada",
-      "viewAll": { "label": "Ver todo", "href": "/tienda" },
-      "productIds": ["1", "2", "3", "5", "6"]
+      "viewAll": {
+        "label": "Ver todo",
+        "href": "/tienda"
+      },
+      "productIds": [
+        "1",
+        "2",
+        "3",
+        "5",
+        "6"
+      ]
     },
     "editorial": {
       "eyebrow": "Lookbook",
@@ -320,7 +473,10 @@
         "url": "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=2400&q=85",
         "alt": "Lookbook Atelier en calle urbana con luz de tarde"
       },
-      "cta": { "label": "Conoce la marca", "href": "/nosotros" }
+      "cta": {
+        "label": "Conoce la marca",
+        "href": "/nosotros"
+      }
     },
     "newsletter": {
       "eyebrow": "Newsletter",
@@ -381,7 +537,10 @@
       "closing": {
         "title": "Empieza tu guardarropa",
         "body": "Explora la temporada y encuentra las piezas que realmente necesitas.",
-        "cta": { "label": "Ir a la tienda", "href": "/tienda" }
+        "cta": {
+          "label": "Ir a la tienda",
+          "href": "/tienda"
+        }
       }
     },
     "footer": {
@@ -390,27 +549,60 @@
         {
           "title": "Explorar",
           "links": [
-            { "label": "Tienda", "href": "/tienda" },
-            { "label": "Mujer", "href": "/tienda?categoria=mujer" },
-            { "label": "Hombre", "href": "/tienda?categoria=hombre" },
-            { "label": "Accesorios", "href": "/tienda?categoria=accesorios" }
+            {
+              "label": "Tienda",
+              "href": "/tienda"
+            },
+            {
+              "label": "Mujer",
+              "href": "/tienda?categoria=mujer"
+            },
+            {
+              "label": "Hombre",
+              "href": "/tienda?categoria=hombre"
+            },
+            {
+              "label": "Accesorios",
+              "href": "/tienda?categoria=accesorios"
+            }
           ]
         },
         {
           "title": "Marca",
           "links": [
-            { "label": "Nuestra historia", "href": "/nosotros" },
-            { "label": "Sostenibilidad", "href": "/nosotros#sostenibilidad" },
-            { "label": "Ateliers", "href": "/nosotros#ateliers" }
+            {
+              "label": "Nuestra historia",
+              "href": "/nosotros"
+            },
+            {
+              "label": "Sostenibilidad",
+              "href": "/nosotros#sostenibilidad"
+            },
+            {
+              "label": "Ateliers",
+              "href": "/nosotros#ateliers"
+            }
           ]
         },
         {
           "title": "Ayuda",
           "links": [
-            { "label": "Envíos", "href": "#" },
-            { "label": "Devoluciones", "href": "#" },
-            { "label": "Guía de tallas", "href": "#" },
-            { "label": "Contacto", "href": "#" }
+            {
+              "label": "Envíos",
+              "href": "#"
+            },
+            {
+              "label": "Devoluciones",
+              "href": "#"
+            },
+            {
+              "label": "Guía de tallas",
+              "href": "#"
+            },
+            {
+              "label": "Contacto",
+              "href": "#"
+            }
           ]
         }
       ],
@@ -449,6 +641,34 @@
     "notFound": {
       "title": "Página no encontrada",
       "body": "Esta ruta no existe en Atelier."
+    },
+    "salesMode": {
+      "stock": {
+        "navLabel": "Entrega inmediata",
+        "shopBanner": "Catálogo con entrega inmediata según disponibilidad.",
+        "cartLabel": "Compra con entrega inmediata"
+      },
+      "madeToOrder": {
+        "navLabel": "Bajo pedido",
+        "shopBanner": "Catálogo bajo pedido.",
+        "preparationLabel": "Preparación",
+        "closedMessage": "Ahora mismo no aceptamos pedidos a medida.",
+        "reopensPrefix": "Volvemos",
+        "cartLabel": "Compra bajo pedido",
+        "cartClosedWarning": "Los pedidos a medida están cerrados temporalmente. No podrás completar el checkout hasta que reabran."
+      },
+      "nav": [
+        {
+          "salesMode": "stock",
+          "label": "Entrega inmediata",
+          "href": "/tienda?salesMode=stock"
+        },
+        {
+          "salesMode": "madeToOrder",
+          "label": "Bajo pedido",
+          "href": "/tienda?salesMode=madeToOrder"
+        }
+      ]
     }
   }
 }

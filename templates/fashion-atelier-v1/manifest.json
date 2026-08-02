@@ -19,18 +19,43 @@
     "renderer": "AtelierApp"
   },
   "routes": [
-    { "path": "/", "page": "home", "sections": ["hero", "collections", "featured", "editorial", "newsletter"] },
+    {
+      "path": "/",
+      "page": "home",
+      "sections": [
+        "hero",
+        "collections",
+        "featured",
+        "editorial",
+        "newsletter"
+      ]
+    },
     {
       "path": "/tienda",
       "page": "shop",
-      "sections": ["shop"],
+      "sections": [
+        "shop"
+      ],
       "queryParams": {
         "categoria": "Optional category slug (catalog.categories[].slug). Navbar shopFilter.categorySlug resolves here.",
         "coleccion": "Optional collection slug (catalog.collections[].slug). Navbar shopFilter.collectionSlug resolves here."
       }
     },
-    { "path": "/tienda/[slug]", "page": "product", "sections": ["product", "related"] },
-    { "path": "/nosotros", "page": "about", "sections": ["about"] }
+    {
+      "path": "/tienda/[slug]",
+      "page": "product",
+      "sections": [
+        "product",
+        "related"
+      ]
+    },
+    {
+      "path": "/nosotros",
+      "page": "about",
+      "sections": [
+        "about"
+      ]
+    }
   ],
   "sections": [
     "hero",
@@ -86,18 +111,78 @@
       "taxCalculation": "host-controlled",
       "shippingCalculation": "host-controlled",
       "inventoryValidation": "host-controlled",
-      "placeOrder": "host-controlled"
+      "placeOrder": "host-controlled",
+      "salesModeSwitch": "unsupported"
     }
   },
   "mediaSlots": [
-    { "id": "hero.image", "section": "hero", "aspect": "full-bleed", "recommendedWidth": 2400 },
-    { "id": "collections[].image", "section": "collections", "aspect": "4/5", "count": 3, "recommendedWidth": 1600 },
-    { "id": "editorial.image", "section": "editorial", "aspect": "full-bleed", "recommendedWidth": 2400 },
-    { "id": "about.bannerImage", "section": "about", "aspect": "wide", "recommendedWidth": 2400 },
-    { "id": "products[].image", "section": "catalog", "aspect": "3/4", "recommendedWidth": 1200 },
-    { "id": "products[].hoverImage", "section": "catalog", "aspect": "3/4", "optional": true }
+    {
+      "id": "hero.image",
+      "section": "hero",
+      "aspect": "full-bleed",
+      "recommendedWidth": 2400
+    },
+    {
+      "id": "collections[].image",
+      "section": "collections",
+      "aspect": "4/5",
+      "count": 3,
+      "recommendedWidth": 1600
+    },
+    {
+      "id": "editorial.image",
+      "section": "editorial",
+      "aspect": "full-bleed",
+      "recommendedWidth": 2400
+    },
+    {
+      "id": "about.bannerImage",
+      "section": "about",
+      "aspect": "wide",
+      "recommendedWidth": 2400
+    },
+    {
+      "id": "products[].image",
+      "section": "catalog",
+      "aspect": "3/4",
+      "recommendedWidth": 1200
+    },
+    {
+      "id": "products[].hoverImage",
+      "section": "catalog",
+      "aspect": "3/4",
+      "optional": true
+    }
   ],
   "constraints": {
+    "catalogRefs": [
+      "sections.featured.productIds",
+      "sections.collections.collectionIds"
+    ],
+    "catalogBindings": [
+      {
+        "path": "sections.featured.productIds",
+        "kind": "product",
+        "sectionId": "featured",
+        "label": {
+          "es": "Piezas destacadas",
+          "en": "Featured pieces"
+        },
+        "maxItems": 8
+      },
+      {
+        "path": "sections.collections.collectionIds",
+        "kind": "collection",
+        "sectionId": "collections",
+        "label": {
+          "es": "Colecciones",
+          "en": "Collections"
+        },
+        "maxItems": 3
+      }
+    ],
+    "commerceFeaturedProductsPath": "sections.featured.productIds",
+    "commerceFeaturedCollectionsPath": "sections.collections.collectionIds",
     "featuredProductPath": "sections.featured.productIds",
     "collectionIdsPath": "sections.collections.collectionIds",
     "collectionsCount": 3

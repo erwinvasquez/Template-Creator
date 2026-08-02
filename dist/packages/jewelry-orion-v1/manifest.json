@@ -4,7 +4,7 @@
   "displayName": "Orion Alta Joyería",
   "description": "Template e-commerce de alta joyería. Identidad visual fija: tipografía Bodoni Moda/Jost, negro platino + acento champán, header sticky con marca a la izquierda, hero full-bleed con wordmark inferior, piezas insignia, atelier 50/50, materiales y banda de cita privada.",
   "category": "ecommerce-jewelry",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "schemaVersion": "1.0.0",
   "locale": "es-ES",
   "preview": {
@@ -19,18 +19,43 @@
     "renderer": "JewelryApp"
   },
   "routes": [
-    { "path": "/", "page": "home", "sections": ["hero", "signatures", "craft", "materials", "appointment"] },
+    {
+      "path": "/",
+      "page": "home",
+      "sections": [
+        "hero",
+        "signatures",
+        "craft",
+        "materials",
+        "appointment"
+      ]
+    },
     {
       "path": "/coleccion",
       "page": "shop",
-      "sections": ["shop"],
+      "sections": [
+        "shop"
+      ],
       "queryParams": {
         "categoria": "Optional category slug (catalog.categories[].slug). Navbar shopFilter.categorySlug resolves here.",
         "coleccion": "Optional collection slug (catalog.collections[].slug). Navbar shopFilter.collectionSlug resolves here."
       }
     },
-    { "path": "/coleccion/[slug]", "page": "product", "sections": ["product", "related"] },
-    { "path": "/atelier", "page": "about", "sections": ["atelier"] }
+    {
+      "path": "/coleccion/[slug]",
+      "page": "product",
+      "sections": [
+        "product",
+        "related"
+      ]
+    },
+    {
+      "path": "/atelier",
+      "page": "about",
+      "sections": [
+        "atelier"
+      ]
+    }
   ],
   "sections": [
     "hero",
@@ -88,24 +113,73 @@
       "taxCalculation": "host-controlled",
       "shippingCalculation": "host-controlled",
       "inventoryValidation": "host-controlled",
-      "placeOrder": "host-controlled"
+      "placeOrder": "host-controlled",
+      "salesModeSwitch": "unsupported"
     }
   },
   "mediaSlots": [
-    { "id": "hero.image", "section": "hero", "aspect": "full-bleed", "recommendedWidth": 2400 },
-    { "id": "craft.image", "section": "craft", "aspect": "4/5", "recommendedWidth": 1600 },
-    { "id": "materials.items[].image", "section": "materials", "aspect": "1/1", "count": 4, "recommendedWidth": 1200 },
-    { "id": "atelier.bannerImage", "section": "atelier", "aspect": "wide", "recommendedWidth": 2400 },
-    { "id": "products[].image", "section": "catalog", "aspect": "1/1", "recommendedWidth": 1200 },
-    { "id": "products[].hoverImage", "section": "catalog", "aspect": "1/1", "optional": true }
+    {
+      "id": "hero.image",
+      "section": "hero",
+      "aspect": "full-bleed",
+      "recommendedWidth": 2400
+    },
+    {
+      "id": "craft.image",
+      "section": "craft",
+      "aspect": "4/5",
+      "recommendedWidth": 1600
+    },
+    {
+      "id": "materials.items[].image",
+      "section": "materials",
+      "aspect": "1/1",
+      "count": 4,
+      "recommendedWidth": 1200
+    },
+    {
+      "id": "atelier.bannerImage",
+      "section": "atelier",
+      "aspect": "wide",
+      "recommendedWidth": 2400
+    },
+    {
+      "id": "products[].image",
+      "section": "catalog",
+      "aspect": "1/1",
+      "recommendedWidth": 1200
+    },
+    {
+      "id": "products[].hoverImage",
+      "section": "catalog",
+      "aspect": "1/1",
+      "optional": true
+    }
   ],
   "constraints": {
+    "catalogRefs": [
+      "sections.signatures.productIds"
+    ],
+    "catalogBindings": [
+      {
+        "path": "sections.signatures.productIds",
+        "kind": "product",
+        "sectionId": "signatures",
+        "label": {
+          "es": "Piezas insignia",
+          "en": "Signature pieces"
+        },
+        "maxItems": 6
+      }
+    ],
+    "commerceFeaturedProductsPath": "sections.signatures.productIds",
     "featuredProductPath": "sections.signatures.productIds",
     "featuredCount": 3
   },
   "export": {
     "files": [
       "manifest.json",
+      "builder.manifest.json",
       "schema.json",
       "commerce.schema.json",
       "defaults.json",

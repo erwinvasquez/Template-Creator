@@ -2,7 +2,7 @@
 
 import { Suspense } from "react";
 import { useSiteContent } from "../../lib/site-content";
-import { ShopCatalog } from "../ShopCatalog";
+import { CommerceAwareCatalog } from "../CommerceAwareCatalog";
 
 function ShopCatalogSkeleton() {
   return (
@@ -25,19 +25,28 @@ export function ShopView() {
   return (
     <div className="mx-auto max-w-7xl px-6 pb-24 pt-28 md:px-8 md:pt-32">
       <header className="mb-12 max-w-2xl">
-        <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-cta">
+        <p
+          data-wb-slot="shop.eyebrow"
+          className="text-[11px] font-medium uppercase tracking-[0.2em] text-cta"
+        >
           {shop.eyebrow}
         </p>
-        <h1 className="mt-3 font-serif text-4xl tracking-wide md:text-5xl">
+        <h1
+          data-wb-slot="shop.title"
+          className="mt-3 font-serif text-4xl tracking-wide md:text-5xl"
+        >
           {shop.title}
         </h1>
-        <p className="mt-4 text-sm leading-relaxed text-muted md:text-base">
+        <p
+          data-wb-slot="shop.description"
+          className="mt-4 text-sm leading-relaxed text-muted md:text-base"
+        >
           {shop.description}
         </p>
       </header>
 
       <Suspense fallback={<ShopCatalogSkeleton />}>
-        <ShopCatalog />
+        <CommerceAwareCatalog />
       </Suspense>
     </div>
   );

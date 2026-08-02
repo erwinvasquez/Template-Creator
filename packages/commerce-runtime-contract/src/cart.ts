@@ -33,6 +33,10 @@ export interface CartViewModel {
   requiresShipping: boolean;
   lines: CartLineViewModel[];
   cartLimits?: CartLimitsViewModel;
+  /**
+   * Dual-mode cart warning when `salesMode === "madeToOrder"` and channel is closed.
+   * Templates show `ui.salesMode.madeToOrder.cartClosedWarning` when this is `false`.
+   */
   madeToOrderAcceptingOrders?: boolean;
   cartHref: string;
   checkoutHref: string;

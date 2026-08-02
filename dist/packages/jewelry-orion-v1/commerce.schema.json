@@ -4,14 +4,25 @@
   "title": "CommerceManifest",
   "type": "object",
   "additionalProperties": false,
-  "required": ["mode", "contractVersion", "views", "capabilities"],
+  "required": [
+    "mode",
+    "contractVersion",
+    "views",
+    "capabilities"
+  ],
   "properties": {
     "mode": {
       "type": "string",
-      "enum": ["preview-only", "runtime"]
+      "enum": [
+        "preview-only",
+        "runtime"
+      ]
     },
     "contractVersion": {
-      "type": ["string", "null"]
+      "type": [
+        "string",
+        "null"
+      ]
     },
     "views": {
       "type": "object",
@@ -25,16 +36,36 @@
         "orderConfirmation"
       ],
       "properties": {
-        "productListing": { "type": "boolean" },
-        "productDetail": { "type": "boolean" },
-        "cartPage": { "type": "boolean" },
-        "cartDrawer": { "type": "boolean" },
-        "checkoutLayout": { "type": "boolean" },
-        "checkoutPage": { "type": "boolean" },
-        "orderConfirmation": { "type": "boolean" },
-        "accountLogin": { "type": "boolean" },
-        "accountRegister": { "type": "boolean" },
-        "accountDashboard": { "type": "boolean" }
+        "productListing": {
+          "type": "boolean"
+        },
+        "productDetail": {
+          "type": "boolean"
+        },
+        "cartPage": {
+          "type": "boolean"
+        },
+        "cartDrawer": {
+          "type": "boolean"
+        },
+        "checkoutLayout": {
+          "type": "boolean"
+        },
+        "checkoutPage": {
+          "type": "boolean"
+        },
+        "orderConfirmation": {
+          "type": "boolean"
+        },
+        "accountLogin": {
+          "type": "boolean"
+        },
+        "accountRegister": {
+          "type": "boolean"
+        },
+        "accountDashboard": {
+          "type": "boolean"
+        }
       }
     },
     "capabilities": {
@@ -43,27 +74,72 @@
         "$ref": "#/definitions/CapabilityLevel"
       },
       "properties": {
-        "productListing": { "$ref": "#/definitions/CapabilityLevel" },
-        "search": { "$ref": "#/definitions/CapabilityLevel" },
-        "categoryFilter": { "$ref": "#/definitions/CapabilityLevel" },
-        "collectionFilter": { "$ref": "#/definitions/CapabilityLevel" },
-        "brandFilter": { "$ref": "#/definitions/CapabilityLevel" },
-        "sorting": { "$ref": "#/definitions/CapabilityLevel" },
-        "cursorPagination": { "$ref": "#/definitions/CapabilityLevel" },
-        "productDetail": { "$ref": "#/definitions/CapabilityLevel" },
-        "variantSelector": { "$ref": "#/definitions/CapabilityLevel" },
-        "gallery": { "$ref": "#/definitions/CapabilityLevel" },
-        "stockIndicator": { "$ref": "#/definitions/CapabilityLevel" },
-        "relatedProducts": { "$ref": "#/definitions/CapabilityLevel" },
-        "cartDrawer": { "$ref": "#/definitions/CapabilityLevel" },
-        "cartPage": { "$ref": "#/definitions/CapabilityLevel" },
-        "checkoutLayout": { "$ref": "#/definitions/CapabilityLevel" },
-        "checkoutMapPicker": { "$ref": "#/definitions/CapabilityLevel" },
-        "paymentVoucherUpload": { "$ref": "#/definitions/CapabilityLevel" },
-        "taxCalculation": { "$ref": "#/definitions/CapabilityLevel" },
-        "shippingCalculation": { "$ref": "#/definitions/CapabilityLevel" },
-        "inventoryValidation": { "$ref": "#/definitions/CapabilityLevel" },
-        "placeOrder": { "$ref": "#/definitions/CapabilityLevel" }
+        "productListing": {
+          "$ref": "#/definitions/CapabilityLevel"
+        },
+        "search": {
+          "$ref": "#/definitions/CapabilityLevel"
+        },
+        "categoryFilter": {
+          "$ref": "#/definitions/CapabilityLevel"
+        },
+        "collectionFilter": {
+          "$ref": "#/definitions/CapabilityLevel"
+        },
+        "brandFilter": {
+          "$ref": "#/definitions/CapabilityLevel"
+        },
+        "sorting": {
+          "$ref": "#/definitions/CapabilityLevel"
+        },
+        "cursorPagination": {
+          "$ref": "#/definitions/CapabilityLevel"
+        },
+        "productDetail": {
+          "$ref": "#/definitions/CapabilityLevel"
+        },
+        "variantSelector": {
+          "$ref": "#/definitions/CapabilityLevel"
+        },
+        "gallery": {
+          "$ref": "#/definitions/CapabilityLevel"
+        },
+        "stockIndicator": {
+          "$ref": "#/definitions/CapabilityLevel"
+        },
+        "relatedProducts": {
+          "$ref": "#/definitions/CapabilityLevel"
+        },
+        "cartDrawer": {
+          "$ref": "#/definitions/CapabilityLevel"
+        },
+        "cartPage": {
+          "$ref": "#/definitions/CapabilityLevel"
+        },
+        "checkoutLayout": {
+          "$ref": "#/definitions/CapabilityLevel"
+        },
+        "checkoutMapPicker": {
+          "$ref": "#/definitions/CapabilityLevel"
+        },
+        "paymentVoucherUpload": {
+          "$ref": "#/definitions/CapabilityLevel"
+        },
+        "taxCalculation": {
+          "$ref": "#/definitions/CapabilityLevel"
+        },
+        "shippingCalculation": {
+          "$ref": "#/definitions/CapabilityLevel"
+        },
+        "inventoryValidation": {
+          "$ref": "#/definitions/CapabilityLevel"
+        },
+        "placeOrder": {
+          "$ref": "#/definitions/CapabilityLevel"
+        },
+        "salesModeSwitch": {
+          "$ref": "#/definitions/CapabilityLevel"
+        }
       }
     }
   },

@@ -17,6 +17,7 @@ export function CraftBand() {
           src={resolveMediaUrl(craft.image, payload.media)}
           alt={craft.image.alt}
           fill
+          data-wb-slot="craft.image"
           className="object-cover"
           sizes="(max-width: 768px) 100vw, 50vw"
         />
@@ -25,13 +26,22 @@ export function CraftBand() {
       <div className="flex items-center bg-surface px-6 py-16 md:px-16 md:py-0">
         <Reveal>
           <div className="max-w-md">
-            <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-cta">
+            <p
+              data-wb-slot="craft.eyebrow"
+              className="text-[11px] font-medium uppercase tracking-[0.2em] text-cta"
+            >
               {craft.eyebrow}
             </p>
-            <h2 className="mt-3 font-serif text-4xl tracking-wide text-balance md:text-5xl">
+            <h2
+              data-wb-slot="craft.title"
+              className="mt-3 font-serif text-4xl tracking-wide text-balance md:text-5xl"
+            >
               {craft.title}
             </h2>
-            <p className="mt-5 text-sm leading-relaxed text-muted md:text-base">
+            <p
+              data-wb-slot="craft.body"
+              className="mt-5 text-sm leading-relaxed text-muted md:text-base"
+            >
               {craft.body}
             </p>
             {craft.cta && (

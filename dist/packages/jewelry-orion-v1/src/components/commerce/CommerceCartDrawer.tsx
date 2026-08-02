@@ -4,8 +4,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { Minus, Plus, ShoppingBag, X } from "lucide-react";
 import type { CartViewProps } from "@shopenlinea/commerce-runtime-contract";
+import { useCommerceCapabilities } from "../../lib/commerce-host";
 import { useSiteContent } from "../../lib/site-content";
 import { withBasePath } from "../../content/resolve";
+import { cartSalesModeLabel, showsSalesModeChrome } from "../../lib/sales-mode";
+
+function lineMaxQty(maxQuantity: number | null | undefined): number {
+  return maxQuantity ?? Number.POSITIVE_INFINITY;
+}
 
 export function CommerceCartDrawer({
   cart,
@@ -14,7 +20,19 @@ export function CommerceCartDrawer({
   onClose,
 }: CartViewProps) {
   const { payload, basePath } = useSiteContent();
+  const capabilities = useCommerceCapabilities();
   const cartUi = payload.ui?.cart;
+  const showSalesModeChrome = showsSalesModeChrome(capabilities);
+  const salesModeLine =
+    showSalesModeChrome && cart.lines.length > 0
+      ? cartSalesModeLabel(cart.salesMode, payload.ui?.salesMode)
+      : null;
+  const cartClosedWarning =
+    showSalesModeChrome &&
+    cart.salesMode === "madeToOrder" &&
+    cart.madeToOrderAcceptingOrders === false
+      ? payload.ui?.salesMode?.madeToOrder?.cartClosedWarning
+      : null;
 
   if (!isOpen) return null;
 
@@ -62,7 +80,11 @@ export function CommerceCartDrawer({
               </Link>
             </div>
           ) : (
-            <ul className="space-y-6">
+            <>
+              {salesModeLine ? (
+                <p className="mb-4 text-xs text-muted">{salesModeLine}</p>
+              ) : null}
+              <ul className="space-y-6">
               {cart.lines.map((line) => (
                 <li key={line.lineId} className="flex gap-4">
                   <div className="relative h-24 w-24 shrink-0 overflow-hidden bg-surface">
@@ -124,7 +146,10 @@ export function CommerceCartDrawer({
                           onClick={() =>
                             actions.updateCartQuantity(
                               line.variantId,
-                              line.quantity + 1,
+                              Math.min(
+                                lineMaxQty(line.maxQuantity),
+                                line.quantity + 1,
+                              ),
                             )
                           }
                           aria-label="Más"
@@ -140,6 +165,7 @@ export function CommerceCartDrawer({
                 </li>
               ))}
             </ul>
+            </>
           )}
         </div>
 
@@ -154,6 +180,11 @@ export function CommerceCartDrawer({
               <span className="text-muted">Subtotal</span>
               <span className="font-serif text-xl">{cart.subtotalDisplay}</span>
             </div>
+            {cartClosedWarning ? (
+              <p className="mb-4 text-sm text-muted" role="status">
+                {cartClosedWarning}
+              </p>
+            ) : null}
             <button
               type="button"
               onClick={() => actions.navigateToCheckout()}

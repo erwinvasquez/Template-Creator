@@ -37,6 +37,14 @@ export interface CommerceTemplateCapabilities {
   shippingCalculation: CapabilityLevel;
   inventoryValidation: CapabilityLevel;
   placeOrder: CapabilityLevel;
+
+  /**
+   * Dual catalog modes (stock + made-to-order) are both enabled for the org.
+   * When not `supported`, templates MUST NOT render sales-mode chrome
+   * (nav tabs, shop mode banner, cart mode line). Operational fields like
+   * `madeToOrderClosed` / `preparationPromiseLabel` still apply when the host sends them.
+   */
+  salesModeSwitch: CapabilityLevel;
 }
 
 export const DEFAULT_PREVIEW_CAPABILITIES: CommerceTemplateCapabilities = {
@@ -61,4 +69,6 @@ export const DEFAULT_PREVIEW_CAPABILITIES: CommerceTemplateCapabilities = {
   shippingCalculation: "host-controlled",
   inventoryValidation: "host-controlled",
   placeOrder: "host-controlled",
+  /** Preview/lab default: single-mode UX (no mode chrome). */
+  salesModeSwitch: "unsupported",
 };

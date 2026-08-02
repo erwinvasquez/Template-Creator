@@ -4,6 +4,7 @@ import { useState } from "react";
 import type { ProductListingViewProps } from "@shopenlinea/commerce-runtime-contract";
 import { useSiteContent } from "../../lib/site-content";
 import { CommerceProductCard } from "./CommerceProductCard";
+import { SalesModeShopBanner } from "./SalesModeShopBanner";
 
 /**
  * Adaptive listing: search only when capability + meaningful catalog;
@@ -46,6 +47,7 @@ export function ProductListingView({
 
   return (
     <div>
+      <SalesModeShopBanner filters={filters} capabilities={capabilities} />
       {showSearch && (
         <form
           className="mb-8"

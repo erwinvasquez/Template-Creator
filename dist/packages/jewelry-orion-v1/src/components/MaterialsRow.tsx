@@ -15,10 +15,16 @@ export function MaterialsRow() {
       <div className="mx-auto max-w-7xl px-6 md:px-10">
         <Reveal>
           <div className="mb-12 max-w-xl">
-            <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-cta">
+            <p
+              data-wb-slot="materials.eyebrow"
+              className="text-[11px] font-medium uppercase tracking-[0.2em] text-cta"
+            >
               {materials.eyebrow}
             </p>
-            <h2 className="mt-3 font-serif text-4xl tracking-wide text-balance md:text-5xl">
+            <h2
+              data-wb-slot="materials.title"
+              className="mt-3 font-serif text-4xl tracking-wide text-balance md:text-5xl"
+            >
               {materials.title}
             </h2>
           </div>

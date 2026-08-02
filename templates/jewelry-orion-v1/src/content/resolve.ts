@@ -60,6 +60,7 @@ export function accountPath(
 export const SHOP_QUERY = {
   category: "categoria",
   collection: "coleccion",
+  salesMode: "salesMode",
 } as const;
 
 /** Resolve navbar entry to a template-relative href. */

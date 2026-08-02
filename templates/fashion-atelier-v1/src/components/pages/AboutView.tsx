@@ -14,13 +14,22 @@ export function AboutView() {
     <div className="pb-24 pt-28 md:pt-32">
       <section className="mx-auto max-w-7xl px-6 md:px-8">
         <Reveal>
-          <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-cta">
+          <p
+            data-wb-slot="about.intro.eyebrow"
+            className="text-[11px] font-medium uppercase tracking-[0.2em] text-cta"
+          >
             {about.intro.eyebrow}
           </p>
-          <h1 className="mt-3 max-w-3xl font-serif text-4xl tracking-wide text-balance md:text-6xl">
+          <h1
+            data-wb-slot="about.intro.title"
+            className="mt-3 max-w-3xl font-serif text-4xl tracking-wide text-balance md:text-6xl"
+          >
             {about.intro.title}
           </h1>
-          <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted md:text-lg">
+          <p
+            data-wb-slot="about.intro.body"
+            className="mt-6 max-w-2xl text-base leading-relaxed text-muted md:text-lg"
+          >
             {about.intro.body}
           </p>
         </Reveal>
@@ -31,6 +40,7 @@ export function AboutView() {
           src={resolveMediaUrl(about.bannerImage, payload.media)}
           alt={about.bannerImage.alt}
           fill
+          data-wb-slot="about.bannerImage"
           className="object-cover"
           sizes="100vw"
           priority

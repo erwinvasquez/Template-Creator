@@ -227,6 +227,27 @@ export type ContentPayload = {
       title?: string;
       body?: string;
     };
+    salesMode?: {
+      stock?: {
+        navLabel?: string;
+        shopBanner?: string;
+        cartLabel?: string;
+      };
+      madeToOrder?: {
+        navLabel?: string;
+        shopBanner?: string;
+        preparationLabel?: string;
+        closedMessage?: string;
+        reopensPrefix?: string;
+        cartLabel?: string;
+        cartClosedWarning?: string;
+      };
+      nav?: Array<{
+        salesMode: "stock" | "madeToOrder";
+        label: string;
+        href: string;
+      }>;
+    };
   };
 };
 

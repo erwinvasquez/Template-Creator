@@ -31,10 +31,26 @@
   },
   "navigation": {
     "primary": [
-      { "type": "path", "label": "Colección", "href": "/coleccion" },
-      { "type": "shopFilter", "label": "Anillos", "categorySlug": "anillos" },
-      { "type": "shopFilter", "label": "Collares", "categorySlug": "collares" },
-      { "type": "path", "label": "Atelier", "href": "/atelier" }
+      {
+        "type": "path",
+        "label": "Colección",
+        "href": "/coleccion"
+      },
+      {
+        "type": "shopFilter",
+        "label": "Anillos",
+        "categorySlug": "anillos"
+      },
+      {
+        "type": "shopFilter",
+        "label": "Collares",
+        "categorySlug": "collares"
+      },
+      {
+        "type": "path",
+        "label": "Atelier",
+        "href": "/atelier"
+      }
     ]
   },
   "seo": {
@@ -60,10 +76,26 @@
   },
   "catalog": {
     "categories": [
-      { "id": "cat_anillos", "slug": "anillos", "label": "Anillos" },
-      { "id": "cat_collares", "slug": "collares", "label": "Collares" },
-      { "id": "cat_aretes", "slug": "aretes", "label": "Aretes" },
-      { "id": "cat_pulseras", "slug": "pulseras", "label": "Pulseras" }
+      {
+        "id": "cat_anillos",
+        "slug": "anillos",
+        "label": "Anillos"
+      },
+      {
+        "id": "cat_collares",
+        "slug": "collares",
+        "label": "Collares"
+      },
+      {
+        "id": "cat_aretes",
+        "slug": "aretes",
+        "label": "Aretes"
+      },
+      {
+        "id": "cat_pulseras",
+        "slug": "pulseras",
+        "label": "Pulseras"
+      }
     ],
     "collections": [
       {
@@ -106,8 +138,18 @@
         "price": 2450,
         "categoryId": "cat_anillos",
         "collectionId": "col_aurora",
-        "metals": ["Oro blanco 18k", "Oro amarillo 18k", "Platino"],
-        "sizes": ["50", "52", "54", "56", "58"],
+        "metals": [
+          "Oro blanco 18k",
+          "Oro amarillo 18k",
+          "Platino"
+        ],
+        "sizes": [
+          "50",
+          "52",
+          "54",
+          "56",
+          "58"
+        ],
         "image": {
           "url": "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=1200&q=80",
           "alt": "Anillo Solitaire Aurora con diamante central"
@@ -121,13 +163,23 @@
         "price": 1380,
         "categoryId": "cat_anillos",
         "collectionId": "col_terra",
-        "metals": ["Oro amarillo 18k", "Oro rosa 18k"],
-        "sizes": ["50", "52", "54", "56"],
+        "metals": [
+          "Oro amarillo 18k",
+          "Oro rosa 18k"
+        ],
+        "sizes": [
+          "50",
+          "52",
+          "54",
+          "56"
+        ],
         "image": {
           "url": "https://images.unsplash.com/photo-1611955167811-4711904bb9f8?w=1200&q=80",
           "alt": "Anillo Constelación Ámbar con gemas en racimo"
         },
-        "badges": ["new"]
+        "badges": [
+          "new"
+        ]
       },
       {
         "id": "3",
@@ -137,8 +189,18 @@
         "price": 890,
         "categoryId": "cat_anillos",
         "collectionId": "col_terra",
-        "metals": ["Oro amarillo 18k", "Oro blanco 18k", "Oro rosa 18k"],
-        "sizes": ["50", "52", "54", "56", "58"],
+        "metals": [
+          "Oro amarillo 18k",
+          "Oro blanco 18k",
+          "Oro rosa 18k"
+        ],
+        "sizes": [
+          "50",
+          "52",
+          "54",
+          "56",
+          "58"
+        ],
         "image": {
           "url": "https://images.unsplash.com/photo-1584302179602-e4c3d3fd629d?w=1200&q=80",
           "alt": "Set de tres anillos apilables Trío Oro"
@@ -152,8 +214,15 @@
         "price": 1650,
         "categoryId": "cat_collares",
         "collectionId": "col_aurora",
-        "metals": ["Oro blanco 18k", "Plata 925"],
-        "sizes": ["40 cm", "45 cm", "50 cm"],
+        "metals": [
+          "Oro blanco 18k",
+          "Plata 925"
+        ],
+        "sizes": [
+          "40 cm",
+          "45 cm",
+          "50 cm"
+        ],
         "image": {
           "url": "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=1200&q=80",
           "alt": "Collar de perlas Perla Regia en estuche"
@@ -167,13 +236,21 @@
         "price": 720,
         "categoryId": "cat_collares",
         "collectionId": "col_nocturne",
-        "metals": ["Oro amarillo 18k", "Oro blanco 18k"],
-        "sizes": ["40 cm", "45 cm"],
+        "metals": [
+          "Oro amarillo 18k",
+          "Oro blanco 18k"
+        ],
+        "sizes": [
+          "40 cm",
+          "45 cm"
+        ],
         "image": {
           "url": "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=1200&q=80",
           "alt": "Collar Luna Azul con dije de topacio"
         },
-        "badges": ["new"]
+        "badges": [
+          "new"
+        ]
       },
       {
         "id": "6",
@@ -183,8 +260,14 @@
         "price": 540,
         "categoryId": "cat_collares",
         "collectionId": "col_terra",
-        "metals": ["Oro amarillo 18k"],
-        "sizes": ["40 cm", "45 cm", "50 cm"],
+        "metals": [
+          "Oro amarillo 18k"
+        ],
+        "sizes": [
+          "40 cm",
+          "45 cm",
+          "50 cm"
+        ],
         "image": {
           "url": "https://images.unsplash.com/photo-1506630448388-4e683c67ddb0?w=1200&q=80",
           "alt": "Collar Cadenas Doradas con dijes superpuestos"
@@ -198,13 +281,20 @@
         "price": 980,
         "categoryId": "cat_aretes",
         "collectionId": "col_nocturne",
-        "metals": ["Oro blanco 18k", "Platino"],
-        "sizes": ["Único"],
+        "metals": [
+          "Oro blanco 18k",
+          "Platino"
+        ],
+        "sizes": [
+          "Único"
+        ],
         "image": {
           "url": "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=1200&q=80",
           "alt": "Aretes Zafiro Cascada con piedra azul"
         },
-        "badges": ["limited"]
+        "badges": [
+          "limited"
+        ]
       },
       {
         "id": "8",
@@ -214,8 +304,13 @@
         "price": 410,
         "categoryId": "cat_aretes",
         "collectionId": "col_aurora",
-        "metals": ["Oro amarillo 18k", "Oro rosa 18k"],
-        "sizes": ["Único"],
+        "metals": [
+          "Oro amarillo 18k",
+          "Oro rosa 18k"
+        ],
+        "sizes": [
+          "Único"
+        ],
         "image": {
           "url": "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=1200&q=80",
           "alt": "Aretes de aro trenzado en oro"
@@ -229,8 +324,15 @@
         "price": 1120,
         "categoryId": "cat_pulseras",
         "collectionId": "col_terra",
-        "metals": ["Oro rosa 18k", "Oro blanco 18k"],
-        "sizes": ["16 cm", "18 cm", "20 cm"],
+        "metals": [
+          "Oro rosa 18k",
+          "Oro blanco 18k"
+        ],
+        "sizes": [
+          "16 cm",
+          "18 cm",
+          "20 cm"
+        ],
         "image": {
           "url": "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=1200&q=80",
           "alt": "Pulsera Infinito Rosé con motivo pavimentado"
@@ -248,13 +350,22 @@
         "price": 3200,
         "categoryId": "cat_pulseras",
         "collectionId": "col_aurora",
-        "metals": ["Platino", "Oro blanco 18k"],
-        "sizes": ["16 cm", "18 cm", "20 cm"],
+        "metals": [
+          "Platino",
+          "Oro blanco 18k"
+        ],
+        "sizes": [
+          "16 cm",
+          "18 cm",
+          "20 cm"
+        ],
         "image": {
           "url": "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=1200&q=80",
           "alt": "Pulsera tenis Río Diamante"
         },
-        "badges": ["limited"]
+        "badges": [
+          "limited"
+        ]
       }
     ]
   },
@@ -266,12 +377,19 @@
         "url": "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=2400&q=85",
         "alt": "Aretes de aro en oro sobre piedra, macro de joyería Orion"
       },
-      "ctaPrimary": { "label": "Descubrir la colección", "href": "/coleccion" }
+      "ctaPrimary": {
+        "label": "Descubrir la colección",
+        "href": "/coleccion"
+      }
     },
     "signatures": {
       "eyebrow": "Piezas insignia",
       "title": "Tres formas de brillar",
-      "productIds": ["1", "4", "9"]
+      "productIds": [
+        "1",
+        "4",
+        "9"
+      ]
     },
     "craft": {
       "eyebrow": "El atelier",
@@ -281,7 +399,10 @@
         "url": "https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=1600&q=80",
         "alt": "Mujer luciendo un collar Orion, detalle de cuello"
       },
-      "cta": { "label": "Conocer el atelier", "href": "/atelier" }
+      "cta": {
+        "label": "Conocer el atelier",
+        "href": "/atelier"
+      }
     },
     "materials": {
       "eyebrow": "Materiales",
@@ -329,7 +450,10 @@
       "eyebrow": "Cita privada",
       "title": "Reserva una visita a puerta cerrada",
       "body": "Ven a nuestro salón y descubre piezas en persona, con la guía de nuestros joyeros. Servicio personalizado, con cita previa.",
-      "cta": { "label": "Solicitar cita", "href": "/atelier#cita" }
+      "cta": {
+        "label": "Solicitar cita",
+        "href": "/atelier#cita"
+      }
     },
     "shop": {
       "eyebrow": "Colección",
@@ -382,7 +506,10 @@
       "closing": {
         "title": "Empieza tu colección",
         "body": "Explora las piezas disponibles y reserva la tuya hoy.",
-        "cta": { "label": "Ver colección", "href": "/coleccion" }
+        "cta": {
+          "label": "Ver colección",
+          "href": "/coleccion"
+        }
       }
     },
     "footer": {
@@ -391,18 +518,39 @@
         {
           "title": "Colección",
           "links": [
-            { "label": "Anillos", "href": "/coleccion?categoria=anillos" },
-            { "label": "Collares", "href": "/coleccion?categoria=collares" },
-            { "label": "Aretes", "href": "/coleccion?categoria=aretes" },
-            { "label": "Pulseras", "href": "/coleccion?categoria=pulseras" }
+            {
+              "label": "Anillos",
+              "href": "/coleccion?categoria=anillos"
+            },
+            {
+              "label": "Collares",
+              "href": "/coleccion?categoria=collares"
+            },
+            {
+              "label": "Aretes",
+              "href": "/coleccion?categoria=aretes"
+            },
+            {
+              "label": "Pulseras",
+              "href": "/coleccion?categoria=pulseras"
+            }
           ]
         },
         {
           "title": "Maison",
           "links": [
-            { "label": "Atelier", "href": "/atelier" },
-            { "label": "Cita privada", "href": "/atelier#cita" },
-            { "label": "Contacto", "href": "#" }
+            {
+              "label": "Atelier",
+              "href": "/atelier"
+            },
+            {
+              "label": "Cita privada",
+              "href": "/atelier#cita"
+            },
+            {
+              "label": "Contacto",
+              "href": "#"
+            }
           ]
         }
       ],
@@ -442,6 +590,34 @@
     "notFound": {
       "title": "Página no encontrada",
       "body": "Esta ruta no existe en Orion."
+    },
+    "salesMode": {
+      "stock": {
+        "navLabel": "Entrega inmediata",
+        "shopBanner": "Catálogo con entrega inmediata según disponibilidad.",
+        "cartLabel": "Compra con entrega inmediata"
+      },
+      "madeToOrder": {
+        "navLabel": "Bajo pedido",
+        "shopBanner": "Catálogo bajo pedido.",
+        "preparationLabel": "Preparación",
+        "closedMessage": "Ahora mismo no aceptamos pedidos a medida.",
+        "reopensPrefix": "Volvemos",
+        "cartLabel": "Compra bajo pedido",
+        "cartClosedWarning": "Los pedidos a medida están cerrados temporalmente. No podrás completar el checkout hasta que reabran."
+      },
+      "nav": [
+        {
+          "salesMode": "stock",
+          "label": "Entrega inmediata",
+          "href": "/coleccion?salesMode=stock"
+        },
+        {
+          "salesMode": "madeToOrder",
+          "label": "Bajo pedido",
+          "href": "/coleccion?salesMode=madeToOrder"
+        }
+      ]
     }
   }
 }

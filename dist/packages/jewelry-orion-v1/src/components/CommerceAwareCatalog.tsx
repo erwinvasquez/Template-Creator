@@ -13,6 +13,7 @@ import {
 import { useSiteContent } from "../lib/site-content";
 import { SHOP_QUERY } from "../content/resolve";
 import { ProductListingView } from "./commerce/ProductListingView";
+import { parseSalesModeQuery, showsSalesModeChrome } from "../lib/sales-mode";
 
 export function CommerceAwareCatalog() {
   const host = useRequiredCommerceHost();
@@ -21,6 +22,7 @@ export function CommerceAwareCatalog() {
   const searchParams = useSearchParams();
   const categorySlug = searchParams.get(SHOP_QUERY.category);
   const collectionSlug = searchParams.get(SHOP_QUERY.collection);
+  const salesModeSlug = searchParams.get(SHOP_QUERY.salesMode);
 
   const [data, setData] = useState<ProductSearchViewModel | null>(null);
   const [filters, setFilters] = useState<ProductFilterViewModel | null>(null);
@@ -31,6 +33,11 @@ export function CommerceAwareCatalog() {
   useEffect(() => host.subscribe(() => setTick((t) => t + 1)), [host]);
 
   useEffect(() => {
+    const hasPayloadTaxonomy =
+      payload.catalog.categories.length > 0 ||
+      payload.catalog.collections.length > 0;
+    // Preview/demo: resolve from payload. SaaS runtime: host resolves via taxonomy API.
+    if (!hasPayloadTaxonomy) return;
     const categoryId =
       payload.catalog.categories.find((c) => c.slug === categorySlug)?.id ??
       null;
@@ -43,6 +50,13 @@ export function CommerceAwareCatalog() {
       searchQuery: null,
     });
   }, [host, payload.catalog.categories, payload.catalog.collections, categorySlug, collectionSlug]);
+
+  useEffect(() => {
+    if (!showsSalesModeChrome(capabilities)) return;
+    const mode = parseSalesModeQuery(salesModeSlug);
+    if (!mode) return;
+    host.actions.setCatalogFilters({ salesMode: mode });
+  }, [host, capabilities, salesModeSlug]);
 
   useEffect(() => {
     let cancelled = false;
@@ -66,7 +80,7 @@ export function CommerceAwareCatalog() {
     return () => {
       cancelled = true;
     };
-  }, [host, tick, categorySlug, collectionSlug]);
+  }, [host, tick, categorySlug, collectionSlug, salesModeSlug]);
 
   if (!data || !filters) {
     return (
@@ -78,7 +92,7 @@ export function CommerceAwareCatalog() {
 
   return (
     <ProductListingView
-      key={`${filters.searchQuery ?? ""}-${filters.activeCategoryId ?? ""}-${categorySlug ?? ""}-${collectionSlug ?? ""}-${data.nextCursor ?? "end"}-${data.products.map((p) => p.id).join(",")}`}
+      key={`${filters.searchQuery ?? ""}-${filters.activeCategoryId ?? ""}-${filters.salesMode}-${categorySlug ?? ""}-${collectionSlug ?? ""}-${salesModeSlug ?? ""}-${data.nextCursor ?? "end"}-${data.products.map((p) => p.id).join(",")}`}
       data={data}
       filters={filters}
       capabilities={capabilities}

@@ -20,13 +20,21 @@ export function Newsletter() {
     <section className="border-t border-border bg-surface py-20 md:py-24">
       <div className="mx-auto max-w-xl px-6 text-center md:px-8">
         <Reveal>
-          <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-cta">
+          <p
+            data-wb-slot="newsletter.eyebrow"
+            className="text-[11px] font-medium uppercase tracking-[0.2em] text-cta"
+          >
             {newsletter.eyebrow}
           </p>
-          <h2 className="mt-3 font-serif text-3xl tracking-wide text-primary md:text-4xl">
+          <h2
+            data-wb-slot="newsletter.title"
+            className="mt-3 font-serif text-3xl tracking-wide text-primary md:text-4xl"
+          >
             {newsletter.title}
           </h2>
-          <p className="mt-3 text-sm text-muted">{newsletter.subtitle}</p>
+          <p data-wb-slot="newsletter.subtitle" className="mt-3 text-sm text-muted">
+            {newsletter.subtitle}
+          </p>
 
           {done ? (
             <p className="mt-8 text-sm font-medium text-primary">

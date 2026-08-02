@@ -15,10 +15,16 @@ export function CollectionStrip() {
     <section className="mx-auto max-w-7xl px-6 py-20 md:px-8 md:py-28">
       <Reveal>
         <div className="mb-12 max-w-xl">
-          <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-cta">
+          <p
+            data-wb-slot="collections.eyebrow"
+            className="text-[11px] font-medium uppercase tracking-[0.2em] text-cta"
+          >
             {section.eyebrow}
           </p>
-          <h2 className="mt-3 font-serif text-4xl tracking-wide text-balance md:text-5xl">
+          <h2
+            data-wb-slot="collections.title"
+            className="mt-3 font-serif text-4xl tracking-wide text-balance md:text-5xl"
+          >
             {section.title}
           </h2>
         </div>
