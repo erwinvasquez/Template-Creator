@@ -14,7 +14,7 @@
 |-------|--------|
 | Repo | Web Generator |
 | Commit (packages + contract) | `0dae7c7ede36f4266e764fb4c4d42f7b43eb02fe` (`0dae7c7`) |
-| Tip `main` (incl. handoff) | ver mensaje de entrega / `git rev-parse HEAD` |
+| Tip `main` (incl. handoff) | `3cec5c71088c4a673eb3aaaa162dbe830e772a4d` (`3cec5c7`) |
 | Packages | `dist/packages/{fashion-atelier-v1,fashion-celestine-v1,jewelry-orion-v1,academy-voxa-v1}/` |
 | Contract | `packages/commerce-runtime-contract/` (`@shopenlinea/commerce-runtime-contract`) |
 
