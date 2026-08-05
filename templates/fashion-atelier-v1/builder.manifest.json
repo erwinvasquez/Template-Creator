@@ -30,16 +30,18 @@
           {
             "id": "hero",
             "contentSlotIds": [
+              "hero.ctaPrimary",
+              "hero.ctaSecondary",
               "hero.headline",
-              "hero.subheadline",
               "hero.image",
-              "hero.ctaPrimary"
+              "hero.subheadline"
             ]
           },
           {
             "id": "collections",
             "contentSlotIds": [
               "collections.eyebrow",
+              "collections.itemCtaLabel",
               "collections.title"
             ]
           },
@@ -47,24 +49,38 @@
             "id": "featured",
             "contentSlotIds": [
               "featured.eyebrow",
-              "featured.title"
+              "featured.title",
+              "featured.viewAll"
             ]
           },
           {
             "id": "editorial",
             "contentSlotIds": [
-              "editorial.eyebrow",
-              "editorial.title",
               "editorial.body",
-              "editorial.image"
+              "editorial.cta",
+              "editorial.eyebrow",
+              "editorial.image",
+              "editorial.title"
             ]
           },
           {
             "id": "newsletter",
             "contentSlotIds": [
               "newsletter.eyebrow",
-              "newsletter.title",
-              "newsletter.subtitle"
+              "newsletter.placeholder",
+              "newsletter.submitLabel",
+              "newsletter.subtitle",
+              "newsletter.successMessage",
+              "newsletter.title"
+            ]
+          },
+          {
+            "id": "footer",
+            "contentSlotIds": [
+              "footer.blurb",
+              "footer.columns",
+              "footer.copyrightName",
+              "footer.tagline"
             ]
           }
         ]
@@ -77,9 +93,9 @@
           {
             "id": "shop",
             "contentSlotIds": [
+              "shop.description",
               "shop.eyebrow",
-              "shop.title",
-              "shop.description"
+              "shop.title"
             ]
           }
         ]
@@ -103,10 +119,17 @@
           {
             "id": "about",
             "contentSlotIds": [
+              "about.bannerImage",
+              "about.blocks",
+              "about.closing.body",
+              "about.closing.cta",
+              "about.closing.title",
+              "about.intro.body",
               "about.intro.eyebrow",
               "about.intro.title",
-              "about.intro.body",
-              "about.bannerImage"
+              "about.locations.eyebrow",
+              "about.locations.items",
+              "about.locations.title"
             ]
           }
         ]
@@ -122,6 +145,7 @@
         "cta": "#CA8A04",
         "ctaHover": "#A16207",
         "background": "#FAFAF9",
+        "ink": "#1C1917",
         "surface": "#F5F5F4",
         "text": "#0C0A09",
         "muted": "#57534E",
@@ -138,136 +162,434 @@
       "contentSupport": {
         "slotDefinitions": [
           {
-            "id": "hero.headline",
-            "fieldPath": "sections.hero.headline",
-            "kind": "string",
-            "label": "Hero headline"
-          },
-          {
-            "id": "hero.subheadline",
-            "fieldPath": "sections.hero.subheadline",
-            "kind": "string",
-            "label": "Hero subheadline"
-          },
-          {
-            "id": "hero.image",
-            "fieldPath": "sections.hero.image",
+            "id": "about.bannerImage",
+            "fieldPath": "sections.about.bannerImage",
             "kind": "media",
-            "label": "Hero image"
+            "label": "about bannerImage",
+            "generationHint": "Copy de sección about; tono del template.",
+            "required": true,
+            "localeScope": "both"
           },
           {
-            "id": "hero.ctaPrimary",
-            "fieldPath": "sections.hero.ctaPrimary",
+            "id": "about.blocks",
+            "fieldPath": "sections.about.blocks",
+            "kind": "list",
+            "label": "about blocks",
+            "generationHint": "Copy de sección about; tono del template.",
+            "required": true,
+            "localeScope": "both",
+            "listSchema": {
+              "itemType": "object",
+              "fields": [
+                {
+                  "key": "id",
+                  "kind": "string",
+                  "label": "ID"
+                },
+                {
+                  "key": "title",
+                  "kind": "string",
+                  "label": "Título"
+                },
+                {
+                  "key": "body",
+                  "kind": "text",
+                  "label": "Texto"
+                }
+              ]
+            }
+          },
+          {
+            "id": "about.closing.body",
+            "fieldPath": "sections.about.closing.body",
+            "kind": "text",
+            "label": "about closing body",
+            "generationHint": "Copy de sección about; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "about.closing.cta",
+            "fieldPath": "sections.about.closing.cta",
             "kind": "link",
-            "label": "Hero primary CTA"
+            "label": "about closing cta",
+            "generationHint": "Copy de sección about; tono del template.",
+            "required": true,
+            "localeScope": "both"
           },
           {
-            "id": "collections.eyebrow",
-            "fieldPath": "sections.collections.eyebrow",
+            "id": "about.closing.title",
+            "fieldPath": "sections.about.closing.title",
             "kind": "string",
-            "label": "Collections eyebrow"
-          },
-          {
-            "id": "collections.title",
-            "fieldPath": "sections.collections.title",
-            "kind": "string",
-            "label": "Collections title"
-          },
-          {
-            "id": "featured.eyebrow",
-            "fieldPath": "sections.featured.eyebrow",
-            "kind": "string",
-            "label": "Featured eyebrow"
-          },
-          {
-            "id": "featured.title",
-            "fieldPath": "sections.featured.title",
-            "kind": "string",
-            "label": "Featured title"
-          },
-          {
-            "id": "editorial.eyebrow",
-            "fieldPath": "sections.editorial.eyebrow",
-            "kind": "string",
-            "label": "Editorial eyebrow"
-          },
-          {
-            "id": "editorial.title",
-            "fieldPath": "sections.editorial.title",
-            "kind": "string",
-            "label": "Editorial title"
-          },
-          {
-            "id": "editorial.body",
-            "fieldPath": "sections.editorial.body",
-            "kind": "text",
-            "label": "Editorial body"
-          },
-          {
-            "id": "editorial.image",
-            "fieldPath": "sections.editorial.image",
-            "kind": "media",
-            "label": "Editorial image"
-          },
-          {
-            "id": "newsletter.eyebrow",
-            "fieldPath": "sections.newsletter.eyebrow",
-            "kind": "string",
-            "label": "Newsletter eyebrow"
-          },
-          {
-            "id": "newsletter.title",
-            "fieldPath": "sections.newsletter.title",
-            "kind": "string",
-            "label": "Newsletter title"
-          },
-          {
-            "id": "newsletter.subtitle",
-            "fieldPath": "sections.newsletter.subtitle",
-            "kind": "string",
-            "label": "Newsletter subtitle"
-          },
-          {
-            "id": "shop.eyebrow",
-            "fieldPath": "sections.shop.eyebrow",
-            "kind": "string",
-            "label": "Shop eyebrow"
-          },
-          {
-            "id": "shop.title",
-            "fieldPath": "sections.shop.title",
-            "kind": "string",
-            "label": "Shop title"
-          },
-          {
-            "id": "shop.description",
-            "fieldPath": "sections.shop.description",
-            "kind": "text",
-            "label": "Shop description"
-          },
-          {
-            "id": "about.intro.eyebrow",
-            "fieldPath": "sections.about.intro.eyebrow",
-            "kind": "string",
-            "label": "About eyebrow"
-          },
-          {
-            "id": "about.intro.title",
-            "fieldPath": "sections.about.intro.title",
-            "kind": "string",
-            "label": "About title"
+            "label": "about closing title",
+            "generationHint": "Copy de sección about; tono del template.",
+            "required": true,
+            "localeScope": "both"
           },
           {
             "id": "about.intro.body",
             "fieldPath": "sections.about.intro.body",
             "kind": "text",
-            "label": "About body"
+            "label": "about intro body",
+            "generationHint": "Copy de sección about; tono del template.",
+            "required": true,
+            "localeScope": "both"
           },
           {
-            "id": "about.bannerImage",
-            "fieldPath": "sections.about.bannerImage",
+            "id": "about.intro.eyebrow",
+            "fieldPath": "sections.about.intro.eyebrow",
+            "kind": "string",
+            "label": "about intro eyebrow",
+            "generationHint": "Copy de sección about; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "about.intro.title",
+            "fieldPath": "sections.about.intro.title",
+            "kind": "string",
+            "label": "about intro title",
+            "generationHint": "Copy de sección about; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "about.locations.eyebrow",
+            "fieldPath": "sections.about.locations.eyebrow",
+            "kind": "string",
+            "label": "about locations eyebrow",
+            "generationHint": "Copy de sección about; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "about.locations.items",
+            "fieldPath": "sections.about.locations.items",
+            "kind": "list",
+            "label": "about locations items",
+            "generationHint": "Copy de sección about; tono del template.",
+            "required": true,
+            "localeScope": "both",
+            "listSchema": {
+              "itemType": "object",
+              "fields": [
+                {
+                  "key": "city",
+                  "kind": "string",
+                  "label": "Ciudad"
+                },
+                {
+                  "key": "address",
+                  "kind": "text",
+                  "label": "Dirección"
+                },
+                {
+                  "key": "hours",
+                  "kind": "string",
+                  "label": "Horario"
+                }
+              ]
+            }
+          },
+          {
+            "id": "about.locations.title",
+            "fieldPath": "sections.about.locations.title",
+            "kind": "string",
+            "label": "about locations title",
+            "generationHint": "Copy de sección about; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "collections.eyebrow",
+            "fieldPath": "sections.collections.eyebrow",
+            "kind": "string",
+            "label": "collections eyebrow",
+            "generationHint": "Copy de sección collections; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "collections.itemCtaLabel",
+            "fieldPath": "sections.collections.itemCtaLabel",
+            "kind": "string",
+            "label": "collections itemCtaLabel",
+            "generationHint": "Copy de sección collections; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "collections.title",
+            "fieldPath": "sections.collections.title",
+            "kind": "string",
+            "label": "collections title",
+            "generationHint": "Copy de sección collections; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "editorial.body",
+            "fieldPath": "sections.editorial.body",
+            "kind": "text",
+            "label": "editorial body",
+            "generationHint": "Copy de sección editorial; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "editorial.cta",
+            "fieldPath": "sections.editorial.cta",
+            "kind": "link",
+            "label": "editorial cta",
+            "generationHint": "Copy de sección editorial; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "editorial.eyebrow",
+            "fieldPath": "sections.editorial.eyebrow",
+            "kind": "string",
+            "label": "editorial eyebrow",
+            "generationHint": "Copy de sección editorial; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "editorial.image",
+            "fieldPath": "sections.editorial.image",
             "kind": "media",
-            "label": "About banner"
+            "label": "editorial image",
+            "generationHint": "Copy de sección editorial; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "editorial.title",
+            "fieldPath": "sections.editorial.title",
+            "kind": "string",
+            "label": "editorial title",
+            "generationHint": "Copy de sección editorial; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "featured.eyebrow",
+            "fieldPath": "sections.featured.eyebrow",
+            "kind": "string",
+            "label": "featured eyebrow",
+            "generationHint": "Copy de sección featured; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "featured.title",
+            "fieldPath": "sections.featured.title",
+            "kind": "string",
+            "label": "featured title",
+            "generationHint": "Copy de sección featured; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "featured.viewAll",
+            "fieldPath": "sections.featured.viewAll",
+            "kind": "link",
+            "label": "featured viewAll",
+            "generationHint": "Copy de sección featured; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "footer.blurb",
+            "fieldPath": "sections.footer.blurb",
+            "kind": "text",
+            "label": "footer blurb",
+            "generationHint": "Copy de sección footer; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "footer.columns",
+            "fieldPath": "sections.footer.columns",
+            "kind": "list",
+            "label": "footer columns",
+            "generationHint": "Copy de sección footer; tono del template.",
+            "required": true,
+            "localeScope": "both",
+            "listSchema": {
+              "itemType": "object",
+              "fields": [
+                {
+                  "key": "title",
+                  "kind": "string",
+                  "label": "Título columna"
+                },
+                {
+                  "key": "links",
+                  "kind": "list",
+                  "label": "Enlaces",
+                  "listSchema": {
+                    "itemType": "object",
+                    "fields": [
+                      {
+                        "key": "label",
+                        "kind": "string",
+                        "label": "Etiqueta"
+                      },
+                      {
+                        "key": "href",
+                        "kind": "string",
+                        "label": "URL"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id": "footer.copyrightName",
+            "fieldPath": "sections.footer.copyrightName",
+            "kind": "string",
+            "label": "footer copyrightName",
+            "generationHint": "Copy de sección footer; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "footer.tagline",
+            "fieldPath": "sections.footer.tagline",
+            "kind": "string",
+            "label": "footer tagline",
+            "generationHint": "Copy de sección footer; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "hero.ctaPrimary",
+            "fieldPath": "sections.hero.ctaPrimary",
+            "kind": "link",
+            "label": "hero ctaPrimary",
+            "generationHint": "Copy de sección hero; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "hero.ctaSecondary",
+            "fieldPath": "sections.hero.ctaSecondary",
+            "kind": "link",
+            "label": "hero ctaSecondary",
+            "generationHint": "Copy de sección hero; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "hero.headline",
+            "fieldPath": "sections.hero.headline",
+            "kind": "string",
+            "label": "hero headline",
+            "generationHint": "Copy de sección hero; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "hero.image",
+            "fieldPath": "sections.hero.image",
+            "kind": "media",
+            "label": "hero image",
+            "generationHint": "Copy de sección hero; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "hero.subheadline",
+            "fieldPath": "sections.hero.subheadline",
+            "kind": "string",
+            "label": "hero subheadline",
+            "generationHint": "Copy de sección hero; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "newsletter.eyebrow",
+            "fieldPath": "sections.newsletter.eyebrow",
+            "kind": "string",
+            "label": "newsletter eyebrow",
+            "generationHint": "Copy de sección newsletter; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "newsletter.placeholder",
+            "fieldPath": "sections.newsletter.placeholder",
+            "kind": "string",
+            "label": "newsletter placeholder",
+            "generationHint": "Copy de sección newsletter; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "newsletter.submitLabel",
+            "fieldPath": "sections.newsletter.submitLabel",
+            "kind": "string",
+            "label": "newsletter submitLabel",
+            "generationHint": "Copy de sección newsletter; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "newsletter.subtitle",
+            "fieldPath": "sections.newsletter.subtitle",
+            "kind": "text",
+            "label": "newsletter subtitle",
+            "generationHint": "Copy de sección newsletter; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "newsletter.successMessage",
+            "fieldPath": "sections.newsletter.successMessage",
+            "kind": "text",
+            "label": "newsletter successMessage",
+            "generationHint": "Copy de sección newsletter; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "newsletter.title",
+            "fieldPath": "sections.newsletter.title",
+            "kind": "string",
+            "label": "newsletter title",
+            "generationHint": "Copy de sección newsletter; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "shop.description",
+            "fieldPath": "sections.shop.description",
+            "kind": "text",
+            "label": "shop description",
+            "generationHint": "Copy de sección shop; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "shop.eyebrow",
+            "fieldPath": "sections.shop.eyebrow",
+            "kind": "string",
+            "label": "shop eyebrow",
+            "generationHint": "Copy de sección shop; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "shop.title",
+            "fieldPath": "sections.shop.title",
+            "kind": "string",
+            "label": "shop title",
+            "generationHint": "Copy de sección shop; tono del template.",
+            "required": true,
+            "localeScope": "both"
           },
           {
             "id": "brand.name",

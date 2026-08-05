@@ -6,6 +6,7 @@ import { Minus, Plus, ShoppingBag, X } from "lucide-react";
 import type { CartViewProps } from "@shopenlinea/commerce-runtime-contract";
 import { useCommerceCapabilities } from "../../lib/commerce-host";
 import { useSiteContent } from "../../lib/site-content";
+import { requireUi } from "../../lib/ui";
 import { withBasePath } from "../../content/resolve";
 import { cartSalesModeLabel, showsSalesModeChrome } from "../../lib/sales-mode";
 
@@ -16,38 +17,37 @@ function lineMaxQty(maxQuantity: number | null | undefined): number {
 /** Full-page cart — same contract as CartDrawer (`CartViewProps`). */
 export function CartPageView({ cart, actions }: CartViewProps) {
   const { payload, basePath } = useSiteContent();
+  const ui = requireUi(payload);
+  const cartUi = ui.cart;
   const capabilities = useCommerceCapabilities();
-  const cartUi = payload.ui?.cart;
   const showSalesModeChrome = showsSalesModeChrome(capabilities);
   const salesModeLine =
     showSalesModeChrome && cart.lines.length > 0
-      ? cartSalesModeLabel(cart.salesMode, payload.ui?.salesMode)
+      ? cartSalesModeLabel(cart.salesMode, ui.salesMode)
       : null;
   const cartClosedWarning =
     showSalesModeChrome &&
     cart.salesMode === "madeToOrder" &&
     cart.madeToOrderAcceptingOrders === false
-      ? payload.ui?.salesMode?.madeToOrder?.cartClosedWarning
+      ? ui.salesMode.madeToOrder.cartClosedWarning
       : null;
 
   return (
     <div className="pb-24 pt-28 md:pt-32">
       <div className="mx-auto max-w-3xl px-6 md:px-8">
         <h1 className="font-serif text-4xl tracking-wide md:text-5xl">
-          {cartUi?.title ?? "Tu selección"}
+          {cartUi.title}
         </h1>
 
         {cart.lines.length === 0 ? (
           <div className="mt-16 flex flex-col items-center gap-4 text-center">
             <ShoppingBag className="h-12 w-12 text-muted" strokeWidth={1} />
-            <p className="text-sm text-muted">
-              {cartUi?.empty ?? "Tu carrito está vacío."}
-            </p>
+            <p className="text-sm text-muted">{cartUi.empty}</p>
             <Link
               href={withBasePath(basePath, "/tienda")}
-              className="cursor-pointer text-sm font-medium uppercase tracking-[0.14em] text-cta transition-colors duration-200 hover:text-cta-hover"
+              className="cursor-pointer text-sm font-medium uppercase tracking-[0.14em] text-primary transition-colors duration-200 hover:text-secondary"
             >
-              {cartUi?.exploreCta ?? "Explorar tienda"}
+              {cartUi.exploreCta}
             </Link>
           </div>
         ) : (
@@ -137,7 +137,7 @@ export function CartPageView({ cart, actions }: CartViewProps) {
 
             <div className="mt-10 border-t border-border pt-6">
               {cart.promotionLabels?.map((p) => (
-                <p key={p} className="mb-2 text-xs text-cta">
+                <p key={p} className="mb-2 text-xs text-primary">
                   {p}
                 </p>
               ))}
@@ -154,9 +154,9 @@ export function CartPageView({ cart, actions }: CartViewProps) {
                 <button
                   type="button"
                   onClick={() => actions.navigateToCheckout()}
-                  className="cursor-pointer bg-cta px-8 py-3.5 text-sm font-semibold uppercase tracking-[0.14em] text-white transition-colors duration-200 hover:bg-cta-hover"
+                  className="cursor-pointer bg-primary px-8 py-3.5 text-sm font-semibold uppercase tracking-[0.14em] text-background transition-colors duration-200 hover:bg-primary/90"
                 >
-                  {cartUi?.checkout ?? "Checkout"}
+                  {cartUi.checkout}
                 </button>
                 <button
                   type="button"

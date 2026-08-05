@@ -17,7 +17,7 @@ export function CollectionStrip() {
         <div className="mb-12 max-w-xl">
           <p
             data-wb-slot="collections.eyebrow"
-            className="text-[11px] font-medium uppercase tracking-[0.2em] text-cta"
+            className="text-[11px] font-medium uppercase tracking-[0.2em] text-secondary"
           >
             {section.eyebrow}
           </p>
@@ -54,9 +54,14 @@ export function CollectionStrip() {
                 <p className="mt-2 text-sm font-normal leading-relaxed text-white drop-shadow-[0_1px_8px_rgba(0,0,0,0.4)]">
                   {collection.description}
                 </p>
-                <span className="mt-4 inline-block text-[11px] font-semibold uppercase tracking-[0.16em] text-white underline decoration-white/55 underline-offset-4 drop-shadow-[0_1px_6px_rgba(0,0,0,0.35)] transition-colors duration-200 group-hover:decoration-cta">
-                  {section.itemCtaLabel ?? "Explorar"}
-                </span>
+                {section.itemCtaLabel ? (
+                  <span
+                    data-wb-slot="collections.itemCtaLabel"
+                    className="mt-4 inline-block text-[11px] font-semibold uppercase tracking-[0.16em] text-white underline decoration-white/55 underline-offset-4 drop-shadow-[0_1px_6px_rgba(0,0,0,0.35)] transition-colors duration-200 group-hover:decoration-cta"
+                  >
+                    {section.itemCtaLabel}
+                  </span>
+                ) : null}
               </div>
             </Link>
           </Reveal>

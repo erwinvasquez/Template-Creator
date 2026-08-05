@@ -48,6 +48,8 @@ export function accountPath(
   return withBasePath(basePath, relative);
 }
 
+export const SHOP_PATH = "/tienda" as const;
+
 /**
  * Shop route query params (relative to mount):
  * - `categoria` — category slug from catalog.categories[].slug
@@ -71,7 +73,7 @@ export function resolveNavHref(link: NavLink): string {
       params.set(SHOP_QUERY.collection, link.collectionSlug);
     }
     const q = params.toString();
-    return q ? `/tienda?${q}` : "/tienda";
+    return q ? `${SHOP_PATH}?${q}` : SHOP_PATH;
   }
   return link.href;
 }
@@ -147,15 +149,18 @@ export function formatPrice(
 
 export function themeStyle(payload: ContentPayload): Record<string, string> {
   const c = payload.theme?.colors ?? {};
+  const primary = c.primary ?? "#1c1917";
+  const secondary = c.secondary ?? "#44403c";
   return {
-    "--color-primary": c.primary ?? "#1c1917",
-    "--color-secondary": c.secondary ?? "#44403c",
-    "--color-cta": c.cta ?? "#ca8a04",
-    "--color-cta-hover": c.ctaHover ?? "#a16207",
+    "--color-primary": primary,
+    "--color-secondary": secondary,
     "--color-background": c.background ?? "#fafaf9",
     "--color-surface": c.surface ?? "#f5f5f4",
     "--color-text": c.text ?? "#0c0a09",
     "--color-muted": c.muted ?? "#57534e",
     "--color-border": c.border ?? "#e7e5e4",
+    "--color-ink": "#1c1917",
+    "--color-cta": c.cta ?? primary,
+    "--color-cta-hover": c.ctaHover ?? secondary,
   };
 }

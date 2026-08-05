@@ -6,6 +6,7 @@ import { Minus, Plus, ShoppingBag, X } from "lucide-react";
 import type { CartViewProps } from "@shopenlinea/commerce-runtime-contract";
 import { useCommerceCapabilities } from "../../lib/commerce-host";
 import { useSiteContent } from "../../lib/site-content";
+import { requireUi } from "../../lib/ui";
 import { withBasePath } from "../../content/resolve";
 import { cartSalesModeLabel, showsSalesModeChrome } from "../../lib/sales-mode";
 
@@ -20,18 +21,19 @@ export function CommerceCartDrawer({
   onClose,
 }: CartViewProps) {
   const { payload, basePath } = useSiteContent();
+  const ui = requireUi(payload);
+  const cartUi = ui.cart;
   const capabilities = useCommerceCapabilities();
-  const cartUi = payload.ui?.cart;
   const showSalesModeChrome = showsSalesModeChrome(capabilities);
   const salesModeLine =
     showSalesModeChrome && cart.lines.length > 0
-      ? cartSalesModeLabel(cart.salesMode, payload.ui?.salesMode)
+      ? cartSalesModeLabel(cart.salesMode, ui.salesMode)
       : null;
   const cartClosedWarning =
     showSalesModeChrome &&
     cart.salesMode === "madeToOrder" &&
     cart.madeToOrderAcceptingOrders === false
-      ? payload.ui?.salesMode?.madeToOrder?.cartClosedWarning
+      ? ui.salesMode.madeToOrder.cartClosedWarning
       : null;
 
   if (!isOpen) return null;
@@ -41,7 +43,7 @@ export function CommerceCartDrawer({
       className="fixed inset-0 z-[60]"
       role="dialog"
       aria-modal="true"
-      aria-label="Carrito"
+      aria-label={cartUi.title}
     >
       <button
         type="button"
@@ -51,9 +53,7 @@ export function CommerceCartDrawer({
       />
       <aside className="absolute right-0 top-0 flex h-full w-full max-w-md flex-col bg-background shadow-xl animate-slide-in-right">
         <div className="flex items-center justify-between border-b border-border px-6 py-5">
-          <h2 className="font-serif text-2xl tracking-wide">
-            {cartUi?.title ?? "Tu selección"}
-          </h2>
+          <h2 className="font-serif text-2xl tracking-wide">{cartUi.title}</h2>
           <button
             type="button"
             onClick={onClose}
@@ -68,15 +68,13 @@ export function CommerceCartDrawer({
           {cart.lines.length === 0 ? (
             <div className="flex h-full flex-col items-center justify-center gap-4 text-center">
               <ShoppingBag className="h-10 w-10 text-muted" strokeWidth={1} />
-              <p className="text-sm text-muted">
-                {cartUi?.empty ?? "Tu carrito está vacío."}
-              </p>
+              <p className="text-sm text-muted">{cartUi.empty}</p>
               <Link
                 href={withBasePath(basePath, "/tienda")}
                 onClick={onClose}
-                className="cursor-pointer text-sm font-medium uppercase tracking-[0.14em] text-cta transition-colors duration-200 hover:text-cta-hover"
+                className="cursor-pointer text-sm font-medium uppercase tracking-[0.14em] text-primary transition-colors duration-200 hover:text-secondary"
               >
-                {cartUi?.exploreCta ?? "Explorar tienda"}
+                {cartUi.exploreCta}
               </Link>
             </div>
           ) : (
@@ -172,7 +170,7 @@ export function CommerceCartDrawer({
         {cart.lines.length > 0 && (
           <div className="border-t border-border px-6 py-5">
             {cart.promotionLabels?.map((p) => (
-              <p key={p} className="mb-2 text-xs text-cta">
+              <p key={p} className="mb-2 text-xs text-primary">
                 {p}
               </p>
             ))}
@@ -188,9 +186,9 @@ export function CommerceCartDrawer({
             <button
               type="button"
               onClick={() => actions.navigateToCheckout()}
-              className="w-full cursor-pointer bg-cta px-6 py-3.5 text-sm font-semibold uppercase tracking-[0.14em] text-white transition-colors duration-200 hover:bg-cta-hover"
+              className="w-full cursor-pointer bg-primary px-6 py-3.5 text-sm font-semibold uppercase tracking-[0.14em] text-background transition-colors duration-200 hover:bg-primary/90"
             >
-              {cartUi?.checkout ?? "Checkout"}
+              {cartUi.checkout}
             </button>
           </div>
         )}

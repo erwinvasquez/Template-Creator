@@ -19,7 +19,7 @@ export function FeaturedProducts() {
             <div>
               <p
                 data-wb-slot="featured.eyebrow"
-                className="text-[11px] font-medium uppercase tracking-[0.2em] text-cta"
+                className="text-[11px] font-medium uppercase tracking-[0.2em] text-secondary"
               >
                 {featured.eyebrow}
               </p>
@@ -33,6 +33,7 @@ export function FeaturedProducts() {
             {featured.viewAll && (
               <Link
                 href={withBasePath(basePath, featured.viewAll.href)}
+                data-wb-slot="featured.viewAll"
                 className="cursor-pointer text-[11px] font-semibold uppercase tracking-[0.16em] text-secondary underline decoration-border underline-offset-4 transition-colors duration-200 hover:text-primary hover:decoration-cta"
               >
                 {featured.viewAll.label}

@@ -10,6 +10,7 @@ import type {
   StockLabel,
 } from "@shopenlinea/commerce-runtime-contract";
 import { useSiteContent } from "../../lib/site-content";
+import { requireUi } from "../../lib/ui";
 import { withBasePath } from "../../content/resolve";
 import { CommerceProductCard } from "./CommerceProductCard";
 
@@ -30,24 +31,23 @@ function discountPercent(
 
 function badgeLabel(
   key: string,
-  labels?: Record<string, string | undefined>,
+  labels: Record<string, string>,
 ): string {
-  const known = labels?.[key];
-  if (known) return known;
-  return key.replace(/([A-Z])/g, " $1").replace(/^./, (s) => s.toUpperCase());
+  return labels[key] ?? key;
 }
 
 function stockCopy(
   label: StockLabel | null | undefined,
   ui: {
-    outOfStock?: string;
-    contact?: string;
-    lowStock?: string;
+    outOfStock: string;
+    contact: string;
+    lowStock: string;
   },
 ): string | null {
   if (!label || label === "available") return null;
-  if (label === "out_of_stock") return ui.outOfStock ?? "Agotado";
-  if (label === "contact") return ui.contact ?? "Consultar disponibilidad";
+  if (label === "out_of_stock") return ui.outOfStock;
+  if (label === "contact") return ui.contact;
+  if (label === "low_stock") return ui.lowStock;
   return null;
 }
 
@@ -78,6 +78,10 @@ export function ProductDetailCommerceView({
   errorMessage,
 }: ProductDetailViewProps) {
   const { payload, basePath } = useSiteContent();
+  const ui = requireUi(payload);
+  const uiProduct = ui.product;
+  const uiBadges = uiProduct.badges;
+  const madeToOrderUi = ui.salesMode.madeToOrder;
   const [pending, setPending] = useState(false);
   const [localError, setLocalError] = useState<string | null>(null);
   const [quantity, setQuantity] = useState(1);
@@ -89,16 +93,12 @@ export function ProductDetailCommerceView({
     product.variants.find((v) => v.id === product.selectedVariantId) ??
     product.variants[0];
 
-  const uiBadges = payload.ui?.product?.badges;
-  const uiProduct = payload.ui?.product;
-  const relatedTitle =
-    uiProduct?.relatedTitle ?? "También te puede gustar";
-  const shopLabel =
-    payload.navigation.primary.find(
-      (l) =>
-        (l.type === "path" && l.href.startsWith("/tienda")) ||
-        l.type === "shopFilter",
-    )?.label ?? "Tienda";
+  const relatedTitle = uiProduct.relatedTitle;
+  const shopLabel = payload.navigation.primary.find(
+    (l) =>
+      (l.type === "path" && l.href.startsWith("/tienda")) ||
+      l.type === "shopFilter",
+  )?.label;
 
   const { dims, usePickers } = useMemo(
     () => optionDimensions(product.variants),
@@ -182,7 +182,7 @@ export function ProductDetailCommerceView({
     try {
       const res = await actions.addToCart(selected.id, quantity);
       if (!res.ok) {
-        setLocalError(res.errorMessage ?? "No se pudo añadir");
+        setLocalError(res.errorMessage ?? ui.errors.addToCartFailed);
         return;
       }
       actions.openCartDrawer();
@@ -192,9 +192,9 @@ export function ProductDetailCommerceView({
   }
 
   const stockMessage = stockCopy(stockLabel, {
-    outOfStock: uiProduct?.outOfStock,
-    contact: uiProduct?.contact,
-    lowStock: uiProduct?.lowStock,
+    outOfStock: uiProduct.outOfStock,
+    contact: uiProduct.contact,
+    lowStock: uiProduct.lowStock,
   });
 
   return (
@@ -246,21 +246,23 @@ export function ProductDetailCommerceView({
         </div>
 
         <div className="flex flex-col md:py-8">
-          <nav className="mb-6 text-xs text-muted" aria-label="Breadcrumb">
-            <Link
-              href={withBasePath(basePath, "/tienda")}
-              className="cursor-pointer transition-colors duration-200 hover:text-primary"
-            >
-              {shopLabel}
-            </Link>
-            <span className="mx-2">/</span>
-            <span className="text-primary">{product.name}</span>
-          </nav>
+          {shopLabel ? (
+            <nav className="mb-6 text-xs text-muted" aria-label="Breadcrumb">
+              <Link
+                href={withBasePath(basePath, "/tienda")}
+                className="cursor-pointer transition-colors duration-200 hover:text-primary"
+              >
+                {shopLabel}
+              </Link>
+              <span className="mx-2">/</span>
+              <span className="text-primary">{product.name}</span>
+            </nav>
+          ) : null}
 
           {product.badges && product.badges.length > 0 ? (
-            <p className="mb-3 flex flex-wrap gap-x-3 gap-y-1 text-[11px] font-medium uppercase tracking-[0.18em] text-cta">
+            <p className="mb-3 flex flex-wrap gap-x-3 gap-y-1 text-[11px] font-medium uppercase tracking-[0.18em] text-secondary">
               {product.badges.map((b) => (
-                <span key={b}>{badgeLabel(b, uiBadges as Record<string, string | undefined>)}</span>
+                <span key={b}>{badgeLabel(b, uiBadges)}</span>
               ))}
             </p>
           ) : null}
@@ -279,7 +281,7 @@ export function ProductDetailCommerceView({
               </p>
             ) : null}
             {pct != null && pct > 0 ? (
-              <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-cta">
+              <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-primary">
                 −{pct}%
               </span>
             ) : null}
@@ -390,22 +392,15 @@ export function ProductDetailCommerceView({
 
           {product.preparationPromiseLabel ? (
             <p className="mt-6 text-sm text-muted">
-              {payload.ui?.salesMode?.madeToOrder?.preparationLabel ?? "Preparación"}
-              : {product.preparationPromiseLabel}
+              {madeToOrderUi.preparationLabel}: {product.preparationPromiseLabel}
             </p>
           ) : null}
 
           {product.madeToOrderClosed ? (
             <p className="mt-6 text-sm text-muted">
-              {uiProduct?.madeToOrderClosed ??
-                payload.ui?.salesMode?.madeToOrder?.closedMessage ??
-                "Pedidos cerrados temporalmente"}
+              {uiProduct.madeToOrderClosed}
               {product.madeToOrderReopensAtLabel
-                ? ` ${
-                    payload.ui?.salesMode?.madeToOrder?.reopensPrefix
-                      ? `${payload.ui.salesMode.madeToOrder.reopensPrefix} `
-                      : ""
-                  }${product.madeToOrderReopensAtLabel}`
+                ? ` ${madeToOrderUi.reopensPrefix} ${product.madeToOrderReopensAtLabel}`
                 : ""}
             </p>
           ) : null}
@@ -441,13 +436,13 @@ export function ProductDetailCommerceView({
               type="button"
               disabled={!canBuy || pending}
               onClick={onAdd}
-              className="w-full cursor-pointer bg-cta px-6 py-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-white transition-colors duration-200 hover:bg-cta-hover disabled:cursor-not-allowed disabled:opacity-50 md:w-auto md:min-w-[240px]"
+              className="w-full cursor-pointer bg-primary px-6 py-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-background transition-colors duration-200 hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-50 md:w-auto md:min-w-[240px]"
             >
               {pending
-                ? "Añadiendo…"
+                ? uiProduct.addingToCart
                 : stockLabel === "out_of_stock" || !variantAvailable
-                  ? (uiProduct?.outOfStock ?? "Agotado")
-                  : (uiProduct?.addToCart ?? "Añadir al carrito")}
+                  ? uiProduct.outOfStock
+                  : uiProduct.addToCart}
             </button>
             {(errorMessage || localError) && (
               <p className="mt-3 text-sm text-red-700" role="alert">
