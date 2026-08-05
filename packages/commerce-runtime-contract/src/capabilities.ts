@@ -41,8 +41,9 @@ export interface CommerceTemplateCapabilities {
   /**
    * Dual catalog modes (stock + made-to-order) are both enabled for the org.
    * When not `supported`, templates MUST NOT render sales-mode chrome
-   * (nav tabs, shop mode banner, cart mode line). Operational fields like
-   * `madeToOrderClosed` / `preparationPromiseLabel` still apply when the host sends them.
+   * (shop eyebrow switch, prep/closed notices, cart mode line).
+   * When `supported`, switch lives on the shop page eyebrow row only — never site navbar.
+   * Operational fields like `madeToOrderClosed` / `preparationPromiseLabel` still apply when the host sends them.
    */
   salesModeSwitch: CapabilityLevel;
 }

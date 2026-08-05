@@ -15,7 +15,6 @@ import { ShopView } from "./components/pages/ShopView";
 import { ProductView } from "./components/pages/ProductView";
 import { AtelierView } from "./components/pages/AtelierView";
 import { CartView } from "./components/pages/CartView";
-import { CheckoutPage } from "./components/commerce/CheckoutPage";
 import { OrderConfirmationView } from "./components/commerce/OrderConfirmationView";
 import { AccountLoginForm } from "./components/account/AccountLoginForm";
 import { AccountRegisterForm } from "./components/account/AccountRegisterForm";
@@ -44,7 +43,6 @@ export function JewelryApp({
   basePath,
   slug,
   commerceHost,
-  checkoutPage,
   orderConfirmation,
   accountLogin,
   accountRegister,
@@ -74,9 +72,6 @@ export function JewelryApp({
       break;
     case "cart":
       view = <CartView />;
-      break;
-    case "checkout":
-      view = checkoutPage ? <CheckoutPage {...checkoutPage} /> : null;
       break;
     case "orderConfirmation":
       view = orderConfirmation ? (

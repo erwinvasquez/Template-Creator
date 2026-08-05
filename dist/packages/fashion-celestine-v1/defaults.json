@@ -32,8 +32,8 @@
     "primary": [
       {
         "type": "path",
-        "label": "Vestidos",
-        "href": "/vestidos"
+        "label": "Colección",
+        "href": "/coleccion"
       },
       {
         "type": "shopFilter",
@@ -69,7 +69,7 @@
     },
     "pages": {
       "shop": {
-        "title": "Vestidos",
+        "title": "Colección",
         "description": "Colección Celestine: fiesta, novias, quinceañeras, comunión y accesorios."
       },
       "about": {
@@ -351,8 +351,8 @@
         "alt": "Novia Celestine en luz natural con vestido de encaje"
       },
       "ctaPrimary": {
-        "label": "Ver vestidos",
-        "href": "/vestidos"
+        "label": "Ver colección",
+        "href": "/coleccion"
       },
       "ctaSecondary": {
         "label": "Reservar prueba",
@@ -401,8 +401,8 @@
         "5"
       ],
       "viewAll": {
-        "label": "Ver todos los vestidos",
-        "href": "/vestidos"
+        "label": "Ver la colección",
+        "href": "/coleccion"
       }
     },
     "note": {
@@ -425,7 +425,7 @@
       ],
       "cta": {
         "label": "Ver accesorios",
-        "href": "/vestidos?categoria=accesorios"
+        "href": "/coleccion?categoria=accesorios"
       }
     },
     "shop": {
@@ -487,20 +487,20 @@
           "title": "Colección",
           "links": [
             {
-              "label": "Todos los vestidos",
-              "href": "/vestidos"
+              "label": "Toda la colección",
+              "href": "/coleccion"
             },
             {
               "label": "Novias",
-              "href": "/vestidos?categoria=novias"
+              "href": "/coleccion?categoria=novias"
             },
             {
               "label": "Fiesta",
-              "href": "/vestidos?categoria=fiesta"
+              "href": "/coleccion?categoria=fiesta"
             },
             {
               "label": "Accesorios",
-              "href": "/vestidos?categoria=accesorios"
+              "href": "/coleccion?categoria=accesorios"
             }
           ]
         },
@@ -527,10 +527,83 @@
     }
   },
   "ui": {
+    "chrome": {
+      "openCart": "Abrir carrito",
+      "openCartWithCount": "Abrir carrito, {count} artículos",
+      "myAccount": "Mi cuenta",
+      "openMenu": "Abrir menú",
+      "closeMenu": "Cerrar menú",
+      "mainNavAria": "Principal",
+      "mobileNavAria": "Móvil",
+      "salesModeAria": "Modo de compra"
+    },
+    "account": {
+      "eyebrow": "Cuenta",
+      "loginTitle": "Iniciar sesión",
+      "registerTitle": "Crear cuenta",
+      "dashboardTitle": "Mi cuenta",
+      "emailLabel": "Correo electrónico",
+      "nameLabel": "Nombre",
+      "phoneLabel": "Teléfono",
+      "passwordLabel": "Contraseña",
+      "loginSubmit": "Entrar",
+      "loginSubmitting": "Entrando…",
+      "registerSubmit": "Registrarse",
+      "registerSubmitting": "Registrando…",
+      "logout": "Cerrar sesión",
+      "goToRegister": "Regístrate",
+      "goToLogin": "Inicia sesión",
+      "noAccountPrompt": "¿No tienes cuenta?",
+      "hasAccountPrompt": "¿Ya tienes cuenta?",
+      "googleSignIn": "Continuar con Google"
+    },
+    "listing": {
+      "searchLabel": "Buscar",
+      "searchPlaceholder": "Buscar…",
+      "allCategories": "Todo",
+      "loading": "Cargando…",
+      "loadMore": "Cargar más",
+      "loadingMore": "Cargando…",
+      "noSearchResults": "Sin resultados para esta búsqueda.",
+      "pieceSingular": "pieza",
+      "piecePlural": "piezas",
+      "collectionPrefix": "Colección:",
+      "clearFilter": "Quitar filtro"
+    },
+    "checkout": {
+      "pageTitle": "Checkout",
+      "customerSection": "Cliente",
+      "shippingSection": "Envío",
+      "paymentSection": "Pago",
+      "summarySection": "Resumen",
+      "fullNameRequired": "Indica tu nombre",
+      "emailRequired": "Indica tu correo",
+      "shippingMethodRequired": "Elige un método de envío",
+      "pickupBranchRequired": "Elige una tienda",
+      "paymentMethodRequired": "Elige un método de pago",
+      "phoneNumberLabel": "Número",
+      "discountCodeLabel": "Código",
+      "shippingLineLabel": "Envío",
+      "subtotalLabel": "Subtotal",
+      "totalLabel": "Total",
+      "emptyCartLabel": "Vaciar",
+      "removeLineLabel": "Eliminar",
+      "quantityLabel": "Cantidad",
+      "phoneCountryAria": "Código de país del teléfono",
+      "discountApply": "Aplicar",
+      "taxLabel": "Impuestos",
+      "hasDiscountCodeLabel": "Tengo un código de descuento",
+      "discountLineLabel": "Descuento"
+    },
+    "errors": {
+      "addToCartFailed": "No se pudo añadir al carrito",
+      "orderConfirmFailed": "No se pudo confirmar el pedido",
+      "catalogLoadFailed": "No se pudo cargar el catálogo."
+    },
     "cart": {
       "title": "Tu selección",
       "empty": "Aún no has reservado ninguna pieza.",
-      "exploreCta": "Ver vestidos",
+      "exploreCta": "Ver colección",
       "checkout": "Continuar reserva",
       "shippingHint": "Las pruebas se confirman tras el pago de la señal"
     },
@@ -542,6 +615,9 @@
       "contact": "Consultar disponibilidad",
       "lowStock": "Últimas tallas",
       "madeToOrderClosed": "Reservas cerradas temporalmente",
+      "addingToCart": "Añadiendo…",
+      "priceBookLabel": "Precio del ejemplar",
+      "priceProgramLabel": "Inversión por plaza en la cohorte",
       "badges": {
         "new": "Nueva temporada",
         "featured": "Look firma",
@@ -577,12 +653,12 @@
         {
           "salesMode": "stock",
           "label": "Entrega inmediata",
-          "href": "/vestidos?salesMode=stock"
+          "href": "/coleccion?salesMode=stock"
         },
         {
           "salesMode": "madeToOrder",
           "label": "Bajo pedido",
-          "href": "/vestidos?salesMode=madeToOrder"
+          "href": "/coleccion?salesMode=madeToOrder"
         }
       ]
     }

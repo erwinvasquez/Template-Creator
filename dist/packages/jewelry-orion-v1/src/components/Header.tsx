@@ -1,15 +1,34 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Menu, ShoppingBag, User, X } from "lucide-react";
-import { useCommerceCapabilities, useHostCart } from "../lib/commerce-host";
+import { useHostCart } from "../lib/commerce-host";
 import { useSiteContent } from "../lib/site-content";
-import { accountPath, resolveNavHref, SHOP_QUERY, withBasePath } from "../content/resolve";
-import { showsSalesModeChrome } from "../lib/sales-mode";
+import { requireUi } from "../lib/ui";
+import { accountPath, resolveNavHref, withBasePath } from "../content/resolve";
 
-function HeaderCartButton({ transparent }: { transparent: boolean }) {
+function cartAriaLabel(
+  openCart: string,
+  openCartWithCount: string,
+  count: number,
+): string {
+  if (count > 0) {
+    return openCartWithCount.replace("{count}", String(count));
+  }
+  return openCart;
+}
+
+function HeaderCartButton({
+  transparent,
+  openCartLabel,
+  openCartWithCountLabel,
+}: {
+  transparent: boolean;
+  openCartLabel: string;
+  openCartWithCountLabel: string;
+}) {
   const { cart, openCart } = useHostCart();
   const itemCount = cart?.itemsCount ?? 0;
 
@@ -22,7 +41,11 @@ function HeaderCartButton({ transparent }: { transparent: boolean }) {
           ? "text-white hover:bg-white/10"
           : "text-primary hover:bg-surface"
       }`}
-      aria-label={`Abrir estuche${itemCount ? `, ${itemCount} piezas` : ""}`}
+      aria-label={cartAriaLabel(
+        openCartLabel,
+        openCartWithCountLabel,
+        itemCount,
+      )}
     >
       <ShoppingBag className="h-5 w-5" strokeWidth={1.5} />
       {itemCount > 0 && (
@@ -34,7 +57,13 @@ function HeaderCartButton({ transparent }: { transparent: boolean }) {
   );
 }
 
-function HeaderAccountLink({ transparent }: { transparent: boolean }) {
+function HeaderAccountLink({
+  transparent,
+  myAccountLabel,
+}: {
+  transparent: boolean;
+  myAccountLabel: string;
+}) {
   const { payload, basePath } = useSiteContent();
 
   return (
@@ -45,77 +74,17 @@ function HeaderAccountLink({ transparent }: { transparent: boolean }) {
           ? "text-white hover:bg-white/10"
           : "text-primary hover:bg-surface"
       }`}
-      aria-label="Mi cuenta"
+      aria-label={myAccountLabel}
     >
       <User className="h-5 w-5" strokeWidth={1.5} />
     </Link>
   );
 }
 
-function SalesModeNavLinks({
-  transparent,
-  onNavigate,
-  layout,
-}: {
-  transparent: boolean;
-  onNavigate?: () => void;
-  layout: "desktop" | "mobile";
-}) {
-  const capabilities = useCommerceCapabilities();
-  const { payload, basePath } = useSiteContent();
-  const searchParams = useSearchParams();
-  const activeMode = searchParams.get(SHOP_QUERY.salesMode);
-
-  if (!showsSalesModeChrome(capabilities)) return null;
-  const nav = payload.ui?.salesMode?.nav;
-  if (!nav?.length) return null;
-
-  if (layout === "desktop") {
-    return (
-      <div className="ml-4 flex items-center gap-4 border-l border-border/60 pl-4">
-        {nav.map((item) => {
-          const active = activeMode === item.salesMode;
-          return (
-            <Link
-              key={item.salesMode}
-              href={withBasePath(basePath, item.href)}
-              onClick={onNavigate}
-              className={`cursor-pointer text-[10px] font-medium uppercase tracking-[0.14em] transition-colors duration-200 ${
-                active
-                  ? transparent
-                    ? "text-white"
-                    : "text-primary"
-                  : transparent
-                    ? "text-white/60 hover:text-white"
-                    : "text-muted hover:text-primary"
-              }`}
-            >
-              {item.label}
-            </Link>
-          );
-        })}
-      </div>
-    );
-  }
-
-  return (
-    <>
-      {nav.map((item) => (
-        <Link
-          key={item.salesMode}
-          href={withBasePath(basePath, item.href)}
-          onClick={onNavigate}
-          className="cursor-pointer border-b border-border py-4 text-sm font-medium uppercase tracking-[0.14em] text-muted transition-colors duration-200 hover:text-cta"
-        >
-          {item.label}
-        </Link>
-      ))}
-    </>
-  );
-}
-
 export function Header() {
   const { payload, basePath } = useSiteContent();
+  const ui = requireUi(payload);
+  const chrome = ui.chrome;
   const pathname = usePathname();
   const showCart = payload.features?.cart !== false;
   const showAccount = payload.features?.account !== false;
@@ -169,7 +138,7 @@ export function Header() {
 
           <nav
             className="hidden items-center gap-8 md:flex"
-            aria-label="Principal"
+            aria-label={chrome.mainNavAria}
           >
             {primaryLinks.map((link) => (
               <Link
@@ -184,19 +153,29 @@ export function Header() {
                 {link.label}
               </Link>
             ))}
-            <SalesModeNavLinks transparent={transparent} layout="desktop" />
           </nav>
 
           <div className="flex items-center gap-2 md:gap-4">
-            {showAccount ? <HeaderAccountLink transparent={transparent} /> : null}
-            {showCart ? <HeaderCartButton transparent={transparent} /> : null}
+            {showAccount ? (
+              <HeaderAccountLink
+                transparent={transparent}
+                myAccountLabel={chrome.myAccount}
+              />
+            ) : null}
+            {showCart ? (
+              <HeaderCartButton
+                transparent={transparent}
+                openCartLabel={chrome.openCart}
+                openCartWithCountLabel={chrome.openCartWithCount}
+              />
+            ) : null}
             <button
               type="button"
               className={`cursor-pointer rounded-full p-2 md:hidden ${
                 transparent ? "text-white" : "text-primary"
               }`}
               onClick={() => setMobileOpen((v) => !v)}
-              aria-label={mobileOpen ? "Cerrar menú" : "Abrir menú"}
+              aria-label={mobileOpen ? chrome.closeMenu : chrome.openMenu}
               aria-expanded={mobileOpen}
             >
               {mobileOpen ? (
@@ -211,7 +190,7 @@ export function Header() {
 
       {mobileOpen && (
         <div className="fixed inset-0 z-40 bg-background pt-24 animate-fade-in md:hidden">
-          <nav className="flex flex-col gap-1 px-8" aria-label="Móvil">
+          <nav className="flex flex-col gap-1 px-8" aria-label={chrome.mobileNavAria}>
             {primaryLinks.map((link) => (
               <Link
                 key={`${link.type}-${link.label}`}
@@ -222,18 +201,13 @@ export function Header() {
                 {link.label}
               </Link>
             ))}
-            <SalesModeNavLinks
-              transparent={false}
-              layout="mobile"
-              onNavigate={() => setMobileOpen(false)}
-            />
             {showAccount ? (
               <Link
                 href={accountPath(basePath, payload.features?.accountBasePath)}
                 onClick={() => setMobileOpen(false)}
                 className="cursor-pointer border-b border-border py-5 font-serif text-2xl tracking-wide text-primary transition-colors duration-200 hover:text-cta"
               >
-                Mi cuenta
+                {chrome.myAccount}
               </Link>
             ) : null}
           </nav>

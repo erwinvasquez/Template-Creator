@@ -19,6 +19,10 @@ import { DEFAULT_PREVIEW_CAPABILITIES } from "@shopenlinea/commerce-runtime-cont
 import type { ContentPayload } from "../content/types";
 import { formatPrice, resolveProducts } from "../content/resolve";
 import type { VoxaCommerceHost } from "../lib/commerce-host";
+import { DEFAULT_BASE_PATH } from "../meta";
+
+const LAB_CART_PATH = `${DEFAULT_BASE_PATH}/carrito`;
+const LAB_CHECKOUT_PATH = `${DEFAULT_BASE_PATH}/checkout`;
 
 export type PayloadCommerceBridgeOptions = {
   dualSalesMode?: boolean;
@@ -92,8 +96,8 @@ export function createPayloadCommerceBridge(
       subtotalDisplay: money(0),
       requiresShipping: true,
       lines: [],
-      cartHref: "/carrito",
-      checkoutHref: "/checkout",
+      cartHref: LAB_CART_PATH,
+      checkoutHref: LAB_CHECKOUT_PATH,
       promotionLabels: [],
     };
   }
@@ -107,7 +111,7 @@ export function createPayloadCommerceBridge(
     return {
       id: p.id,
       slug: p.slug,
-      href: `/programas/${p.slug}`,
+      href: `/catalogo/${p.slug}`,
       name: p.name,
       imageUrl: p.imageUrl,
       galleryPreview: p.hoverImageUrl ?? null,
@@ -249,7 +253,7 @@ export function createPayloadCommerceBridge(
     const detail: ProductDetailViewModel = {
       id: p.id,
       slug: p.slug,
-      href: `/programas/${p.slug}`,
+      href: `/catalogo/${p.slug}`,
       name: p.name,
       shortDescription: firstSentence,
       description: p.description,
@@ -399,7 +403,7 @@ export function createPayloadCommerceBridge(
               productId: p.id,
               productName: p.name,
               variantLabel: `${modality} · ${p.sizes[0] ?? "Programa"}`,
-              href: `/programas/${p.slug}`,
+              href: `/catalogo/${p.slug}`,
               imageUrl: p.imageUrl,
               quantity,
               maxQuantity: p.categorySlug === "libros" ? 10 : 3,
@@ -444,7 +448,7 @@ export function createPayloadCommerceBridge(
     },
     navigateToCheckout() {
       if (typeof window !== "undefined") {
-        window.location.href = "/checkout";
+        window.location.href = LAB_CHECKOUT_PATH;
       }
     },
     async previewCheckout() {

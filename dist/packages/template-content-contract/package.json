@@ -1,0 +1,11 @@
+{
+  "name": "@web-generator/template-content-contract",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Canonical strict ui.* JSON Schema for template packages (WG ↔ SaaS Phase 1)",
+  "exports": {
+    "./uiCopy.schema.json": "./uiCopy.schema.json",
+    "./uiCopy.defaults.seed.json": "./uiCopy.defaults.seed.json",
+    "./schemaForAjv": "./src/schemaForAjv.ts"
+  }
+}

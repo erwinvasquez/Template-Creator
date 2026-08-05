@@ -32,8 +32,8 @@
     "primary": [
       {
         "type": "path",
-        "label": "Vestidos",
-        "href": "/vestidos"
+        "label": "Colección",
+        "href": "/coleccion"
       },
       {
         "type": "shopFilter",
@@ -55,8 +55,8 @@
     },
     "pages": {
       "shop": {
-        "title": "Vestidos",
-        "description": "Catálogo fixture."
+        "title": "Colección",
+        "description": "Colección Celestine: fiesta, novias, quinceañeras, comunión y accesorios."
       },
       "about": {
         "title": "La casa",
@@ -248,8 +248,8 @@
         "alt": "Hero fixture"
       },
       "ctaPrimary": {
-        "label": "Ver vestidos",
-        "href": "/vestidos"
+        "label": "Ver colección",
+        "href": "/coleccion"
       }
     },
     "occasions": {
@@ -360,7 +360,7 @@
           "links": [
             {
               "label": "Vestidos",
-              "href": "/vestidos"
+              "href": "/coleccion"
             }
           ]
         }
@@ -369,12 +369,112 @@
     }
   },
   "ui": {
+    "chrome": {
+      "openCart": "Abrir carrito",
+      "openCartWithCount": "Abrir carrito, {count} artículos",
+      "myAccount": "Mi cuenta",
+      "openMenu": "Abrir menú",
+      "closeMenu": "Cerrar menú",
+      "mainNavAria": "Principal",
+      "mobileNavAria": "Móvil",
+      "salesModeAria": "Modo de compra"
+    },
+    "account": {
+      "eyebrow": "Cuenta",
+      "loginTitle": "Iniciar sesión",
+      "registerTitle": "Crear cuenta",
+      "dashboardTitle": "Mi cuenta",
+      "emailLabel": "Correo electrónico",
+      "nameLabel": "Nombre",
+      "phoneLabel": "Teléfono",
+      "passwordLabel": "Contraseña",
+      "loginSubmit": "Entrar",
+      "loginSubmitting": "Entrando…",
+      "registerSubmit": "Registrarse",
+      "registerSubmitting": "Registrando…",
+      "logout": "Cerrar sesión",
+      "goToRegister": "Regístrate",
+      "goToLogin": "Inicia sesión",
+      "noAccountPrompt": "¿No tienes cuenta?",
+      "hasAccountPrompt": "¿Ya tienes cuenta?",
+      "googleSignIn": "Continuar con Google"
+    },
+    "listing": {
+      "searchLabel": "Buscar",
+      "searchPlaceholder": "Buscar…",
+      "allCategories": "Todo",
+      "loading": "Cargando…",
+      "loadMore": "Cargar más",
+      "loadingMore": "Cargando…",
+      "noSearchResults": "Sin resultados para esta búsqueda.",
+      "pieceSingular": "pieza",
+      "piecePlural": "piezas",
+      "collectionPrefix": "Colección:",
+      "clearFilter": "Quitar filtro"
+    },
+    "checkout": {
+      "pageTitle": "Checkout",
+      "customerSection": "Cliente",
+      "shippingSection": "Envío",
+      "paymentSection": "Pago",
+      "summarySection": "Resumen",
+      "fullNameRequired": "Indica tu nombre",
+      "emailRequired": "Indica tu correo",
+      "shippingMethodRequired": "Elige un método de envío",
+      "pickupBranchRequired": "Elige una tienda",
+      "paymentMethodRequired": "Elige un método de pago",
+      "phoneNumberLabel": "Número",
+      "discountCodeLabel": "Código",
+      "shippingLineLabel": "Envío",
+      "subtotalLabel": "Subtotal",
+      "totalLabel": "Total",
+      "emptyCartLabel": "Vaciar",
+      "removeLineLabel": "Eliminar",
+      "quantityLabel": "Cantidad",
+      "phoneCountryAria": "Código de país del teléfono",
+      "discountApply": "Aplicar",
+      "taxLabel": "Impuestos",
+      "hasDiscountCodeLabel": "Tengo un código de descuento",
+      "discountLineLabel": "Descuento"
+    },
+    "errors": {
+      "addToCartFailed": "No se pudo añadir al carrito",
+      "orderConfirmFailed": "No se pudo confirmar el pedido",
+      "catalogLoadFailed": "No se pudo cargar el catálogo."
+    },
+    "cart": {
+      "title": "Tu selección",
+      "empty": "Tu carrito está vacío.",
+      "exploreCta": "Explorar tienda",
+      "checkout": "Finalizar compra",
+      "shippingHint": "Envío calculado en el checkout"
+    },
     "product": {
       "addToCart": "Reservar prueba",
-      "relatedTitle": "Otras piezas"
+      "relatedTitle": "Otras piezas",
+      "shippingNote": "2–4 días laborables",
+      "outOfStock": "Agotado",
+      "contact": "Consultar disponibilidad",
+      "lowStock": "Quedan pocas unidades",
+      "madeToOrderClosed": "Pedidos cerrados temporalmente",
+      "addingToCart": "Añadiendo…",
+      "priceBookLabel": "Precio del ejemplar",
+      "priceProgramLabel": "Inversión por plaza en la cohorte",
+      "badges": {
+        "new": "Nuevo",
+        "featured": "Destacado",
+        "sale": "Oferta",
+        "bestseller": "Más vendido",
+        "limitedEdition": "Edición limitada"
+      }
     },
     "shop": {
-      "empty": "Vacío fixture."
+      "empty": "Vacío fixture.",
+      "clearFilter": "Quitar filtro"
+    },
+    "notFound": {
+      "title": "Página no encontrada",
+      "body": "Esta ruta no existe."
     },
     "salesMode": {
       "stock": {
@@ -395,12 +495,12 @@
         {
           "salesMode": "stock",
           "label": "Entrega inmediata",
-          "href": "/vestidos?salesMode=stock"
+          "href": "/coleccion?salesMode=stock"
         },
         {
           "salesMode": "madeToOrder",
           "label": "Bajo pedido",
-          "href": "/vestidos?salesMode=madeToOrder"
+          "href": "/coleccion?salesMode=madeToOrder"
         }
       ]
     }

@@ -1,0 +1,158 @@
+/*
+  Lumen CrossFit — Barlow Condensed (display) + Barlow (body).
+  Paleta: carbón #0F0F0F, naranja eléctrico #FF4D00, fondo concreto #F2F2ED.
+*/
+@import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Barlow:wght@300;400;500;600;700&display=swap");
+
+:root {
+  --color-primary: #0f0f0f;
+  --color-secondary: #2a2a2a;
+  --color-cta: #ff4d00;
+  --color-cta-hover: #e04400;
+  --color-background: #f2f2ed;
+  --color-surface: #e8e8e2;
+  --color-text: #0f0f0f;
+  --color-muted: #4a4a4a;
+  --color-border: #d4d4cc;
+  --color-accent-soft: rgba(255, 77, 0, 0.12);
+  --font-display: "Barlow Condensed", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Barlow", ui-sans-serif, system-ui, sans-serif;
+}
+
+@theme {
+  --color-primary: #0f0f0f;
+  --color-secondary: #2a2a2a;
+  --color-cta: #ff4d00;
+  --color-cta-hover: #e04400;
+  --color-background: #f2f2ed;
+  --color-surface: #e8e8e2;
+  --color-text: #0f0f0f;
+  --color-muted: #4a4a4a;
+  --color-border: #d4d4cc;
+  --font-display: var(--font-display);
+  --font-sans: var(--font-body);
+}
+
+.lumen-root {
+  background: var(--color-background);
+  color: var(--color-text);
+  font-family: var(--font-body);
+}
+
+.lumen-root ::selection {
+  background: var(--color-accent-soft);
+  color: var(--color-text);
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+.glass {
+  background: rgba(242, 242, 237, 0.88);
+  backdrop-filter: blur(12px) saturate(1.1);
+  -webkit-backdrop-filter: blur(12px) saturate(1.1);
+  border: 1px solid rgba(212, 212, 204, 0.8);
+}
+
+.glass-dark {
+  background: rgba(15, 15, 15, 0.72);
+  backdrop-filter: blur(14px) saturate(1.1);
+  -webkit-backdrop-filter: blur(14px) saturate(1.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes ken-burns {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out both;
+}
+
+.animate-ken-burns {
+  animation: ken-burns 16s ease-out forwards;
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-up,
+  .animate-fade-in,
+  .animate-ken-burns,
+  .animate-slide-in-right {
+    animation: none;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+.category-scroll {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.category-scroll::-webkit-scrollbar {
+  display: none;
+}

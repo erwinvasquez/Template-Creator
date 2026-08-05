@@ -39,6 +39,7 @@ export function AccessoriesLane() {
           {accessories.cta ? (
             <Link
               href={withBasePath(basePath, accessories.cta.href)}
+              data-wb-slot="accessories.cta"
               className="group inline-flex shrink-0 cursor-pointer items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-primary transition-colors duration-200 hover:text-cta"
             >
               {accessories.cta.label}

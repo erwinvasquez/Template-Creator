@@ -10,7 +10,7 @@ export function Hero() {
   const hero = payload.sections.hero;
 
   return (
-    <section className="relative h-[100svh] min-h-[600px] w-full overflow-hidden">
+    <section className="relative h-[100svh] min-h-[640px] w-full overflow-hidden">
       <Image
         src={resolveMediaUrl(hero.image, payload.media)}
         alt={hero.image.alt}

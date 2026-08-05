@@ -6,6 +6,7 @@ import { Minus, Plus, ShoppingBag, X } from "lucide-react";
 import type { CartViewProps } from "@shopenlinea/commerce-runtime-contract";
 import { useCommerceCapabilities } from "../../lib/commerce-host";
 import { useSiteContent } from "../../lib/site-content";
+import { requireUi } from "../../lib/ui";
 import { withBasePath } from "../../content/resolve";
 import { cartSalesModeLabel, showsSalesModeChrome } from "../../lib/sales-mode";
 
@@ -20,18 +21,19 @@ export function CommerceCartDrawer({
   onClose,
 }: CartViewProps) {
   const { payload, basePath } = useSiteContent();
+  const ui = requireUi(payload);
+  const cartUi = ui.cart;
   const capabilities = useCommerceCapabilities();
-  const cartUi = payload.ui?.cart;
   const showSalesModeChrome = showsSalesModeChrome(capabilities);
   const salesModeLine =
     showSalesModeChrome && cart.lines.length > 0
-      ? cartSalesModeLabel(cart.salesMode, payload.ui?.salesMode)
+      ? cartSalesModeLabel(cart.salesMode, ui.salesMode)
       : null;
   const cartClosedWarning =
     showSalesModeChrome &&
     cart.salesMode === "madeToOrder" &&
     cart.madeToOrderAcceptingOrders === false
-      ? payload.ui?.salesMode?.madeToOrder?.cartClosedWarning
+      ? ui.salesMode.madeToOrder.cartClosedWarning
       : null;
 
   if (!isOpen) return null;
@@ -41,7 +43,7 @@ export function CommerceCartDrawer({
       className="fixed inset-0 z-[60]"
       role="dialog"
       aria-modal="true"
-      aria-label="Carrito"
+      aria-label={cartUi.title}
     >
       <button
         type="button"
@@ -51,9 +53,7 @@ export function CommerceCartDrawer({
       />
       <aside className="absolute right-0 top-0 flex h-full w-full max-w-md flex-col bg-background shadow-xl animate-slide-in-right">
         <div className="flex items-center justify-between border-b border-border px-6 py-5">
-          <h2 className="font-serif text-2xl tracking-wide">
-            {cartUi?.title ?? "Tu selección"}
-          </h2>
+          <h2 className="font-serif text-2xl tracking-wide">{cartUi.title}</h2>
           <button
             type="button"
             onClick={onClose}
@@ -68,15 +68,13 @@ export function CommerceCartDrawer({
           {cart.lines.length === 0 ? (
             <div className="flex h-full flex-col items-center justify-center gap-4 text-center">
               <ShoppingBag className="h-10 w-10 text-muted" strokeWidth={1} />
-              <p className="text-sm text-muted">
-                {cartUi?.empty ?? "Tu carrito está vacío."}
-              </p>
+              <p className="text-sm text-muted">{cartUi.empty}</p>
               <Link
-                href={withBasePath(basePath, "/vestidos")}
+                href={withBasePath(basePath, "/coleccion")}
                 onClick={onClose}
                 className="cursor-pointer text-sm font-medium uppercase tracking-[0.14em] text-cta transition-colors duration-200 hover:text-cta-hover"
               >
-                {cartUi?.exploreCta ?? "Explorar tienda"}
+                {cartUi.exploreCta}
               </Link>
             </div>
           ) : (
@@ -85,86 +83,86 @@ export function CommerceCartDrawer({
                 <p className="mb-4 text-xs text-muted">{salesModeLine}</p>
               ) : null}
               <ul className="space-y-6">
-              {cart.lines.map((line) => (
-                <li key={line.lineId} className="flex gap-4">
-                  <div className="relative h-28 w-20 shrink-0 overflow-hidden bg-surface">
-                    {line.imageUrl && (
-                      <Image
-                        src={line.imageUrl}
-                        alt={line.productName}
-                        fill
-                        className="object-cover"
-                        sizes="80px"
-                      />
-                    )}
-                  </div>
-                  <div className="flex flex-1 flex-col">
-                    <div className="flex items-start justify-between gap-2">
-                      <div>
-                        <p className="font-serif text-lg leading-tight">
-                          {line.productName}
-                        </p>
-                        <p className="mt-1 text-xs text-muted">
-                          {line.variantLabel}
-                        </p>
-                        {line.errorMessage && (
-                          <p className="mt-1 text-xs text-red-700">
-                            {line.errorMessage}
+                {cart.lines.map((line) => (
+                  <li key={line.lineId} className="flex gap-4">
+                    <div className="relative h-28 w-20 shrink-0 overflow-hidden bg-surface">
+                      {line.imageUrl && (
+                        <Image
+                          src={line.imageUrl}
+                          alt={line.productName}
+                          fill
+                          className="object-cover"
+                          sizes="80px"
+                        />
+                      )}
+                    </div>
+                    <div className="flex flex-1 flex-col">
+                      <div className="flex items-start justify-between gap-2">
+                        <div>
+                          <p className="font-serif text-lg leading-tight">
+                            {line.productName}
                           </p>
-                        )}
-                      </div>
-                      <button
-                        type="button"
-                        onClick={() => actions.removeCartLine(line.variantId)}
-                        className="cursor-pointer text-muted transition-colors duration-200 hover:text-primary"
-                        aria-label="Eliminar"
-                      >
-                        <X className="h-4 w-4" strokeWidth={1.5} />
-                      </button>
-                    </div>
-                    <div className="mt-auto flex items-center justify-between pt-3">
-                      <div className="flex items-center border border-border">
+                          <p className="mt-1 text-xs text-muted">
+                            {line.variantLabel}
+                          </p>
+                          {line.errorMessage && (
+                            <p className="mt-1 text-xs text-red-700">
+                              {line.errorMessage}
+                            </p>
+                          )}
+                        </div>
                         <button
                           type="button"
-                          className="cursor-pointer p-2 transition-colors duration-200 hover:bg-surface"
-                          onClick={() =>
-                            actions.updateCartQuantity(
-                              line.variantId,
-                              Math.max(1, line.quantity - 1),
-                            )
-                          }
-                          aria-label="Menos"
+                          onClick={() => actions.removeCartLine(line.variantId)}
+                          className="cursor-pointer text-muted transition-colors duration-200 hover:text-primary"
+                          aria-label="Eliminar"
                         >
-                          <Minus className="h-3.5 w-3.5" strokeWidth={1.5} />
-                        </button>
-                        <span className="w-8 text-center text-sm">
-                          {line.quantity}
-                        </span>
-                        <button
-                          type="button"
-                          className="cursor-pointer p-2 transition-colors duration-200 hover:bg-surface"
-                          onClick={() =>
-                            actions.updateCartQuantity(
-                              line.variantId,
-                              Math.min(
-                                lineMaxQty(line.maxQuantity),
-                                line.quantity + 1,
-                              ),
-                            )
-                          }
-                          aria-label="Más"
-                        >
-                          <Plus className="h-3.5 w-3.5" strokeWidth={1.5} />
+                          <X className="h-4 w-4" strokeWidth={1.5} />
                         </button>
                       </div>
-                      <p className="text-sm font-medium">
-                        {line.lineDisplayPrice}
-                      </p>
+                      <div className="mt-auto flex items-center justify-between pt-3">
+                        <div className="flex items-center border border-border">
+                          <button
+                            type="button"
+                            className="cursor-pointer p-2 transition-colors duration-200 hover:bg-surface"
+                            onClick={() =>
+                              actions.updateCartQuantity(
+                                line.variantId,
+                                Math.max(1, line.quantity - 1),
+                              )
+                            }
+                            aria-label="Menos"
+                          >
+                            <Minus className="h-3.5 w-3.5" strokeWidth={1.5} />
+                          </button>
+                          <span className="w-8 text-center text-sm">
+                            {line.quantity}
+                          </span>
+                          <button
+                            type="button"
+                            className="cursor-pointer p-2 transition-colors duration-200 hover:bg-surface"
+                            onClick={() =>
+                              actions.updateCartQuantity(
+                                line.variantId,
+                                Math.min(
+                                  lineMaxQty(line.maxQuantity),
+                                  line.quantity + 1,
+                                ),
+                              )
+                            }
+                            aria-label="Más"
+                          >
+                            <Plus className="h-3.5 w-3.5" strokeWidth={1.5} />
+                          </button>
+                        </div>
+                        <p className="text-sm font-medium">
+                          {line.lineDisplayPrice}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                </li>
-              ))}
-            </ul>
+                  </li>
+                ))}
+              </ul>
             </>
           )}
         </div>
@@ -190,7 +188,7 @@ export function CommerceCartDrawer({
               onClick={() => actions.navigateToCheckout()}
               className="w-full cursor-pointer bg-cta px-6 py-3.5 text-sm font-semibold uppercase tracking-[0.14em] text-white transition-colors duration-200 hover:bg-cta-hover"
             >
-              {cartUi?.checkout ?? "Checkout"}
+              {cartUi.checkout}
             </button>
           </div>
         )}

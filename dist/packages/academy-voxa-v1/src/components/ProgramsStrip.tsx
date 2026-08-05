@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { useSiteContent } from "../lib/site-content";
+import { requireUi } from "../lib/ui";
 import {
   SHOP_PATH,
   formatPrice,
@@ -14,9 +15,10 @@ import { Reveal } from "./Reveal";
 
 export function ProgramsStrip() {
   const { payload, basePath } = useSiteContent();
+  const ui = requireUi(payload);
   const { programs } = payload.sections;
   const products = getProgramProducts(payload);
-  const badges = payload.ui?.product?.badges;
+  const badges = ui.product.badges;
 
   return (
     <section
@@ -43,7 +45,7 @@ export function ProgramsStrip() {
             href={withBasePath(basePath, SHOP_PATH)}
             className="group inline-flex shrink-0 cursor-pointer items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-primary transition-colors duration-200 hover:text-cta"
           >
-            {payload.ui?.cart?.exploreCta ?? "Ver programas"}
+            {ui.cart.exploreCta}
             <ArrowRight
               className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
               strokeWidth={1.75}
@@ -55,9 +57,9 @@ export function ProgramsStrip() {
       <div className="grid gap-6 md:grid-cols-3">
         {products.map((product, i) => {
           const badgeLabel = product.isNew
-            ? (badges?.new ?? "Nueva cohorte")
+            ? badges.new
             : product.isLimited
-              ? (badges?.limited ?? "Plazas limitadas")
+              ? badges.limitedEdition
               : null;
 
           return (

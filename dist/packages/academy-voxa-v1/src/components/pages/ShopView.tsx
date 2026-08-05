@@ -3,6 +3,7 @@
 import { Suspense } from "react";
 import { useSiteContent } from "../../lib/site-content";
 import { CommerceAwareCatalog } from "../CommerceAwareCatalog";
+import { SalesModeShopSwitch } from "../commerce/SalesModeShopBanner";
 
 function ShopCatalogSkeleton() {
   return (
@@ -24,13 +25,18 @@ export function ShopView() {
 
   return (
     <div className="mx-auto max-w-7xl px-6 pb-24 pt-12 md:px-10 md:pt-16">
-      <header className="mb-12 max-w-2xl">
-        <p
-          data-wb-slot="shop.eyebrow"
-          className="text-[11px] font-medium uppercase tracking-[0.2em] text-cta"
-        >
-          {shop.eyebrow}
-        </p>
+      <header className="mb-12">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-8">
+          <p
+            data-wb-slot="shop.eyebrow"
+            className="text-[11px] font-medium uppercase tracking-[0.2em] text-cta"
+          >
+            {shop.eyebrow}
+          </p>
+          <Suspense fallback={null}>
+            <SalesModeShopSwitch />
+          </Suspense>
+        </div>
         <h1
           data-wb-slot="shop.title"
           className="mt-3 font-serif text-4xl tracking-wide md:text-5xl"
@@ -39,7 +45,7 @@ export function ShopView() {
         </h1>
         <p
           data-wb-slot="shop.description"
-          className="mt-4 text-sm leading-relaxed text-muted md:text-base"
+          className="mt-4 max-w-2xl text-sm leading-relaxed text-muted md:text-base"
         >
           {shop.description}
         </p>

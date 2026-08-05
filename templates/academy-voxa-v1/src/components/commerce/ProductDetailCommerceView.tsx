@@ -10,6 +10,7 @@ import type {
   StockLabel,
 } from "@shopenlinea/commerce-runtime-contract";
 import { useSiteContent } from "../../lib/site-content";
+import { requireUi } from "../../lib/ui";
 import { withBasePath } from "../../content/resolve";
 import { CommerceProductCard } from "./CommerceProductCard";
 
@@ -27,24 +28,22 @@ function discountPercent(price: string, compareAt: string): number | null {
 
 function badgeLabel(
   key: string,
-  labels?: Record<string, string | undefined>,
+  labels: Record<string, string>,
 ): string {
-  const known = labels?.[key];
-  if (known) return known;
-  return key.replace(/([A-Z])/g, " $1").replace(/^./, (s) => s.toUpperCase());
+  return labels[key] ?? key;
 }
 
 function stockCopy(
   label: StockLabel | null | undefined,
   ui: {
-    outOfStock?: string;
-    contact?: string;
-    lowStock?: string;
+    outOfStock: string;
+    contact: string;
+    lowStock: string;
   },
 ): string | null {
   if (!label || label === "available") return null;
-  if (label === "out_of_stock") return ui.outOfStock ?? "Agotado";
-  if (label === "contact") return ui.contact ?? "Consultar próxima cohorte";
+  if (label === "out_of_stock") return ui.outOfStock;
+  if (label === "contact") return ui.contact;
   return null;
 }
 
@@ -84,6 +83,15 @@ export function ProductDetailCommerceView({
   errorMessage,
 }: ProductDetailViewProps) {
   const { payload, basePath } = useSiteContent();
+  const ui = requireUi(payload);
+  const uiProduct = ui.product;
+  const madeToOrderUi = ui.salesMode.madeToOrder;
+  const uiBadges = {
+    ...uiProduct.badges,
+    limitedEdition: uiProduct.badges.limitedEdition,
+  };
+  const relatedTitle = uiProduct.relatedTitle;
+  const shippingNote = uiProduct.shippingNote;
   const [pending, setPending] = useState(false);
   const [localError, setLocalError] = useState<string | null>(null);
   const [quantity, setQuantity] = useState(1);
@@ -93,19 +101,10 @@ export function ProductDetailCommerceView({
     product.variants.find((v) => v.id === product.selectedVariantId) ??
     product.variants[0];
 
-  const uiProduct = payload.ui?.product;
-  const uiBadges = {
-    ...uiProduct?.badges,
-    limitedEdition:
-      uiProduct?.badges?.limitedEdition ?? uiProduct?.badges?.limited,
-  };
-  const relatedTitle =
-    uiProduct?.relatedTitle ?? "Otros programas de esta categoría";
-  const shippingNote = uiProduct?.shippingNote;
   const shopLabel =
     payload.navigation.primary.find(
       (l) =>
-        (l.type === "path" && l.href.startsWith("/programas")) ||
+        (l.type === "path" && l.href.startsWith("/catalogo")) ||
         l.type === "shopFilter",
     )?.label ?? "Programas";
 
@@ -175,7 +174,7 @@ export function ProductDetailCommerceView({
     try {
       const res = await actions.addToCart(selected.id, quantity);
       if (!res.ok) {
-        setLocalError(res.errorMessage ?? "No se pudo añadir");
+        setLocalError(res.errorMessage ?? ui.errors.addToCartFailed);
         return;
       }
       actions.openCartDrawer();
@@ -185,20 +184,18 @@ export function ProductDetailCommerceView({
   }
 
   const stockMessage = stockCopy(stockLabel, {
-    outOfStock: uiProduct?.outOfStock,
-    contact: uiProduct?.contact,
-    lowStock: uiProduct?.lowStock,
+    outOfStock: uiProduct.outOfStock,
+    contact: uiProduct.contact,
+    lowStock: uiProduct.lowStock,
   });
 
   const ctaLabel = pending
-    ? isBook
-      ? "Añadiendo…"
-      : "Inscribiendo…"
+    ? uiProduct.addingToCart
     : stockLabel === "out_of_stock" || !variantAvailable
-      ? (uiProduct?.outOfStock ?? "Agotado")
+      ? uiProduct.outOfStock
       : isBook
-        ? "Añadir al carrito"
-        : (uiProduct?.addToCart ?? "Inscribirme");
+        ? uiProduct.addToCart
+        : uiProduct.addToCart;
 
   return (
     <div className="pb-28 md:pb-24">
@@ -225,7 +222,7 @@ export function ProductDetailCommerceView({
             aria-label="Breadcrumb"
           >
             <Link
-              href={withBasePath(basePath, "/programas")}
+              href={withBasePath(basePath, "/catalogo")}
               className="cursor-pointer transition-colors duration-200 hover:text-white"
             >
               {shopLabel}
@@ -243,10 +240,7 @@ export function ProductDetailCommerceView({
                       key={b}
                       className="rounded-full bg-cta px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-white"
                     >
-                      {badgeLabel(
-                        b,
-                        uiBadges as Record<string, string | undefined>,
-                      )}
+                      {badgeLabel(b, uiBadges)}
                     </span>
                   ))}
                 </p>
@@ -303,9 +297,7 @@ export function ProductDetailCommerceView({
                 </div>
 
                 <p className="mt-2 text-sm text-muted">
-                  {isBook
-                    ? "Precio del ejemplar"
-                    : "Inversión por plaza en la cohorte"}
+                  {isBook ? uiProduct.priceBookLabel : uiProduct.priceProgramLabel}
                 </p>
 
                 {showModalities
@@ -345,23 +337,16 @@ export function ProductDetailCommerceView({
 
                 {product.preparationPromiseLabel ? (
                   <p className="mt-5 text-sm text-muted">
-                    {payload.ui?.salesMode?.madeToOrder?.preparationLabel ??
-                      "Preparación"}
-                    : {product.preparationPromiseLabel}
+                    {madeToOrderUi.preparationLabel}:{" "}
+                    {product.preparationPromiseLabel}
                   </p>
                 ) : null}
 
                 {product.madeToOrderClosed ? (
                   <p className="mt-5 text-sm text-muted">
-                    {uiProduct?.madeToOrderClosed ??
-                      payload.ui?.salesMode?.madeToOrder?.closedMessage ??
-                      "Inscripciones cerradas temporalmente"}
+                    {uiProduct.madeToOrderClosed}
                     {product.madeToOrderReopensAtLabel
-                      ? ` ${
-                          payload.ui?.salesMode?.madeToOrder?.reopensPrefix
-                            ? `${payload.ui.salesMode.madeToOrder.reopensPrefix} `
-                            : ""
-                        }${product.madeToOrderReopensAtLabel}`
+                      ? ` ${madeToOrderUi.reopensPrefix} ${product.madeToOrderReopensAtLabel}`
                       : ""}
                   </p>
                 ) : null}

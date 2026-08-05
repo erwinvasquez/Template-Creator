@@ -30,10 +30,10 @@
           {
             "id": "hero",
             "contentSlotIds": [
+              "hero.ctaPrimary",
               "hero.headline",
-              "hero.subheadline",
               "hero.image",
-              "hero.ctaPrimary"
+              "hero.subheadline"
             ]
           },
           {
@@ -46,26 +46,37 @@
           {
             "id": "craft",
             "contentSlotIds": [
-              "craft.eyebrow",
-              "craft.title",
               "craft.body",
-              "craft.image"
+              "craft.cta",
+              "craft.eyebrow",
+              "craft.image",
+              "craft.title"
             ]
           },
           {
             "id": "materials",
             "contentSlotIds": [
               "materials.eyebrow",
+              "materials.items",
               "materials.title"
             ]
           },
           {
             "id": "appointment",
             "contentSlotIds": [
-              "appointment.eyebrow",
-              "appointment.title",
               "appointment.body",
-              "appointment.cta"
+              "appointment.cta",
+              "appointment.eyebrow",
+              "appointment.title"
+            ]
+          },
+          {
+            "id": "footer",
+            "contentSlotIds": [
+              "footer.blurb",
+              "footer.columns",
+              "footer.copyrightName",
+              "footer.tagline"
             ]
           }
         ]
@@ -78,9 +89,9 @@
           {
             "id": "shop",
             "contentSlotIds": [
+              "shop.description",
               "shop.eyebrow",
-              "shop.title",
-              "shop.description"
+              "shop.title"
             ]
           }
         ]
@@ -104,10 +115,17 @@
           {
             "id": "atelier",
             "contentSlotIds": [
+              "atelier.bannerImage",
+              "atelier.blocks",
+              "atelier.closing.body",
+              "atelier.closing.cta",
+              "atelier.closing.title",
+              "atelier.intro.body",
               "atelier.intro.eyebrow",
               "atelier.intro.title",
-              "atelier.intro.body",
-              "atelier.bannerImage"
+              "atelier.maisons.eyebrow",
+              "atelier.maisons.items",
+              "atelier.maisons.title"
             ]
           }
         ]
@@ -140,142 +158,413 @@
       "contentSupport": {
         "slotDefinitions": [
           {
-            "id": "hero.headline",
-            "fieldPath": "sections.hero.headline",
-            "kind": "string",
-            "label": "Hero headline"
-          },
-          {
-            "id": "hero.subheadline",
-            "fieldPath": "sections.hero.subheadline",
-            "kind": "string",
-            "label": "Hero subheadline"
-          },
-          {
-            "id": "hero.image",
-            "fieldPath": "sections.hero.image",
-            "kind": "media",
-            "label": "Hero image"
-          },
-          {
-            "id": "hero.ctaPrimary",
-            "fieldPath": "sections.hero.ctaPrimary",
-            "kind": "link",
-            "label": "Hero primary CTA"
-          },
-          {
-            "id": "signatures.eyebrow",
-            "fieldPath": "sections.signatures.eyebrow",
-            "kind": "string",
-            "label": "Signatures eyebrow"
-          },
-          {
-            "id": "signatures.title",
-            "fieldPath": "sections.signatures.title",
-            "kind": "string",
-            "label": "Signatures title"
-          },
-          {
-            "id": "craft.eyebrow",
-            "fieldPath": "sections.craft.eyebrow",
-            "kind": "string",
-            "label": "Craft eyebrow"
-          },
-          {
-            "id": "craft.title",
-            "fieldPath": "sections.craft.title",
-            "kind": "string",
-            "label": "Craft title"
-          },
-          {
-            "id": "craft.body",
-            "fieldPath": "sections.craft.body",
-            "kind": "text",
-            "label": "Craft body"
-          },
-          {
-            "id": "craft.image",
-            "fieldPath": "sections.craft.image",
-            "kind": "media",
-            "label": "Craft image"
-          },
-          {
-            "id": "materials.eyebrow",
-            "fieldPath": "sections.materials.eyebrow",
-            "kind": "string",
-            "label": "Materials eyebrow"
-          },
-          {
-            "id": "materials.title",
-            "fieldPath": "sections.materials.title",
-            "kind": "string",
-            "label": "Materials title"
-          },
-          {
-            "id": "appointment.eyebrow",
-            "fieldPath": "sections.appointment.eyebrow",
-            "kind": "string",
-            "label": "Appointment eyebrow"
-          },
-          {
-            "id": "appointment.title",
-            "fieldPath": "sections.appointment.title",
-            "kind": "string",
-            "label": "Appointment title"
-          },
-          {
             "id": "appointment.body",
             "fieldPath": "sections.appointment.body",
             "kind": "text",
-            "label": "Appointment body"
+            "label": "appointment body",
+            "generationHint": "Copy de sección appointment; tono del template.",
+            "required": true,
+            "localeScope": "both"
           },
           {
             "id": "appointment.cta",
             "fieldPath": "sections.appointment.cta",
             "kind": "link",
-            "label": "Appointment CTA"
+            "label": "appointment cta",
+            "generationHint": "Copy de sección appointment; tono del template.",
+            "required": true,
+            "localeScope": "both"
           },
           {
-            "id": "shop.eyebrow",
-            "fieldPath": "sections.shop.eyebrow",
+            "id": "appointment.eyebrow",
+            "fieldPath": "sections.appointment.eyebrow",
             "kind": "string",
-            "label": "Shop eyebrow"
+            "label": "appointment eyebrow",
+            "generationHint": "Copy de sección appointment; tono del template.",
+            "required": true,
+            "localeScope": "both"
           },
           {
-            "id": "shop.title",
-            "fieldPath": "sections.shop.title",
+            "id": "appointment.title",
+            "fieldPath": "sections.appointment.title",
             "kind": "string",
-            "label": "Shop title"
-          },
-          {
-            "id": "shop.description",
-            "fieldPath": "sections.shop.description",
-            "kind": "text",
-            "label": "Shop description"
-          },
-          {
-            "id": "atelier.intro.eyebrow",
-            "fieldPath": "sections.atelier.intro.eyebrow",
-            "kind": "string",
-            "label": "Atelier eyebrow"
-          },
-          {
-            "id": "atelier.intro.title",
-            "fieldPath": "sections.atelier.intro.title",
-            "kind": "string",
-            "label": "Atelier title"
-          },
-          {
-            "id": "atelier.intro.body",
-            "fieldPath": "sections.atelier.intro.body",
-            "kind": "text",
-            "label": "Atelier body"
+            "label": "appointment title",
+            "generationHint": "Copy de sección appointment; tono del template.",
+            "required": true,
+            "localeScope": "both"
           },
           {
             "id": "atelier.bannerImage",
             "fieldPath": "sections.atelier.bannerImage",
             "kind": "media",
-            "label": "Atelier banner"
+            "label": "atelier bannerImage",
+            "generationHint": "Copy de sección atelier; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "atelier.blocks",
+            "fieldPath": "sections.atelier.blocks",
+            "kind": "list",
+            "label": "atelier blocks",
+            "generationHint": "Copy de sección atelier; tono del template.",
+            "required": true,
+            "localeScope": "both",
+            "listSchema": {
+              "itemType": "object",
+              "fields": [
+                {
+                  "key": "id",
+                  "kind": "string",
+                  "label": "ID"
+                },
+                {
+                  "key": "title",
+                  "kind": "string",
+                  "label": "Título"
+                },
+                {
+                  "key": "body",
+                  "kind": "text",
+                  "label": "Texto"
+                }
+              ]
+            }
+          },
+          {
+            "id": "atelier.closing.body",
+            "fieldPath": "sections.atelier.closing.body",
+            "kind": "text",
+            "label": "atelier closing body",
+            "generationHint": "Copy de sección atelier; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "atelier.closing.cta",
+            "fieldPath": "sections.atelier.closing.cta",
+            "kind": "link",
+            "label": "atelier closing cta",
+            "generationHint": "Copy de sección atelier; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "atelier.closing.title",
+            "fieldPath": "sections.atelier.closing.title",
+            "kind": "string",
+            "label": "atelier closing title",
+            "generationHint": "Copy de sección atelier; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "atelier.intro.body",
+            "fieldPath": "sections.atelier.intro.body",
+            "kind": "text",
+            "label": "atelier intro body",
+            "generationHint": "Copy de sección atelier; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "atelier.intro.eyebrow",
+            "fieldPath": "sections.atelier.intro.eyebrow",
+            "kind": "string",
+            "label": "atelier intro eyebrow",
+            "generationHint": "Copy de sección atelier; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "atelier.intro.title",
+            "fieldPath": "sections.atelier.intro.title",
+            "kind": "string",
+            "label": "atelier intro title",
+            "generationHint": "Copy de sección atelier; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "atelier.maisons.eyebrow",
+            "fieldPath": "sections.atelier.maisons.eyebrow",
+            "kind": "string",
+            "label": "atelier maisons eyebrow",
+            "generationHint": "Copy de sección atelier; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "atelier.maisons.items",
+            "fieldPath": "sections.atelier.maisons.items",
+            "kind": "list",
+            "label": "atelier maisons items",
+            "generationHint": "Copy de sección atelier; tono del template.",
+            "required": true,
+            "localeScope": "both",
+            "listSchema": {
+              "itemType": "object",
+              "fields": [
+                {
+                  "key": "city",
+                  "kind": "string",
+                  "label": "Ciudad"
+                },
+                {
+                  "key": "address",
+                  "kind": "text",
+                  "label": "Dirección"
+                },
+                {
+                  "key": "hours",
+                  "kind": "string",
+                  "label": "Horario"
+                }
+              ]
+            }
+          },
+          {
+            "id": "atelier.maisons.title",
+            "fieldPath": "sections.atelier.maisons.title",
+            "kind": "string",
+            "label": "atelier maisons title",
+            "generationHint": "Copy de sección atelier; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "craft.body",
+            "fieldPath": "sections.craft.body",
+            "kind": "text",
+            "label": "craft body",
+            "generationHint": "Copy de sección craft; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "craft.cta",
+            "fieldPath": "sections.craft.cta",
+            "kind": "link",
+            "label": "craft cta",
+            "generationHint": "Copy de sección craft; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "craft.eyebrow",
+            "fieldPath": "sections.craft.eyebrow",
+            "kind": "string",
+            "label": "craft eyebrow",
+            "generationHint": "Copy de sección craft; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "craft.image",
+            "fieldPath": "sections.craft.image",
+            "kind": "media",
+            "label": "craft image",
+            "generationHint": "Copy de sección craft; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "craft.title",
+            "fieldPath": "sections.craft.title",
+            "kind": "string",
+            "label": "craft title",
+            "generationHint": "Copy de sección craft; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "footer.blurb",
+            "fieldPath": "sections.footer.blurb",
+            "kind": "text",
+            "label": "footer blurb",
+            "generationHint": "Copy de sección footer; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "footer.columns",
+            "fieldPath": "sections.footer.columns",
+            "kind": "list",
+            "label": "footer columns",
+            "generationHint": "Copy de sección footer; tono del template.",
+            "required": true,
+            "localeScope": "both",
+            "listSchema": {
+              "itemType": "object",
+              "fields": [
+                {
+                  "key": "title",
+                  "kind": "string",
+                  "label": "Título columna"
+                },
+                {
+                  "key": "links",
+                  "kind": "list",
+                  "label": "Enlaces",
+                  "listSchema": {
+                    "itemType": "object",
+                    "fields": [
+                      {
+                        "key": "label",
+                        "kind": "string",
+                        "label": "Etiqueta"
+                      },
+                      {
+                        "key": "href",
+                        "kind": "string",
+                        "label": "URL"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id": "footer.copyrightName",
+            "fieldPath": "sections.footer.copyrightName",
+            "kind": "string",
+            "label": "footer copyrightName",
+            "generationHint": "Copy de sección footer; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "footer.tagline",
+            "fieldPath": "sections.footer.tagline",
+            "kind": "string",
+            "label": "footer tagline",
+            "generationHint": "Copy de sección footer; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "hero.ctaPrimary",
+            "fieldPath": "sections.hero.ctaPrimary",
+            "kind": "link",
+            "label": "hero ctaPrimary",
+            "generationHint": "Copy de sección hero; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "hero.headline",
+            "fieldPath": "sections.hero.headline",
+            "kind": "string",
+            "label": "hero headline",
+            "generationHint": "Copy de sección hero; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "hero.image",
+            "fieldPath": "sections.hero.image",
+            "kind": "media",
+            "label": "hero image",
+            "generationHint": "Copy de sección hero; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "hero.subheadline",
+            "fieldPath": "sections.hero.subheadline",
+            "kind": "string",
+            "label": "hero subheadline",
+            "generationHint": "Copy de sección hero; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "materials.eyebrow",
+            "fieldPath": "sections.materials.eyebrow",
+            "kind": "string",
+            "label": "materials eyebrow",
+            "generationHint": "Copy de sección materials; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "materials.items",
+            "fieldPath": "sections.materials.items",
+            "kind": "list",
+            "label": "materials items",
+            "generationHint": "Copy de sección materials; tono del template.",
+            "required": true,
+            "localeScope": "both",
+            "listSchema": {
+              "itemType": "object",
+              "fields": [
+                {
+                  "key": "title",
+                  "kind": "string",
+                  "label": "Título"
+                },
+                {
+                  "key": "body",
+                  "kind": "text",
+                  "label": "Texto"
+                }
+              ]
+            }
+          },
+          {
+            "id": "materials.title",
+            "fieldPath": "sections.materials.title",
+            "kind": "string",
+            "label": "materials title",
+            "generationHint": "Copy de sección materials; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "shop.description",
+            "fieldPath": "sections.shop.description",
+            "kind": "text",
+            "label": "shop description",
+            "generationHint": "Copy de sección shop; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "shop.eyebrow",
+            "fieldPath": "sections.shop.eyebrow",
+            "kind": "string",
+            "label": "shop eyebrow",
+            "generationHint": "Copy de sección shop; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "shop.title",
+            "fieldPath": "sections.shop.title",
+            "kind": "string",
+            "label": "shop title",
+            "generationHint": "Copy de sección shop; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "signatures.eyebrow",
+            "fieldPath": "sections.signatures.eyebrow",
+            "kind": "string",
+            "label": "signatures eyebrow",
+            "generationHint": "Copy de sección signatures; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "signatures.title",
+            "fieldPath": "sections.signatures.title",
+            "kind": "string",
+            "label": "signatures title",
+            "generationHint": "Copy de sección signatures; tono del template.",
+            "required": true,
+            "localeScope": "both"
           },
           {
             "id": "brand.name",

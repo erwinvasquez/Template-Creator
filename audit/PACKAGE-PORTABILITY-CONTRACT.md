@@ -81,6 +81,8 @@ Aliases legacy (`featuredProductPath`, `collectionIdsPath`, `occasionIdsPath`, �
 - `navigation.primaryFromPayload` → `defaults.navigation.primary`
 - `brand.*` con `editorSurface: "none"`; sin slots `nav.*`
 - React: `data-wb-slot="{slotId}"` en copy estático; `CommerceAwareCatalog` no pisa filtros si el payload no tiene taxonomy demo
+- Shop listing: chips de categoría en **una línea** con scroll horizontal sin barra (`category-scroll` + `overflow-x-auto`; chips `shrink-0`) en `ProductListingView` y `ShopCatalog`
+- Home hero: `<section>` en `Hero.tsx` con `h-[100svh] min-h-[640px]` (todos los breakpoints; no `md:h-[92svh]` ni otros `min-h`)
 
 ---
 

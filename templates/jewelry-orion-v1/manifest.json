@@ -27,7 +27,8 @@
         "signatures",
         "craft",
         "materials",
-        "appointment"
+        "appointment",
+        "footer"
       ]
     },
     {
@@ -86,7 +87,7 @@
       "cartPage": true,
       "cartDrawer": true,
       "checkoutLayout": true,
-      "checkoutPage": true,
+      "checkoutPage": false,
       "orderConfirmation": true,
       "accountLogin": true,
       "accountRegister": true,

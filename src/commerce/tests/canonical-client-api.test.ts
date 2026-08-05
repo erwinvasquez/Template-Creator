@@ -14,6 +14,7 @@ const REQUIRED = [
   "resolveNavHref",
   "accountPath",
   "withBasePath",
+  "hostCheckoutSkin",
   "TEMPLATE_ID",
   "TEMPLATE_SLUG",
   "DEFAULT_BASE_PATH",
@@ -32,7 +33,9 @@ describe("Phase 0 canonical client API", () => {
     expect(client.commerceViews.ProductListing).toBeTypeOf("function");
     expect(client.commerceViews.ProductDetail).toBeTypeOf("function");
     expect(client.commerceViews.CartPage).toBeTypeOf("function");
-    expect(client.commerceViews.CheckoutPage).toBeTypeOf("function");
+    expect(client.hostCheckoutSkin).toBeDefined();
+    expect(client.hostCheckoutSkin.Layout).toBeTypeOf("function");
+    expect(client.commerceViews.CheckoutPage).toBeUndefined();
   });
 
   it("TemplateApp is the plug-and-play renderer alias", () => {

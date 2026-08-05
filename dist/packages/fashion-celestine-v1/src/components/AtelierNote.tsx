@@ -33,6 +33,7 @@ export function AtelierNote() {
           </p>
           <Link
             href={withBasePath(basePath, note.cta.href)}
+            data-wb-slot="note.cta"
             className="mt-10 inline-flex cursor-pointer rounded-full bg-cta px-8 py-3.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-white transition-colors duration-200 hover:bg-cta-hover"
           >
             {note.cta.label}

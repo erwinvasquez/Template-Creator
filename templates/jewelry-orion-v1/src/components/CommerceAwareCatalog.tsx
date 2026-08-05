@@ -11,6 +11,7 @@ import {
   useRequiredCommerceHost,
 } from "../lib/commerce-host";
 import { useSiteContent } from "../lib/site-content";
+import { requireUi } from "../lib/ui";
 import { SHOP_QUERY } from "../content/resolve";
 import { ProductListingView } from "./commerce/ProductListingView";
 import { parseSalesModeQuery, showsSalesModeChrome } from "../lib/sales-mode";
@@ -36,7 +37,6 @@ export function CommerceAwareCatalog() {
     const hasPayloadTaxonomy =
       payload.catalog.categories.length > 0 ||
       payload.catalog.collections.length > 0;
-    // Preview/demo: resolve from payload. SaaS runtime: host resolves via taxonomy API.
     if (!hasPayloadTaxonomy) return;
     const categoryId =
       payload.catalog.categories.find((c) => c.slug === categorySlug)?.id ??
@@ -73,19 +73,20 @@ export function CommerceAwareCatalog() {
       .catch(() => {
         if (!cancelled) {
           startTransition(() => {
-            setError("No se pudo cargar el catálogo.");
+            setError(requireUi(payload).errors.catalogLoadFailed);
           });
         }
       });
     return () => {
       cancelled = true;
     };
-  }, [host, tick, categorySlug, collectionSlug, salesModeSlug]);
+  }, [host, tick, categorySlug, collectionSlug, salesModeSlug, payload]);
 
   if (!data || !filters) {
+    const listing = requireUi(payload).listing;
     return (
       <p className="py-20 text-center text-muted">
-        {error ?? "Cargando…"}
+        {error ?? listing.loading}
       </p>
     );
   }

@@ -30,10 +30,26 @@
   },
   "navigation": {
     "primary": [
-      { "type": "path", "label": "Tienda", "href": "/tienda" },
-      { "type": "shopFilter", "label": "Mujer", "categorySlug": "mujer" },
-      { "type": "shopFilter", "label": "Hombre", "categorySlug": "hombre" },
-      { "type": "path", "label": "Nosotros", "href": "/nosotros" }
+      {
+        "type": "path",
+        "label": "Tienda",
+        "href": "/tienda"
+      },
+      {
+        "type": "shopFilter",
+        "label": "Mujer",
+        "categorySlug": "mujer"
+      },
+      {
+        "type": "shopFilter",
+        "label": "Hombre",
+        "categorySlug": "hombre"
+      },
+      {
+        "type": "path",
+        "label": "Nosotros",
+        "href": "/nosotros"
+      }
     ]
   },
   "seo": {
@@ -595,6 +611,79 @@
     }
   },
   "ui": {
+    "chrome": {
+      "openCart": "Abrir carrito",
+      "openCartWithCount": "Abrir carrito, {count} artículos",
+      "myAccount": "Mi cuenta",
+      "openMenu": "Abrir menú",
+      "closeMenu": "Cerrar menú",
+      "mainNavAria": "Principal",
+      "mobileNavAria": "Móvil",
+      "salesModeAria": "Modo de compra"
+    },
+    "account": {
+      "eyebrow": "Cuenta",
+      "loginTitle": "Iniciar sesión",
+      "registerTitle": "Crear cuenta",
+      "dashboardTitle": "Mi cuenta",
+      "emailLabel": "Correo electrónico",
+      "nameLabel": "Nombre",
+      "phoneLabel": "Teléfono",
+      "passwordLabel": "Contraseña",
+      "loginSubmit": "Entrar",
+      "loginSubmitting": "Entrando…",
+      "registerSubmit": "Registrarse",
+      "registerSubmitting": "Registrando…",
+      "logout": "Cerrar sesión",
+      "goToRegister": "Regístrate",
+      "goToLogin": "Inicia sesión",
+      "noAccountPrompt": "¿No tienes cuenta?",
+      "hasAccountPrompt": "¿Ya tienes cuenta?",
+      "googleSignIn": "Continuar con Google"
+    },
+    "listing": {
+      "searchLabel": "Buscar",
+      "searchPlaceholder": "Buscar…",
+      "allCategories": "Todo",
+      "loading": "Cargando…",
+      "loadMore": "Cargar más",
+      "loadingMore": "Cargando…",
+      "noSearchResults": "Sin resultados para esta búsqueda.",
+      "pieceSingular": "pieza",
+      "piecePlural": "piezas",
+      "collectionPrefix": "Colección:",
+      "clearFilter": "Quitar filtro"
+    },
+    "checkout": {
+      "pageTitle": "Checkout",
+      "customerSection": "Cliente",
+      "shippingSection": "Envío",
+      "paymentSection": "Pago",
+      "summarySection": "Resumen",
+      "fullNameRequired": "Indica tu nombre",
+      "emailRequired": "Indica tu correo",
+      "shippingMethodRequired": "Elige un método de envío",
+      "pickupBranchRequired": "Elige una tienda",
+      "paymentMethodRequired": "Elige un método de pago",
+      "phoneNumberLabel": "Número",
+      "discountCodeLabel": "Código",
+      "shippingLineLabel": "Envío",
+      "subtotalLabel": "Subtotal",
+      "totalLabel": "Total",
+      "emptyCartLabel": "Vaciar",
+      "removeLineLabel": "Eliminar",
+      "quantityLabel": "Cantidad",
+      "phoneCountryAria": "Código de país del teléfono",
+      "discountApply": "Aplicar",
+      "taxLabel": "Impuestos",
+      "hasDiscountCodeLabel": "Tengo un código de descuento",
+      "discountLineLabel": "Descuento"
+    },
+    "errors": {
+      "addToCartFailed": "No se pudo añadir al carrito",
+      "orderConfirmFailed": "No se pudo confirmar el pedido",
+      "catalogLoadFailed": "No se pudo cargar el catálogo."
+    },
     "cart": {
       "title": "Tu selección",
       "empty": "Tu carrito está vacío.",
@@ -606,9 +695,19 @@
       "addToCart": "Añadir al carrito",
       "relatedTitle": "También te puede gustar",
       "shippingNote": "2–4 días laborables",
+      "outOfStock": "Agotado",
+      "contact": "Consultar disponibilidad",
+      "lowStock": "Quedan pocas unidades",
+      "madeToOrderClosed": "Pedidos cerrados temporalmente",
+      "addingToCart": "Añadiendo…",
+      "priceBookLabel": "Precio del ejemplar",
+      "priceProgramLabel": "Inversión por plaza en la cohorte",
       "badges": {
         "new": "Nuevo",
-        "featured": "Destacado"
+        "featured": "Destacado",
+        "sale": "Oferta",
+        "bestseller": "Más vendido",
+        "limitedEdition": "Edición limitada"
       }
     },
     "shop": {
@@ -618,6 +717,34 @@
     "notFound": {
       "title": "Página no encontrada",
       "body": "Esta ruta no existe en Atelier."
+    },
+    "salesMode": {
+      "stock": {
+        "navLabel": "Entrega inmediata",
+        "shopBanner": "Catálogo con entrega inmediata según disponibilidad.",
+        "cartLabel": "Compra con entrega inmediata"
+      },
+      "madeToOrder": {
+        "navLabel": "Bajo pedido",
+        "shopBanner": "Catálogo bajo pedido.",
+        "preparationLabel": "Preparación",
+        "closedMessage": "Ahora mismo no aceptamos pedidos a medida.",
+        "reopensPrefix": "Volvemos",
+        "cartLabel": "Compra bajo pedido",
+        "cartClosedWarning": "Los pedidos a medida están cerrados temporalmente."
+      },
+      "nav": [
+        {
+          "salesMode": "stock",
+          "label": "Entrega inmediata",
+          "href": "?salesMode=stock"
+        },
+        {
+          "salesMode": "madeToOrder",
+          "label": "Bajo pedido",
+          "href": "?salesMode=madeToOrder"
+        }
+      ]
     }
   }
 }

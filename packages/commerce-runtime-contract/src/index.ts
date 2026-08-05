@@ -8,6 +8,7 @@ export type * from "./actions";
 export type * from "./capabilities";
 export type * from "./account";
 export type * from "./template-views";
+export type * from "./host-checkout-skin";
 export type * from "./manifest";
 export type * from "./errors";
 export type * from "./bridge";

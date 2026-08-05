@@ -3,6 +3,7 @@
 import { useState } from "react";
 import type { ProductListingViewProps } from "@shopenlinea/commerce-runtime-contract";
 import { useSiteContent } from "../../lib/site-content";
+import { requireUi } from "../../lib/ui";
 import { CommerceProductCard } from "./CommerceProductCard";
 import { SalesModeShopBanner } from "./SalesModeShopBanner";
 
@@ -20,8 +21,9 @@ export function ProductListingView({
   errorMessage,
 }: ProductListingViewProps) {
   const { payload } = useSiteContent();
-  const emptyLabel =
-    payload.ui?.shop?.empty ?? "No hay programas con estos filtros.";
+  const ui = requireUi(payload);
+  const listing = ui.listing;
+  const shop = ui.shop;
   const [search, setSearch] = useState(filters.searchQuery ?? "");
   const [busy, setBusy] = useState(false);
   const [extra, setExtra] = useState(data.products);
@@ -60,30 +62,30 @@ export function ProductListingView({
           }}
         >
           <label className="sr-only" htmlFor="commerce-search">
-            Buscar
+            {listing.searchLabel}
           </label>
           <input
             id="commerce-search"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Buscar programas…"
+            placeholder={listing.searchPlaceholder}
             className="w-full max-w-md border border-border bg-background px-4 py-3 text-sm text-primary outline-none focus:border-primary"
           />
         </form>
       )}
 
       {showCategories && (
-        <div className="mb-10 flex flex-wrap gap-2 border-b border-border pb-6">
+        <div className="category-scroll -mx-6 mb-10 flex gap-2 overflow-x-auto border-b border-border px-6 pb-6 md:-mx-8 md:px-8">
           <button
             type="button"
             onClick={() => actions.setCatalogFilters({ categoryId: null })}
-            className={`cursor-pointer px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.14em] transition-colors duration-200 ${
+            className={`shrink-0 cursor-pointer px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.14em] transition-colors duration-200 ${
               !filters.activeCategoryId
                 ? "bg-primary text-white"
                 : "text-secondary hover:bg-surface hover:text-primary"
             }`}
           >
-            Todo
+            {listing.allCategories}
           </button>
           {filters.categories.map((cat) => {
             const active = filters.activeCategoryId === cat.id;
@@ -94,7 +96,7 @@ export function ProductListingView({
                 onClick={() =>
                   actions.setCatalogFilters({ categoryId: active ? null : cat.id })
                 }
-                className={`cursor-pointer px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.14em] transition-colors duration-200 ${
+                className={`shrink-0 cursor-pointer px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.14em] transition-colors duration-200 ${
                   active
                     ? "bg-primary text-white"
                     : "text-secondary hover:bg-surface hover:text-primary"
@@ -114,17 +116,16 @@ export function ProductListingView({
       )}
 
       {loading ? (
-        <p className="py-20 text-center text-muted">Cargando…</p>
+        <p className="py-20 text-center text-muted">{listing.loading}</p>
       ) : products.length === 0 ? (
         <p className="py-20 text-center text-muted">
-          {filters.searchQuery
-            ? "Sin resultados para esta búsqueda."
-            : emptyLabel}
+          {filters.searchQuery ? listing.noSearchResults : shop.empty}
         </p>
       ) : (
         <>
           <p className="mb-8 text-sm text-muted">
-            {products.length} {products.length === 1 ? "programa" : "programas"}
+            {products.length}{" "}
+            {products.length === 1 ? listing.pieceSingular : listing.piecePlural}
             {cursor ? "+" : ""}
           </p>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -144,7 +145,7 @@ export function ProductListingView({
                 onClick={onLoadMore}
                 className="cursor-pointer border border-primary px-8 py-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-primary transition-colors hover:bg-primary hover:text-background disabled:opacity-50"
               >
-                {busy || loadingMore ? "Cargando…" : "Cargar más"}
+                {busy || loadingMore ? listing.loadingMore : listing.loadMore}
               </button>
             </div>
           )}

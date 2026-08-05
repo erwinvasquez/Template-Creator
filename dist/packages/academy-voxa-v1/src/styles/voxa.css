@@ -138,3 +138,12 @@
   padding-left: 0.85rem;
   border-left: 2px solid var(--color-cta);
 }
+
+.category-scroll {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.category-scroll::-webkit-scrollbar {
+  display: none;
+}

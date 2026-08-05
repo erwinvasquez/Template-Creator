@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { ProductCardViewModel } from "@shopenlinea/commerce-runtime-contract";
 import { useSiteContent } from "../../lib/site-content";
+import { requireUi } from "../../lib/ui";
 import { withBasePath } from "../../content/resolve";
 
 export function CommerceProductCard({
@@ -14,14 +15,8 @@ export function CommerceProductCard({
   priority?: boolean;
 }) {
   const { payload, basePath } = useSiteContent();
-  const badges = payload.ui?.product?.badges;
-  const newLabel = badges?.new ?? "Nueva cohorte";
-  const featuredLabel = badges?.featured ?? "Destacado";
-  const saleLabel = badges?.sale ?? "Oferta";
-  const bestsellerLabel = badges?.bestseller ?? "Más elegido";
-  const limitedLabel =
-    badges?.limitedEdition ?? badges?.limited ?? "Plazas limitadas";
-  const outOfStockLabel = payload.ui?.product?.outOfStock ?? "Agotado";
+  const productUi = requireUi(payload).product;
+  const badges = productUi.badges;
 
   const isNew = product.badges?.includes("new");
   const isFeatured = product.badges?.includes("featured");
@@ -37,15 +32,15 @@ export function CommerceProductCard({
   );
 
   const primaryBadge = isNew
-    ? newLabel
+    ? badges.new
     : isLimited
-      ? limitedLabel
+      ? badges.limitedEdition
       : isFeatured
-        ? featuredLabel
+        ? badges.featured
         : isSale
-          ? saleLabel
+          ? badges.sale
           : isBestseller
-            ? bestsellerLabel
+            ? badges.bestseller
             : null;
 
   const meta = product.categoryLabels?.[0] ?? null;
@@ -81,7 +76,7 @@ export function CommerceProductCard({
           ) : null}
           {isOut ? (
             <span className="absolute inset-x-0 bottom-0 bg-ink/80 py-2 text-center text-[10px] font-medium uppercase tracking-[0.16em] text-white">
-              {outOfStockLabel}
+              {productUi.outOfStock}
             </span>
           ) : null}
         </div>

@@ -11,6 +11,7 @@ import {
   useRequiredCommerceHost,
 } from "../lib/commerce-host";
 import { useSiteContent } from "../lib/site-content";
+import { requireUi } from "../lib/ui";
 import { SHOP_QUERY } from "../content/resolve";
 import { ProductListingView } from "./commerce/ProductListingView";
 import { parseSalesModeQuery, showsSalesModeChrome } from "../lib/sales-mode";
@@ -73,7 +74,7 @@ export function CommerceAwareCatalog() {
       .catch(() => {
         if (!cancelled) {
           startTransition(() => {
-            setError("No se pudo cargar el catálogo.");
+            setError(requireUi(payload).errors.catalogLoadFailed);
           });
         }
       });
@@ -83,9 +84,10 @@ export function CommerceAwareCatalog() {
   }, [host, tick, categorySlug, collectionSlug, salesModeSlug]);
 
   if (!data || !filters) {
+    const listing = requireUi(payload).listing;
     return (
       <p className="py-20 text-center text-muted">
-        {error ?? "Cargando…"}
+        {error ?? listing.loading}
       </p>
     );
   }

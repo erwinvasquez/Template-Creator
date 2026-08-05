@@ -5,6 +5,7 @@ import Link from "next/link";
 import type { ResolvedProduct } from "../content/types";
 import { formatPrice, withBasePath } from "../content/resolve";
 import { useSiteContent } from "../lib/site-content";
+import { requireUi } from "../lib/ui";
 
 export function ProductCard({
   product,
@@ -14,9 +15,8 @@ export function ProductCard({
   priority?: boolean;
 }) {
   const { payload, basePath } = useSiteContent();
-  const badges = payload.ui?.product?.badges;
-  const newLabel = badges?.new ?? "Nuevo";
-  const limitedLabel = badges?.limited ?? "Edición limitada";
+  const badges = requireUi(payload).product.badges;
+  const limitedLabel = badges.limitedEdition;
 
   return (
     <Link
@@ -45,7 +45,7 @@ export function ProductCard({
           )}
           {(product.isNew || product.isLimited) && (
             <span className="absolute left-3 top-3 bg-ink/80 px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.16em] text-white">
-              {product.isNew ? newLabel : limitedLabel}
+              {product.isNew ? badges.new : limitedLabel}
             </span>
           )}
         </div>

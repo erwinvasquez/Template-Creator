@@ -6,7 +6,7 @@ import type {
 } from "./types";
 
 /** Mount-relative catalog root for Voxa (design copy: "programas"). */
-export const SHOP_PATH = "/programas" as const;
+export const SHOP_PATH = "/catalogo" as const;
 
 export function resolveMediaUrl(
   ref: MediaRef,
@@ -52,10 +52,10 @@ export function accountPath(
 }
 
 /**
- * Shop route query params (relative to mount, Voxa shop path is `/programas`):
+ * Shop route query params (relative to mount, Voxa shop path is `/catalogo`):
  * - `categoria` — category slug from catalog.categories[].slug
  * - `coleccion` — collection slug from catalog.collections[].slug
- * Both may combine: `/programas?categoria=oratoria&coleccion=fundamentos`
+ * Both may combine: `/catalogo?categoria=oratoria&coleccion=fundamentos`
  */
 export const SHOP_QUERY = {
   category: "categoria",

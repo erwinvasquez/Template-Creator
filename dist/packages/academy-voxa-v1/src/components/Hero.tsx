@@ -11,7 +11,7 @@ export function Hero() {
   const wordmark = payload.brand.displayName || payload.brand.name;
 
   return (
-    <section className="relative min-h-[620px] w-full overflow-hidden bg-ink md:h-[92svh]">
+    <section className="relative h-[100svh] min-h-[640px] w-full overflow-hidden bg-ink">
       <Image
         src={resolveMediaUrl(hero.image, payload.media)}
         alt={hero.image.alt}

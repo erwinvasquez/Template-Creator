@@ -48,7 +48,10 @@ export function AboutView() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-6 py-20 md:px-10 md:py-28">
+      <section
+        className="mx-auto max-w-7xl px-6 py-20 md:px-10 md:py-28"
+        data-wb-slot="about.blocks"
+      >
         <div className="grid gap-8 md:grid-cols-3">
           {about.blocks.map((block, i) => (
             <Reveal key={block.id} delay={i * 80}>
@@ -69,12 +72,23 @@ export function AboutView() {
       >
         <div className="mx-auto max-w-7xl px-6 md:px-10">
           <Reveal>
-            <p className="celestine-eyebrow">{about.locations.eyebrow}</p>
-            <h2 className="mt-3 font-serif text-4xl text-primary md:text-5xl">
+            <p
+              data-wb-slot="about.locations.eyebrow"
+              className="celestine-eyebrow"
+            >
+              {about.locations.eyebrow}
+            </p>
+            <h2
+              data-wb-slot="about.locations.title"
+              className="mt-3 font-serif text-4xl text-primary md:text-5xl"
+            >
               {about.locations.title}
             </h2>
           </Reveal>
-          <ul className="mt-10 grid gap-6 md:grid-cols-2">
+          <ul
+            className="mt-10 grid gap-6 md:grid-cols-2"
+            data-wb-slot="about.locations.items"
+          >
             {about.locations.items.map((loc) => (
               <li
                 key={loc.city}
@@ -91,14 +105,21 @@ export function AboutView() {
 
       <section className="mx-auto max-w-3xl px-6 py-20 text-center md:px-10 md:py-28">
         <Reveal>
-          <h2 className="font-serif text-4xl text-primary md:text-5xl">
+          <h2
+            data-wb-slot="about.closing.title"
+            className="font-serif text-4xl text-primary md:text-5xl"
+          >
             {about.closing.title}
           </h2>
-          <p className="mt-5 text-base leading-relaxed text-muted">
+          <p
+            data-wb-slot="about.closing.body"
+            className="mt-5 text-base leading-relaxed text-muted"
+          >
             {about.closing.body}
           </p>
           <Link
             href={withBasePath(basePath, about.closing.cta.href)}
+            data-wb-slot="about.closing.cta"
             className="mt-10 inline-flex cursor-pointer rounded-full bg-cta px-8 py-3.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-white transition-colors duration-200 hover:bg-cta-hover"
           >
             {about.closing.cta.label}

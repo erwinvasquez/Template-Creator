@@ -47,12 +47,16 @@ const ajv = new Ajv({ allErrors: true, strict: false });
 addFormats(ajv);
 const validateSchema = ajv.compile(schema);
 
-const TEMPLATE_IDS = [
-  "fashion-atelier-v1",
-  "fashion-celestine-v1",
-  "jewelry-orion-v1",
-  "academy-voxa-v1",
-];
+const TEMPLATE_IDS = fs
+  .readdirSync(path.join(root, "templates"), { withFileTypes: true })
+  .filter((d) => d.isDirectory())
+  .map((d) => d.name)
+  .filter((id) => {
+    const manifestPath = path.join(root, "templates", id, "manifest.json");
+    if (!fs.existsSync(manifestPath)) return false;
+    const m = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
+    return m.commerce != null;
+  });
 const ROUTE_PAGES = new Set(["home", "shop", "product", "about"]);
 
 const errors = [];
@@ -82,6 +86,12 @@ for (const templateId of TEMPLATE_IDS) {
       errors.push(
         `[${templateId}] routes[].page "${route.page}" outside { home, shop, product, about }`,
       );
+    }
+  }
+
+  if (manifest.commerce?.views?.checkoutLayout === true) {
+    if (manifest.commerce.views.checkoutPage !== false) {
+      errors.push(`[${templateId}] commerce.views.checkoutPage must be false when checkoutLayout is true`);
     }
   }
 }

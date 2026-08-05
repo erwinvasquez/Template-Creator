@@ -48,8 +48,8 @@ export function accountPath(
   return withBasePath(basePath, relative);
 }
 
-/** Mount-relative catalog root for Celestine (vestidos de ocasión). */
-export const SHOP_PATH = "/vestidos" as const;
+/** Mount-relative catalog root for Celestine (colección / catálogo entero). */
+export const SHOP_PATH = "/coleccion" as const;
 
 /**
  * Shop route query params (relative to mount):
@@ -105,6 +105,7 @@ export function resolveProducts(payload: ContentPayload): ResolvedProduct[] {
         ? resolveMediaUrl(p.hoverImage, payload.media)
         : undefined,
       isNew: p.badges?.includes("new") ?? false,
+      /** Catalog-level featured flag; section helpers may override. */
       isFeatured: p.badges?.includes("featured") ?? false,
     };
   });
@@ -114,20 +115,31 @@ export function getProductBySlug(payload: ContentPayload, slug: string) {
   return resolveProducts(payload).find((p) => p.slug === slug);
 }
 
-export function getSignatureProducts(payload: ContentPayload) {
+/**
+ * Looks firma: membership in `sections.signature.productIds` is the source of
+ * truth for the «Look firma» badge (`isFeatured`), not global catalog badges.
+ * `isNew` still comes from catalog badges (`new` wins in ProductCard).
+ */
+export function getSignatureProducts(payload: ContentPayload): ResolvedProduct[] {
   const all = resolveProducts(payload);
   const byId = new Map(all.map((p) => [p.id, p]));
   return payload.sections.signature.productIds
     .map((id) => byId.get(id))
-    .filter((p): p is ResolvedProduct => Boolean(p));
+    .filter((p): p is ResolvedProduct => Boolean(p))
+    .map((p) => ({ ...p, isFeatured: true }));
 }
 
-export function getAccessoryProducts(payload: ContentPayload) {
+/**
+ * Accesorios: never show «Look firma», even if catalog.products[].badges
+ * includes `featured` (SaaS may stamp featured on all hydrated products).
+ */
+export function getAccessoryProducts(payload: ContentPayload): ResolvedProduct[] {
   const all = resolveProducts(payload);
   const byId = new Map(all.map((p) => [p.id, p]));
   return payload.sections.accessories.productIds
     .map((id) => byId.get(id))
-    .filter((p): p is ResolvedProduct => Boolean(p));
+    .filter((p): p is ResolvedProduct => Boolean(p))
+    .map((p) => ({ ...p, isFeatured: false }));
 }
 
 export function getOccasionCollections(payload: ContentPayload) {

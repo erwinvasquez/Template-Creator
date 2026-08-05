@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { ProductCardViewModel } from "@shopenlinea/commerce-runtime-contract";
 import { useSiteContent } from "../../lib/site-content";
+import { requireUi } from "../../lib/ui";
 import { withBasePath } from "../../content/resolve";
 
 export function CommerceProductCard({
@@ -14,14 +15,8 @@ export function CommerceProductCard({
   priority?: boolean;
 }) {
   const { payload, basePath } = useSiteContent();
-  const badges = payload.ui?.product?.badges;
-  const newLabel = badges?.new ?? "Nueva temporada";
-  const featuredLabel = badges?.featured ?? "Look firma";
-  const saleLabel = badges?.sale ?? "Oferta";
-  const bestsellerLabel = badges?.bestseller ?? "Más pedida";
-  const limitedLabel =
-    badges?.limitedEdition ?? "Edición limitada";
-  const outOfStockLabel = payload.ui?.product?.outOfStock ?? "Agotado";
+  const productUi = requireUi(payload).product;
+  const badges = productUi.badges;
 
   const isNew = product.badges?.includes("new");
   const isFeatured = product.badges?.includes("featured");
@@ -35,15 +30,15 @@ export function CommerceProductCard({
   );
 
   const primaryBadge = isNew
-    ? newLabel
+    ? badges.new
     : isFeatured
-      ? featuredLabel
+      ? badges.featured
       : isSale
-        ? saleLabel
+        ? badges.sale
         : isBestseller
-          ? bestsellerLabel
+          ? badges.bestseller
           : isLimited
-            ? limitedLabel
+            ? badges.limitedEdition
             : null;
 
   const eyebrow = product.categoryLabels?.[0] ?? null;
@@ -62,9 +57,7 @@ export function CommerceProductCard({
               fill
               priority={priority}
               className={`object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04] ${
-                product.galleryPreview
-                  ? "group-hover:opacity-0"
-                  : ""
+                product.galleryPreview ? "group-hover:opacity-0" : ""
               } ${isOut ? "opacity-60" : ""}`}
               sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
             />
@@ -91,7 +84,7 @@ export function CommerceProductCard({
           ) : null}
           {isOut ? (
             <span className="absolute inset-x-0 bottom-0 bg-primary/75 py-2 text-center text-[10px] font-medium uppercase tracking-[0.16em] text-white">
-              {outOfStockLabel}
+              {productUi.outOfStock}
             </span>
           ) : null}
         </div>

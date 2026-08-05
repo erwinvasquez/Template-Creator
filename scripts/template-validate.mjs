@@ -3,6 +3,8 @@ import fs from "node:fs";
 import path from "node:path";
 import { execSync } from "node:child_process";
 import { createRequire } from "node:module";
+import { loadTemplateSchemaForAjv } from "./lib/load-template-schema.mjs";
+import { validateHostCheckoutSkin } from "./lib/host-checkout-skin-contract.mjs";
 
 const require = createRequire(import.meta.url);
 const templateId = process.argv[2] || "fashion-atelier-v1";
@@ -13,7 +15,7 @@ if (!fs.existsSync(root)) {
   process.exit(1);
 }
 
-const schema = JSON.parse(fs.readFileSync(path.join(root, "schema.json"), "utf8"));
+const schema = loadTemplateSchemaForAjv(root);
 const defaults = JSON.parse(fs.readFileSync(path.join(root, "defaults.json"), "utf8"));
 const manifest = fs.existsSync(path.join(root, "manifest.json"))
   ? JSON.parse(fs.readFileSync(path.join(root, "manifest.json"), "utf8"))
@@ -352,6 +354,69 @@ if (!fs.existsSync(builderPath)) {
   }
 }
 
+// Category filter row — single-line horizontal scroll, hidden scrollbar (commerce contract)
+const listingPath = path.join(
+  root,
+  "src",
+  "components",
+  "commerce",
+  "ProductListingView.tsx",
+);
+const shopCatalogPath = path.join(root, "src", "components", "ShopCatalog.tsx");
+
+function assertCategoryScrollContract(filePath, label) {
+  if (!fs.existsSync(filePath)) return;
+  const src = fs.readFileSync(filePath, "utf8");
+  if (!src.includes("category-scroll")) {
+    errors.push(`[commerce] ${label} must use category-scroll for category filters`);
+  }
+  if (!src.includes("overflow-x-auto")) {
+    errors.push(`[commerce] ${label} category row must include overflow-x-auto`);
+  }
+  if (src.includes("flex flex-wrap gap-2 border-b border-border pb-6")) {
+    errors.push(
+      `[commerce] ${label} category row must not use flex-wrap (single-line scroll contract)`,
+    );
+  }
+  if (!src.includes("shrink-0")) {
+    errors.push(`[commerce] ${label} category chips must include shrink-0`);
+  }
+}
+
+if (fs.existsSync(listingPath)) {
+  assertCategoryScrollContract(listingPath, "ProductListingView.tsx");
+  assertCategoryScrollContract(shopCatalogPath, "ShopCatalog.tsx");
+
+  const styleDir = path.join(root, "src", "styles");
+  if (fs.existsSync(styleDir)) {
+    const styleFiles = fs.readdirSync(styleDir).filter((f) => f.endsWith(".css"));
+    const hasCategoryScrollCss = styleFiles.some((f) => {
+      const css = fs.readFileSync(path.join(styleDir, f), "utf8");
+      return css.includes(".category-scroll") && css.includes("scrollbar-width: none");
+    });
+    if (!hasCategoryScrollCss) {
+      errors.push(
+        "[commerce] src/styles/*.css must define .category-scroll (hidden horizontal scrollbar)",
+      );
+    }
+  }
+}
+
+// Hero — full viewport height on all breakpoints (template contract)
+const heroPath = path.join(root, "src", "components", "Hero.tsx");
+if (fs.existsSync(heroPath)) {
+  const heroSrc = fs.readFileSync(heroPath, "utf8");
+  if (!heroSrc.includes("h-[100svh]")) {
+    errors.push("[hero] Hero.tsx section must include h-[100svh]");
+  }
+  if (!heroSrc.includes("min-h-[640px]")) {
+    errors.push("[hero] Hero.tsx section must include min-h-[640px]");
+  }
+  if (heroSrc.includes("md:h-[92svh]")) {
+    errors.push("[hero] Hero.tsx must not use md:h-[92svh] (use h-[100svh] on all breakpoints)");
+  }
+}
+
 // Phase 0 — client.ts must export canonical symbols (static check)
 const clientPath = path.join(root, "src", "client.ts");
 if (fs.existsSync(clientPath)) {
@@ -359,6 +424,7 @@ if (fs.existsSync(clientPath)) {
   for (const sym of [
     "TemplateApp",
     "commerceViews",
+    "hostCheckoutSkin",
     "TemplateCommerceProvider",
     "useRequiredCommerceHost",
     "useHostCart",
@@ -371,6 +437,10 @@ if (fs.existsSync(clientPath)) {
   if (!clientSrc.includes("customMain") && !fs.readFileSync(path.join(root, "src", "renderer.tsx"), "utf8").includes("customMain")) {
     errors.push("[renderer] missing customMain prop");
   }
+}
+
+for (const msg of validateHostCheckoutSkin(root, manifest)) {
+  errors.push(msg);
 }
 
 if (errors.length) {
@@ -388,4 +458,22 @@ try {
   process.exit(1);
 }
 
-console.log(`Validation OK: ${templateId} (defaults + fixtures + builder.manifest + taxonomy)`);
+try {
+  execSync(`node scripts/template-validate-content.mjs ${templateId}`, {
+    stdio: "inherit",
+  });
+} catch {
+  process.exit(1);
+}
+
+try {
+  execSync(`node scripts/generate-template-proof.mjs ${templateId}`, {
+    stdio: "inherit",
+  });
+} catch {
+  process.exit(1);
+}
+
+console.log(
+  `Validation OK: ${templateId} (defaults + fixtures + builder.manifest + taxonomy + content contract)`,
+);

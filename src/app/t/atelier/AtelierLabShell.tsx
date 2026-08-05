@@ -13,32 +13,14 @@ import {
 import {
   createEmptyAccountLoginState,
   createEmptyAccountRegisterState,
-  createEmptyCheckoutFormState,
-  DEFAULT_PREVIEW_CAPABILITIES,
   type AccountLoginState,
   type AccountLoginStatePatch,
   type AccountRegisterState,
   type AccountRegisterStatePatch,
-  type CheckoutFormState,
-  type CheckoutFormStatePatch,
-  type CheckoutViewModel,
 } from "@shopenlinea/commerce-runtime-contract";
+import { CheckoutSkinLabPreview } from "@/commerce/CheckoutSkinLabPreview";
 import { useLabCommerceHost } from "@/commerce/lab-host";
-
-function mergeCheckoutState(
-  prev: CheckoutFormState,
-  patch: CheckoutFormStatePatch,
-): CheckoutFormState {
-  return {
-    ...prev,
-    ...patch,
-    customer: patch.customer
-      ? { ...prev.customer, ...patch.customer }
-      : prev.customer,
-    fieldErrors:
-      patch.fieldErrors !== undefined ? patch.fieldErrors : prev.fieldErrors,
-  };
-}
+import { hostCheckoutSkin } from "fashion-atelier-v1/client";
 
 export function AtelierLabShell({
   page,
@@ -61,7 +43,6 @@ export function AtelierLabShell({
       ? salesModeParam
       : undefined;
 
-  // Lab: catálogo del payload por defecto; Mock Bridge solo con ?commerce=
   const mockHost = useLabCommerceHost(commerce ?? null);
   const payloadHost = useMemo(
     () =>
@@ -77,12 +58,7 @@ export function AtelierLabShell({
     [payload, dualSalesMode, salesMode],
   );
   const host = mockHost ?? payloadHost;
-  const [checkoutVm, setCheckoutVm] = useState<CheckoutViewModel | null>(null);
-  const [formState, setFormState] = useState<CheckoutFormState>(() =>
-    createEmptyCheckoutFormState(),
-  );
-  const [tick, setTick] = useState(0);
-  const [hydratedDefaults, setHydratedDefaults] = useState(false);
+  const [, setTick] = useState(0);
 
   const [loginState, setLoginState] = useState<AccountLoginState>(() =>
     createEmptyAccountLoginState(),
@@ -93,46 +69,6 @@ export function AtelierLabShell({
   const [signingOut, setSigningOut] = useState(false);
 
   useEffect(() => host.subscribe(() => setTick((t) => t + 1)), [host]);
-
-  useEffect(() => {
-    if (page !== "checkout") return;
-    let cancelled = false;
-    void host.getCheckout().then((vm) => {
-      if (cancelled) return;
-      setCheckoutVm(vm);
-      if (!hydratedDefaults) {
-        setFormState((prev) =>
-          mergeCheckoutState(prev, {
-            shippingMethodId: vm.shippingMethods[0]?.id ?? null,
-            pickupBranchId: vm.pickupBranches[0]?.id ?? null,
-            paymentMethodId: vm.paymentMethods[0]?.id ?? null,
-          }),
-        );
-        setHydratedDefaults(true);
-      }
-    });
-    return () => {
-      cancelled = true;
-    };
-  }, [host, page, tick, hydratedDefaults]);
-
-  const checkoutPage =
-    page === "checkout" && checkoutVm
-      ? {
-          checkout: checkoutVm,
-          state: formState,
-          capabilities: host.capabilities ?? DEFAULT_PREVIEW_CAPABILITIES,
-          actions: {
-            previewCheckout: host.actions.previewCheckout,
-            placeOrder: host.actions.placeOrder,
-            uploadPaymentVoucher: host.actions.uploadPaymentVoucher,
-          },
-          onStateChange: (patch: CheckoutFormStatePatch) => {
-            setFormState((prev) => mergeCheckoutState(prev, patch));
-          },
-          notices: "Preview mock — UI completa del template Atelier.",
-        }
-      : null;
 
   const accountRoot = payload.features?.accountBasePath ?? "/cuenta";
   const accountHref = (segment?: string) =>
@@ -275,7 +211,11 @@ export function AtelierLabShell({
       basePath={DEFAULT_BASE_PATH}
       slug={slug}
       commerceHost={host}
-      checkoutPage={checkoutPage}
+      customMain={
+        page === "checkout" ? (
+          <CheckoutSkinLabPreview skin={hostCheckoutSkin} />
+        ) : undefined
+      }
       accountLogin={accountLogin}
       accountRegister={accountRegister}
       accountDashboard={accountDashboard}

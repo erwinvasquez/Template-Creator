@@ -34,8 +34,8 @@
     "primary": [
       {
         "type": "path",
-        "label": "Programas",
-        "href": "/programas"
+        "label": "Catálogo",
+        "href": "/catalogo"
       },
       {
         "type": "shopFilter",
@@ -66,8 +66,8 @@
     },
     "pages": {
       "shop": {
-        "title": "Programas",
-        "description": "Catálogo completo Clarion: oratoria ejecutiva, liderazgo, comunicación técnica y biblioteca."
+        "title": "Catálogo",
+        "description": "Catálogo Voxa: programas de oratoria, liderazgo, marca personal y libros de la editorial."
       },
       "academia": {
         "title": "Escuela",
@@ -270,8 +270,8 @@
         "alt": "Ponente interviniendo ante una sala llena"
       },
       "ctaPrimary": {
-        "label": "Ver programas",
-        "href": "/programas"
+        "label": "Ver catálogo",
+        "href": "/catalogo"
       },
       "ctaSecondary": {
         "label": "Conocer la escuela",
@@ -338,7 +338,7 @@
       ],
       "cta": {
         "label": "Ver la biblioteca",
-        "href": "/programas?categoria=libros"
+        "href": "/catalogo?categoria=libros"
       }
     },
     "shop": {
@@ -393,8 +393,8 @@
         "title": "Reserva tu plaza",
         "body": "Diez participantes por cohorte. Las inscripciones se cierran dos semanas antes del inicio.",
         "cta": {
-          "label": "Ver programas",
-          "href": "/programas"
+          "label": "Ver catálogo",
+          "href": "/catalogo"
         }
       }
     },
@@ -402,23 +402,23 @@
       "blurb": "Escuela de comunicación profesional. Cohortes reducidas, práctica grabada y biblioteca propia.",
       "columns": [
         {
-          "title": "Programas",
+          "title": "Catálogo",
           "links": [
             {
               "label": "Oratoria ejecutiva",
-              "href": "/programas?categoria=oratoria"
+              "href": "/catalogo?categoria=oratoria"
             },
             {
               "label": "Liderazgo",
-              "href": "/programas?categoria=liderazgo"
+              "href": "/catalogo?categoria=liderazgo"
             },
             {
               "label": "Presencia digital",
-              "href": "/programas?categoria=marca-personal"
+              "href": "/catalogo?categoria=marca-personal"
             },
             {
               "label": "Biblioteca",
-              "href": "/programas?categoria=libros"
+              "href": "/catalogo?categoria=libros"
             }
           ]
         },
@@ -445,10 +445,83 @@
     }
   },
   "ui": {
+    "chrome": {
+      "openCart": "Abrir carrito",
+      "openCartWithCount": "Abrir carrito, {count} artículos",
+      "myAccount": "Mi cuenta",
+      "openMenu": "Abrir menú",
+      "closeMenu": "Cerrar menú",
+      "mainNavAria": "Principal",
+      "mobileNavAria": "Móvil",
+      "salesModeAria": "Modo de compra"
+    },
+    "account": {
+      "eyebrow": "Cuenta",
+      "loginTitle": "Iniciar sesión",
+      "registerTitle": "Crear cuenta",
+      "dashboardTitle": "Mi cuenta",
+      "emailLabel": "Correo electrónico",
+      "nameLabel": "Nombre",
+      "phoneLabel": "Teléfono",
+      "passwordLabel": "Contraseña",
+      "loginSubmit": "Entrar",
+      "loginSubmitting": "Entrando…",
+      "registerSubmit": "Registrarse",
+      "registerSubmitting": "Registrando…",
+      "logout": "Cerrar sesión",
+      "goToRegister": "Regístrate",
+      "goToLogin": "Inicia sesión",
+      "noAccountPrompt": "¿No tienes cuenta?",
+      "hasAccountPrompt": "¿Ya tienes cuenta?",
+      "googleSignIn": "Continuar con Google"
+    },
+    "listing": {
+      "searchLabel": "Buscar",
+      "searchPlaceholder": "Buscar…",
+      "allCategories": "Todo",
+      "loading": "Cargando…",
+      "loadMore": "Cargar más",
+      "loadingMore": "Cargando…",
+      "noSearchResults": "Sin resultados para esta búsqueda.",
+      "pieceSingular": "pieza",
+      "piecePlural": "piezas",
+      "collectionPrefix": "Colección:",
+      "clearFilter": "Quitar filtro"
+    },
+    "checkout": {
+      "pageTitle": "Checkout",
+      "customerSection": "Cliente",
+      "shippingSection": "Envío",
+      "paymentSection": "Pago",
+      "summarySection": "Resumen",
+      "fullNameRequired": "Indica tu nombre",
+      "emailRequired": "Indica tu correo",
+      "shippingMethodRequired": "Elige un método de envío",
+      "pickupBranchRequired": "Elige una tienda",
+      "paymentMethodRequired": "Elige un método de pago",
+      "phoneNumberLabel": "Número",
+      "discountCodeLabel": "Código",
+      "shippingLineLabel": "Envío",
+      "subtotalLabel": "Subtotal",
+      "totalLabel": "Total",
+      "emptyCartLabel": "Vaciar",
+      "removeLineLabel": "Eliminar",
+      "quantityLabel": "Cantidad",
+      "phoneCountryAria": "Código de país del teléfono",
+      "discountApply": "Aplicar",
+      "taxLabel": "Impuestos",
+      "hasDiscountCodeLabel": "Tengo un código de descuento",
+      "discountLineLabel": "Descuento"
+    },
+    "errors": {
+      "addToCartFailed": "No se pudo añadir al carrito",
+      "orderConfirmFailed": "No se pudo confirmar el pedido",
+      "catalogLoadFailed": "No se pudo cargar el catálogo."
+    },
     "cart": {
       "title": "Tu inscripción",
       "empty": "Aún no has añadido programas.",
-      "exploreCta": "Ver programas",
+      "exploreCta": "Ver catálogo",
       "checkout": "Confirmar inscripción",
       "shippingHint": "Acceso al aula en cuanto se confirma el pago"
     },
@@ -460,13 +533,15 @@
       "contact": "Consultar próxima cohorte",
       "lowStock": "Últimas plazas",
       "madeToOrderClosed": "Inscripciones cerradas temporalmente",
+      "addingToCart": "Añadiendo…",
+      "priceBookLabel": "Precio del ejemplar",
+      "priceProgramLabel": "Inversión por plaza en la cohorte",
       "badges": {
         "new": "Nueva cohorte",
-        "limited": "Plazas limitadas",
-        "limitedEdition": "Plazas limitadas",
         "featured": "Destacado",
         "sale": "Oferta",
-        "bestseller": "Más elegido"
+        "bestseller": "Más elegido",
+        "limitedEdition": "Plazas limitadas"
       }
     },
     "shop": {
@@ -496,12 +571,12 @@
         {
           "salesMode": "stock",
           "label": "Entrega inmediata",
-          "href": "/programas?salesMode=stock"
+          "href": "/catalogo?salesMode=stock"
         },
         {
           "salesMode": "madeToOrder",
           "label": "Bajo pedido",
-          "href": "/programas?salesMode=madeToOrder"
+          "href": "/catalogo?salesMode=madeToOrder"
         }
       ]
     }

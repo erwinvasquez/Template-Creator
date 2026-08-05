@@ -39,6 +39,17 @@ import {
   loadManifest as loadCelestineManifest,
   loadPayload as loadCelestinePayload,
 } from "fashion-celestine-v1";
+import type {
+  ContentPayload as LumenContentPayload,
+  TemplatePage as LumenTemplatePage,
+} from "fashion-lumen-v1";
+import {
+  TemplateApp as LumenTemplateApp,
+  DEFAULT_BASE_PATH as LUMEN_DEFAULT_BASE_PATH,
+  TEMPLATE_ID as LUMEN_TEMPLATE_ID,
+  loadManifest as loadLumenManifest,
+  loadPayload as loadLumenPayload,
+} from "fashion-lumen-v1";
 
 export type TemplateRenderer<TPayload = ContentPayload, TPage = TemplatePage> = {
   templateId: string;
@@ -137,11 +148,32 @@ export const celestineRenderer: TemplateRenderer<
   ),
 };
 
+export const lumenRenderer: TemplateRenderer<
+  LumenContentPayload,
+  LumenTemplatePage
+> = {
+  templateId: LUMEN_TEMPLATE_ID,
+  slug: "lumen",
+  basePath: LUMEN_DEFAULT_BASE_PATH,
+  getManifest: () => loadLumenManifest(),
+  getDefaults: () => loadLumenPayload(),
+  loadPayload: loadLumenPayload,
+  renderApp: ({ page, payload, basePath = LUMEN_DEFAULT_BASE_PATH, slug }) => (
+    <LumenTemplateApp
+      page={page}
+      payload={payload}
+      basePath={basePath}
+      slug={slug}
+    />
+  ),
+};
+
 const renderers: TemplateRenderer<any, any>[] = [
   atelierRenderer,
   orionRenderer,
   voxaRenderer,
   celestineRenderer,
+  lumenRenderer,
 ];
 
 export function listRenderers(): TemplateRenderer<any, any>[] {

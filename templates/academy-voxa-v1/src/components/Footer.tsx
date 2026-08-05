@@ -18,12 +18,15 @@ export function Footer() {
           {payload.brand.tagline && (
             <p className="mt-3 text-sm text-cta">{payload.brand.tagline}</p>
           )}
-          <p className="mt-4 max-w-sm text-sm leading-relaxed text-white/65">
+          <p
+            data-wb-slot="footer.blurb"
+            className="mt-4 max-w-sm text-sm leading-relaxed text-white/65"
+          >
             {footer.blurb}
           </p>
         </div>
 
-        <div className="grid grid-cols-2 gap-8">
+        <div data-wb-slot="footer.columns" className="grid grid-cols-2 gap-8">
           {footer.columns.map((column) => (
             <div key={column.title}>
               <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-white/45">
@@ -48,8 +51,12 @@ export function Footer() {
 
       <div className="border-t border-white/10">
         <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-3 px-6 py-6 text-xs text-white/45 md:flex-row md:items-center md:px-10">
-          <p>© {new Date().getFullYear()} {copyrightName}</p>
-          {footer.tagline && <p>{footer.tagline}</p>}
+          <p data-wb-slot="footer.copyrightName">
+            © {new Date().getFullYear()} {copyrightName}
+          </p>
+          {footer.tagline ? (
+            <p data-wb-slot="footer.tagline">{footer.tagline}</p>
+          ) : null}
         </div>
       </div>
     </footer>

@@ -32,7 +32,10 @@ export function CraftBand() {
           </div>
         </Reveal>
 
-        <ol className="mt-14 grid gap-6 md:grid-cols-3">
+        <ol
+          data-wb-slot="craft.steps"
+          className="mt-14 grid gap-6 md:grid-cols-3"
+        >
           {craft.steps.map((step, i) => (
             <li key={step.id}>
               <Reveal delay={i * 90}>

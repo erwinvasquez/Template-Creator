@@ -47,6 +47,7 @@ export function CraftBand() {
             {craft.cta && (
               <Link
                 href={withBasePath(basePath, craft.cta.href)}
+                data-wb-slot="craft.cta"
                 className="mt-8 inline-flex cursor-pointer border border-primary px-7 py-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-primary transition-colors duration-200 hover:bg-primary hover:text-white"
               >
                 {craft.cta.label}

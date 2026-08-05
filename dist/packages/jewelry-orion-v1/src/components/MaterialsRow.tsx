@@ -30,7 +30,10 @@ export function MaterialsRow() {
           </div>
         </Reveal>
 
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
+        <div
+          className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6"
+          data-wb-slot="materials.items"
+        >
           {items.map((item, i) => (
             <Reveal key={item.id} delay={i * 90}>
               <div className="group">

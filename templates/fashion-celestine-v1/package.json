@@ -14,7 +14,8 @@
     "./styles.css": "./src/styles/celestine.css"
   },
   "dependencies": {
-    "@shopenlinea/commerce-runtime-contract": "file:../../packages/commerce-runtime-contract"
+    "@shopenlinea/commerce-runtime-contract": "file:../../packages/commerce-runtime-contract",
+    "@web-generator/template-content-contract": "file:../../packages/template-content-contract"
   },
   "peerDependencies": {
     "next": ">=15",

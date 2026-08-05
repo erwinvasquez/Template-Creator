@@ -34,7 +34,10 @@
       "academy-voxa-v1/*": ["./templates/academy-voxa-v1/src/*"],
       "fashion-celestine-v1": ["./templates/fashion-celestine-v1/src/index.ts"],
       "fashion-celestine-v1/client": ["./templates/fashion-celestine-v1/src/client.ts"],
-      "fashion-celestine-v1/*": ["./templates/fashion-celestine-v1/src/*"]
+      "fashion-celestine-v1/*": ["./templates/fashion-celestine-v1/src/*"],
+      "fashion-lumen-v1": ["./templates/fashion-lumen-v1/src/index.ts"],
+      "fashion-lumen-v1/client": ["./templates/fashion-lumen-v1/src/client.ts"],
+      "fashion-lumen-v1/*": ["./templates/fashion-lumen-v1/src/*"]
     }
   },
   "include": [

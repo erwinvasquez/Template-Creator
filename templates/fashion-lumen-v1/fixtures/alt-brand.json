@@ -1,0 +1,717 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "fashion-lumen-v1",
+  "templateVersion": "1.0.0",
+  "brand": {
+    "name": "Lumen Pro",
+    "displayName": "LUMEN PRO",
+    "tagline": "Gear de competición para atletas élite.",
+    "locale": "es-ES",
+    "currency": "EUR"
+  },
+  "theme": {
+    "colors": {
+      "primary": "#0F0F0F",
+      "secondary": "#2A2A2A",
+      "cta": "#00C2FF",
+      "ctaHover": "#00A8E0",
+      "background": "#F2F2ED",
+      "surface": "#E8E8E2",
+      "text": "#0F0F0F",
+      "muted": "#4A4A4A",
+      "border": "#D4D4CC"
+    }
+  },
+  "features": {
+    "cart": true,
+    "account": true,
+    "accountBasePath": "/cuenta"
+  },
+  "navigation": {
+    "primary": [
+      {
+        "type": "path",
+        "label": "Tienda",
+        "href": "/tienda"
+      },
+      {
+        "type": "shopFilter",
+        "label": "Mujer",
+        "categorySlug": "mujer"
+      },
+      {
+        "type": "shopFilter",
+        "label": "Hombre",
+        "categorySlug": "hombre"
+      },
+      {
+        "type": "shopFilter",
+        "label": "Zapatos",
+        "categorySlug": "zapatos"
+      },
+      {
+        "type": "path",
+        "label": "Nosotros",
+        "href": "/nosotros"
+      }
+    ]
+  },
+  "seo": {
+    "titleTemplate": "%s · Lumen CrossFit",
+    "default": {
+      "title": "Lumen CrossFit — Ropa y gear para el box",
+      "description": "Ropa deportiva CrossFit para hombre y mujer: shorts, tops, zapatos y accesorios diseñados para WOD, fuerza y metcon.",
+      "openGraph": {
+        "title": "Lumen CrossFit — Ropa y gear para el box",
+        "description": "Equipamiento técnico para atletas de CrossFit. Stock inmediato y piezas a pedido."
+      }
+    },
+    "pages": {
+      "shop": {
+        "title": "Tienda",
+        "description": "Catálogo completo Lumen: ropa, zapatos y accesorios CrossFit para mujer y hombre."
+      },
+      "about": {
+        "title": "Nosotros",
+        "description": "Lumen nace en el box: gear probado en WOD reales, tejidos técnicos y fit atlético."
+      }
+    }
+  },
+  "catalog": {
+    "categories": [
+      {
+        "id": "cat_mujer",
+        "slug": "mujer",
+        "label": "Mujer"
+      },
+      {
+        "id": "cat_hombre",
+        "slug": "hombre",
+        "label": "Hombre"
+      },
+      {
+        "id": "cat_zapatos",
+        "slug": "zapatos",
+        "label": "Zapatos"
+      },
+      {
+        "id": "cat_accesorios",
+        "slug": "accesorios",
+        "label": "Accesorios"
+      }
+    ],
+    "collections": [
+      {
+        "id": "col_wod",
+        "slug": "wod-essentials",
+        "name": "WOD Essentials",
+        "description": "Piezas diarias para entrenar duro y recuperar rápido.",
+        "image": {
+          "url": "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=1600&q=80",
+          "alt": "Colección WOD Essentials"
+        }
+      },
+      {
+        "id": "col_strength",
+        "slug": "strength-series",
+        "name": "Strength Series",
+        "description": "Soporte y compresión para levantamientos y gimnasia.",
+        "image": {
+          "url": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1600&q=80",
+          "alt": "Colección Strength Series"
+        }
+      },
+      {
+        "id": "col_metcon",
+        "slug": "metcon-gear",
+        "name": "Metcon Gear",
+        "description": "Ligereza y transpirabilidad para alta intensidad.",
+        "image": {
+          "url": "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50e?w=1600&q=80",
+          "alt": "Colección Metcon Gear"
+        }
+      }
+    ],
+    "products": [
+      {
+        "id": "1",
+        "slug": "shorts-compresion-mujer",
+        "name": "Shorts Compresión Mujer",
+        "description": "Shorts de compresión 4 vías con cintura alta y bolsillo lateral. Secado rápido para metcon y gimnasia.",
+        "price": 48,
+        "categoryId": "cat_mujer",
+        "collectionId": "col_metcon",
+        "colors": [
+          "Negro",
+          "Carbón"
+        ],
+        "sizes": [
+          "XS",
+          "S",
+          "M",
+          "L"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1518310383802-640c2de311b2?w=1200&q=80",
+          "alt": "Shorts Compresión Mujer"
+        },
+        "badges": [
+          "new",
+          "featured"
+        ]
+      },
+      {
+        "id": "2",
+        "slug": "sports-bra-alto-impacto",
+        "name": "Sports Bra Alto Impacto",
+        "description": "Sujetador deportivo con soporte máximo, tirantes cruzados y tejido antibacteriano.",
+        "price": 42,
+        "categoryId": "cat_mujer",
+        "collectionId": "col_wod",
+        "colors": [
+          "Negro",
+          "Naranja"
+        ],
+        "sizes": [
+          "XS",
+          "S",
+          "M",
+          "L"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=1200&q=80",
+          "alt": "Sports Bra Alto Impacto"
+        },
+        "badges": [
+          "featured"
+        ]
+      },
+      {
+        "id": "3",
+        "slug": "camiseta-tecnica-hombre",
+        "name": "Camiseta Técnica Hombre",
+        "description": "Camiseta ligera con paneles de malla y costuras planas. Ideal para WOD y calentamiento.",
+        "price": 35,
+        "categoryId": "cat_hombre",
+        "collectionId": "col_wod",
+        "colors": [
+          "Negro",
+          "Gris"
+        ],
+        "sizes": [
+          "S",
+          "M",
+          "L",
+          "XL",
+          "XXL"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=1200&q=80",
+          "alt": "Camiseta Técnica Hombre"
+        },
+        "badges": [
+          "featured"
+        ]
+      },
+      {
+        "id": "4",
+        "slug": "hoodie-box-fit-hombre",
+        "name": "Hoodie Box Fit Hombre",
+        "description": "Sudadera con capucha, fit atlético y felpa técnica. Para calentar y salir del box.",
+        "price": 68,
+        "categoryId": "cat_hombre",
+        "collectionId": "col_strength",
+        "colors": [
+          "Carbón",
+          "Negro"
+        ],
+        "sizes": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=1200&q=80",
+          "alt": "Hoodie Box Fit Hombre"
+        },
+        "badges": [
+          "new"
+        ]
+      },
+      {
+        "id": "5",
+        "slug": "nano-training-shoes",
+        "name": "Nano Training Shoes",
+        "description": "Zapatilla estable para levantamientos con suela flexible para carreras y saltos.",
+        "price": 129,
+        "categoryId": "cat_zapatos",
+        "collectionId": "col_wod",
+        "colors": [
+          "Negro",
+          "Blanco"
+        ],
+        "sizes": [
+          "38",
+          "39",
+          "40",
+          "41",
+          "42",
+          "43",
+          "44",
+          "45"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=1200&q=80",
+          "alt": "Nano Training Shoes"
+        },
+        "hoverImage": {
+          "url": "https://images.unsplash.com/photo-1606107557195-0f29cb4c3abc?w=1200&q=80",
+          "alt": "Nano Training Shoes lateral"
+        },
+        "badges": [
+          "featured"
+        ]
+      },
+      {
+        "id": "6",
+        "slug": "rodilleras-7mm",
+        "name": "Rodilleras 7mm",
+        "description": "Rodilleras de neopreno 7mm con agarre antideslizante para sentadillas y wall balls.",
+        "price": 55,
+        "categoryId": "cat_accesorios",
+        "collectionId": "col_strength",
+        "colors": [
+          "Negro"
+        ],
+        "sizes": [
+          "S",
+          "M",
+          "L"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=1200&q=80",
+          "alt": "Rodilleras 7mm"
+        },
+        "badges": [
+          "featured"
+        ]
+      },
+      {
+        "id": "7",
+        "slug": "cuerda-speed-rope",
+        "name": "Cuerda Speed Rope",
+        "description": "Comba de acero con rodamientos de bolas y mango ergonómico. Ajuste rápido de longitud.",
+        "price": 32,
+        "categoryId": "cat_accesorios",
+        "collectionId": "col_metcon",
+        "colors": [
+          "Negro/Naranja"
+        ],
+        "sizes": [
+          "Único"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1599058945522-28d584b6f38f?w=1200&q=80",
+          "alt": "Cuerda Speed Rope"
+        },
+        "badges": [
+          "new"
+        ]
+      },
+      {
+        "id": "8",
+        "slug": "leggings-power-mujer",
+        "name": "Leggings Power Mujer",
+        "description": "Leggings de compresión con cintura ancha y refuerzo en glúteos. Cero transparencia en sentadilla.",
+        "price": 58,
+        "categoryId": "cat_mujer",
+        "collectionId": "col_strength",
+        "colors": [
+          "Negro",
+          "Grafito"
+        ],
+        "sizes": [
+          "XS",
+          "S",
+          "M",
+          "L"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=1200&q=80",
+          "alt": "Leggings Power Mujer"
+        },
+        "badges": [
+          "featured"
+        ]
+      },
+      {
+        "id": "9",
+        "slug": "muñequeras-lifting",
+        "name": "Muñequeras Lifting",
+        "description": "Muñequeras rígidas de lona con cierre velcro. Soporte para press y jerks.",
+        "price": 28,
+        "categoryId": "cat_accesorios",
+        "collectionId": "col_strength",
+        "colors": [
+          "Negro"
+        ],
+        "sizes": [
+          "Único"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1517964600625-797c8b7d08a1?w=1200&q=80",
+          "alt": "Muñequeras Lifting"
+        }
+      },
+      {
+        "id": "10",
+        "slug": "tank-wod-mujer",
+        "name": "Tank WOD Mujer",
+        "description": "Tank con espalda nadadora y tejido mesh lateral. Máxima ventilación en chipper y AMRAP.",
+        "price": 32,
+        "categoryId": "cat_mujer",
+        "collectionId": "col_metcon",
+        "colors": [
+          "Blanco",
+          "Negro"
+        ],
+        "sizes": [
+          "XS",
+          "S",
+          "M",
+          "L"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1518310383802-640c2de311b2?w=1200&q=80",
+          "alt": "Tank WOD Mujer"
+        }
+      }
+    ]
+  },
+  "sections": {
+    "hero": {
+      "headline": "LUMEN PRO",
+      "subheadline": "Equipamiento de competición para RX y scaled.",
+      "image": {
+        "url": "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=2400&q=85",
+        "alt": "Atleta realizando sentadilla en box de CrossFit"
+      },
+      "ctaPrimary": {
+        "label": "Ver tienda",
+        "href": "/tienda"
+      },
+      "ctaSecondary": {
+        "label": "WOD Essentials",
+        "href": "/tienda?coleccion=wod-essentials"
+      }
+    },
+    "disciplines": {
+      "eyebrow": "Disciplinas",
+      "title": "Entrena cada modalidad con el gear correcto.",
+      "itemCtaLabel": "Explorar",
+      "collectionIds": [
+        "col_wod",
+        "col_strength",
+        "col_metcon"
+      ]
+    },
+    "gearSpotlight": {
+      "eyebrow": "Gear spotlight",
+      "title": "Favoritos del box",
+      "viewAll": {
+        "label": "Ver todo",
+        "href": "/tienda"
+      },
+      "productIds": [
+        "1",
+        "2",
+        "3",
+        "5",
+        "6",
+        "8"
+      ]
+    },
+    "performance": {
+      "eyebrow": "Performance",
+      "title": "Tejidos que aguantan el WOD.",
+      "body": "Materiales de compresión 4 vías, costuras planas y acabados antibacterianos. Diseñado para sudar, levantar y repetir.",
+      "image": {
+        "url": "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50e?w=2400&q=85",
+        "alt": "Detalle de tejido técnico deportivo"
+      },
+      "cta": {
+        "label": "Nuestra tecnología",
+        "href": "/nosotros"
+      }
+    },
+    "community": {
+      "eyebrow": "Comunidad",
+      "title": "Únete al crew Lumen",
+      "subtitle": "Acceso anticipado a drops, eventos de box y entrenamientos exclusivos.",
+      "placeholder": "tu@email.com",
+      "submitLabel": "Unirme",
+      "successMessage": "¡Bienvenido al crew! Te escribiremos pronto."
+    },
+    "shop": {
+      "eyebrow": "Tienda",
+      "title": "Todo el catálogo",
+      "description": "Ropa, zapatos y accesorios CrossFit. Filtra por categoría, colección o modo de venta."
+    },
+    "about": {
+      "intro": {
+        "eyebrow": "Nuestra historia",
+        "title": "Nacidos en el box.",
+        "body": "Lumen nació cuando un grupo de coaches y atletas dejó de conformarse con ropa que no aguantaba el ritmo. Hoy diseñamos piezas probadas en WOD reales: del calentamiento al último burpee."
+      },
+      "bannerImage": {
+        "url": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=2400&q=85",
+        "alt": "Interior de box de CrossFit con barras y kettlebells"
+      },
+      "blocks": [
+        {
+          "id": "fabricacion",
+          "title": "Tejidos técnicos",
+          "body": "Compresión 4 vías, secado rápido y costuras planas que eliminan rozaduras en gimnasia y metcon."
+        },
+        {
+          "id": "fit",
+          "title": "Fit atlético",
+          "body": "Cortes pensados para sentadilla profunda, muscle-up y carreras. Ni holgado ni restrictivo."
+        },
+        {
+          "id": "box",
+          "title": "Probado en box",
+          "body": "Cada colección pasa por atletas de distintos niveles antes de llegar a la tienda."
+        }
+      ],
+      "locations": {
+        "eyebrow": "Box partners",
+        "title": "Dónde probamos",
+        "items": [
+          {
+            "city": "Madrid",
+            "address": "Calle del Hierro 12, 28045",
+            "hours": "Lun–Vie 6:00–22:00"
+          },
+          {
+            "city": "Barcelona",
+            "address": "Passeig de Gràcia 88, 08008",
+            "hours": "Lun–Sáb 7:00–21:00"
+          }
+        ]
+      },
+      "closing": {
+        "title": "¿Listo para el próximo WOD?",
+        "body": "Explora el catálogo completo o visita nuestro showroom en box partner.",
+        "cta": {
+          "label": "Ir a la tienda",
+          "href": "/tienda"
+        }
+      }
+    },
+    "footer": {
+      "blurb": "Lumen CrossFit — ropa y gear para atletas que viven el box.",
+      "columns": [
+        {
+          "title": "Explorar",
+          "links": [
+            {
+              "label": "Tienda",
+              "href": "/tienda"
+            },
+            {
+              "label": "Mujer",
+              "href": "/tienda?categoria=mujer"
+            },
+            {
+              "label": "Hombre",
+              "href": "/tienda?categoria=hombre"
+            },
+            {
+              "label": "Accesorios",
+              "href": "/tienda?categoria=accesorios"
+            }
+          ]
+        },
+        {
+          "title": "Marca",
+          "links": [
+            {
+              "label": "Nuestra historia",
+              "href": "/nosotros"
+            },
+            {
+              "label": "Sostenibilidad",
+              "href": "/nosotros#sostenibilidad"
+            },
+            {
+              "label": "Ateliers",
+              "href": "/nosotros#ateliers"
+            }
+          ]
+        },
+        {
+          "title": "Ayuda",
+          "links": [
+            {
+              "label": "Envíos",
+              "href": "#"
+            },
+            {
+              "label": "Devoluciones",
+              "href": "#"
+            },
+            {
+              "label": "Guía de tallas",
+              "href": "#"
+            },
+            {
+              "label": "Contacto",
+              "href": "#"
+            }
+          ]
+        }
+      ],
+      "tagline": "Train hard. Recover fast.",
+      "copyrightName": "Lumen CrossFit"
+    }
+  },
+  "ui": {
+    "chrome": {
+      "openCart": "Abrir carrito",
+      "openCartWithCount": "Abrir carrito, {count} artículos",
+      "myAccount": "Mi cuenta",
+      "openMenu": "Abrir menú",
+      "closeMenu": "Cerrar menú",
+      "mainNavAria": "Principal",
+      "mobileNavAria": "Móvil",
+      "salesModeAria": "Modo de compra"
+    },
+    "account": {
+      "eyebrow": "Cuenta",
+      "loginTitle": "Iniciar sesión",
+      "registerTitle": "Crear cuenta",
+      "dashboardTitle": "Mi cuenta",
+      "emailLabel": "Correo electrónico",
+      "nameLabel": "Nombre",
+      "phoneLabel": "Teléfono",
+      "passwordLabel": "Contraseña",
+      "loginSubmit": "Entrar",
+      "loginSubmitting": "Entrando…",
+      "registerSubmit": "Registrarse",
+      "registerSubmitting": "Registrando…",
+      "logout": "Cerrar sesión",
+      "goToRegister": "Regístrate",
+      "goToLogin": "Inicia sesión",
+      "noAccountPrompt": "¿No tienes cuenta?",
+      "hasAccountPrompt": "¿Ya tienes cuenta?",
+      "googleSignIn": "Continuar con Google"
+    },
+    "listing": {
+      "searchLabel": "Buscar",
+      "searchPlaceholder": "Buscar…",
+      "allCategories": "Todo",
+      "loading": "Cargando…",
+      "loadMore": "Cargar más",
+      "loadingMore": "Cargando…",
+      "noSearchResults": "Sin resultados para esta búsqueda.",
+      "pieceSingular": "pieza",
+      "piecePlural": "piezas",
+      "collectionPrefix": "Colección:",
+      "clearFilter": "Quitar filtro"
+    },
+    "checkout": {
+      "pageTitle": "Checkout",
+      "customerSection": "Cliente",
+      "shippingSection": "Envío",
+      "paymentSection": "Pago",
+      "summarySection": "Resumen",
+      "fullNameRequired": "Indica tu nombre",
+      "emailRequired": "Indica tu correo",
+      "shippingMethodRequired": "Elige un método de envío",
+      "pickupBranchRequired": "Elige una tienda",
+      "paymentMethodRequired": "Elige un método de pago",
+      "phoneNumberLabel": "Número",
+      "discountCodeLabel": "Código",
+      "shippingLineLabel": "Envío",
+      "subtotalLabel": "Subtotal",
+      "totalLabel": "Total",
+      "emptyCartLabel": "Vaciar",
+      "removeLineLabel": "Eliminar",
+      "quantityLabel": "Cantidad",
+      "phoneCountryAria": "Código de país del teléfono",
+      "discountApply": "Aplicar",
+      "taxLabel": "Impuestos",
+      "hasDiscountCodeLabel": "Tengo un código de descuento",
+      "discountLineLabel": "Descuento"
+    },
+    "errors": {
+      "addToCartFailed": "No se pudo añadir al carrito",
+      "orderConfirmFailed": "No se pudo confirmar el pedido",
+      "catalogLoadFailed": "No se pudo cargar el catálogo."
+    },
+    "cart": {
+      "title": "Tu selección",
+      "empty": "Tu carrito está vacío.",
+      "exploreCta": "Explorar tienda",
+      "checkout": "Finalizar compra",
+      "shippingHint": "Envío calculado en el checkout"
+    },
+    "product": {
+      "addToCart": "Añadir al carrito",
+      "relatedTitle": "También te puede gustar",
+      "shippingNote": "2–4 días laborables",
+      "outOfStock": "Agotado",
+      "contact": "Consultar disponibilidad",
+      "lowStock": "Quedan pocas unidades",
+      "madeToOrderClosed": "Pedidos cerrados temporalmente",
+      "addingToCart": "Añadiendo…",
+      "priceBookLabel": "Precio del ejemplar",
+      "priceProgramLabel": "Inversión por plaza en la cohorte",
+      "badges": {
+        "new": "Nuevo",
+        "featured": "Destacado",
+        "sale": "Oferta",
+        "bestseller": "Más vendido",
+        "limitedEdition": "Edición limitada"
+      }
+    },
+    "shop": {
+      "empty": "No hay piezas con estos filtros.",
+      "clearFilter": "Quitar filtro"
+    },
+    "notFound": {
+      "title": "Página no encontrada",
+      "body": "Esta ruta no existe en Lumen."
+    },
+    "salesMode": {
+      "stock": {
+        "navLabel": "Entrega inmediata",
+        "shopBanner": "Catálogo con entrega inmediata según disponibilidad.",
+        "cartLabel": "Compra con entrega inmediata"
+      },
+      "madeToOrder": {
+        "navLabel": "Bajo pedido",
+        "shopBanner": "Catálogo bajo pedido.",
+        "preparationLabel": "Preparación",
+        "closedMessage": "Ahora mismo no aceptamos pedidos a medida.",
+        "reopensPrefix": "Volvemos",
+        "cartLabel": "Compra bajo pedido",
+        "cartClosedWarning": "Los pedidos a medida están cerrados temporalmente. No podrás completar el checkout hasta que reabran."
+      },
+      "nav": [
+        {
+          "salesMode": "stock",
+          "label": "Entrega inmediata",
+          "href": "/tienda?salesMode=stock"
+        },
+        {
+          "salesMode": "madeToOrder",
+          "label": "Bajo pedido",
+          "href": "/tienda?salesMode=madeToOrder"
+        }
+      ]
+    }
+  }
+}

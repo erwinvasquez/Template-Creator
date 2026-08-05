@@ -23,38 +23,45 @@ export function Footer() {
           <p className="font-serif text-3xl tracking-[0.2em]">
             {logoText}
           </p>
-          <p className="mt-4 max-w-xs text-sm leading-relaxed opacity-70">
+          <p
+            data-wb-slot="footer.blurb"
+            className="mt-4 max-w-xs text-sm leading-relaxed opacity-70"
+          >
             {footer.blurb}
           </p>
         </div>
 
-        {footer.columns.map((column) => (
-          <div key={column.title}>
-            <p className="text-[11px] font-medium uppercase tracking-[0.18em] opacity-50">
-              {column.title}
-            </p>
-            <ul className="mt-4 space-y-3">
-              {column.links.map((link) => (
-                <li key={link.label}>
-                  <Link
-                    href={withBasePath(basePath, link.href)}
-                    className="cursor-pointer text-sm opacity-75 transition-opacity duration-200 hover:opacity-100"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
+        <div data-wb-slot="footer.columns" className="contents">
+          {footer.columns.map((column) => (
+            <div key={column.title}>
+              <p className="text-[11px] font-medium uppercase tracking-[0.18em] opacity-50">
+                {column.title}
+              </p>
+              <ul className="mt-4 space-y-3">
+                {column.links.map((link) => (
+                  <li key={link.label}>
+                    <Link
+                      href={withBasePath(basePath, link.href)}
+                      className="cursor-pointer text-sm opacity-75 transition-opacity duration-200 hover:opacity-100"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
       </div>
 
       <div className="border-t border-white/10">
         <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-3 px-6 py-6 text-xs opacity-50 md:flex-row md:items-center md:px-8">
-          <p>
+          <p data-wb-slot="footer.copyrightName">
             © {new Date().getFullYear()} {copyrightName}
           </p>
-          {footer.tagline && <p>{footer.tagline}</p>}
+          {footer.tagline ? (
+            <p data-wb-slot="footer.tagline">{footer.tagline}</p>
+          ) : null}
         </div>
       </div>
     </footer>

@@ -1,0 +1,12 @@
+{
+  "packageId": "template-content-contract",
+  "version": "1.0.0",
+  "exportedAt": "2026-08-04T23:25:38.115Z",
+  "contentHash": "0e09dda83080e5e6a8720a38a29ab1b550e787f519640f62efd185f68252b961",
+  "immutable": true,
+  "source": "packages/template-content-contract",
+  "artifacts": [
+    "uiCopy.schema.json",
+    "uiCopy.defaults.seed.json"
+  ]
+}

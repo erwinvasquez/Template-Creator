@@ -11,7 +11,7 @@ export type Link = {
 };
 
 /**
- * Navbar entry: plain path or shop filter (resolved to /programas?…).
+ * Navbar entry: plain path or shop filter (resolved to /catalogo?…).
  * Prefer `shopFilter` for category/collection entries so the SaaS can validate slugs.
  */
 export type PathNavLink = {
