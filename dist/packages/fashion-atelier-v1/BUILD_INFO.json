@@ -1,8 +1,8 @@
 {
   "templateId": "fashion-atelier-v1",
   "version": "1.3.0",
-  "exportedAt": "2026-08-05T16:05:26.657Z",
-  "contentHash": "034ed738ead1eed1bb25ec0f0c1bf01aa62a0a735f9f09ed00fe0b52578cdee6",
+  "exportedAt": "2026-08-05T20:14:23.162Z",
+  "contentHash": "db35dc40eb2d0f246409152603b8ccd1ac50a45c029f61a7024da2deade98701",
   "immutable": true,
   "source": "templates/fashion-atelier-v1"
 }

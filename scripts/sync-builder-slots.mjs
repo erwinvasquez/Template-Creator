@@ -79,8 +79,9 @@ function listSchemaFor(fieldPath) {
     return {
       itemType: "object",
       fields: [
-        { key: "title", kind: "string", label: "Título" },
-        { key: "body", kind: "text", label: "Texto" },
+        { key: "name", kind: "string", label: "Nombre" },
+        { key: "description", kind: "text", label: "Descripción" },
+        { key: "image", kind: "media", label: "Imagen" },
       ],
     };
   }

@@ -225,7 +225,17 @@ Conteo de usos `text-cta` + `bg-cta` en `src/` (ago 2026):
 | **2** | `fashion-celestine-v1`, `fashion-lumen-v1` | ✅ Mismo diff; `ink` en CSS + `themeStyle` |
 | **3** | `jewelry-orion-v1` | ✅ Footer `bg-ink`; eyebrows/CTAs alineados |
 | **4** | `academy-voxa-v1` | ✅ Footer `voxa-band-ink` OK; `text-cta`/`bg-cta` migrados |
-| 5 | Validación CI | ✅ `template-validate.mjs` + `scripts/lib/theme-token-contract.mjs` |
+| **5** | Validación CI | ✅ `template-validate.mjs` + `scripts/lib/theme-token-contract.mjs` |
+| **6** | Header icons (Fase F) | ✅ Cart + account: `text-secondary hover:text-primary` en nav claro; badge `bg-primary` |
+
+### Header — iconos carrito / cuenta (Fase F)
+
+| Contexto | Nav links | Cart + account icons | Badge contador |
+|----------|-----------|----------------------|----------------|
+| Nav claro (scrolled / no home) | `text-secondary hover:text-primary` | **igual** | `bg-primary` |
+| Nav transparente (home hero) | `text-white/80 hover:text-white` | `text-white hover:bg-white/10` | `bg-primary` |
+
+Ver `audit/PHASE-F-MANIFEST-AUDIT.md`.
 
 ---
 

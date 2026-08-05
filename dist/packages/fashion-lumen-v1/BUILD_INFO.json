@@ -1,8 +1,8 @@
 {
   "templateId": "fashion-lumen-v1",
   "version": "1.0.0",
-  "exportedAt": "2026-08-05T16:05:27.953Z",
-  "contentHash": "5ecf5c1d6d2c6a94f31d24aa56bdee11d9f6a999c00ee3edc14d06ccf9cb6d01",
+  "exportedAt": "2026-08-05T20:14:25.118Z",
+  "contentHash": "fea2ba63434f3bc48b0c756b0055574ab2783ac89c647305db7cf96a909565ac",
   "immutable": true,
   "source": "templates/fashion-lumen-v1"
 }

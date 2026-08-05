@@ -500,14 +500,19 @@
               "itemType": "object",
               "fields": [
                 {
-                  "key": "title",
+                  "key": "name",
                   "kind": "string",
-                  "label": "Título"
+                  "label": "Nombre"
                 },
                 {
-                  "key": "body",
+                  "key": "description",
                   "kind": "text",
-                  "label": "Texto"
+                  "label": "Descripción"
+                },
+                {
+                  "key": "image",
+                  "kind": "media",
+                  "label": "Imagen"
                 }
               ]
             }

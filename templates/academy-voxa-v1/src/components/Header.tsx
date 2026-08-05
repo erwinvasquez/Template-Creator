@@ -39,7 +39,7 @@ function HeaderCartButton({
       className={`relative cursor-pointer rounded-full p-2 transition-colors duration-200 ${
         transparent
           ? "text-white hover:bg-white/10"
-          : "text-primary hover:bg-surface"
+          : "text-secondary hover:text-primary"
       }`}
       aria-label={cartAriaLabel(
         openCartLabel,
@@ -72,7 +72,7 @@ function HeaderAccountLink({
       className={`cursor-pointer rounded-full p-2 transition-colors duration-200 ${
         transparent
           ? "text-white hover:bg-white/10"
-          : "text-primary hover:bg-surface"
+          : "text-secondary hover:text-primary"
       }`}
       aria-label={myAccountLabel}
     >
