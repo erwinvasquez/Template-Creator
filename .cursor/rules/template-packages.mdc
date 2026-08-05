@@ -164,7 +164,19 @@ Obligatorio si `defaults.catalog.products` no está vacío. El SaaS vacía el ca
     - Validación: `npm run template:validate` incluye `template-validate-content` (A–D).
     - Herramientas: `sync-builder-slots.mjs`, `merge-ui-defaults.mjs`, `generate-template-proof.mjs`.
 
-`npm run template:validate` comprueba IDs, paths, catalogBindings, listSchema, sync routes↔pages, mediaSlots estáticos, drift vs `schema.json` `$defs.Sections`, **category-scroll contract**, **hero height contract**, **hostCheckoutSkin completo** (si `checkoutLayout`), y **content contract Phase 1**.
+12. **Theme token map (brand vs template-fixed)** — ver `audit/TEMPLATE-THEME-TOKEN-MAP.md`:
+    - **SaaS inyecta solo** `theme.colors.{ primary, secondary, background }` (`themeEditable`). El resto es template-fixed.
+    - **`themeStyle()`** en `src/content/resolve.ts`: mapear `primary`/`secondary`/`background` desde payload; **`--color-ink` fijo** (no leer del payload); alias `--color-cta` = `c.cta ?? primary`, `--color-cta-hover` = `c.ctaHover ?? secondary`.
+    - **`builder.manifest` `themeDefaults.colors.ink`:** documenta footer; **no** añadir a `themeEditable`.
+    - **`src/styles/*.css`:** definir `--color-ink` en `:root` y `@theme`.
+    - **Prohibido en componentes:** `bg-cta`, `text-cta`, `var(--color-primary)` en `Footer.tsx`. Footer → `bg-ink text-background` (o clase estructural equivalente del template, ej. `voxa-band-ink`).
+    - **Tier A (brand):** `bg-primary` / `text-primary` en CTAs de conversión, chips activos, hovers fuertes; `text-secondary` en eyebrows/labels; `text-background` sobre botones primary.
+    - **Tier B (template-fixed):** `ink` (footer), `text`, `muted`, `border`, `surface` — no editables por merchant en Fase actual.
+    - **Tier C (contexto):** hero overlay `from-primary/…` + `text-white`; nav transparente independiente.
+    - Codemod de referencia: `node scripts/apply-theme-token-map.mjs {templateId}`.
+    - Validación: `template-validate.mjs` falla si hay `bg-cta`/`text-cta` en `src/` o footer usa `primary` como fondo estructural.
+
+`npm run template:validate` comprueba IDs, paths, catalogBindings, listSchema, sync routes↔pages, mediaSlots estáticos, drift vs `schema.json` `$defs.Sections`, **category-scroll contract**, **hero height contract**, **hostCheckoutSkin completo** (si `checkoutLayout`), **theme token map**, y **content contract Phase 1**.
 
 ### Validación (antes de cerrar)
 
@@ -179,7 +191,7 @@ Debe pasar taxonomía + builder + schema + exports canónicos.
 
 ## Qué es común vs qué cambia
 
-**Común (contrato):** API `TemplateApp` / `commerceViews`, routes page ids, commerce views tipadas (sin `CheckoutPage`), **`hostCheckoutSkin` completo**, taxonomía, `builder.manifest`, exports, peers, **`manifest.constraints.catalogRefs` + `catalogBindings` + `commerceFeatured*`**, `data-wb-slot` (**solo `sections.*`**), `themeEditable`, **sales-mode chrome gated by `salesModeSwitch`**, **category filter row**, **hero `h-[100svh] min-h-[640px]`**, **`ui.*` payload-only (Phase 1)**, **content contract A–D**.
+**Común (contrato):** API `TemplateApp` / `commerceViews`, routes page ids, commerce views tipadas (sin `CheckoutPage`), **`hostCheckoutSkin` completo**, taxonomía, `builder.manifest`, exports, peers, **`manifest.constraints.catalogRefs` + `catalogBindings` + `commerceFeatured*`**, `data-wb-slot` (**solo `sections.*`**), `themeEditable`, **theme token map (primary/secondary/background brand; ink/text/muted/border/surface fixed)**, **sales-mode chrome gated by `salesModeSwitch`**, **category filter row**, **hero `h-[100svh] min-h-[640px]`**, **`ui.*` payload-only (Phase 1)**, **content contract A–D**.
 
 **Cambia por diseño:** secciones, tipografías, tokens, motion, path visible de shop/about, copy, presencia de newsletter/cita/etc. (los *paths* dentro de `catalogRefs` apuntan a esas secciones variables).
 

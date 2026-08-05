@@ -16,7 +16,7 @@ export function AtelierView() {
         <Reveal>
           <p
             data-wb-slot="atelier.intro.eyebrow"
-            className="text-[11px] font-medium uppercase tracking-[0.2em] text-cta"
+            className="text-[11px] font-medium uppercase tracking-[0.2em] text-secondary"
           >
             {atelier.intro.eyebrow}
           </p>
@@ -72,7 +72,7 @@ export function AtelierView() {
           <Reveal>
             <p
               data-wb-slot="atelier.maisons.eyebrow"
-              className="text-[11px] font-medium uppercase tracking-[0.2em] text-cta"
+              className="text-[11px] font-medium uppercase tracking-[0.2em] text-secondary"
             >
               {atelier.maisons.eyebrow}
             </p>
@@ -119,7 +119,7 @@ export function AtelierView() {
           <Link
             href={withBasePath(basePath, atelier.closing.cta.href)}
             data-wb-slot="atelier.closing.cta"
-            className="mt-8 inline-flex cursor-pointer bg-cta px-8 py-3.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-white transition-colors duration-200 hover:bg-cta-hover"
+            className="mt-8 inline-flex cursor-pointer bg-primary px-8 py-3.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-background transition-colors duration-200 hover:bg-primary/90"
           >
             {atelier.closing.cta.label}
           </Link>

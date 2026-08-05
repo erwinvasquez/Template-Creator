@@ -16,7 +16,7 @@ export function Footer() {
         <div>
           <p className="voxa-wordmark text-2xl">{logoText}</p>
           {payload.brand.tagline && (
-            <p className="mt-3 text-sm text-cta">{payload.brand.tagline}</p>
+            <p className="mt-3 text-sm text-primary">{payload.brand.tagline}</p>
           )}
           <p
             data-wb-slot="footer.blurb"
@@ -37,7 +37,7 @@ export function Footer() {
                   <li key={link.label}>
                     <Link
                       href={withBasePath(basePath, link.href)}
-                      className="cursor-pointer text-sm text-white/75 transition-colors duration-200 hover:text-cta"
+                      className="cursor-pointer text-sm text-white/75 transition-colors duration-200 hover:text-primary"
                     >
                       {link.label}
                     </Link>

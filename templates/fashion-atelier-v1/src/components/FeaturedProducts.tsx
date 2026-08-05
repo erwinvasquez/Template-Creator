@@ -34,7 +34,7 @@ export function FeaturedProducts() {
               <Link
                 href={withBasePath(basePath, featured.viewAll.href)}
                 data-wb-slot="featured.viewAll"
-                className="cursor-pointer text-[11px] font-semibold uppercase tracking-[0.16em] text-secondary underline decoration-border underline-offset-4 transition-colors duration-200 hover:text-primary hover:decoration-cta"
+                className="cursor-pointer text-[11px] font-semibold uppercase tracking-[0.16em] text-secondary underline decoration-border underline-offset-4 transition-colors duration-200 hover:text-primary hover:decoration-primary"
               >
                 {featured.viewAll.label}
               </Link>

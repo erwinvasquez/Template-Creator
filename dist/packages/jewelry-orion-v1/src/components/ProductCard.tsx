@@ -50,7 +50,7 @@ export function ProductCard({
           )}
         </div>
         <div className="mt-4 space-y-1">
-          <h3 className="font-serif text-xl leading-tight tracking-wide transition-colors duration-200 group-hover:text-cta">
+          <h3 className="font-serif text-xl leading-tight tracking-wide transition-colors duration-200 group-hover:text-primary">
             {product.name}
           </h3>
           <p className="text-sm text-muted">

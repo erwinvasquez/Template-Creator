@@ -11,13 +11,7 @@ export function Footer() {
   const copyrightName = footer.copyrightName || payload.brand.name;
 
   return (
-    <footer
-      className="mt-auto border-t border-border"
-      style={{
-        backgroundColor: "var(--color-primary)",
-        color: "var(--color-background)",
-      }}
-    >
+    <footer className="mt-auto border-t border-border bg-ink text-background">
       <div className="mx-auto grid max-w-7xl gap-12 px-6 py-16 md:grid-cols-[1.4fr_1fr_1fr_1fr] md:px-8 md:py-20">
         <div>
           <p className="font-serif text-3xl tracking-[0.2em]">

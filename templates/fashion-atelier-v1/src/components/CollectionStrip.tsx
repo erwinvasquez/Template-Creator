@@ -57,7 +57,7 @@ export function CollectionStrip() {
                 {section.itemCtaLabel ? (
                   <span
                     data-wb-slot="collections.itemCtaLabel"
-                    className="mt-4 inline-block text-[11px] font-semibold uppercase tracking-[0.16em] text-white underline decoration-white/55 underline-offset-4 drop-shadow-[0_1px_6px_rgba(0,0,0,0.35)] transition-colors duration-200 group-hover:decoration-cta"
+                    className="mt-4 inline-block text-[11px] font-semibold uppercase tracking-[0.16em] text-white underline decoration-white/55 underline-offset-4 drop-shadow-[0_1px_6px_rgba(0,0,0,0.35)] transition-colors duration-200 group-hover:decoration-primary"
                   >
                     {section.itemCtaLabel}
                   </span>

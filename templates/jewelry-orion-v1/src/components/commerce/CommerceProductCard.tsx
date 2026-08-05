@@ -76,7 +76,7 @@ export function CommerceProductCard({
             </span>
           ) : null}
           {product.discountPercent != null && product.discountPercent > 0 ? (
-            <span className="absolute right-3 top-3 bg-cta px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-white">
+            <span className="absolute right-3 top-3 bg-primary px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-background">
               −{product.discountPercent}%
             </span>
           ) : null}
@@ -87,7 +87,7 @@ export function CommerceProductCard({
           ) : null}
         </div>
         <div className="mt-4 space-y-1">
-          <h3 className="font-serif text-xl leading-tight tracking-wide transition-colors duration-200 group-hover:text-cta">
+          <h3 className="font-serif text-xl leading-tight tracking-wide transition-colors duration-200 group-hover:text-primary">
             {product.name}
           </h3>
           <p className="text-sm text-muted">

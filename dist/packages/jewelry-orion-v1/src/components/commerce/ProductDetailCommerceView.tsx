@@ -260,7 +260,7 @@ export function ProductDetailCommerceView({
           </nav>
 
           {product.badges && product.badges.length > 0 ? (
-            <p className="mb-3 flex flex-wrap gap-x-3 gap-y-1 text-[11px] font-medium uppercase tracking-[0.18em] text-cta">
+            <p className="mb-3 flex flex-wrap gap-x-3 gap-y-1 text-[11px] font-medium uppercase tracking-[0.18em] text-secondary">
               {product.badges.map((b) => (
                 <span key={b}>{badgeLabel(b, uiBadges)}</span>
               ))}
@@ -281,7 +281,7 @@ export function ProductDetailCommerceView({
               </p>
             ) : null}
             {pct != null && pct > 0 ? (
-              <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-cta">
+              <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-secondary">
                 −{pct}%
               </span>
             ) : null}
@@ -436,7 +436,7 @@ export function ProductDetailCommerceView({
               type="button"
               disabled={!canBuy || pending}
               onClick={onAdd}
-              className="w-full cursor-pointer bg-cta px-6 py-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-white transition-colors duration-200 hover:bg-cta-hover disabled:cursor-not-allowed disabled:opacity-50 md:w-auto md:min-w-[240px]"
+              className="w-full cursor-pointer bg-primary px-6 py-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-background transition-colors duration-200 hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-50 md:w-auto md:min-w-[240px]"
             >
               {pending
                 ? uiProduct.addingToCart

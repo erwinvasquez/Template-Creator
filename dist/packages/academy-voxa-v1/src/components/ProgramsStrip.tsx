@@ -30,7 +30,7 @@ export function ProgramsStrip() {
           <div className="max-w-xl">
             <p
               data-wb-slot="programs.eyebrow"
-              className="voxa-rule text-[11px] font-semibold uppercase tracking-[0.2em] text-cta"
+              className="voxa-rule text-[11px] font-semibold uppercase tracking-[0.2em] text-secondary"
             >
               {programs.eyebrow}
             </p>
@@ -43,7 +43,7 @@ export function ProgramsStrip() {
           </div>
           <Link
             href={withBasePath(basePath, SHOP_PATH)}
-            className="group inline-flex shrink-0 cursor-pointer items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-primary transition-colors duration-200 hover:text-cta"
+            className="group inline-flex shrink-0 cursor-pointer items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-primary transition-colors duration-200 hover:text-primary"
           >
             {ui.cart.exploreCta}
             <ArrowRight
@@ -78,7 +78,7 @@ export function ProgramsStrip() {
                     sizes="(max-width: 768px) 100vw, 33vw"
                   />
                   {badgeLabel && (
-                    <span className="absolute left-4 top-4 rounded-full bg-cta px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-white">
+                    <span className="absolute left-4 top-4 rounded-full bg-primary px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-background">
                       {badgeLabel}
                     </span>
                   )}
@@ -88,7 +88,7 @@ export function ProgramsStrip() {
                   <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-secondary">
                     {product.categoryLabel}
                   </p>
-                  <h3 className="mt-2 font-serif text-2xl leading-tight text-primary transition-colors duration-200 group-hover:text-cta">
+                  <h3 className="mt-2 font-serif text-2xl leading-tight text-primary transition-colors duration-200 group-hover:text-primary">
                     {product.name}
                   </h3>
                   <div className="mt-4 flex flex-wrap gap-2">

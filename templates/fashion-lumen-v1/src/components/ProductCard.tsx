@@ -43,13 +43,13 @@ export function ProductCard({
             />
           )}
           {(product.isNew || product.isFeatured) && (
-            <span className="absolute left-0 top-0 bg-cta px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-white">
+            <span className="absolute left-0 top-0 bg-primary px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-background">
               {product.isNew ? badges.new : badges.featured}
             </span>
           )}
         </div>
         <div className="mt-4 space-y-1">
-          <h3 className="font-display text-lg font-bold uppercase leading-tight tracking-tight transition-colors duration-200 group-hover:text-cta md:text-xl">
+          <h3 className="font-display text-lg font-bold uppercase leading-tight tracking-tight transition-colors duration-200 group-hover:text-primary md:text-xl">
             {product.name}
           </h3>
           <p className="text-sm text-muted">

@@ -15,7 +15,7 @@ export function AtelierNote() {
         <Reveal>
           <p
             data-wb-slot="note.eyebrow"
-            className="text-[11px] font-semibold uppercase tracking-[0.22em] text-cta"
+            className="text-[11px] font-semibold uppercase tracking-[0.22em] text-secondary"
           >
             {note.eyebrow}
           </p>
@@ -34,7 +34,7 @@ export function AtelierNote() {
           <Link
             href={withBasePath(basePath, note.cta.href)}
             data-wb-slot="note.cta"
-            className="mt-10 inline-flex cursor-pointer rounded-full bg-cta px-8 py-3.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-white transition-colors duration-200 hover:bg-cta-hover"
+            className="mt-10 inline-flex cursor-pointer rounded-full bg-primary px-8 py-3.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-background transition-colors duration-200 hover:bg-primary/90"
           >
             {note.cta.label}
           </Link>

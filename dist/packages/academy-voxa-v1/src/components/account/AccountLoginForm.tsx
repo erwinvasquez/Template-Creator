@@ -29,7 +29,7 @@ export function AccountLoginForm({
   return (
     <div className="pb-24 pt-12 md:pt-16">
       <div className="mx-auto max-w-md px-6 md:px-10">
-        <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-cta">
+        <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-secondary">
           {account.eyebrow}
         </p>
         <h1 className="mt-3 font-serif text-4xl tracking-wide">
@@ -122,7 +122,7 @@ export function AccountLoginForm({
           {account.noAccountPrompt}{" "}
           <Link
             href={registerPath}
-            className="cursor-pointer font-medium text-cta transition-colors hover:text-cta-hover"
+            className="cursor-pointer font-medium text-primary transition-colors hover:text-secondary"
           >
             {account.goToRegister}
           </Link>

@@ -73,17 +73,17 @@ export function CommerceProductCard({
             />
           )}
           {primaryBadge ? (
-            <span className="absolute left-4 top-4 rounded-full bg-cta px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-white">
+            <span className="absolute left-4 top-4 rounded-full bg-primary px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-background">
               {primaryBadge}
             </span>
           ) : null}
           {product.discountPercent != null && product.discountPercent > 0 ? (
-            <span className="absolute right-4 top-4 rounded-full bg-white/90 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-cta shadow-sm backdrop-blur-sm">
+            <span className="absolute right-4 top-4 rounded-full bg-white/90 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-secondary shadow-sm backdrop-blur-sm">
               −{product.discountPercent}%
             </span>
           ) : null}
           {isOut ? (
-            <span className="absolute inset-x-0 bottom-0 bg-primary/75 py-2 text-center text-[10px] font-medium uppercase tracking-[0.16em] text-white">
+            <span className="absolute inset-x-0 bottom-0 bg-primary/75 py-2 text-center text-[10px] font-medium uppercase tracking-[0.16em] text-background">
               {productUi.outOfStock}
             </span>
           ) : null}
@@ -94,7 +94,7 @@ export function CommerceProductCard({
               {eyebrow}
             </p>
           ) : null}
-          <h3 className="mt-2 font-serif text-xl leading-tight text-primary transition-colors duration-200 group-hover:text-cta md:text-2xl">
+          <h3 className="mt-2 font-serif text-xl leading-tight text-primary transition-colors duration-200 group-hover:text-primary md:text-2xl">
             {product.name}
           </h3>
           <p className="mt-auto border-t border-border pt-4 font-serif text-lg text-primary">

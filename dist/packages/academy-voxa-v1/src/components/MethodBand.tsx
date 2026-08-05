@@ -17,7 +17,7 @@ export function MethodBand() {
           <div className="max-w-2xl">
             <p
               data-wb-slot="method.eyebrow"
-              className="voxa-rule text-[11px] font-semibold uppercase tracking-[0.2em] text-cta"
+              className="voxa-rule text-[11px] font-semibold uppercase tracking-[0.2em] text-secondary"
             >
               {method.eyebrow}
             </p>
@@ -46,7 +46,7 @@ export function MethodBand() {
             <li key={step.id} className="bg-white">
               <Reveal delay={i * 90}>
                 <div className="flex h-full flex-col p-7 md:p-8">
-                  <span className="font-serif text-3xl text-cta">
+                  <span className="font-serif text-3xl text-secondary">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <h3 className="mt-5 font-serif text-xl leading-tight text-primary">

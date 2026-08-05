@@ -22,7 +22,7 @@ export function CommunityStrip() {
         <Reveal>
           <p
             data-wb-slot="community.eyebrow"
-            className="text-[11px] font-medium uppercase tracking-[0.2em] text-cta"
+            className="text-[11px] font-medium uppercase tracking-[0.2em] text-secondary"
           >
             {community.eyebrow}
           </p>

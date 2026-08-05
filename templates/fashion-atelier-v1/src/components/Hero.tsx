@@ -39,7 +39,7 @@ export function Hero() {
           <Link
             href={withBasePath(basePath, hero.ctaPrimary.href)}
             data-wb-slot="hero.ctaPrimary"
-            className="cursor-pointer bg-primary px-9 py-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-white shadow-[0_10px_36px_rgba(0,0,0,0.5)] ring-1 ring-white/25 transition-colors duration-200 hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary"
+            className="cursor-pointer bg-primary px-9 py-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-background shadow-[0_10px_36px_rgba(0,0,0,0.5)] ring-1 ring-white/25 transition-colors duration-200 hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary"
           >
             {hero.ctaPrimary.label}
           </Link>

@@ -238,7 +238,7 @@ export function ProductDetailCommerceView({
                   {product.badges.map((b) => (
                     <span
                       key={b}
-                      className="rounded-full bg-cta px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-white"
+                      className="rounded-full bg-primary px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-background"
                     >
                       {badgeLabel(b, uiBadges)}
                     </span>
@@ -246,7 +246,7 @@ export function ProductDetailCommerceView({
                 </p>
               ) : null}
 
-              <p className="voxa-rule text-[11px] font-semibold uppercase tracking-[0.2em] text-cta">
+              <p className="voxa-rule text-[11px] font-semibold uppercase tracking-[0.2em] text-secondary">
                 {product.collectionLabels?.[0] ??
                   product.categoryLabels?.[0] ??
                   "Programa Voxa"}
@@ -290,7 +290,7 @@ export function ProductDetailCommerceView({
                     </p>
                   ) : null}
                   {pct != null && pct > 0 ? (
-                    <span className="rounded-full bg-surface px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-cta">
+                    <span className="rounded-full bg-surface px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-secondary">
                       −{pct}%
                     </span>
                   ) : null}
@@ -317,8 +317,8 @@ export function ProductDetailCommerceView({
                                 onClick={() => pickModality(val)}
                                 className={`cursor-pointer rounded-full border px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.12em] transition-colors duration-200 ${
                                   active
-                                    ? "border-primary bg-primary text-white"
-                                    : "border-border text-primary hover:border-cta hover:text-cta"
+                                    ? "border-primary bg-primary text-background"
+                                    : "border-border text-primary hover:border-cta hover:text-primary"
                                 }`}
                               >
                                 {val}
@@ -390,7 +390,7 @@ export function ProductDetailCommerceView({
                   type="button"
                   disabled={!canBuy || pending}
                   onClick={onAdd}
-                  className="mt-6 flex w-full cursor-pointer items-center justify-center gap-2 rounded-full bg-cta px-6 py-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-white transition-colors duration-200 hover:bg-cta-hover disabled:cursor-not-allowed disabled:opacity-50"
+                  className="mt-6 flex w-full cursor-pointer items-center justify-center gap-2 rounded-full bg-primary px-6 py-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-background transition-colors duration-200 hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   {ctaLabel}
                   {!pending && canBuy ? (
@@ -451,7 +451,7 @@ export function ProductDetailCommerceView({
       <section className="mx-auto max-w-7xl px-6 py-16 md:px-10 md:py-24">
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-7 animate-fade-up">
-            <p className="voxa-rule text-[11px] font-semibold uppercase tracking-[0.2em] text-cta">
+            <p className="voxa-rule text-[11px] font-semibold uppercase tracking-[0.2em] text-secondary">
               {isBook ? "Sobre el libro" : "Sobre el programa"}
             </p>
             {product.description ? (
@@ -467,7 +467,7 @@ export function ProductDetailCommerceView({
                     key={b}
                     className="flex gap-3 text-sm leading-relaxed text-muted md:text-base"
                   >
-                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-cta/15 text-cta">
+                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/15 text-secondary">
                       <Check className="h-3 w-3" strokeWidth={2.5} />
                     </span>
                     {b}
@@ -491,7 +491,7 @@ export function ProductDetailCommerceView({
                       key={h}
                       className="flex gap-4 px-6 py-4 text-sm text-primary"
                     >
-                      <span className="font-serif text-lg text-cta">
+                      <span className="font-serif text-lg text-secondary">
                         {String(i + 1).padStart(2, "0")}
                       </span>
                       <span className="leading-relaxed">{h}</span>
@@ -531,7 +531,7 @@ export function ProductDetailCommerceView({
         product.relatedProducts.length > 0 && (
           <section className="border-t border-border bg-surface py-16 md:py-24">
             <div className="mx-auto max-w-7xl px-6 md:px-10">
-              <p className="voxa-rule text-[11px] font-semibold uppercase tracking-[0.2em] text-cta">
+              <p className="voxa-rule text-[11px] font-semibold uppercase tracking-[0.2em] text-secondary">
                 Continúa el itinerario
               </p>
               <h2 className="mt-3 font-serif text-3xl tracking-wide text-primary md:text-4xl">

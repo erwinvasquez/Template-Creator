@@ -217,7 +217,7 @@ export function ProductDetailCommerceView({
             <>
               <Link
                 href={withBasePath(basePath, SHOP_PATH)}
-                className="cursor-pointer transition-colors duration-200 hover:text-cta"
+                className="cursor-pointer transition-colors duration-200 hover:text-primary"
               >
                 {shopLabel}
               </Link>
@@ -246,7 +246,7 @@ export function ProductDetailCommerceView({
                   {product.badges.map((b) => (
                     <span
                       key={b}
-                      className="rounded-full bg-cta px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-white shadow-sm"
+                      className="rounded-full bg-primary px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-background shadow-sm"
                     >
                       {badgeLabel(b, uiBadges)}
                     </span>
@@ -317,7 +317,7 @@ export function ProductDetailCommerceView({
                 </p>
               ) : null}
               {pct != null && pct > 0 ? (
-                <span className="rounded-full bg-cta/12 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-cta">
+                <span className="rounded-full bg-primary/12 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-secondary">
                   −{pct}%
                 </span>
               ) : null}
@@ -339,7 +339,7 @@ export function ProductDetailCommerceView({
               <ul className="mt-6 space-y-2 border-t border-border pt-6 text-sm text-primary">
                 {product.highlights.map((h) => (
                   <li key={h} className="flex items-start gap-2.5">
-                    <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-cta" />
+                    <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-primary" />
                     <span>{h}</span>
                   </li>
                 ))}
@@ -350,7 +350,7 @@ export function ProductDetailCommerceView({
               <ul className="mt-4 space-y-1.5 text-sm text-muted">
                 {product.bulletPoints.map((b) => (
                   <li key={b} className="flex items-start gap-2.5">
-                    <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-cta/60" />
+                    <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-primary/60" />
                     <span>{b}</span>
                   </li>
                 ))}
@@ -380,8 +380,8 @@ export function ProductDetailCommerceView({
                             onClick={() => pickOption(dim.name, val)}
                             className={`cursor-pointer rounded-full border px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.12em] transition-colors duration-200 disabled:cursor-not-allowed disabled:opacity-40 ${
                               active
-                                ? "border-cta bg-cta text-white"
-                                : "border-border bg-background text-primary hover:border-cta/60 hover:text-cta"
+                                ? "border-cta bg-primary text-background"
+                                : "border-border bg-background text-primary hover:border-cta/60 hover:text-primary"
                             }`}
                           >
                             {val}
@@ -447,7 +447,7 @@ export function ProductDetailCommerceView({
               type="button"
               disabled={!canBuy || pending}
               onClick={onAdd}
-              className="mt-6 w-full cursor-pointer rounded-full bg-cta px-6 py-4 text-[11px] font-semibold uppercase tracking-[0.2em] text-white transition-colors duration-200 hover:bg-cta-hover disabled:cursor-not-allowed disabled:opacity-50"
+              className="mt-6 w-full cursor-pointer rounded-full bg-primary px-6 py-4 text-[11px] font-semibold uppercase tracking-[0.2em] text-background transition-colors duration-200 hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {ctaLabel}
             </button>

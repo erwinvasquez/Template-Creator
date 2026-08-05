@@ -45,7 +45,7 @@ export function CartPageView({ cart, actions }: CartViewProps) {
             <p className="text-sm text-muted">{cartUi.empty}</p>
             <Link
               href={withBasePath(basePath, "/catalogo")}
-              className="cursor-pointer text-sm font-medium uppercase tracking-[0.14em] text-cta transition-colors duration-200 hover:text-cta-hover"
+              className="cursor-pointer text-sm font-medium uppercase tracking-[0.14em] text-primary transition-colors duration-200 hover:text-secondary"
             >
               {cartUi.exploreCta}
             </Link>
@@ -137,7 +137,7 @@ export function CartPageView({ cart, actions }: CartViewProps) {
 
             <div className="mt-10 border-t border-border pt-6">
               {cart.promotionLabels?.map((p) => (
-                <p key={p} className="mb-2 text-xs text-cta">
+                <p key={p} className="mb-2 text-xs text-primary">
                   {p}
                 </p>
               ))}
@@ -154,7 +154,7 @@ export function CartPageView({ cart, actions }: CartViewProps) {
                 <button
                   type="button"
                   onClick={() => actions.navigateToCheckout()}
-                  className="cursor-pointer bg-cta px-8 py-3.5 text-sm font-semibold uppercase tracking-[0.14em] text-white transition-colors duration-200 hover:bg-cta-hover"
+                  className="cursor-pointer bg-primary px-8 py-3.5 text-sm font-semibold uppercase tracking-[0.14em] text-background transition-colors duration-200 hover:bg-primary/90"
                 >
                   {cartUi.checkout}
                 </button>

@@ -68,7 +68,7 @@ export function ShopCatalog() {
               href={href}
               className={`shrink-0 cursor-pointer px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.14em] transition-colors duration-200 ${
                 active
-                  ? "bg-primary text-white"
+                  ? "bg-primary text-background"
                   : "text-secondary hover:bg-surface hover:text-primary"
               }`}
             >
@@ -89,7 +89,7 @@ export function ShopCatalog() {
                 ? withBasePath(basePath, "/tienda")
                 : withBasePath(basePath, `/tienda?categoria=${categoria}`)
             }
-            className="cursor-pointer underline underline-offset-2 transition-colors duration-200 hover:text-cta"
+            className="cursor-pointer underline underline-offset-2 transition-colors duration-200 hover:text-primary"
           >
             {shop.clearFilter}
           </Link>

@@ -49,7 +49,7 @@ function HeaderCartButton({
     >
       <ShoppingBag className="h-5 w-5" strokeWidth={1.5} />
       {itemCount > 0 && (
-        <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-cta px-1 text-[10px] font-semibold text-white">
+        <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-primary px-1 text-[10px] font-semibold text-background">
           {itemCount}
         </span>
       )}
@@ -196,7 +196,7 @@ export function Header() {
                 key={`${link.type}-${link.label}`}
                 href={withBasePath(basePath, resolveNavHref(link))}
                 onClick={() => setMobileOpen(false)}
-                className="cursor-pointer border-b border-border py-5 font-serif text-2xl tracking-wide text-primary transition-colors duration-200 hover:text-cta"
+                className="cursor-pointer border-b border-border py-5 font-serif text-2xl tracking-wide text-primary transition-colors duration-200 hover:text-primary"
               >
                 {link.label}
               </Link>
@@ -205,7 +205,7 @@ export function Header() {
               <Link
                 href={accountPath(basePath, payload.features?.accountBasePath)}
                 onClick={() => setMobileOpen(false)}
-                className="cursor-pointer border-b border-border py-5 font-serif text-2xl tracking-wide text-primary transition-colors duration-200 hover:text-cta"
+                className="cursor-pointer border-b border-border py-5 font-serif text-2xl tracking-wide text-primary transition-colors duration-200 hover:text-primary"
               >
                 {chrome.myAccount}
               </Link>

@@ -16,7 +16,7 @@ export function AboutView() {
         <Reveal>
           <p
             data-wb-slot="about.intro.eyebrow"
-            className="text-[11px] font-medium uppercase tracking-[0.2em] text-cta"
+            className="text-[11px] font-medium uppercase tracking-[0.2em] text-secondary"
           >
             {about.intro.eyebrow}
           </p>
@@ -73,7 +73,7 @@ export function AboutView() {
           <Reveal>
             <p
               data-wb-slot="about.locations.eyebrow"
-              className="text-[11px] font-medium uppercase tracking-[0.2em] text-cta"
+              className="text-[11px] font-medium uppercase tracking-[0.2em] text-secondary"
             >
               {about.locations.eyebrow}
             </p>
@@ -120,7 +120,7 @@ export function AboutView() {
           <Link
             href={withBasePath(basePath, about.closing.cta.href)}
             data-wb-slot="about.closing.cta"
-            className="mt-8 inline-flex cursor-pointer bg-cta px-8 py-3.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-white transition-colors duration-200 hover:bg-cta-hover"
+            className="mt-8 inline-flex cursor-pointer bg-primary px-8 py-3.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-background transition-colors duration-200 hover:bg-primary/90"
           >
             {about.closing.cta.label}
           </Link>

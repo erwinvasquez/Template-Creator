@@ -29,7 +29,7 @@ export function ShopView() {
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-8">
           <p
             data-wb-slot="shop.eyebrow"
-            className="text-[11px] font-medium uppercase tracking-[0.2em] text-cta"
+            className="text-[11px] font-medium uppercase tracking-[0.2em] text-secondary"
           >
             {shop.eyebrow}
           </p>

@@ -73,7 +73,7 @@ export function CommerceCartDrawer({
               <Link
                 href={withBasePath(basePath, "/coleccion")}
                 onClick={onClose}
-                className="cursor-pointer text-sm font-medium uppercase tracking-[0.14em] text-cta transition-colors duration-200 hover:text-cta-hover"
+                className="cursor-pointer text-sm font-medium uppercase tracking-[0.14em] text-primary transition-colors duration-200 hover:text-secondary"
               >
                 {cartUi.exploreCta}
               </Link>
@@ -171,7 +171,7 @@ export function CommerceCartDrawer({
         {cart.lines.length > 0 && (
           <div className="border-t border-border px-6 py-5">
             {cart.promotionLabels?.map((p) => (
-              <p key={p} className="mb-2 text-xs text-cta">
+              <p key={p} className="mb-2 text-xs text-primary">
                 {p}
               </p>
             ))}
@@ -187,7 +187,7 @@ export function CommerceCartDrawer({
             <button
               type="button"
               onClick={() => actions.navigateToCheckout()}
-              className="w-full cursor-pointer bg-cta px-6 py-3.5 text-sm font-semibold uppercase tracking-[0.14em] text-white transition-colors duration-200 hover:bg-cta-hover"
+              className="w-full cursor-pointer bg-primary px-6 py-3.5 text-sm font-semibold uppercase tracking-[0.14em] text-background transition-colors duration-200 hover:bg-primary/90"
             >
               {cartUi.checkout}
             </button>

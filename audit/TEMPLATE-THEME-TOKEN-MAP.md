@@ -1,7 +1,7 @@
 # Template Theme Token Map — WG ↔ SaaS
 
 **Fecha:** 2026-08-05  
-**Estado:** Propuesta aprobada para rollout (Atelier piloto)  
+**Estado:** Implementado en los 5 templates ecommerce (ago 2026)  
 **Templates:** `fashion-atelier-v1`, `fashion-celestine-v1`, `jewelry-orion-v1`, `academy-voxa-v1`, `fashion-lumen-v1`
 
 ---
@@ -221,11 +221,11 @@ Conteo de usos `text-cta` + `bg-cta` en `src/` (ago 2026):
 
 | Fase | Template | Acciones |
 |------|----------|----------|
-| **1 (PR actual)** | `fashion-atelier-v1` | Token map + cambios componentes + `ink` en CSS + PROOF |
-| 2 | `fashion-celestine-v1`, `fashion-lumen-v1` | Mismo diff; añadir `ink` a CSS donde falte |
-| 3 | `jewelry-orion-v1` | Footer `bg-ink`; alinear eyebrows/CTAs |
-| 4 | `academy-voxa-v1` | Footer OK; migrar `text-cta`/`bg-cta` restantes |
-| 5 | Validación CI | Opcional: lint grep que falle si `Footer` usa `--color-primary` |
+| **1** | `fashion-atelier-v1` | ✅ Token map + componentes + `ink` en CSS + PROOF |
+| **2** | `fashion-celestine-v1`, `fashion-lumen-v1` | ✅ Mismo diff; `ink` en CSS + `themeStyle` |
+| **3** | `jewelry-orion-v1` | ✅ Footer `bg-ink`; eyebrows/CTAs alineados |
+| **4** | `academy-voxa-v1` | ✅ Footer `voxa-band-ink` OK; `text-cta`/`bg-cta` migrados |
+| 5 | Validación CI | ✅ `template-validate.mjs` + `scripts/lib/theme-token-contract.mjs` |
 
 ---
 

@@ -17,7 +17,7 @@ export function DisciplinesStrip() {
         <div className="mb-12 max-w-xl">
           <p
             data-wb-slot="disciplines.eyebrow"
-            className="text-[11px] font-bold uppercase tracking-[0.24em] text-cta"
+            className="text-[11px] font-bold uppercase tracking-[0.24em] text-secondary"
           >
             {disciplines.eyebrow}
           </p>
@@ -55,7 +55,7 @@ export function DisciplinesStrip() {
                 {disciplines.itemCtaLabel ? (
                   <span
                     data-wb-slot="disciplines.itemCtaLabel"
-                    className="mt-4 inline-block text-[11px] font-bold uppercase tracking-[0.2em] text-cta"
+                    className="mt-4 inline-block text-[11px] font-bold uppercase tracking-[0.2em] text-secondary"
                   >
                     {disciplines.itemCtaLabel}
                   </span>

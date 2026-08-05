@@ -22,7 +22,7 @@ export function AccountDashboard({
   return (
     <div className="pb-24 pt-28 md:pt-32">
       <div className="mx-auto max-w-2xl px-6 md:px-8">
-        <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-cta">
+        <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-secondary">
           {account.eyebrow}
         </p>
         <h1 className="mt-3 font-serif text-4xl tracking-wide md:text-5xl">

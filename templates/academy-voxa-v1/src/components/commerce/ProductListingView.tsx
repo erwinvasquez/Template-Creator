@@ -81,7 +81,7 @@ export function ProductListingView({
             onClick={() => actions.setCatalogFilters({ categoryId: null })}
             className={`shrink-0 cursor-pointer px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.14em] transition-colors duration-200 ${
               !filters.activeCategoryId
-                ? "bg-primary text-white"
+                ? "bg-primary text-background"
                 : "text-secondary hover:bg-surface hover:text-primary"
             }`}
           >
@@ -98,7 +98,7 @@ export function ProductListingView({
                 }
                 className={`shrink-0 cursor-pointer px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.14em] transition-colors duration-200 ${
                   active
-                    ? "bg-primary text-white"
+                    ? "bg-primary text-background"
                     : "text-secondary hover:bg-surface hover:text-primary"
                 }`}
               >

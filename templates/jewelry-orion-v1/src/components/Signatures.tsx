@@ -17,7 +17,7 @@ export function Signatures() {
         <div className="mb-12 max-w-xl">
           <p
             data-wb-slot="signatures.eyebrow"
-            className="text-[11px] font-medium uppercase tracking-[0.2em] text-cta"
+            className="text-[11px] font-medium uppercase tracking-[0.2em] text-secondary"
           >
             {signatures.eyebrow}
           </p>
@@ -48,7 +48,7 @@ export function Signatures() {
                 />
               </div>
               <div className="mt-5 flex items-baseline justify-between gap-4">
-                <h3 className="font-serif text-2xl tracking-wide transition-colors duration-200 group-hover:text-cta">
+                <h3 className="font-serif text-2xl tracking-wide transition-colors duration-200 group-hover:text-primary">
                   {product.name}
                 </h3>
                 <span className="shrink-0 text-sm text-muted">

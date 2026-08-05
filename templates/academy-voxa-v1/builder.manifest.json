@@ -598,5 +598,10 @@
         ]
       }
     }
+  },
+  "themeDefaults": {
+    "colors": {
+      "ink": "#0B1220"
+    }
   }
 }

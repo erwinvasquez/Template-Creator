@@ -47,7 +47,7 @@ export function Hero() {
           <Link
             href={withBasePath(basePath, hero.ctaPrimary.href)}
             data-wb-slot="hero.ctaPrimary"
-            className="cursor-pointer rounded-full bg-cta px-7 py-3.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-white transition-colors duration-200 hover:bg-cta-hover"
+            className="cursor-pointer rounded-full bg-primary px-7 py-3.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-background transition-colors duration-200 hover:bg-primary/90"
           >
             {hero.ctaPrimary.label}
           </Link>

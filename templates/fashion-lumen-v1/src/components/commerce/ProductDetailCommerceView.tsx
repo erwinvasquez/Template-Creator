@@ -216,7 +216,7 @@ export function ProductDetailCommerceView({
   const variantChipClass = (active: boolean) =>
     `cursor-pointer border-2 px-4 py-2.5 text-[11px] font-bold uppercase tracking-[0.14em] transition-colors duration-200 disabled:cursor-not-allowed disabled:opacity-40 ${
       active
-        ? "border-cta bg-cta text-white"
+        ? "border-cta bg-primary text-background"
         : "border-border text-primary hover:border-primary"
     }`;
 
@@ -230,7 +230,7 @@ export function ProductDetailCommerceView({
           >
             <Link
               href={withBasePath(basePath, "/tienda")}
-              className="cursor-pointer transition-colors duration-200 hover:text-cta"
+              className="cursor-pointer transition-colors duration-200 hover:text-primary"
             >
               {shopLabel}
             </Link>
@@ -258,7 +258,7 @@ export function ProductDetailCommerceView({
                   {product.badges.map((b) => (
                     <span
                       key={b}
-                      className="bg-cta px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.16em] text-white"
+                      className="bg-primary px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.16em] text-background"
                     >
                       {badgeLabel(b, uiBadges)}
                     </span>
@@ -266,7 +266,7 @@ export function ProductDetailCommerceView({
                 </div>
               ) : null}
               {pct != null && pct > 0 ? (
-                <span className="absolute right-0 top-0 bg-primary px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.14em] text-white">
+                <span className="absolute right-0 top-0 bg-primary px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.14em] text-background">
                   −{pct}%
                 </span>
               ) : null}
@@ -308,7 +308,7 @@ export function ProductDetailCommerceView({
 
           {/* Purchase column — performance panel */}
           <div className="border-2 border-primary bg-background">
-            <div className="h-1.5 w-full bg-cta" aria-hidden />
+            <div className="h-1.5 w-full bg-primary" aria-hidden />
 
             <div className="p-6 md:p-8">
               {metaChips.length > 0 ? (
@@ -359,7 +359,7 @@ export function ProductDetailCommerceView({
                       className="flex items-start gap-2 border border-border bg-surface/60 px-3 py-2.5 text-sm text-primary"
                     >
                       <Check
-                        className="mt-0.5 h-4 w-4 shrink-0 text-cta"
+                        className="mt-0.5 h-4 w-4 shrink-0 text-secondary"
                         strokeWidth={2.5}
                         aria-hidden
                       />
@@ -435,7 +435,7 @@ export function ProductDetailCommerceView({
               ) : null}
 
               {capabilities.stockIndicator !== "unsupported" && stockMessage ? (
-                <p className="mt-5 text-sm font-medium text-cta">{stockMessage}</p>
+                <p className="mt-5 text-sm font-medium text-secondary">{stockMessage}</p>
               ) : null}
 
               {product.preparationPromiseLabel ? (
@@ -485,7 +485,7 @@ export function ProductDetailCommerceView({
                   type="button"
                   disabled={!canBuy || pending}
                   onClick={onAdd}
-                  className="w-full flex-1 cursor-pointer bg-cta px-6 py-4 text-xs font-bold uppercase tracking-[0.2em] text-white transition-colors duration-200 hover:bg-cta-hover disabled:cursor-not-allowed disabled:opacity-50"
+                  className="w-full flex-1 cursor-pointer bg-primary px-6 py-4 text-xs font-bold uppercase tracking-[0.2em] text-background transition-colors duration-200 hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   {pending
                     ? uiProduct.addingToCart

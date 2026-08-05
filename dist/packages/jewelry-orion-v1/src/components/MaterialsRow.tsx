@@ -17,7 +17,7 @@ export function MaterialsRow() {
           <div className="mb-12 max-w-xl">
             <p
               data-wb-slot="materials.eyebrow"
-              className="text-[11px] font-medium uppercase tracking-[0.2em] text-cta"
+              className="text-[11px] font-medium uppercase tracking-[0.2em] text-secondary"
             >
               {materials.eyebrow}
             </p>

@@ -22,21 +22,21 @@ export function CheckoutLayout({
         <div className="mt-12 grid gap-12 lg:grid-cols-[1.2fr_0.8fr]">
           <div className="space-y-10">
             <section className="space-y-4">
-              <h2 className="text-[11px] font-medium uppercase tracking-[0.2em] text-cta">
+              <h2 className="text-[11px] font-medium uppercase tracking-[0.2em] text-secondary">
                 {labels.customerSection}
               </h2>
               {customerForm}
             </section>
             {shippingSelector ? (
               <section className="space-y-4">
-                <h2 className="text-[11px] font-medium uppercase tracking-[0.2em] text-cta">
+                <h2 className="text-[11px] font-medium uppercase tracking-[0.2em] text-secondary">
                   {labels.shippingSection}
                 </h2>
                 {shippingSelector}
               </section>
             ) : null}
             <section className="space-y-4">
-              <h2 className="text-[11px] font-medium uppercase tracking-[0.2em] text-cta">
+              <h2 className="text-[11px] font-medium uppercase tracking-[0.2em] text-secondary">
                 {labels.paymentSection}
               </h2>
               {paymentSelector}

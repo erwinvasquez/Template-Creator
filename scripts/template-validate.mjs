@@ -5,6 +5,7 @@ import { execSync } from "node:child_process";
 import { createRequire } from "node:module";
 import { loadTemplateSchemaForAjv } from "./lib/load-template-schema.mjs";
 import { validateHostCheckoutSkin } from "./lib/host-checkout-skin-contract.mjs";
+import { validateThemeTokenContract } from "./lib/theme-token-contract.mjs";
 
 const require = createRequire(import.meta.url);
 const templateId = process.argv[2] || "fashion-atelier-v1";
@@ -440,6 +441,10 @@ if (fs.existsSync(clientPath)) {
 }
 
 for (const msg of validateHostCheckoutSkin(root, manifest)) {
+  errors.push(msg);
+}
+
+for (const msg of validateThemeTokenContract(root)) {
   errors.push(msg);
 }
 

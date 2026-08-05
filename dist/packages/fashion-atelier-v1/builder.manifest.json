@@ -608,5 +608,10 @@
         ]
       }
     }
+  },
+  "themeDefaults": {
+    "colors": {
+      "ink": "#1C1917"
+    }
   }
 }

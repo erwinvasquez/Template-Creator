@@ -146,16 +146,18 @@ export function formatPrice(
 
 export function themeStyle(payload: ContentPayload): Record<string, string> {
   const c = payload.theme?.colors ?? {};
+  const primary = c.primary ?? "#14213d";
+  const secondary = c.secondary ?? "#3a506b";
   return {
-    "--color-primary": c.primary ?? "#14213d",
-    "--color-secondary": c.secondary ?? "#3a506b",
-    "--color-cta": c.cta ?? "#0d9488",
-    "--color-cta-hover": c.ctaHover ?? "#0f766e",
+    "--color-primary": primary,
+    "--color-secondary": secondary,
     "--color-background": c.background ?? "#f4f6f8",
     "--color-surface": c.surface ?? "#e8eef2",
     "--color-text": c.text ?? "#12141a",
     "--color-muted": c.muted ?? "#5c6570",
     "--color-border": c.border ?? "#d5dde5",
-    "--color-ink": c.ink ?? "#0b1220",
+    "--color-ink": "#0b1220",
+    "--color-cta": c.cta ?? primary,
+    "--color-cta-hover": c.ctaHover ?? secondary,
   };
 }

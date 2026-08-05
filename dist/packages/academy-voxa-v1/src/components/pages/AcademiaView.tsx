@@ -16,7 +16,7 @@ export function AcademiaView() {
         <Reveal>
           <p
             data-wb-slot="about.intro.eyebrow"
-            className="voxa-rule text-[11px] font-semibold uppercase tracking-[0.2em] text-cta"
+            className="voxa-rule text-[11px] font-semibold uppercase tracking-[0.2em] text-secondary"
           >
             {about.intro.eyebrow}
           </p>
@@ -72,7 +72,7 @@ export function AcademiaView() {
           <Reveal>
             <p
               data-wb-slot="about.faculty.eyebrow"
-              className="voxa-rule text-[11px] font-semibold uppercase tracking-[0.2em] text-cta"
+              className="voxa-rule text-[11px] font-semibold uppercase tracking-[0.2em] text-secondary"
             >
               {about.faculty.eyebrow}
             </p>
@@ -94,7 +94,7 @@ export function AcademiaView() {
                   <h3 className="font-serif text-2xl leading-tight text-primary">
                     {person.name}
                   </h3>
-                  <p className="mt-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-cta">
+                  <p className="mt-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-secondary">
                     {person.role}
                   </p>
                   <p className="mt-4 text-sm leading-relaxed text-muted">
@@ -124,7 +124,7 @@ export function AcademiaView() {
           <Link
             href={withBasePath(basePath, about.closing.cta.href)}
             data-wb-slot="about.closing.cta"
-            className="mt-8 inline-flex cursor-pointer bg-cta px-8 py-3.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-white transition-colors duration-200 hover:bg-cta-hover"
+            className="mt-8 inline-flex cursor-pointer bg-primary px-8 py-3.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-background transition-colors duration-200 hover:bg-primary/90"
           >
             {about.closing.cta.label}
           </Link>

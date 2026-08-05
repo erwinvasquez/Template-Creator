@@ -19,7 +19,7 @@ export function GearSpotlight() {
             <div>
               <p
                 data-wb-slot="gearSpotlight.eyebrow"
-                className="text-[11px] font-bold uppercase tracking-[0.24em] text-cta"
+                className="text-[11px] font-bold uppercase tracking-[0.24em] text-secondary"
               >
                 {gearSpotlight.eyebrow}
               </p>
@@ -34,7 +34,7 @@ export function GearSpotlight() {
               <Link
                 href={withBasePath(basePath, gearSpotlight.viewAll.href)}
                 data-wb-slot="gearSpotlight.viewAll"
-                className="cursor-pointer text-[11px] font-semibold uppercase tracking-[0.16em] text-secondary underline decoration-border underline-offset-4 transition-colors duration-200 hover:text-primary hover:decoration-cta"
+                className="cursor-pointer text-[11px] font-semibold uppercase tracking-[0.16em] text-secondary underline decoration-border underline-offset-4 transition-colors duration-200 hover:text-primary hover:decoration-primary"
               >
                 {gearSpotlight.viewAll.label}
               </Link>

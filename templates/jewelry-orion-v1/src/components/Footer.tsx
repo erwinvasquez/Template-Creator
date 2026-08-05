@@ -11,7 +11,7 @@ export function Footer() {
   const copyrightName = footer.copyrightName || payload.brand.name;
 
   return (
-    <footer className="mt-auto border-t border-border bg-primary text-white">
+    <footer className="mt-auto border-t border-border bg-ink text-background">
       <div className="mx-auto grid max-w-7xl gap-12 px-6 py-16 md:grid-cols-2 md:px-10 md:py-20">
         <div>
           <p className="font-serif text-2xl tracking-[0.14em]">{logoText}</p>

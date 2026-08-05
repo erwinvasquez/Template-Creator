@@ -19,7 +19,7 @@ export function OutcomesBand() {
         <div className="max-w-xl">
           <p
             data-wb-slot="outcomes.eyebrow"
-            className="voxa-rule text-[11px] font-semibold uppercase tracking-[0.2em] text-cta"
+            className="voxa-rule text-[11px] font-semibold uppercase tracking-[0.2em] text-secondary"
           >
             {outcomes.eyebrow}
           </p>
@@ -39,8 +39,8 @@ export function OutcomesBand() {
           <ul data-wb-slot="outcomes.bullets" className="mt-8 space-y-4">
             {outcomes.bullets.map((bullet) => (
               <li key={bullet} className="flex gap-3">
-                <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-cta/10">
-                  <Check className="h-3.5 w-3.5 text-cta" strokeWidth={2.5} />
+                <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary/10">
+                  <Check className="h-3.5 w-3.5 text-secondary" strokeWidth={2.5} />
                 </span>
                 <span className="text-sm leading-relaxed text-secondary md:text-base">
                   {bullet}

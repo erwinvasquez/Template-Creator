@@ -40,7 +40,7 @@ export function CraftBand() {
             <li key={step.id}>
               <Reveal delay={i * 90}>
                 <div className="h-full rounded-2xl border border-border bg-white p-7 md:p-8">
-                  <span className="font-serif text-3xl text-cta">
+                  <span className="font-serif text-3xl text-secondary">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <h3 className="mt-5 font-serif text-2xl text-primary">
