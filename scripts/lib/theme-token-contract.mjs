@@ -27,9 +27,14 @@ export function validateThemeTokenContract(templateDir) {
         "[theme] Footer.tsx must not use var(--color-primary); use bg-ink (template-fixed)",
       );
     }
-    if (/\bclassName="[^"]*\bbg-primary\b/.test(footer) && !footer.includes("bg-ink") && !footer.includes("voxa-band-ink")) {
+    if (/\bclassName="[^"]*\bbg-primary\b/.test(footer) && !footer.includes("bg-ink")) {
       errors.push(
         "[theme] Footer.tsx must use bg-ink for structural background, not bg-primary",
+      );
+    }
+    if (!/\bbg-ink\b/.test(footer)) {
+      errors.push(
+        "[theme] Footer.tsx must include bg-ink text-background on <footer>",
       );
     }
   }
@@ -90,6 +95,10 @@ export function applyThemeTokenMapToTemplate(templateDir) {
     if (file.endsWith("Footer.tsx")) {
       next = next.replace(
         /className="mt-auto border-t border-border bg-primary text-white"/g,
+        'className="mt-auto border-t border-border bg-ink text-background"',
+      );
+      next = next.replace(
+        /className="(?:voxa-band-ink|velvet-band-ink|nova-footer)[^"]*"/g,
         'className="mt-auto border-t border-border bg-ink text-background"',
       );
       next = next.replace(

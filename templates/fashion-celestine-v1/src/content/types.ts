@@ -1,3 +1,4 @@
+import type { ProductDetailPresentation } from "../lib/pdp-presentation";
 export type MediaRef = {
   mediaId?: string;
   url?: string;
@@ -187,6 +188,9 @@ export type ContentPayload = {
       columns: Array<{ title: string; links: Link[] }>;
       tagline?: string;
       copyrightName?: string;
+    };
+    product?: {
+      presentation?: ProductDetailPresentation;
     };
   };
   ui: TemplateUi;

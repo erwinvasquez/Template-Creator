@@ -327,6 +327,19 @@ export function createPayloadCommerceBridge(
       if (mtoPrepLabel) detail.preparationPromiseLabel = mtoPrepLabel;
       if (!mtoAccepting) detail.madeToOrderClosed = true;
     }
+    if (dualSalesMode && mode === "stock") {
+      const demoStockZeroSlug = products[0]?.slug;
+      const isDemoStockZero = p.slug === demoStockZeroSlug;
+      for (const v of detail.variants) {
+        v.immediateAvailableQty = isDemoStockZero ? 0 : 2;
+        v.maxQuantity = isDemoStockZero ? 0 : 2;
+      }
+      detail.maxQuantity = isDemoStockZero ? 0 : 2;
+      detail.madeToOrderUpsell = {
+        productHref: `${SHOP_PATH}/${p.slug}?salesMode=madeToOrder`,
+        preparationPromiseLabel: mtoPrepLabel ?? "3–5 días",
+      };
+    }
     return detail;
   }
 
@@ -501,6 +514,7 @@ export function createPayloadCommerceBridge(
       cartDrawerOpen = false;
       notify();
     },
+    getCartSnapshot: () => cart,
     getStoreVersion: () => storeVersion,
   };
 }

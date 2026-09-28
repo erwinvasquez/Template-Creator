@@ -206,7 +206,13 @@
         "badges",
         "addingToCart",
         "priceBookLabel",
-        "priceProgramLabel"
+        "priceProgramLabel",
+        "stockInsufficientImmediate",
+        "stockInsufficientMadeToOrderHint",
+        "stockExhaustedImmediateTitle",
+        "stockExhaustedMadeToOrderAvailable",
+        "buyMadeToOrderCta",
+        "stockUpsellModalTitle"
       ],
       "properties": {
         "addToCart": { "type": "string", "minLength": 1 },
@@ -219,6 +225,12 @@
         "addingToCart": { "type": "string", "minLength": 1 },
         "priceBookLabel": { "type": "string", "minLength": 1 },
         "priceProgramLabel": { "type": "string", "minLength": 1 },
+        "stockInsufficientImmediate": { "type": "string", "minLength": 1 },
+        "stockInsufficientMadeToOrderHint": { "type": "string", "minLength": 1 },
+        "stockExhaustedImmediateTitle": { "type": "string", "minLength": 1 },
+        "stockExhaustedMadeToOrderAvailable": { "type": "string", "minLength": 1 },
+        "buyMadeToOrderCta": { "type": "string", "minLength": 1 },
+        "stockUpsellModalTitle": { "type": "string", "minLength": 1 },
         "badges": {
           "type": "object",
           "additionalProperties": false,

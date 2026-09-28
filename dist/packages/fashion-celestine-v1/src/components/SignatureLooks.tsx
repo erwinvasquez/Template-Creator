@@ -14,6 +14,7 @@ export function SignatureLooks() {
   const { payload, basePath } = useSiteContent();
   const { signature } = payload.sections;
   const products = getSignatureProducts(payload);
+  if (!products.length) return null;
 
   return (
     <section className="mx-auto max-w-7xl px-6 py-20 md:px-10 md:py-28">

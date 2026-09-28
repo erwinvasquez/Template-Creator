@@ -113,7 +113,26 @@
         "sections": [
           {
             "id": "product",
-            "contentSlotIds": []
+            "contentSlotIds": [
+              "product.addToCart",
+              "product.addingToCart",
+              "product.outOfStock",
+              "product.contact",
+              "product.lowStock",
+              "product.relatedTitle",
+              "product.madeToOrderClosed",
+              "product.buyMadeToOrderCta",
+              "product.stockUpsellModalTitle",
+              "product.stockInsufficientImmediate",
+              "product.stockInsufficientMadeToOrderHint",
+              "product.priceBookLabel",
+              "product.priceProgramLabel",
+              "product.badge.new",
+              "product.badge.featured",
+              "product.badge.sale",
+              "product.badge.bestseller",
+              "product.badge.limitedEdition"
+            ]
           }
         ]
       },
@@ -624,7 +643,185 @@
             "kind": "string",
             "label": "Brand tagline",
             "editorSurface": "none"
+          },
+          {
+            "id": "product.addToCart",
+            "fieldPath": "ui.product.addToCart",
+            "kind": "string",
+            "label": "Añadir al carrito",
+            "generationHint": "Microcopy PDP; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "product.addingToCart",
+            "fieldPath": "ui.product.addingToCart",
+            "kind": "string",
+            "label": "Añadiendo al carrito",
+            "generationHint": "Microcopy PDP; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "product.outOfStock",
+            "fieldPath": "ui.product.outOfStock",
+            "kind": "string",
+            "label": "Agotado",
+            "generationHint": "Microcopy PDP; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "product.contact",
+            "fieldPath": "ui.product.contact",
+            "kind": "string",
+            "label": "Contactar",
+            "generationHint": "Microcopy PDP; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "product.lowStock",
+            "fieldPath": "ui.product.lowStock",
+            "kind": "string",
+            "label": "Pocas unidades",
+            "generationHint": "Microcopy PDP; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "product.relatedTitle",
+            "fieldPath": "ui.product.relatedTitle",
+            "kind": "string",
+            "label": "Título relacionados",
+            "generationHint": "Microcopy PDP; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "product.madeToOrderClosed",
+            "fieldPath": "ui.product.madeToOrderClosed",
+            "kind": "string",
+            "label": "Pedidos cerrados",
+            "generationHint": "Microcopy PDP; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "product.buyMadeToOrderCta",
+            "fieldPath": "ui.product.buyMadeToOrderCta",
+            "kind": "string",
+            "label": "CTA comprar bajo pedido",
+            "generationHint": "Microcopy PDP; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "product.stockInsufficientImmediate",
+            "fieldPath": "ui.product.stockInsufficientImmediate",
+            "kind": "string",
+            "label": "Stock inmediato insuficiente",
+            "generationHint": "Microcopy PDP; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "product.stockInsufficientMadeToOrderHint",
+            "fieldPath": "ui.product.stockInsufficientMadeToOrderHint",
+            "kind": "string",
+            "label": "Hint upsell MTO",
+            "generationHint": "Microcopy PDP; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "product.priceBookLabel",
+            "fieldPath": "ui.product.priceBookLabel",
+            "kind": "string",
+            "label": "Precio libro",
+            "generationHint": "Microcopy PDP; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "product.priceProgramLabel",
+            "fieldPath": "ui.product.priceProgramLabel",
+            "kind": "string",
+            "label": "Precio programa",
+            "generationHint": "Microcopy PDP; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "product.badge.new",
+            "fieldPath": "ui.product.badges.new",
+            "kind": "string",
+            "label": "Badge nuevo",
+            "generationHint": "Microcopy PDP; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "product.badge.featured",
+            "fieldPath": "ui.product.badges.featured",
+            "kind": "string",
+            "label": "Badge destacado",
+            "generationHint": "Microcopy PDP; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "product.badge.sale",
+            "fieldPath": "ui.product.badges.sale",
+            "kind": "string",
+            "label": "Badge oferta",
+            "generationHint": "Microcopy PDP; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "product.badge.bestseller",
+            "fieldPath": "ui.product.badges.bestseller",
+            "kind": "string",
+            "label": "Badge bestseller",
+            "generationHint": "Microcopy PDP; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "product.badge.limitedEdition",
+            "fieldPath": "ui.product.badges.limitedEdition",
+            "kind": "string",
+            "label": "Badge edición limitada",
+            "generationHint": "Microcopy PDP; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "product.stockUpsellModalTitle",
+            "fieldPath": "ui.product.stockUpsellModalTitle",
+            "kind": "string",
+            "label": "Título modal upsell stock→MTO",
+            "generationHint": "Microcopy PDP; tono del template.",
+            "required": true,
+            "localeScope": "both"
           }
+        ]
+      },
+      "productDetailPresentation": {
+        "supportedFields": [
+          "shortDescription",
+          "description",
+          "categoryLabels",
+          "collectionLabels",
+          "highlights",
+          "bulletPoints",
+          "brandLabel",
+          "specifications",
+          "badges",
+          "stockMessage",
+          "preparationPromise",
+          "relatedProducts"
         ]
       }
     }

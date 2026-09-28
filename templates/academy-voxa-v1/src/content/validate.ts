@@ -68,20 +68,12 @@ export function validatePayload(payload: unknown): ValidationResult {
       errors.push(`sections.programs.productIds missing product ${id}`);
     }
   }
-  if (programIds.length !== 3) {
-    errors.push("sections.programs.productIds must have exactly 3 items");
-  }
-
   const bookIds = p.sections?.books?.productIds ?? [];
   for (const id of bookIds) {
     if (!productIds.has(id)) {
       errors.push(`sections.books.productIds missing product ${id}`);
     }
   }
-  if (bookIds.length < 2) {
-    errors.push("sections.books.productIds must have at least 2 items");
-  }
-
   const methodSteps = p.sections?.method?.steps ?? [];
   if (methodSteps.length < 3 || methodSteps.length > 4) {
     errors.push("sections.method.steps must have 3 or 4 items");

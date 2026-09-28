@@ -7,7 +7,7 @@ El editor visual y `contentPayload.slots` cubren **solo** `sections.*`. `brand` 
 | Namespace | Slots SaaS | `data-wb-slot` | Validación |
 |-----------|------------|----------------|------------|
 | `sections.*` | Sí + `generationHint` | Sí | 100% leaves → slot |
-| `ui.*` | No | No | 100% leaves en `defaults.json` |
+| `ui.*` | No (excepto `ui.product.*` Fase B) | No | 100% leaves en `defaults.json` |
 | `brand.*` / `navigation.*` | `editorSurface: none` o panel Nav | No | Excluido de D |
 | `catalog.*` | No (solo `catalogBindings`) | No | Excluido |
 
@@ -21,9 +21,16 @@ El editor visual y `contentPayload.slots` cubren **solo** `sections.*`. `brand` 
 6. `npm run template:validate -- {id}` (incluye A–D).
 7. `PROOF.md` autogenerado.
 
+## Fase B — `ui.product.*` (PDP microcopy, Sprint N)
+
+- Slots SaaS **solo** bajo `ui.product.*` en page `product` del `builder.manifest`.
+- **Sin** `data-wb-slot` en PDP; **sin** slot `shippingNote`; toggles visibilidad vía `sections.product.presentation` (merge SaaS, sin slot WG).
+- WG validador: allowlist `fieldPath` `ui.product.*`; SaaS `validateTemplateContentContract` Check A alineado.
+- `manifest.capabilities.productDetailPresentation.supportedFields` declara bloques VM togglables.
+
 ## Prohibido
 
-- Slot con `fieldPath` bajo `ui.*`, `brand.*`, `navigation.*`
+- Slot con `fieldPath` bajo `ui.*` salvo `ui.product.*`, `brand.*`, `navigation.*`
 - `data-wb-slot` en nodos `ui.*`
 - `?? "copy de marca"` en componentes
 - Strings con acentos o copy de marketing en JSX (heurística CI)

@@ -1,0 +1,47 @@
+import type { HostCheckoutSkin } from "@shopenlinea/commerce-runtime-contract";
+
+import { CheckoutLayout } from "../components/commerce/CheckoutLayout";
+import {
+  CheckoutCheckboxRow,
+  CheckoutCountrySelect,
+  CheckoutErrorText,
+  CheckoutField,
+  CheckoutLineItem,
+  CheckoutNotice,
+  CheckoutOrderSummary,
+  CheckoutPaymentCard,
+  CheckoutPhoneRow,
+  CheckoutPrimaryButton,
+  CheckoutRadioOption,
+  CheckoutSecondaryLink,
+  CheckoutSummaryLine,
+  checkoutFieldLabelClassName,
+  checkoutInputClassName,
+  checkoutMutedTextClassName,
+  checkoutPhoneRowClassName,
+  checkoutSectionGapClassName,
+} from "./CheckoutPrimitives";
+
+export const hostCheckoutSkin = {
+  inputClassName: checkoutInputClassName,
+  selectClassName: checkoutInputClassName,
+  labelClassName: "block text-sm font-medium text-primary",
+  fieldLabelClassName: checkoutFieldLabelClassName,
+  mutedTextClassName: checkoutMutedTextClassName,
+  sectionGapClassName: checkoutSectionGapClassName,
+  phoneRowClassName: checkoutPhoneRowClassName,
+  Layout: CheckoutLayout,
+  Field: CheckoutField,
+  RadioOption: CheckoutRadioOption,
+  PaymentCard: CheckoutPaymentCard,
+  SummaryLine: CheckoutSummaryLine,
+  LineItem: CheckoutLineItem,
+  CountrySelect: CheckoutCountrySelect,
+  CheckboxRow: CheckoutCheckboxRow,
+  PhoneRow: CheckoutPhoneRow,
+  Notice: CheckoutNotice,
+  ErrorText: CheckoutErrorText,
+  OrderSummary: CheckoutOrderSummary,
+  PrimaryButton: CheckoutPrimaryButton,
+  SecondaryLink: CheckoutSecondaryLink,
+} satisfies HostCheckoutSkin;

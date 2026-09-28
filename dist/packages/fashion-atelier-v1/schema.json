@@ -621,8 +621,6 @@
             },
             "collectionIds": {
               "type": "array",
-              "minItems": 3,
-              "maxItems": 3,
               "items": {
                 "type": "string"
               }
@@ -649,7 +647,6 @@
             },
             "productIds": {
               "type": "array",
-              "minItems": 1,
               "items": {
                 "type": "string"
               }
@@ -887,6 +884,57 @@
               "type": "string"
             }
           }
+        },
+        "product": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "presentation": {
+              "$ref": "#/$defs/ProductDetailPresentation"
+            }
+          }
+        }
+      }
+    },
+    "ProductDetailPresentation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "shortDescription": {
+          "type": "boolean"
+        },
+        "description": {
+          "type": "boolean"
+        },
+        "categoryLabels": {
+          "type": "boolean"
+        },
+        "collectionLabels": {
+          "type": "boolean"
+        },
+        "highlights": {
+          "type": "boolean"
+        },
+        "bulletPoints": {
+          "type": "boolean"
+        },
+        "brandLabel": {
+          "type": "boolean"
+        },
+        "specifications": {
+          "type": "boolean"
+        },
+        "badges": {
+          "type": "boolean"
+        },
+        "stockMessage": {
+          "type": "boolean"
+        },
+        "preparationPromise": {
+          "type": "boolean"
+        },
+        "relatedProducts": {
+          "type": "boolean"
         }
       }
     }

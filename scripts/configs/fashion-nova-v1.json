@@ -1,0 +1,23 @@
+{
+  "templateId": "fashion-nova-v1",
+  "slug": "nova",
+  "displayName": "Nova",
+  "appName": "NovaApp",
+  "cssFile": "nova.css",
+  "shopPath": "/tienda",
+  "aboutPath": "/nosotros",
+  "sectionMap": {
+    "occasions": "dropZone",
+    "craft": "trendWall",
+    "signature": "colorPulse",
+    "note": "squad",
+    "accessories": "flashLane"
+  },
+  "componentMap": {
+    "OccasionsStrip": "DropZone",
+    "CraftBand": "TrendWall",
+    "SignatureLooks": "ColorPulse",
+    "AtelierNote": "SquadStrip",
+    "AccessoriesLane": "FlashLane"
+  }
+}

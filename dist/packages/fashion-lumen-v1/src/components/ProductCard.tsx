@@ -23,7 +23,7 @@ export function ProductCard({
       className="group cursor-pointer block"
     >
       <article>
-        <div className="relative aspect-[3/4] overflow-hidden border-2 border-transparent bg-surface transition-colors duration-200 group-hover:border-primary">
+        <div className="relative aspect-[3/4] overflow-hidden bg-surface">
           <Image
             src={product.imageUrl}
             alt={product.imageAlt}
@@ -43,16 +43,16 @@ export function ProductCard({
             />
           )}
           {(product.isNew || product.isFeatured) && (
-            <span className="absolute left-0 top-0 bg-primary px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-background">
+            <span className="absolute left-3 top-3 bg-background/90 px-2 py-0.5 text-[10px] font-medium uppercase tracking-[0.14em] text-primary">
               {product.isNew ? badges.new : badges.featured}
             </span>
           )}
         </div>
-        <div className="mt-4 space-y-1">
-          <h3 className="font-display text-lg font-bold uppercase leading-tight tracking-tight transition-colors duration-200 group-hover:text-primary md:text-xl">
+        <div className="mt-4 space-y-1 text-center md:text-left">
+          <h3 className="font-serif text-lg font-normal leading-tight transition-colors duration-200 group-hover:text-secondary md:text-xl">
             {product.name}
           </h3>
-          <p className="text-sm text-muted">
+          <p className="text-sm font-light text-muted">
             {formatPrice(product.price, payload.brand.locale, payload.brand.currency)}
           </p>
         </div>

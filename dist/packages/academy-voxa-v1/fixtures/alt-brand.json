@@ -522,7 +522,7 @@
       "title": "Tu inscripción",
       "empty": "Aún no has añadido programas.",
       "exploreCta": "Ver catálogo",
-      "checkout": "Confirmar inscripción",
+      "checkout": "Finalizar compra",
       "shippingHint": "Acceso al aula en cuanto se confirma el pago"
     },
     "product": {
@@ -542,7 +542,13 @@
         "sale": "Oferta",
         "bestseller": "Más elegido",
         "limitedEdition": "Plazas limitadas"
-      }
+      },
+      "stockInsufficientImmediate": "Solo tenemos {count} unidades para entrega inmediata.",
+      "stockInsufficientMadeToOrderHint": "Puedes pedir el resto bajo pedido con el plazo de preparación indicado.",
+      "stockExhaustedImmediateTitle": "Sin stock para entrega inmediata",
+      "stockExhaustedMadeToOrderAvailable": "Disponible a pedido",
+      "buyMadeToOrderCta": "Comprar bajo pedido",
+      "stockUpsellModalTitle": "Opciones de compra"
     },
     "shop": {
       "empty": "No hay programas con estos filtros.",

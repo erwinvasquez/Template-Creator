@@ -18,6 +18,7 @@ export function ProgramsStrip() {
   const ui = requireUi(payload);
   const { programs } = payload.sections;
   const products = getProgramProducts(payload);
+  if (!products.length) return null;
   const badges = ui.product.badges;
 
   return (

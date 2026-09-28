@@ -11,7 +11,7 @@ export function Footer() {
   const copyrightName = footer.copyrightName || payload.brand.name;
 
   return (
-    <footer className="voxa-band-ink mt-auto text-white">
+    <footer className="mt-auto border-t border-border bg-ink text-background">
       <div className="mx-auto grid max-w-7xl gap-12 px-6 py-16 md:grid-cols-2 md:px-10 md:py-20">
         <div>
           <p className="voxa-wordmark text-2xl">{logoText}</p>
@@ -20,7 +20,7 @@ export function Footer() {
           )}
           <p
             data-wb-slot="footer.blurb"
-            className="mt-4 max-w-sm text-sm leading-relaxed text-white/65"
+            className="mt-4 max-w-sm text-sm leading-relaxed opacity-70"
           >
             {footer.blurb}
           </p>
@@ -29,7 +29,7 @@ export function Footer() {
         <div data-wb-slot="footer.columns" className="grid grid-cols-2 gap-8">
           {footer.columns.map((column) => (
             <div key={column.title}>
-              <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-white/45">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.16em] opacity-50">
                 {column.title}
               </p>
               <ul className="mt-4 space-y-3">
@@ -37,7 +37,7 @@ export function Footer() {
                   <li key={link.label}>
                     <Link
                       href={withBasePath(basePath, link.href)}
-                      className="cursor-pointer text-sm text-white/75 transition-colors duration-200 hover:text-primary"
+                      className="cursor-pointer text-sm opacity-75 transition-colors duration-200 hover:text-primary"
                     >
                       {link.label}
                     </Link>
@@ -50,7 +50,7 @@ export function Footer() {
       </div>
 
       <div className="border-t border-white/10">
-        <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-3 px-6 py-6 text-xs text-white/45 md:flex-row md:items-center md:px-10">
+        <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-3 px-6 py-6 text-xs opacity-50 md:flex-row md:items-center md:px-10">
           <p data-wb-slot="footer.copyrightName">
             © {new Date().getFullYear()} {copyrightName}
           </p>

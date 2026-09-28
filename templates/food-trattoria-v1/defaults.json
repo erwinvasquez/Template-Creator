@@ -1,0 +1,636 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "food-trattoria-v1",
+  "templateVersion": "1.0.0",
+  "brand": {
+    "name": "Nonna",
+    "displayName": "TRATTORIA NONNA",
+    "tagline": "Pasta fresca y despensa italiana.",
+    "locale": "es-ES",
+    "currency": "EUR"
+  },
+  "theme": {
+    "colors": {
+      "primary": "#7C2D12",
+      "secondary": "#CA8A04",
+      "cta": "#CA8A04",
+      "ctaHover": "#A16207",
+      "background": "#FEF2F2",
+      "surface": "#FEE2E2",
+      "text": "#450A0A",
+      "muted": "#9A3412",
+      "border": "#FECACA"
+    }
+  },
+  "features": {
+    "cart": true,
+    "newsletter": false,
+    "account": true,
+    "accountBasePath": "/cuenta"
+  },
+  "navigation": {
+    "primary": [
+      {
+        "type": "path",
+        "label": "Menú",
+        "href": "/menu"
+      },
+      {
+        "type": "shopFilter",
+        "label": "Pasta fresca",
+        "categorySlug": "pasta-fresca"
+      },
+      {
+        "type": "shopFilter",
+        "label": "Antipasti",
+        "categorySlug": "antipasti"
+      },
+      {
+        "type": "shopFilter",
+        "label": "Vinos",
+        "categorySlug": "vinos"
+      },
+      {
+        "type": "path",
+        "label": "Nosotros",
+        "href": "/nosotros"
+      }
+    ]
+  },
+  "seo": {
+    "titleTemplate": "%s · Trattoria Nonna",
+    "default": {
+      "title": "Trattoria Nonna — Pasta fresca y cocina italiana",
+      "description": "Restaurante y despensa: pasta hecha cada mañana, antipasti de temporada, vinos italianos y kits para llevar.",
+      "openGraph": {
+        "title": "Trattoria Nonna — Cocina de la nonna",
+        "description": "Pasta fresca, salsas lentas y vinos seleccionados para tu mesa."
+      }
+    },
+    "pages": {
+      "shop": {
+        "title": "Menú",
+        "description": "Platos listos, pasta fresca y despensa italiana para llevar o a pedido."
+      },
+      "about": {
+        "title": "Nosotros",
+        "description": "Historia de la trattoria, cocina abierta y horarios del restaurante."
+      }
+    }
+  },
+  "catalog": {
+    "categories": [
+      {
+        "id": "cat_pasta",
+        "slug": "pasta-fresca",
+        "label": "Pasta fresca"
+      },
+      {
+        "id": "cat_antipasti",
+        "slug": "antipasti",
+        "label": "Antipasti"
+      },
+      {
+        "id": "cat_vinos",
+        "slug": "vinos",
+        "label": "Vinos"
+      },
+      {
+        "id": "cat_despensa",
+        "slug": "despensa",
+        "label": "Despensa"
+      }
+    ],
+    "collections": [
+      {
+        "id": "col_nonna",
+        "slug": "nonna-clasica",
+        "name": "Nonna clásica",
+        "description": "Recetas de siempre: ragú lento, lasagna y pasta al huevo.",
+        "image": {
+          "url": "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=1600&q=80",
+          "alt": "Pasta fresca con tomate y albahaca"
+        }
+      },
+      {
+        "id": "col_temporada",
+        "slug": "temporada",
+        "name": "De temporada",
+        "description": "Ingredientes del mercado: trufa, setas y verduras de huerto.",
+        "image": {
+          "url": "https://images.unsplash.com/photo-1476124369491-e7addf5bb371?w=1600&q=80",
+          "alt": "Risotto con setas en plato de cerámica"
+        }
+      },
+      {
+        "id": "col_vinos",
+        "slug": "vinos-italia",
+        "name": "Vinos de Italia",
+        "description": "Selección de bar: Chianti, Primitivo y blancos del norte.",
+        "image": {
+          "url": "https://images.unsplash.com/photo-1510812431400-5740fbbd02c5?w=1600&q=80",
+          "alt": "Copas de vino tinto sobre mesa de madera"
+        }
+      },
+      {
+        "id": "col_kits",
+        "slug": "kits-regalo",
+        "name": "Kits regalo",
+        "description": "Cajas con pasta, salsas y aceite para regalar (o guardar).",
+        "image": {
+          "url": "https://images.unsplash.com/photo-1546548970-71785318a17b?w=1600&q=80",
+          "alt": "Caja regalo con productos italianos"
+        }
+      }
+    ],
+    "products": [
+      {
+        "id": "1",
+        "slug": "tagliatelle-ragu",
+        "name": "Tagliatelle al ragú",
+        "description": "Pasta al huevo con ragú de ternera cocinado 6 horas. Listo para calentar en 8 minutos.",
+        "price": 14.5,
+        "categoryId": "cat_pasta",
+        "collectionId": "col_nonna",
+        "colors": [
+          "Único"
+        ],
+        "sizes": [
+          "Único"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=1200&q=80",
+          "alt": "Tagliatelle con ragú"
+        }
+      },
+      {
+        "id": "2",
+        "slug": "lasagna-nonna",
+        "name": "Lasagna de la nonna",
+        "description": "Capas de pasta, bechamel y ragú gratinado. Porción individual lista para horno.",
+        "price": 16,
+        "categoryId": "cat_pasta",
+        "collectionId": "col_nonna",
+        "colors": [
+          "Único"
+        ],
+        "sizes": [
+          "Único"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1574894709920-11b28e7367e3?w=1200&q=80",
+          "alt": "Lasagna recién horneada"
+        }
+      },
+      {
+        "id": "3",
+        "slug": "ravioli-ricotta",
+        "name": "Ravioli ricotta y limón",
+        "description": "Ravioli frescos rellenos de ricotta, limón y hierbas. Con mantequilla y parmesano.",
+        "price": 15.5,
+        "categoryId": "cat_pasta",
+        "collectionId": "col_temporada",
+        "colors": [
+          "Único"
+        ],
+        "sizes": [
+          "Único"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1612874741227-f802a4d7a1a1?w=1200&q=80",
+          "alt": "Ravioli en plato blanco"
+        },
+        "badges": [
+          "new"
+        ]
+      },
+      {
+        "id": "4",
+        "slug": "carpaccio-beef",
+        "name": "Carpaccio de ternera",
+        "description": "Ternera fina, rúcula, parmesano y alcaparras. Antipasto frío listo.",
+        "price": 12,
+        "categoryId": "cat_antipasti",
+        "collectionId": "col_temporada",
+        "colors": [
+          "Único"
+        ],
+        "sizes": [
+          "Único"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1544025162-d76694265947?w=1200&q=80",
+          "alt": "Carpaccio con rúcula"
+        }
+      },
+      {
+        "id": "5",
+        "slug": "chianti-riserva",
+        "name": "Chianti Riserva 2020",
+        "description": "Botella 750 ml. Notas de cereza, especias y taninos suaves. Marida con pasta roja.",
+        "price": 22,
+        "categoryId": "cat_vinos",
+        "collectionId": "col_vinos",
+        "colors": [
+          "Único"
+        ],
+        "sizes": [
+          "Único"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1510812431400-5740fbbd02c5?w=1200&q=80",
+          "alt": "Botella de vino Chianti"
+        },
+        "badges": [
+          "featured"
+        ]
+      },
+      {
+        "id": "6",
+        "slug": "salsa-tomate-basil",
+        "name": "Salsa pomodoro & basilico",
+        "description": "Tarro 500 g. Tomate San Marzano, ajo confitado y albahaca fresca.",
+        "price": 8.5,
+        "categoryId": "cat_despensa",
+        "collectionId": "col_kits",
+        "colors": [
+          "Único"
+        ],
+        "sizes": [
+          "Único"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1598866594230-a7c12756260f?w=1200&q=80",
+          "alt": "Tarro de salsa de tomate"
+        }
+      },
+      {
+        "id": "7",
+        "slug": "aceite-oliva-extra",
+        "name": "Aceite extra virgen",
+        "description": "Botella 500 ml de oliva italiana prensada en frío. Ideal para aliños.",
+        "price": 18,
+        "categoryId": "cat_despensa",
+        "collectionId": "col_kits",
+        "colors": [
+          "Único"
+        ],
+        "sizes": [
+          "Único"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=1200&q=80",
+          "alt": "Botella de aceite de oliva"
+        }
+      },
+      {
+        "id": "8",
+        "slug": "kit-pasta-regalo",
+        "name": "Kit pasta regalo",
+        "description": "Tagliatelle, salsa pomodoro, aceite y grana padano. Caja lista para regalar.",
+        "price": 34,
+        "categoryId": "cat_despensa",
+        "collectionId": "col_kits",
+        "colors": [
+          "Único"
+        ],
+        "sizes": [
+          "Único"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1546548970-71785318a17b?w=1200&q=80",
+          "alt": "Kit regalo de pasta italiana"
+        },
+        "badges": [
+          "featured"
+        ]
+      }
+    ]
+  },
+  "sections": {
+    "hero": {
+      "headline": "Cocina de la nonna, en tu mesa",
+      "subheadline": "Pasta fresca cada mañana, antipasti de temporada y vinos italianos para llevar o disfrutar en sala.",
+      "image": {
+        "url": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=2400&q=80",
+        "alt": "Mesa italiana con pasta y vino tinto"
+      },
+      "ctaPrimary": {
+        "label": "Ver menú",
+        "href": "/menu"
+      },
+      "ctaSecondary": {
+        "label": "Nosotros",
+        "href": "/nosotros"
+      }
+    },
+    "courses": {
+      "eyebrow": "Por mesa",
+      "title": "Cuatro caminos a la mesa",
+      "collectionIds": [
+        "col_nonna",
+        "col_temporada",
+        "col_vinos",
+        "col_kits"
+      ]
+    },
+    "kitchen": {
+      "eyebrow": "Cocina abierta",
+      "title": "De la masa al plato en un día",
+      "body": "Amasamos cada mañana. Lo que ves en el menú sale de la misma cocina del restaurante.",
+      "steps": [
+        {
+          "id": "masa",
+          "title": "Masa al huevo",
+          "body": "Harina, huevos y tiempo. Sin atajos ni conservantes."
+        },
+        {
+          "id": "salsa",
+          "title": "Salsas lentas",
+          "body": "Ragú, pomodoro y mantequilla de hierbas cocinadas en ollas pequeñas."
+        },
+        {
+          "id": "mesa",
+          "title": "A tu mesa",
+          "body": "Listo para llevar o servido en sala con el mismo cuidado."
+        }
+      ]
+    },
+    "signatures": {
+      "eyebrow": "Platos firma",
+      "title": "Lo que la nonna recomienda",
+      "productIds": [
+        "1",
+        "2",
+        "5"
+      ],
+      "viewAll": {
+        "label": "Ver menú completo",
+        "href": "/menu"
+      }
+    },
+    "sommelier": {
+      "eyebrow": "Sala y bar",
+      "title": "Reserva tu mesa o pide para llevar",
+      "body": "Comemos en familia larga. Si prefieres, pedimos la pasta fresca y la despensa para que la calientes en casa.",
+      "cta": {
+        "label": "Conocer la trattoria",
+        "href": "/nosotros"
+      }
+    },
+    "pantry": {
+      "eyebrow": "Despensa",
+      "title": "Lleva la cocina a tu casa",
+      "body": "Salsas, aceites y kits regalo hechos en la trattoria. Perfectos para regalar o repetir la experiencia.",
+      "productIds": [
+        "6",
+        "7",
+        "8"
+      ],
+      "cta": {
+        "label": "Ver despensa",
+        "href": "/menu?categoria=despensa"
+      }
+    },
+    "shop": {
+      "eyebrow": "Menú",
+      "title": "Platos y despensa",
+      "description": "Pasta fresca lista, antipasti, vinos y productos para llevar."
+    },
+    "about": {
+      "intro": {
+        "eyebrow": "Nuestra historia",
+        "title": "Una trattoria de barrio con cocina abierta",
+        "body": "Nonna abrió la puerta en 1987 con ocho mesas y una olla de ragú. Hoy seguimos amasando cada mañana y sirviendo la misma hospitalidad italiana."
+      },
+      "bannerImage": {
+        "url": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=2400&q=80",
+        "alt": "Interior de trattoria con mesas y luz cálida"
+      },
+      "blocks": [
+        {
+          "id": "cocina",
+          "title": "Cocina visible",
+          "body": "Ves la pasta salir de la máquina y las salsas reducir en ollas de cobre."
+        },
+        {
+          "id": "familia",
+          "title": "Mesa larga",
+          "body": "Platos para compartir, vino de la casa y postres que no cambian con la moda."
+        },
+        {
+          "id": "despensa",
+          "title": "Para llevar",
+          "body": "La misma calidad del restaurante en tarros y cajas listas para tu cocina."
+        }
+      ],
+      "locations": {
+        "eyebrow": "Visítanos",
+        "title": "Trattoria y despensa",
+        "items": [
+          {
+            "city": "Roma (barrio)",
+            "address": "Via del Corso 28",
+            "hours": "Mar–Dom 12:00–23:00 · Despensa 10:00–20:00"
+          }
+        ]
+      },
+      "closing": {
+        "title": "Reserva o pide",
+        "body": "Llámanos para mesa o escríbenos para pedidos de pasta fresca.",
+        "cta": {
+          "label": "Contactar",
+          "href": "#"
+        }
+      }
+    },
+    "footer": {
+      "blurb": "Pasta fresca, antipasti y despensa italiana. Cocina de la nonna en sala o para llevar.",
+      "columns": [
+        {
+          "title": "Menú",
+          "links": [
+            {
+              "label": "Todo el menú",
+              "href": "/menu"
+            },
+            {
+              "label": "Pasta fresca",
+              "href": "/menu?categoria=pasta-fresca"
+            },
+            {
+              "label": "Vinos",
+              "href": "/menu?categoria=vinos"
+            },
+            {
+              "label": "Despensa",
+              "href": "/menu?categoria=despensa"
+            }
+          ]
+        },
+        {
+          "title": "Trattoria",
+          "links": [
+            {
+              "label": "Nosotros",
+              "href": "/nosotros"
+            },
+            {
+              "label": "Reservas",
+              "href": "/nosotros#reserva"
+            },
+            {
+              "label": "Contacto",
+              "href": "#"
+            }
+          ]
+        }
+      ],
+      "tagline": "Pasta fresca y despensa italiana.",
+      "copyrightName": "Trattoria Nonna"
+    }
+  },
+  "ui": {
+    "chrome": {
+      "openCart": "Abrir carrito",
+      "openCartWithCount": "Abrir carrito, {count} artículos",
+      "myAccount": "Mi cuenta",
+      "openMenu": "Abrir menú",
+      "closeMenu": "Cerrar menú",
+      "mainNavAria": "Principal",
+      "mobileNavAria": "Móvil",
+      "salesModeAria": "Modo de compra"
+    },
+    "account": {
+      "eyebrow": "Cuenta",
+      "loginTitle": "Iniciar sesión",
+      "registerTitle": "Crear cuenta",
+      "dashboardTitle": "Mi cuenta",
+      "emailLabel": "Correo electrónico",
+      "nameLabel": "Nombre",
+      "phoneLabel": "Teléfono",
+      "passwordLabel": "Contraseña",
+      "loginSubmit": "Entrar",
+      "loginSubmitting": "Entrando…",
+      "registerSubmit": "Registrarse",
+      "registerSubmitting": "Registrando…",
+      "logout": "Cerrar sesión",
+      "goToRegister": "Regístrate",
+      "goToLogin": "Inicia sesión",
+      "noAccountPrompt": "¿No tienes cuenta?",
+      "hasAccountPrompt": "¿Ya tienes cuenta?",
+      "googleSignIn": "Continuar con Google"
+    },
+    "listing": {
+      "searchLabel": "Buscar",
+      "searchPlaceholder": "Buscar…",
+      "allCategories": "Todo",
+      "loading": "Cargando…",
+      "loadMore": "Cargar más",
+      "loadingMore": "Cargando…",
+      "noSearchResults": "Sin resultados para esta búsqueda.",
+      "pieceSingular": "pieza",
+      "piecePlural": "piezas",
+      "collectionPrefix": "Colección:",
+      "clearFilter": "Quitar filtro"
+    },
+    "checkout": {
+      "pageTitle": "Checkout",
+      "customerSection": "Cliente",
+      "shippingSection": "Envío",
+      "paymentSection": "Pago",
+      "summarySection": "Resumen",
+      "fullNameRequired": "Indica tu nombre",
+      "emailRequired": "Indica tu correo",
+      "shippingMethodRequired": "Elige un método de envío",
+      "pickupBranchRequired": "Elige una tienda",
+      "paymentMethodRequired": "Elige un método de pago",
+      "phoneNumberLabel": "Número",
+      "discountCodeLabel": "Código",
+      "shippingLineLabel": "Envío",
+      "subtotalLabel": "Subtotal",
+      "totalLabel": "Total",
+      "emptyCartLabel": "Vaciar",
+      "removeLineLabel": "Eliminar",
+      "quantityLabel": "Cantidad",
+      "phoneCountryAria": "Código de país del teléfono",
+      "discountApply": "Aplicar",
+      "taxLabel": "Impuestos",
+      "hasDiscountCodeLabel": "Tengo un código de descuento",
+      "discountLineLabel": "Descuento"
+    },
+    "errors": {
+      "addToCartFailed": "No se pudo añadir al carrito",
+      "orderConfirmFailed": "No se pudo confirmar el pedido",
+      "catalogLoadFailed": "No se pudo cargar el catálogo."
+    },
+    "cart": {
+      "title": "Tu selección",
+      "empty": "Tu carrito está vacío.",
+      "exploreCta": "Explorar tienda",
+      "checkout": "Finalizar compra",
+      "shippingHint": "Envío calculado en el checkout"
+    },
+    "product": {
+      "addToCart": "Añadir al carrito",
+      "relatedTitle": "También te puede gustar",
+      "shippingNote": "2–4 días laborables",
+      "outOfStock": "Agotado",
+      "contact": "Consultar disponibilidad",
+      "lowStock": "Quedan pocas unidades",
+      "madeToOrderClosed": "Pedidos cerrados temporalmente",
+      "addingToCart": "Añadiendo…",
+      "priceBookLabel": "Precio del ejemplar",
+      "priceProgramLabel": "Inversión por plaza en la cohorte",
+      "stockInsufficientImmediate": "Solo tenemos {count} unidades para entrega inmediata.",
+      "stockInsufficientMadeToOrderHint": "Puedes pedir el resto bajo pedido con el plazo de preparación indicado.",
+      "stockExhaustedImmediateTitle": "Sin stock para entrega inmediata",
+      "stockExhaustedMadeToOrderAvailable": "Disponible a pedido",
+      "buyMadeToOrderCta": "Comprar bajo pedido",
+      "stockUpsellModalTitle": "Opciones de compra",
+      "badges": {
+        "new": "Nuevo",
+        "featured": "Destacado",
+        "sale": "Oferta",
+        "bestseller": "Más vendido",
+        "limitedEdition": "Edición limitada"
+      }
+    },
+    "shop": {
+      "empty": "No hay resultados con estos filtros.",
+      "clearFilter": "Quitar filtro"
+    },
+    "notFound": {
+      "title": "Página no encontrada",
+      "body": "Esta ruta no existe."
+    },
+    "salesMode": {
+      "stock": {
+        "navLabel": "Entrega inmediata",
+        "shopBanner": "Catálogo con entrega inmediata según disponibilidad.",
+        "cartLabel": "Compra con entrega inmediata"
+      },
+      "madeToOrder": {
+        "navLabel": "Bajo pedido",
+        "shopBanner": "Catálogo bajo pedido.",
+        "preparationLabel": "Preparación",
+        "closedMessage": "Ahora mismo no aceptamos pedidos a medida.",
+        "reopensPrefix": "Volvemos",
+        "cartLabel": "Compra bajo pedido",
+        "cartClosedWarning": "Los pedidos a medida están cerrados temporalmente."
+      },
+      "nav": [
+        {
+          "salesMode": "stock",
+          "label": "Entrega inmediata",
+          "href": "/menu?salesMode=stock"
+        },
+        {
+          "salesMode": "madeToOrder",
+          "label": "Bajo pedido",
+          "href": "/menu?salesMode=madeToOrder"
+        }
+      ]
+    }
+  }
+}

@@ -90,8 +90,11 @@ for (const templateId of templateIds) {
     }
     fieldPaths.add(slot.fieldPath);
 
-    if (slot.fieldPath.startsWith("ui.")) {
-      errors.push(`[A] slot ${slot.id} fieldPath must not be under ui.*`);
+    if (
+      slot.fieldPath.startsWith("ui.") &&
+      !slot.fieldPath.startsWith("ui.product.")
+    ) {
+      errors.push(`[A] slot ${slot.id} fieldPath must not be under ui.* (except ui.product.*)`);
     }
     if (slot.fieldPath.startsWith("brand.") && slot.editorSurface !== "none") {
       errors.push(`[A] brand slot ${slot.id} must have editorSurface: none`);
@@ -104,6 +107,13 @@ for (const templateId of templateIds) {
       errors.push(
         `[A] slot ${slot.id} missing from contentSlotIds (editorSurface not none)`,
       );
+    }
+
+    if (
+      slot.fieldPath.startsWith("ui.product.") &&
+      !slot.generationHint?.trim()
+    ) {
+      errors.push(`[A] ui.product slot ${slot.id} requires generationHint`);
     }
 
     if (

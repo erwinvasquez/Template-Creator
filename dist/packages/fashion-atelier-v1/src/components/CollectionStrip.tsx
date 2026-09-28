@@ -10,6 +10,7 @@ export function CollectionStrip() {
   const { payload, basePath } = useSiteContent();
   const { collections: section } = payload.sections;
   const collections = getHomeCollections(payload);
+  if (!collections.length) return null;
 
   return (
     <section className="mx-auto max-w-7xl px-6 py-20 md:px-8 md:py-28">

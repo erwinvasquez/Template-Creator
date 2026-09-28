@@ -1,15 +1,15 @@
 {
   "templateId": "fashion-lumen-v1",
   "name": "Lumen",
-  "displayName": "Lumen CrossFit",
-  "description": "Template e-commerce de ropa deportiva CrossFit: Barlow Condensed + Barlow, carbón + naranja eléctrico, hero full-bleed, disciplinas WOD, gear spotlight, banda performance, comunidad box y tienda con dual sales mode.",
+  "displayName": "Lumen",
+  "description": "Template e-commerce de moda femenina editorial minimal: Playfair Display + Inter, carbón + blush, quiet luxury daytime, guardarropa por colección, nuevas llegadas, nota de tejidos, banda editorial y tienda con dual sales mode.",
   "category": "ecommerce-fashion",
   "version": "1.0.0",
   "schemaVersion": "1.0.0",
   "locale": "es-ES",
   "preview": {
     "path": "/t/lumen",
-    "thumbnail": "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=1200&q=80"
+    "thumbnail": "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1200&q=80"
   },
   "runtime": {
     "framework": "nextjs-app-router",
@@ -24,10 +24,10 @@
       "page": "home",
       "sections": [
         "hero",
-        "disciplines",
-        "gearSpotlight",
-        "performance",
-        "community",
+        "wardrobe",
+        "arrivals",
+        "fabricNote",
+        "editorial",
         "footer"
       ]
     },
@@ -60,10 +60,10 @@
   ],
   "sections": [
     "hero",
-    "disciplines",
-    "gearSpotlight",
-    "performance",
-    "community",
+    "wardrobe",
+    "arrivals",
+    "fabricNote",
+    "editorial",
     "shop",
     "about",
     "footer"
@@ -87,6 +87,7 @@
       "checkoutLayout": true,
       "checkoutPage": false,
       "orderConfirmation": true,
+      "orderTracking": true,
       "accountLogin": true,
       "accountRegister": true,
       "accountDashboard": true
@@ -124,15 +125,15 @@
       "recommendedWidth": 2400
     },
     {
-      "id": "disciplines[].image",
-      "section": "disciplines",
+      "id": "wardrobe[].image",
+      "section": "wardrobe",
       "aspect": "4/5",
       "count": 3,
       "recommendedWidth": 1600
     },
     {
-      "id": "performance.image",
-      "section": "performance",
+      "id": "fabricNote.image",
+      "section": "fabricNote",
       "aspect": "full-bleed",
       "recommendedWidth": 2400
     },
@@ -157,36 +158,36 @@
   ],
   "constraints": {
     "catalogRefs": [
-      "sections.gearSpotlight.productIds",
-      "sections.disciplines.collectionIds"
+      "sections.arrivals.productIds",
+      "sections.wardrobe.collectionIds"
     ],
     "catalogBindings": [
       {
-        "path": "sections.gearSpotlight.productIds",
+        "path": "sections.arrivals.productIds",
         "kind": "product",
-        "sectionId": "gearSpotlight",
+        "sectionId": "arrivals",
         "label": {
-          "es": "Gear WOD",
-          "en": "WOD gear"
+          "es": "Nuevas llegadas",
+          "en": "New arrivals"
         },
         "maxItems": 8
       },
       {
-        "path": "sections.disciplines.collectionIds",
+        "path": "sections.wardrobe.collectionIds",
         "kind": "collection",
-        "sectionId": "disciplines",
+        "sectionId": "wardrobe",
         "label": {
-          "es": "Disciplinas",
-          "en": "Disciplines"
+          "es": "Colecciones",
+          "en": "Collections"
         },
         "maxItems": 3
       }
     ],
-    "commerceFeaturedProductsPath": "sections.gearSpotlight.productIds",
-    "commerceFeaturedCollectionsPath": "sections.disciplines.collectionIds",
-    "featuredProductPath": "sections.gearSpotlight.productIds",
-    "collectionIdsPath": "sections.disciplines.collectionIds",
-    "disciplinesCount": 3
+    "commerceFeaturedProductsPath": "sections.arrivals.productIds",
+    "commerceFeaturedCollectionsPath": "sections.wardrobe.collectionIds",
+    "featuredProductPath": "sections.arrivals.productIds",
+    "collectionIdsPath": "sections.wardrobe.collectionIds",
+    "wardrobeCount": 3
   },
   "export": {
     "files": [

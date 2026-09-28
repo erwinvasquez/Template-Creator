@@ -62,19 +62,15 @@ export function validatePayload(payload: unknown): ValidationResult {
     }
   }
 
-  for (const id of p.sections?.disciplines?.collectionIds ?? []) {
+  for (const id of p.sections?.wardrobe?.collectionIds ?? []) {
     if (!collectionIds.has(id)) {
-      errors.push(`sections.disciplines.collectionIds missing collection ${id}`);
+      errors.push(`sections.wardrobe.collectionIds missing collection ${id}`);
     }
   }
 
-  if ((p.sections?.disciplines?.collectionIds ?? []).length !== 3) {
-    errors.push("sections.disciplines.collectionIds must have exactly 3 items");
-  }
-
-  for (const id of p.sections?.gearSpotlight?.productIds ?? []) {
+  for (const id of p.sections?.arrivals?.productIds ?? []) {
     if (!productIds.has(id)) {
-      errors.push(`sections.gearSpotlight.productIds missing product ${id}`);
+      errors.push(`sections.arrivals.productIds missing product ${id}`);
     }
   }
 

@@ -29,7 +29,7 @@ npm run start --prefix hosts/clean-host
 |------|----------|
 | No hardcoded Atelier content in JSX | Runtime under `templates/fashion-lumen-v1/src`; content from payload |
 | Render from defaults.json | `/t/lumen` loads `loadPayload()` |
-| Alt payload | `/t/lumen?payload=alt-brand` → brand LUMEN |
+| Alt payload | `/t/lumen?payload=alt-brand` → brand Lumen Atelier |
 | Design intact | Same sections/components; only copy/media change |
 | Export | `dist/packages/fashion-lumen-v1` + `BUILD_INFO.json` + `IMMUTABLE` |
 | Clean host | Depends on `file:../../dist/packages/fashion-lumen-v1` |
@@ -50,6 +50,7 @@ npm test -- src/commerce/tests/ProductDetailCommerceView.test.tsx
 | compareAt + % | Vitest + UI |
 | Agotado deshabilita CTA | Vitest |
 | Galería ≥3 / pickers | Mock seed + lab |
+| Variant picker paridad Shopify (sin deadlock) | `variantOptionPicker` contrato + Vitest Material Y |
 | accountBasePath `/cuenta` | defaults + Header |
 
 
@@ -69,7 +70,7 @@ npm test -- src/commerce/tests/ProductDetailCommerceView.test.tsx
 
 | Página | Secciones (nº slots) |
 |--------|----------------------|
-| home `/` | hero(4), collections(2), featured(2), editorial(4), newsletter(3) |
+| home `/` | hero(5), wardrobe(3), arrivals(3), fabricNote(5), editorial(4), footer(4) |
 | shop `/tienda` | shop(3) |
 | product `/tienda/[slug]` | product(0) |
 | about `/nosotros` | about(4) |
@@ -78,12 +79,34 @@ npm test -- src/commerce/tests/ProductDetailCommerceView.test.tsx
 
 | path | kind | sectionId | label (es) | maxItems |
 |------|------|-----------|------------|----------|
-| `sections.gearSpotlight.productIds` | product | `featured` | Piezas destacadas | 8 |
-| `sections.disciplines.collectionIds` | collection | `collections` | Colecciones | 3 |
+| `sections.arrivals.productIds` | product | `arrivals` | Nuevas llegadas | 8 |
+| `sections.wardrobe.collectionIds` | collection | `wardrobe` | Colecciones | 3 |
 
 ### List slots
 
 - (ninguno)
+
+
+## Checklist — PDP presentation (Sprint N)
+
+| Check | Evidence |
+|-------|----------|
+| Toggles visibilidad | `isPdpFieldVisible` + merge SaaS `sections.product.presentation` (sin slot WG) |
+| supportedFields | `manifest.capabilities.productDetailPresentation.supportedFields` |
+| ui.product slots | Page product `contentSlotIds` + `slotDefinitions` `ui.product.*` (sin `shippingNote`) |
+| Prep nota PDP | `{ui.salesMode.madeToOrder.preparationLabel}: {product.preparationPromiseLabel}` debajo CTA; sin `ui.product.shippingNote` en PDP |
+
+
+## Checklist — order tracking (Sprint U1)
+
+| Check | Evidence |
+|-------|----------|
+| OrderTrackingView | `components/commerce/OrderTrackingView.tsx`; props `OrderTrackingViewProps` |
+| commerceViews + renderer | `OrderTracking` en `client.ts`; `case orderTracking` en `renderer.tsx` |
+| manifest | `commerce.views.orderTracking: true` |
+| Layout offset | Mismo padding que Cart/Confirmation del template (header fixed/sticky) |
+| Sin fetch host | Vitest `OrderTrackingView.test.tsx` + mock VM |
+| Miniaturas líneas | `line.imageUrl` en resumen; placeholder `labels.imagePlaceholder` si falta |
 
 
 ## Checklist — sales mode (stock / a pedido)
@@ -93,29 +116,37 @@ npm test -- src/commerce/tests/ProductDetailCommerceView.test.tsx
 | Un solo modo | `salesModeSwitch: unsupported` → sin switch en shop, sin línea en carrito |
 | Ambos modos | Host pone `salesModeSwitch: supported` (+ lab `?dualSalesMode=1`); switch en **fila del eyebrow** del shop (derecha, con `\|`), **no** en navbar |
 | maxQuantity | Tope en selector +/-; sin copy "Máx. N" |
-| Prep / cerrado | Solo si el host envía `preparationPromiseLabel` / `madeToOrderClosed` / reopen label (sin shopBanner duplicado) |
+| PDP plazo prep | Debajo del CTA/errores; `{ui.salesMode.madeToOrder.preparationLabel}: {product.preparationPromiseLabel}`; toggle `presentation.preparationPromise`; clases `mt-4 text-[11px] font-medium uppercase tracking-[0.14em] text-muted`; prohibido `ui.product.shippingNote` en PDP |
+| PDP cerrado | `madeToOrderClosed` / reopen label **encima** del buy box si el host envía |
+| Shop prep / cerrado | `SalesModeShopBanner` en listing si `filters.salesMode=madeToOrder`; prefijos `ui.salesMode` solo si el host envía campos en filtros (sin shopBanner genérico duplicado) |
+| Upsell stock→MTO | Modal `ui.product.stockUpsellModalTitle`; cuerpo `{count}` = tope inmediato (`stockCap`); hint + CTA; prep con prefijo `ui.salesMode` |
+| Stock=0 + dual channel (Trigger B) | Panel inline `stockExhaustedImmediateTitle` + link MTO; sin CTA stock/agotado |
+| Stock=2, qty=3 (Trigger A) | Modal upsell regresión; Vitest `opens made-to-order upsell` |
 | Copy editable | `defaults.ui.salesMode` + schema `UiCopy.salesMode` |
 | Query nav | `?salesMode=stock\|madeToOrder` vía `ui.salesMode.nav` + `SHOP_QUERY.salesMode` |
+| Cart drawer R2 | `useHostCart` + `getCartSnapshot`; sin refetch por `isOpen`; bootstrap solo si snapshot null |
+
 
 ## Content contract (Phase 1) — autogenerated
 
 | Namespace | Count |
 |-----------|-------|
-| sections.* slots | 40 |
+| sections.* slots | 38 |
 | list slots | 3 |
-| ui.* leaves (defaults) | 103 |
-| data-wb-slot ids | 40 |
+| ui.* leaves (defaults) | 109 |
+| data-wb-slot ids | 38 |
 | catalogBindings | 2 |
 
 | Página | Sección | # slots | slotIds |
 |--------|---------|---------|---------|
 | home | hero | 5 | hero.ctaPrimary, hero.ctaSecondary, hero.headline, hero.image… |
-| home | disciplines | 3 | disciplines.eyebrow, disciplines.itemCtaLabel, disciplines.title |
-| home | gearSpotlight | 3 | gearSpotlight.eyebrow, gearSpotlight.title, gearSpotlight.viewAll |
-| home | performance | 5 | performance.body, performance.cta, performance.eyebrow, performance.image… |
-| home | community | 6 | community.eyebrow, community.placeholder, community.submitLabel, community.subtitle… |
+| home | wardrobe | 3 | wardrobe.eyebrow, wardrobe.itemCtaLabel, wardrobe.title |
+| home | arrivals | 3 | arrivals.eyebrow, arrivals.title, arrivals.viewAll |
+| home | fabricNote | 5 | fabricNote.body, fabricNote.cta, fabricNote.eyebrow, fabricNote.image… |
+| home | editorial | 4 | editorial.body, editorial.cta, editorial.eyebrow, editorial.title |
 | home | footer | 4 | footer.blurb, footer.columns, footer.copyrightName, footer.tagline |
 | shop | shop | 3 | shop.description, shop.eyebrow, shop.title |
+| product | product | 18 | product.addToCart, product.addingToCart, product.outOfStock, product.contact… |
 | about | about | 11 | about.bannerImage, about.blocks, about.closing.body, about.closing.cta… |
 
 

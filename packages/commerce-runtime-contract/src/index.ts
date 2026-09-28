@@ -12,9 +12,35 @@ export type * from "./host-checkout-skin";
 export type * from "./manifest";
 export type * from "./errors";
 export type * from "./bridge";
+export type * from "./tracking";
 
 export { DEFAULT_PREVIEW_CAPABILITIES } from "./capabilities";
 export { createEmptyCheckoutFormState } from "./template-views";
+export {
+  buildOptionDimensions,
+  canUseVariantOptionPickers,
+  candidatesForDimensionValue,
+  chipStateForOptionValue,
+  isOptionValueSelectable,
+  resolveVariantForDimensionSelection,
+  selectionsFromVariant,
+  sortOptionValuesAsc,
+  valuesForDimension,
+} from "./variantOptionPicker";
+export type {
+  OptionChipState,
+  OptionDefinitionLike,
+  VariantOptionLike,
+} from "./variantOptionPicker";
+export {
+  canTransitionStockToMto,
+  immediateAvailableQty,
+  interpolateCount,
+  resolveStockToMtoTransition,
+  shouldOpenStockToMtoModal,
+  stockCap,
+} from "./stockToMtoTransition";
+export type { StockToMtoTransitionTrigger } from "./stockToMtoTransition";
 export {
   createEmptyAccountLoginState,
   createEmptyAccountRegisterState,

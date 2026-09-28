@@ -1,19 +1,19 @@
 "use client";
 
 import { Hero } from "../Hero";
-import { DisciplinesStrip } from "../DisciplinesStrip";
-import { GearSpotlight } from "../GearSpotlight";
-import { PerformanceBand } from "../PerformanceBand";
-import { CommunityStrip } from "../CommunityStrip";
+import { WardrobeStrip } from "../WardrobeStrip";
+import { ArrivalsGrid } from "../ArrivalsGrid";
+import { FabricNote } from "../FabricNote";
+import { EditorialBand } from "../EditorialBand";
 
 export function HomeView() {
   return (
     <>
       <Hero />
-      <DisciplinesStrip />
-      <GearSpotlight />
-      <PerformanceBand />
-      <CommunityStrip />
+      <WardrobeStrip />
+      <ArrivalsGrid />
+      <FabricNote />
+      <EditorialBand />
     </>
   );
 }

@@ -1,0 +1,984 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://web-generator.local/templates/fashion-nova-v1/schema.json",
+  "title": "fashion-nova-v1 Content Payload",
+  "description": "Contrato de contenido para el template Atelier. La IA Builder v2 solo debe emitir JSON válido contra este schema.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "templateId",
+    "templateVersion",
+    "brand",
+    "navigation",
+    "seo",
+    "catalog",
+    "sections",
+    "ui"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "1.0.0"
+    },
+    "templateId": {
+      "const": "fashion-nova-v1"
+    },
+    "templateVersion": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "brand": {
+      "$ref": "#/$defs/Brand"
+    },
+    "theme": {
+      "$ref": "#/$defs/Theme"
+    },
+    "features": {
+      "$ref": "#/$defs/Features"
+    },
+    "navigation": {
+      "$ref": "#/$defs/Navigation"
+    },
+    "seo": {
+      "$ref": "#/$defs/Seo"
+    },
+    "media": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/MediaAsset"
+      }
+    },
+    "catalog": {
+      "$ref": "#/$defs/Catalog"
+    },
+    "sections": {
+      "$ref": "#/$defs/Sections"
+    },
+    "ui": {
+      "$ref": "../../packages/template-content-contract/uiCopy.schema.json"
+    }
+  },
+  "$defs": {
+    "MediaRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "alt"
+      ],
+      "properties": {
+        "mediaId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "alt": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "anyOf": [
+        {
+          "required": [
+            "mediaId"
+          ]
+        },
+        {
+          "required": [
+            "url"
+          ]
+        }
+      ]
+    },
+    "Link": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "label",
+        "href"
+      ],
+      "properties": {
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "href": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "PathNavLink": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "label",
+        "href"
+      ],
+      "properties": {
+        "type": {
+          "const": "path"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "href": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Path relative to template mount (e.g. /tienda, /nosotros)."
+        }
+      }
+    },
+    "ShopFilterNavLink": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "label"
+      ],
+      "properties": {
+        "type": {
+          "const": "shopFilter"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "categorySlug": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Must match catalog.categories[].slug. SaaS validates against live catalog."
+        },
+        "collectionSlug": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Must match catalog.collections[].slug. SaaS validates against live catalog."
+        }
+      },
+      "anyOf": [
+        {
+          "required": [
+            "categorySlug"
+          ]
+        },
+        {
+          "required": [
+            "collectionSlug"
+          ]
+        }
+      ]
+    },
+    "NavLink": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/PathNavLink"
+        },
+        {
+          "$ref": "#/$defs/ShopFilterNavLink"
+        }
+      ]
+    },
+    "Brand": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "locale",
+        "currency"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "displayName": {
+          "type": "string"
+        },
+        "tagline": {
+          "type": "string"
+        },
+        "locale": {
+          "type": "string",
+          "minLength": 2
+        },
+        "currency": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 3
+        },
+        "logo": {
+          "$ref": "#/$defs/MediaRef"
+        }
+      }
+    },
+    "Theme": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "colors": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "primary": {
+              "type": "string",
+              "pattern": "^#[0-9A-Fa-f]{6}$"
+            },
+            "secondary": {
+              "type": "string",
+              "pattern": "^#[0-9A-Fa-f]{6}$"
+            },
+            "cta": {
+              "type": "string",
+              "pattern": "^#[0-9A-Fa-f]{6}$"
+            },
+            "ctaHover": {
+              "type": "string",
+              "pattern": "^#[0-9A-Fa-f]{6}$"
+            },
+            "background": {
+              "type": "string",
+              "pattern": "^#[0-9A-Fa-f]{6}$"
+            },
+            "surface": {
+              "type": "string",
+              "pattern": "^#[0-9A-Fa-f]{6}$"
+            },
+            "text": {
+              "type": "string",
+              "pattern": "^#[0-9A-Fa-f]{6}$"
+            },
+            "muted": {
+              "type": "string",
+              "pattern": "^#[0-9A-Fa-f]{6}$"
+            },
+            "border": {
+              "type": "string",
+              "pattern": "^#[0-9A-Fa-f]{6}$"
+            }
+          }
+        }
+      }
+    },
+    "Features": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "cart": {
+          "type": "boolean"
+        },
+        "newsletter": {
+          "type": "boolean"
+        },
+        "account": {
+          "type": "boolean"
+        },
+        "accountBasePath": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Mount-relative account root. Default /cuenta. SaaS may use /account."
+        }
+      }
+    },
+    "Navigation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "primary"
+      ],
+      "properties": {
+        "primary": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/NavLink"
+          }
+        }
+      }
+    },
+    "Seo": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "titleTemplate",
+        "default"
+      ],
+      "properties": {
+        "titleTemplate": {
+          "type": "string"
+        },
+        "default": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "title",
+            "description"
+          ],
+          "properties": {
+            "title": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "openGraph": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "image": {
+                  "$ref": "#/$defs/MediaRef"
+                }
+              }
+            }
+          }
+        },
+        "pages": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "shop": {
+              "type": "object",
+              "required": [
+                "title",
+                "description"
+              ],
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                }
+              }
+            },
+            "about": {
+              "type": "object",
+              "required": [
+                "title",
+                "description"
+              ],
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "MediaAsset": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "url"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "width": {
+          "type": "integer"
+        },
+        "height": {
+          "type": "integer"
+        },
+        "alt": {
+          "type": "string"
+        },
+        "focalPoint": {
+          "type": "object",
+          "properties": {
+            "x": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "y": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          }
+        }
+      }
+    },
+    "Catalog": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "categories",
+        "collections",
+        "products"
+      ],
+      "properties": {
+        "categories": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "slug",
+              "label"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "slug": {
+                "type": "string"
+              },
+              "label": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "collections": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "slug",
+              "name",
+              "description",
+              "image"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "slug": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "image": {
+                "$ref": "#/$defs/MediaRef"
+              }
+            }
+          }
+        },
+        "products": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "slug",
+              "name",
+              "description",
+              "price",
+              "categoryId",
+              "collectionId",
+              "colors",
+              "sizes",
+              "image"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "slug": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "price": {
+                "type": "number",
+                "minimum": 0
+              },
+              "categoryId": {
+                "type": "string"
+              },
+              "collectionId": {
+                "type": "string"
+              },
+              "colors": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "string"
+                }
+              },
+              "sizes": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "string"
+                }
+              },
+              "image": {
+                "$ref": "#/$defs/MediaRef"
+              },
+              "hoverImage": {
+                "$ref": "#/$defs/MediaRef"
+              },
+              "badges": {
+                "type": "array",
+                "items": {
+                  "enum": [
+                    "new",
+                    "featured"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Sections": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "hero",
+        "dropZone",
+        "trendWall",
+        "colorPulse",
+        "squad",
+        "flashLane",
+        "shop",
+        "about",
+        "footer"
+      ],
+      "properties": {
+        "hero": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "headline",
+            "subheadline",
+            "image",
+            "ctaPrimary"
+          ],
+          "properties": {
+            "headline": {
+              "type": "string"
+            },
+            "subheadline": {
+              "type": "string"
+            },
+            "image": {
+              "$ref": "#/$defs/MediaRef"
+            },
+            "ctaPrimary": {
+              "$ref": "#/$defs/Link"
+            },
+            "ctaSecondary": {
+              "$ref": "#/$defs/Link"
+            }
+          }
+        },
+        "dropZone": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "eyebrow",
+            "title",
+            "collectionIds"
+          ],
+          "description": "Franja de ocasiones. collectionIds deben existir en catalog.collections.",
+          "properties": {
+            "eyebrow": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "collectionIds": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "trendWall": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "eyebrow",
+            "title",
+            "steps"
+          ],
+          "properties": {
+            "eyebrow": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "body": {
+              "type": "string"
+            },
+            "steps": {
+              "type": "array",
+              "minItems": 3,
+              "maxItems": 4,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "id",
+                  "title",
+                  "body"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "body": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "colorPulse": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "eyebrow",
+            "title",
+            "productIds"
+          ],
+          "properties": {
+            "eyebrow": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "viewAll": {
+              "$ref": "#/$defs/Link"
+            },
+            "productIds": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "squad": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "eyebrow",
+            "title",
+            "body",
+            "cta"
+          ],
+          "properties": {
+            "eyebrow": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "body": {
+              "type": "string"
+            },
+            "cta": {
+              "$ref": "#/$defs/Link"
+            }
+          }
+        },
+        "flashLane": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "eyebrow",
+            "title",
+            "body",
+            "productIds"
+          ],
+          "properties": {
+            "eyebrow": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "body": {
+              "type": "string"
+            },
+            "productIds": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "cta": {
+              "$ref": "#/$defs/Link"
+            }
+          }
+        },
+        "shop": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "eyebrow",
+            "title",
+            "description"
+          ],
+          "properties": {
+            "eyebrow": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            }
+          }
+        },
+        "about": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "intro",
+            "bannerImage",
+            "blocks",
+            "locations",
+            "closing"
+          ],
+          "properties": {
+            "intro": {
+              "type": "object",
+              "required": [
+                "eyebrow",
+                "title",
+                "body"
+              ],
+              "properties": {
+                "eyebrow": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "body": {
+                  "type": "string"
+                }
+              }
+            },
+            "bannerImage": {
+              "$ref": "#/$defs/MediaRef"
+            },
+            "blocks": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "required": [
+                  "id",
+                  "title",
+                  "body"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "body": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "locations": {
+              "type": "object",
+              "required": [
+                "eyebrow",
+                "title",
+                "items"
+              ],
+              "properties": {
+                "eyebrow": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "city",
+                      "address",
+                      "hours"
+                    ],
+                    "properties": {
+                      "city": {
+                        "type": "string"
+                      },
+                      "address": {
+                        "type": "string"
+                      },
+                      "hours": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "closing": {
+              "type": "object",
+              "required": [
+                "title",
+                "body",
+                "cta"
+              ],
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "body": {
+                  "type": "string"
+                },
+                "cta": {
+                  "$ref": "#/$defs/Link"
+                }
+              }
+            }
+          }
+        },
+        "footer": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "blurb",
+            "columns"
+          ],
+          "properties": {
+            "blurb": {
+              "type": "string"
+            },
+            "columns": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "required": [
+                  "title",
+                  "links"
+                ],
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "links": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/Link"
+                    }
+                  }
+                }
+              }
+            },
+            "tagline": {
+              "type": "string"
+            },
+            "copyrightName": {
+              "type": "string"
+            }
+          }
+        },
+        "product": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "presentation": {
+              "$ref": "#/$defs/ProductDetailPresentation"
+            }
+          }
+        }
+      }
+    },
+    "ProductDetailPresentation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "shortDescription": {
+          "type": "boolean"
+        },
+        "description": {
+          "type": "boolean"
+        },
+        "categoryLabels": {
+          "type": "boolean"
+        },
+        "collectionLabels": {
+          "type": "boolean"
+        },
+        "highlights": {
+          "type": "boolean"
+        },
+        "bulletPoints": {
+          "type": "boolean"
+        },
+        "brandLabel": {
+          "type": "boolean"
+        },
+        "specifications": {
+          "type": "boolean"
+        },
+        "badges": {
+          "type": "boolean"
+        },
+        "stockMessage": {
+          "type": "boolean"
+        },
+        "preparationPromise": {
+          "type": "boolean"
+        },
+        "relatedProducts": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}

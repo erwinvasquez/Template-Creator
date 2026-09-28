@@ -14,6 +14,7 @@ export function OccasionsStrip() {
   const { payload, basePath } = useSiteContent();
   const { occasions } = payload.sections;
   const items = getOccasionCollections(payload);
+  if (!items.length) return null;
 
   return (
     <section className="mx-auto max-w-7xl px-6 py-20 md:px-10 md:py-28">

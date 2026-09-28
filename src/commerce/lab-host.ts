@@ -28,6 +28,7 @@ export type LabCommerceHost = {
   }>;
   getDetail: (slug: string) => Promise<ProductDetailViewModel | null>;
   getCart: () => Promise<CartViewModel>;
+  getCartSnapshot?: () => CartViewModel | null;
   getCheckout: () => Promise<CheckoutViewModel>;
   actions: CommerceRuntimeActions;
   subscribe: (listener: () => void) => () => void;
@@ -61,6 +62,7 @@ export function useLabCommerceHost(
       getListing: () => bridge.getProductListing({}),
       getDetail: (slug) => bridge.getProductDetail(slug),
       getCart: () => bridge.getCart(),
+      getCartSnapshot: () => bridge.getCartSnapshot?.() ?? null,
       getCheckout: () =>
         bridge.getCheckout?.() ??
         Promise.reject(new Error("getCheckout unavailable")),

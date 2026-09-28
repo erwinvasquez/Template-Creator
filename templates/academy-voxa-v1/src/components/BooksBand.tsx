@@ -15,6 +15,7 @@ export function BooksBand() {
   const { payload, basePath } = useSiteContent();
   const { books } = payload.sections;
   const products = getBookProducts(payload);
+  if (!products.length) return null;
 
   return (
     <section id="books" className="voxa-band-ink py-20 text-white md:py-28">

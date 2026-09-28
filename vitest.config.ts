@@ -48,6 +48,54 @@ export default defineConfig({
         __dirname,
         "./templates/fashion-celestine-v1/src/client.ts",
       ),
+      "fashion-lumen-v1/client": path.resolve(
+        __dirname,
+        "./templates/fashion-lumen-v1/src/client.ts",
+      ),
+      "fashion-lumen-v1": path.resolve(
+        __dirname,
+        "./templates/fashion-lumen-v1/src/client.ts",
+      ),
+      "fashion-velvet-v1/client": path.resolve(
+        __dirname,
+        "./templates/fashion-velvet-v1/src/client.ts",
+      ),
+      "fashion-velvet-v1": path.resolve(
+        __dirname,
+        "./templates/fashion-velvet-v1/src/client.ts",
+      ),
+      "fashion-nova-v1/client": path.resolve(
+        __dirname,
+        "./templates/fashion-nova-v1/src/client.ts",
+      ),
+      "fashion-nova-v1": path.resolve(
+        __dirname,
+        "./templates/fashion-nova-v1/src/client.ts",
+      ),
+      "food-trattoria-v1/client": path.resolve(
+        __dirname,
+        "./templates/food-trattoria-v1/src/client.ts",
+      ),
+      "food-trattoria-v1": path.resolve(
+        __dirname,
+        "./templates/food-trattoria-v1/src/client.ts",
+      ),
+      "food-cantina-v1/client": path.resolve(
+        __dirname,
+        "./templates/food-cantina-v1/src/client.ts",
+      ),
+      "food-cantina-v1": path.resolve(
+        __dirname,
+        "./templates/food-cantina-v1/src/client.ts",
+      ),
+      "food-patisserie-v1/client": path.resolve(
+        __dirname,
+        "./templates/food-patisserie-v1/src/client.ts",
+      ),
+      "food-patisserie-v1": path.resolve(
+        __dirname,
+        "./templates/food-patisserie-v1/src/client.ts",
+      ),
       "next/image": path.resolve(__dirname, "./src/commerce/tests/mocks/next-image.tsx"),
       "next/link": path.resolve(__dirname, "./src/commerce/tests/mocks/next-link.tsx"),
       "next/navigation": path.resolve(

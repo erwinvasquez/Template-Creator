@@ -10,6 +10,7 @@ export function FeaturedProducts() {
   const { payload, basePath } = useSiteContent();
   const { featured } = payload.sections;
   const products = getFeaturedProducts(payload);
+  if (!products.length) return null;
 
   return (
     <section className="bg-surface/60 py-20 md:py-28">

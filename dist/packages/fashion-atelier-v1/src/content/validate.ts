@@ -68,10 +68,6 @@ export function validatePayload(payload: unknown): ValidationResult {
     }
   }
 
-  if ((p.sections?.collections?.collectionIds ?? []).length !== 3) {
-    errors.push("sections.collections.collectionIds must have exactly 3 items");
-  }
-
   for (const id of p.sections?.featured?.productIds ?? []) {
     if (!productIds.has(id)) {
       errors.push(`sections.featured.productIds missing product ${id}`);

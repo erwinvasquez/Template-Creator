@@ -89,6 +89,7 @@
       "checkoutLayout": true,
       "checkoutPage": false,
       "orderConfirmation": true,
+      "orderTracking": true,
       "accountLogin": true,
       "accountRegister": true,
       "accountDashboard": true
@@ -192,8 +193,7 @@
     "commerceFeaturedProductsPath": "sections.signature.productIds",
     "commerceFeaturedCollectionsPath": "sections.occasions.collectionIds",
     "signatureProductPath": "sections.signature.productIds",
-    "occasionIdsPath": "sections.occasions.collectionIds",
-    "occasionsCount": 4
+    "occasionIdsPath": "sections.occasions.collectionIds"
   },
   "export": {
     "files": [

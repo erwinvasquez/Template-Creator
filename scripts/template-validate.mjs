@@ -157,10 +157,12 @@ function validatePayload(name, payload) {
               `[constraints] catalogBindings.label.es required: ${b.path}`,
             );
           }
-          if (typeof b.maxItems !== "number" || b.maxItems < 1) {
-            errors.push(
-              `[constraints] catalogBindings.maxItems (>=1) required: ${b.path}`,
-            );
+          if (b.maxItems !== undefined) {
+            if (typeof b.maxItems !== "number" || b.maxItems < 1) {
+              errors.push(
+                `[constraints] catalogBindings.maxItems must be >= 1 when set: ${b.path}`,
+              );
+            }
           }
         }
         for (const ref of catalogRefs) {
@@ -174,23 +176,7 @@ function validatePayload(name, payload) {
     }
   }
 
-  // Legacy length hints (deprecated aliases still honored)
-  if (constraints.collectionIdsPath && typeof constraints.collectionsCount === "number") {
-    const ids = getPath(payload, constraints.collectionIdsPath) || [];
-    if (Array.isArray(ids) && ids.length !== constraints.collectionsCount) {
-      errors.push(
-        `[semantic:${name}] ${constraints.collectionIdsPath} must have length ${constraints.collectionsCount}`,
-      );
-    }
-  }
-  if (constraints.occasionIdsPath && typeof constraints.occasionsCount === "number") {
-    const ids = getPath(payload, constraints.occasionIdsPath) || [];
-    if (Array.isArray(ids) && ids.length !== constraints.occasionsCount) {
-      errors.push(
-        `[semantic:${name}] ${constraints.occasionIdsPath} must have length ${constraints.occasionsCount}`,
-      );
-    }
-  }
+  // Legacy length hints (deprecated — no longer enforced)
 }
 
 function getPath(obj, dotted) {

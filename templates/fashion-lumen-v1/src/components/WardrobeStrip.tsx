@@ -1,0 +1,71 @@
+"use client";
+
+import Image from "next/image";
+import Link from "next/link";
+import { useSiteContent } from "../lib/site-content";
+import { getWardrobeCollections, withBasePath } from "../content/resolve";
+import { Reveal } from "./Reveal";
+
+export function WardrobeStrip() {
+  const { payload, basePath } = useSiteContent();
+  const wardrobe = payload.sections.wardrobe;
+  const collections = getWardrobeCollections(payload);
+  if (!collections.length) return null;
+
+  return (
+    <section className="mx-auto max-w-7xl px-6 py-20 md:px-8 md:py-28">
+      <Reveal>
+        <div className="mb-14 max-w-xl text-center md:mx-auto">
+          <p
+            data-wb-slot="wardrobe.eyebrow"
+            className="text-[11px] font-medium uppercase tracking-[0.22em] text-secondary"
+          >
+            {wardrobe.eyebrow}
+          </p>
+          <h2
+            data-wb-slot="wardrobe.title"
+            className="mt-3 font-serif text-4xl font-normal leading-tight text-balance md:text-5xl"
+          >
+            {wardrobe.title}
+          </h2>
+        </div>
+      </Reveal>
+
+      <div className="grid gap-6 md:grid-cols-3">
+        {collections.map((collection, i) => (
+          <Reveal key={collection.slug} delay={i * 100}>
+            <Link
+              href={withBasePath(basePath, `/tienda?coleccion=${collection.slug}`)}
+              className="group relative block aspect-[4/5] cursor-pointer overflow-hidden"
+            >
+              <Image
+                src={collection.imageUrl}
+                alt={collection.imageAlt}
+                fill
+                className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+                sizes="(max-width: 768px) 100vw, 33vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-primary/75 via-primary/20 to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 p-6 md:p-8">
+                <h3 className="font-serif text-2xl leading-tight text-white md:text-3xl">
+                  {collection.name}
+                </h3>
+                <p className="mt-2 text-sm font-light leading-relaxed text-white/85">
+                  {collection.description}
+                </p>
+                {wardrobe.itemCtaLabel ? (
+                  <span
+                    data-wb-slot="wardrobe.itemCtaLabel"
+                    className="mt-4 inline-block text-[11px] font-medium uppercase tracking-[0.18em] text-white/80 transition-colors group-hover:text-white"
+                  >
+                    {wardrobe.itemCtaLabel}
+                  </span>
+                ) : null}
+              </div>
+            </Link>
+          </Reveal>
+        ))}
+      </div>
+    </section>
+  );
+}

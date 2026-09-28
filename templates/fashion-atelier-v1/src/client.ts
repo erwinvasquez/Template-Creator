@@ -39,6 +39,7 @@ export { CommerceCartDrawer } from "./components/commerce/CommerceCartDrawer";
 export { CartPageView } from "./components/commerce/CartPageView";
 export { CheckoutLayout } from "./components/commerce/CheckoutLayout";
 export { hostCheckoutSkin } from "./checkout/hostCheckoutSkin";
+export { OrderTrackingView } from "./components/commerce/OrderTrackingView";
 export { OrderConfirmationView } from "./components/commerce/OrderConfirmationView";
 export { CommerceProductCard } from "./components/commerce/CommerceProductCard";
 export { AccountLoginForm } from "./components/account/AccountLoginForm";
@@ -51,6 +52,7 @@ import { ProductDetailCommerceView } from "./components/commerce/ProductDetailCo
 import { CommerceCartDrawer } from "./components/commerce/CommerceCartDrawer";
 import { CartPageView } from "./components/commerce/CartPageView";
 import { OrderConfirmationView } from "./components/commerce/OrderConfirmationView";
+import { OrderTrackingView } from "./components/commerce/OrderTrackingView";
 import { AccountLoginForm } from "./components/account/AccountLoginForm";
 import { AccountRegisterForm } from "./components/account/AccountRegisterForm";
 import { AccountDashboard } from "./components/account/AccountDashboard";
@@ -61,6 +63,7 @@ export const commerceViews: CommerceTemplateViews = {
   CartPage: CartPageView,
   CartDrawer: CommerceCartDrawer,
   OrderConfirmation: OrderConfirmationView,
+  OrderTracking: OrderTrackingView,
   AccountLoginForm,
   AccountRegisterForm,
   AccountDashboard,

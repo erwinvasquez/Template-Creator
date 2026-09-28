@@ -1,3 +1,4 @@
+import type { ProductDetailPresentation } from "../lib/pdp-presentation";
 export type MediaRef = {
   mediaId?: string;
   url?: string;
@@ -131,32 +132,30 @@ export type ContentPayload = {
       ctaPrimary: Link;
       ctaSecondary?: Link;
     };
-    disciplines: {
+    wardrobe: {
       eyebrow: string;
       title: string;
       itemCtaLabel?: string;
       collectionIds: string[];
     };
-    gearSpotlight: {
+    arrivals: {
       eyebrow: string;
       title: string;
       viewAll?: Link;
       productIds: string[];
     };
-    performance: {
+    fabricNote: {
       eyebrow: string;
       title: string;
       body: string;
       image: MediaRef;
       cta?: Link;
     };
-    community: {
+    editorial: {
       eyebrow: string;
       title: string;
-      subtitle: string;
-      placeholder?: string;
-      submitLabel?: string;
-      successMessage?: string;
+      body: string;
+      cta?: Link;
     };
     shop: {
       eyebrow: string;
@@ -179,6 +178,9 @@ export type ContentPayload = {
       columns: Array<{ title: string; links: Link[] }>;
       tagline?: string;
       copyrightName?: string;
+    };
+    product?: {
+      presentation?: ProductDetailPresentation;
     };
   };
   ui: TemplateUi;

@@ -565,10 +565,10 @@
       "additionalProperties": false,
       "required": [
         "hero",
-        "disciplines",
-        "gearSpotlight",
-        "performance",
-        "community",
+        "wardrobe",
+        "arrivals",
+        "fabricNote",
+        "editorial",
         "shop",
         "about",
         "footer"
@@ -601,7 +601,7 @@
             }
           }
         },
-        "disciplines": {
+        "wardrobe": {
           "type": "object",
           "additionalProperties": false,
           "required": [
@@ -621,15 +621,13 @@
             },
             "collectionIds": {
               "type": "array",
-              "minItems": 3,
-              "maxItems": 3,
               "items": {
                 "type": "string"
               }
             }
           }
         },
-        "gearSpotlight": {
+        "arrivals": {
           "type": "object",
           "additionalProperties": false,
           "required": [
@@ -649,14 +647,13 @@
             },
             "productIds": {
               "type": "array",
-              "minItems": 1,
               "items": {
                 "type": "string"
               }
             }
           }
         },
-        "performance": {
+        "fabricNote": {
           "type": "object",
           "additionalProperties": false,
           "required": [
@@ -683,13 +680,13 @@
             }
           }
         },
-        "community": {
+        "editorial": {
           "type": "object",
           "additionalProperties": false,
           "required": [
             "eyebrow",
             "title",
-            "subtitle"
+            "body"
           ],
           "properties": {
             "eyebrow": {
@@ -698,17 +695,11 @@
             "title": {
               "type": "string"
             },
-            "subtitle": {
+            "body": {
               "type": "string"
             },
-            "placeholder": {
-              "type": "string"
-            },
-            "submitLabel": {
-              "type": "string"
-            },
-            "successMessage": {
-              "type": "string"
+            "cta": {
+              "$ref": "#/$defs/Link"
             }
           }
         },
@@ -887,6 +878,57 @@
               "type": "string"
             }
           }
+        },
+        "product": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "presentation": {
+              "$ref": "#/$defs/ProductDetailPresentation"
+            }
+          }
+        }
+      }
+    },
+    "ProductDetailPresentation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "shortDescription": {
+          "type": "boolean"
+        },
+        "description": {
+          "type": "boolean"
+        },
+        "categoryLabels": {
+          "type": "boolean"
+        },
+        "collectionLabels": {
+          "type": "boolean"
+        },
+        "highlights": {
+          "type": "boolean"
+        },
+        "bulletPoints": {
+          "type": "boolean"
+        },
+        "brandLabel": {
+          "type": "boolean"
+        },
+        "specifications": {
+          "type": "boolean"
+        },
+        "badges": {
+          "type": "boolean"
+        },
+        "stockMessage": {
+          "type": "boolean"
+        },
+        "preparationPromise": {
+          "type": "boolean"
+        },
+        "relatedProducts": {
+          "type": "boolean"
         }
       }
     }

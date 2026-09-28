@@ -1,0 +1,835 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "food-trattoria-v1",
+  "descriptor": {
+    "templateId": "trattoria",
+    "latestVersion": "1.0.0",
+    "status": "published",
+    "websiteType": "ecommerce",
+    "industryTags": [
+      "food",
+      "retail",
+      "ecommerce",
+      "artisan",
+      "modern"
+    ],
+    "displayName": {
+      "es": "Trattoria Nonna",
+      "en": "Trattoria Nonna"
+    },
+    "description": {
+      "es": "Restaurante italiano: pasta fresca, despensa y vinos. Dual sales mode.",
+      "en": "Italian restaurant: fresh pasta, pantry and wines. Dual sales mode."
+    }
+  },
+  "manifest": {
+    "pages": [
+      {
+        "id": "home",
+        "path": "/",
+        "page": "home",
+        "sections": [
+          {
+            "id": "hero",
+            "contentSlotIds": [
+              "hero.ctaPrimary",
+              "hero.ctaSecondary",
+              "hero.headline",
+              "hero.image",
+              "hero.subheadline"
+            ]
+          },
+          {
+            "id": "courses",
+            "contentSlotIds": [
+              "courses.eyebrow",
+              "courses.title"
+            ]
+          },
+          {
+            "id": "kitchen",
+            "contentSlotIds": [
+              "kitchen.body",
+              "kitchen.eyebrow",
+              "kitchen.steps",
+              "kitchen.title"
+            ]
+          },
+          {
+            "id": "signatures",
+            "contentSlotIds": [
+              "signatures.eyebrow",
+              "signatures.title",
+              "signatures.viewAll"
+            ]
+          },
+          {
+            "id": "sommelier",
+            "contentSlotIds": [
+              "sommelier.body",
+              "sommelier.cta",
+              "sommelier.eyebrow",
+              "sommelier.title"
+            ]
+          },
+          {
+            "id": "pantry",
+            "contentSlotIds": [
+              "pantry.body",
+              "pantry.cta",
+              "pantry.eyebrow",
+              "pantry.title"
+            ]
+          },
+          {
+            "id": "footer",
+            "contentSlotIds": [
+              "footer.blurb",
+              "footer.columns",
+              "footer.copyrightName",
+              "footer.tagline"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "shop",
+        "path": "/menu",
+        "page": "shop",
+        "sections": [
+          {
+            "id": "shop",
+            "contentSlotIds": [
+              "shop.description",
+              "shop.eyebrow",
+              "shop.title"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "product",
+        "path": "/menu/[slug]",
+        "page": "product",
+        "sections": [
+          {
+            "id": "product",
+            "contentSlotIds": [
+              "product.addToCart",
+              "product.addingToCart",
+              "product.outOfStock",
+              "product.contact",
+              "product.lowStock",
+              "product.relatedTitle",
+              "product.madeToOrderClosed",
+              "product.buyMadeToOrderCta",
+              "product.stockUpsellModalTitle",
+              "product.stockInsufficientImmediate",
+              "product.stockInsufficientMadeToOrderHint",
+              "product.priceBookLabel",
+              "product.priceProgramLabel",
+              "product.badge.new",
+              "product.badge.featured",
+              "product.badge.sale",
+              "product.badge.bestseller",
+              "product.badge.limitedEdition"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "about",
+        "path": "/nosotros",
+        "page": "about",
+        "sections": [
+          {
+            "id": "about",
+            "contentSlotIds": [
+              "about.bannerImage",
+              "about.blocks",
+              "about.closing.body",
+              "about.closing.cta",
+              "about.closing.title",
+              "about.intro.body",
+              "about.intro.eyebrow",
+              "about.intro.title",
+              "about.locations.eyebrow",
+              "about.locations.items",
+              "about.locations.title"
+            ]
+          }
+        ]
+      }
+    ],
+    "navigation": {
+      "primaryFromPayload": "navigation.primary"
+    },
+    "themeDefaults": {
+      "colors": {
+        "primary": "#1A1216",
+        "secondary": "#6B4E56",
+        "cta": "#9C4F5F",
+        "ctaHover": "#7E3E4C",
+        "background": "#F8F4F5",
+        "surface": "#EFE6E8",
+        "text": "#1A1216",
+        "muted": "#746266",
+        "border": "#E0D4D7"
+      }
+    },
+    "themeEditable": {
+      "primary": true,
+      "secondary": true,
+      "background": true,
+      "fonts": false
+    },
+    "capabilities": {
+      "contentSupport": {
+        "slotDefinitions": [
+          {
+            "id": "about.bannerImage",
+            "fieldPath": "sections.about.bannerImage",
+            "kind": "media",
+            "label": "about bannerImage",
+            "generationHint": "Copy de sección about; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "about.blocks",
+            "fieldPath": "sections.about.blocks",
+            "kind": "list",
+            "label": "about blocks",
+            "generationHint": "Copy de sección about; tono del template.",
+            "required": true,
+            "localeScope": "both",
+            "listSchema": {
+              "itemType": "object",
+              "fields": [
+                {
+                  "key": "id",
+                  "kind": "string",
+                  "label": "ID"
+                },
+                {
+                  "key": "title",
+                  "kind": "string",
+                  "label": "Título"
+                },
+                {
+                  "key": "body",
+                  "kind": "text",
+                  "label": "Texto"
+                }
+              ]
+            }
+          },
+          {
+            "id": "about.closing.body",
+            "fieldPath": "sections.about.closing.body",
+            "kind": "text",
+            "label": "about closing body",
+            "generationHint": "Copy de sección about; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "about.closing.cta",
+            "fieldPath": "sections.about.closing.cta",
+            "kind": "link",
+            "label": "about closing cta",
+            "generationHint": "Copy de sección about; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "about.closing.title",
+            "fieldPath": "sections.about.closing.title",
+            "kind": "string",
+            "label": "about closing title",
+            "generationHint": "Copy de sección about; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "about.intro.body",
+            "fieldPath": "sections.about.intro.body",
+            "kind": "text",
+            "label": "about intro body",
+            "generationHint": "Copy de sección about; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "about.intro.eyebrow",
+            "fieldPath": "sections.about.intro.eyebrow",
+            "kind": "string",
+            "label": "about intro eyebrow",
+            "generationHint": "Copy de sección about; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "about.intro.title",
+            "fieldPath": "sections.about.intro.title",
+            "kind": "string",
+            "label": "about intro title",
+            "generationHint": "Copy de sección about; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "about.locations.eyebrow",
+            "fieldPath": "sections.about.locations.eyebrow",
+            "kind": "string",
+            "label": "about locations eyebrow",
+            "generationHint": "Copy de sección about; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "about.locations.items",
+            "fieldPath": "sections.about.locations.items",
+            "kind": "list",
+            "label": "about locations items",
+            "generationHint": "Copy de sección about; tono del template.",
+            "required": true,
+            "localeScope": "both",
+            "listSchema": {
+              "itemType": "object",
+              "fields": [
+                {
+                  "key": "city",
+                  "kind": "string",
+                  "label": "Ciudad"
+                },
+                {
+                  "key": "address",
+                  "kind": "text",
+                  "label": "Dirección"
+                },
+                {
+                  "key": "hours",
+                  "kind": "string",
+                  "label": "Horario"
+                }
+              ]
+            }
+          },
+          {
+            "id": "about.locations.title",
+            "fieldPath": "sections.about.locations.title",
+            "kind": "string",
+            "label": "about locations title",
+            "generationHint": "Copy de sección about; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "courses.eyebrow",
+            "fieldPath": "sections.courses.eyebrow",
+            "kind": "string",
+            "label": "courses eyebrow",
+            "generationHint": "Copy de sección courses; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "courses.title",
+            "fieldPath": "sections.courses.title",
+            "kind": "string",
+            "label": "courses title",
+            "generationHint": "Copy de sección courses; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "footer.blurb",
+            "fieldPath": "sections.footer.blurb",
+            "kind": "text",
+            "label": "footer blurb",
+            "generationHint": "Copy de sección footer; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "footer.columns",
+            "fieldPath": "sections.footer.columns",
+            "kind": "list",
+            "label": "footer columns",
+            "generationHint": "Copy de sección footer; tono del template.",
+            "required": true,
+            "localeScope": "both",
+            "listSchema": {
+              "itemType": "object",
+              "fields": [
+                {
+                  "key": "title",
+                  "kind": "string",
+                  "label": "Título columna"
+                },
+                {
+                  "key": "links",
+                  "kind": "list",
+                  "label": "Enlaces",
+                  "listSchema": {
+                    "itemType": "object",
+                    "fields": [
+                      {
+                        "key": "label",
+                        "kind": "string",
+                        "label": "Etiqueta"
+                      },
+                      {
+                        "key": "href",
+                        "kind": "string",
+                        "label": "URL"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id": "footer.copyrightName",
+            "fieldPath": "sections.footer.copyrightName",
+            "kind": "string",
+            "label": "footer copyrightName",
+            "generationHint": "Copy de sección footer; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "footer.tagline",
+            "fieldPath": "sections.footer.tagline",
+            "kind": "string",
+            "label": "footer tagline",
+            "generationHint": "Copy de sección footer; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "hero.ctaPrimary",
+            "fieldPath": "sections.hero.ctaPrimary",
+            "kind": "link",
+            "label": "hero ctaPrimary",
+            "generationHint": "Copy de sección hero; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "hero.ctaSecondary",
+            "fieldPath": "sections.hero.ctaSecondary",
+            "kind": "link",
+            "label": "hero ctaSecondary",
+            "generationHint": "Copy de sección hero; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "hero.headline",
+            "fieldPath": "sections.hero.headline",
+            "kind": "string",
+            "label": "hero headline",
+            "generationHint": "Copy de sección hero; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "hero.image",
+            "fieldPath": "sections.hero.image",
+            "kind": "media",
+            "label": "hero image",
+            "generationHint": "Copy de sección hero; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "hero.subheadline",
+            "fieldPath": "sections.hero.subheadline",
+            "kind": "string",
+            "label": "hero subheadline",
+            "generationHint": "Copy de sección hero; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "kitchen.body",
+            "fieldPath": "sections.kitchen.body",
+            "kind": "text",
+            "label": "kitchen body",
+            "generationHint": "Copy de sección kitchen; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "kitchen.eyebrow",
+            "fieldPath": "sections.kitchen.eyebrow",
+            "kind": "string",
+            "label": "kitchen eyebrow",
+            "generationHint": "Copy de sección kitchen; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "kitchen.steps",
+            "fieldPath": "sections.kitchen.steps",
+            "kind": "list",
+            "label": "kitchen steps",
+            "generationHint": "Copy de sección kitchen; tono del template.",
+            "required": true,
+            "localeScope": "both",
+            "listSchema": {
+              "itemType": "object",
+              "fields": [
+                {
+                  "key": "title",
+                  "kind": "string",
+                  "label": "Título"
+                },
+                {
+                  "key": "body",
+                  "kind": "text",
+                  "label": "Texto"
+                }
+              ]
+            }
+          },
+          {
+            "id": "kitchen.title",
+            "fieldPath": "sections.kitchen.title",
+            "kind": "string",
+            "label": "kitchen title",
+            "generationHint": "Copy de sección kitchen; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "pantry.body",
+            "fieldPath": "sections.pantry.body",
+            "kind": "text",
+            "label": "pantry body",
+            "generationHint": "Copy de sección pantry; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "pantry.cta",
+            "fieldPath": "sections.pantry.cta",
+            "kind": "link",
+            "label": "pantry cta",
+            "generationHint": "Copy de sección pantry; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "pantry.eyebrow",
+            "fieldPath": "sections.pantry.eyebrow",
+            "kind": "string",
+            "label": "pantry eyebrow",
+            "generationHint": "Copy de sección pantry; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "pantry.title",
+            "fieldPath": "sections.pantry.title",
+            "kind": "string",
+            "label": "pantry title",
+            "generationHint": "Copy de sección pantry; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "shop.description",
+            "fieldPath": "sections.shop.description",
+            "kind": "text",
+            "label": "shop description",
+            "generationHint": "Copy de sección shop; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "shop.eyebrow",
+            "fieldPath": "sections.shop.eyebrow",
+            "kind": "string",
+            "label": "shop eyebrow",
+            "generationHint": "Copy de sección shop; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "shop.title",
+            "fieldPath": "sections.shop.title",
+            "kind": "string",
+            "label": "shop title",
+            "generationHint": "Copy de sección shop; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "signatures.eyebrow",
+            "fieldPath": "sections.signatures.eyebrow",
+            "kind": "string",
+            "label": "signatures eyebrow",
+            "generationHint": "Copy de sección signatures; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "signatures.title",
+            "fieldPath": "sections.signatures.title",
+            "kind": "string",
+            "label": "signatures title",
+            "generationHint": "Copy de sección signatures; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "signatures.viewAll",
+            "fieldPath": "sections.signatures.viewAll",
+            "kind": "link",
+            "label": "signatures viewAll",
+            "generationHint": "Copy de sección signatures; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "sommelier.body",
+            "fieldPath": "sections.sommelier.body",
+            "kind": "text",
+            "label": "sommelier body",
+            "generationHint": "Copy de sección sommelier; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "sommelier.cta",
+            "fieldPath": "sections.sommelier.cta",
+            "kind": "link",
+            "label": "sommelier cta",
+            "generationHint": "Copy de sección sommelier; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "sommelier.eyebrow",
+            "fieldPath": "sections.sommelier.eyebrow",
+            "kind": "string",
+            "label": "sommelier eyebrow",
+            "generationHint": "Copy de sección sommelier; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "sommelier.title",
+            "fieldPath": "sections.sommelier.title",
+            "kind": "string",
+            "label": "sommelier title",
+            "generationHint": "Copy de sección sommelier; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "brand.name",
+            "fieldPath": "brand.name",
+            "kind": "string",
+            "label": "Brand name",
+            "editorSurface": "none"
+          },
+          {
+            "id": "brand.tagline",
+            "fieldPath": "brand.tagline",
+            "kind": "string",
+            "label": "Brand tagline",
+            "editorSurface": "none"
+          },
+          {
+            "id": "product.addToCart",
+            "fieldPath": "ui.product.addToCart",
+            "kind": "string",
+            "label": "Añadir al carrito",
+            "generationHint": "Microcopy PDP; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "product.addingToCart",
+            "fieldPath": "ui.product.addingToCart",
+            "kind": "string",
+            "label": "Añadiendo al carrito",
+            "generationHint": "Microcopy PDP; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "product.outOfStock",
+            "fieldPath": "ui.product.outOfStock",
+            "kind": "string",
+            "label": "Agotado",
+            "generationHint": "Microcopy PDP; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "product.contact",
+            "fieldPath": "ui.product.contact",
+            "kind": "string",
+            "label": "Contactar",
+            "generationHint": "Microcopy PDP; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "product.lowStock",
+            "fieldPath": "ui.product.lowStock",
+            "kind": "string",
+            "label": "Pocas unidades",
+            "generationHint": "Microcopy PDP; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "product.relatedTitle",
+            "fieldPath": "ui.product.relatedTitle",
+            "kind": "string",
+            "label": "Título relacionados",
+            "generationHint": "Microcopy PDP; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "product.madeToOrderClosed",
+            "fieldPath": "ui.product.madeToOrderClosed",
+            "kind": "string",
+            "label": "Pedidos cerrados",
+            "generationHint": "Microcopy PDP; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "product.buyMadeToOrderCta",
+            "fieldPath": "ui.product.buyMadeToOrderCta",
+            "kind": "string",
+            "label": "CTA comprar bajo pedido",
+            "generationHint": "Microcopy PDP; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "product.stockInsufficientImmediate",
+            "fieldPath": "ui.product.stockInsufficientImmediate",
+            "kind": "string",
+            "label": "Stock inmediato insuficiente",
+            "generationHint": "Microcopy PDP; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "product.stockInsufficientMadeToOrderHint",
+            "fieldPath": "ui.product.stockInsufficientMadeToOrderHint",
+            "kind": "string",
+            "label": "Hint upsell MTO",
+            "generationHint": "Microcopy PDP; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "product.priceBookLabel",
+            "fieldPath": "ui.product.priceBookLabel",
+            "kind": "string",
+            "label": "Precio libro",
+            "generationHint": "Microcopy PDP; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "product.priceProgramLabel",
+            "fieldPath": "ui.product.priceProgramLabel",
+            "kind": "string",
+            "label": "Precio programa",
+            "generationHint": "Microcopy PDP; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "product.badge.new",
+            "fieldPath": "ui.product.badges.new",
+            "kind": "string",
+            "label": "Badge nuevo",
+            "generationHint": "Microcopy PDP; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "product.badge.featured",
+            "fieldPath": "ui.product.badges.featured",
+            "kind": "string",
+            "label": "Badge destacado",
+            "generationHint": "Microcopy PDP; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "product.badge.sale",
+            "fieldPath": "ui.product.badges.sale",
+            "kind": "string",
+            "label": "Badge oferta",
+            "generationHint": "Microcopy PDP; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "product.badge.bestseller",
+            "fieldPath": "ui.product.badges.bestseller",
+            "kind": "string",
+            "label": "Badge bestseller",
+            "generationHint": "Microcopy PDP; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "product.badge.limitedEdition",
+            "fieldPath": "ui.product.badges.limitedEdition",
+            "kind": "string",
+            "label": "Badge edición limitada",
+            "generationHint": "Microcopy PDP; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "product.stockUpsellModalTitle",
+            "fieldPath": "ui.product.stockUpsellModalTitle",
+            "kind": "string",
+            "label": "Título modal upsell stock→MTO",
+            "generationHint": "Microcopy PDP; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          }
+        ]
+      },
+      "productDetailPresentation": {
+        "supportedFields": [
+          "shortDescription",
+          "description",
+          "categoryLabels",
+          "collectionLabels",
+          "highlights",
+          "bulletPoints",
+          "brandLabel",
+          "specifications",
+          "badges",
+          "stockMessage",
+          "preparationPromise",
+          "relatedProducts"
+        ]
+      }
+    }
+  },
+  "themeDefaults": {
+    "colors": {
+      "ink": "#120D10"
+    }
+  }
+}

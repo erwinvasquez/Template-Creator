@@ -27,9 +27,36 @@ Purchase actions, valid variant selection, unavailability/errors, cart and check
 - Do **not** render generic `ui.salesMode.*.shopBanner` copy next to the switch — labels from `ui.salesMode.nav` are enough. Show prep / closed / reopen lines only when the host sends those fields.
 - `maxQuantity` limits +/- controls only — never show “Máx. N” copy.
 - Host fields: `preparationPromiseLabel`, `madeToOrderClosed` / `madeToOrderAcceptingOrders`, `madeToOrderReopensAtLabel` — **values only** (no “Preparación:” / “Volvemos” prefixes; templates own prefixes via `ui.salesMode`).
+- **Stock → MTO upsell (PDP):** when `madeToOrderUpsell` is set and `variant.immediateAvailableQty > 0`, templates show a modal if the shopper requests more than `maxQuantity` (immediate cap). CTA navigates to `madeToOrderUpsell.productHref` (host includes `?salesMode=madeToOrder`). Copy: `ui.product.stockInsufficientImmediate` (`{count}`), `stockInsufficientMadeToOrderHint`, `buyMadeToOrderCta`.
 - Query convention: `?salesMode=stock|madeToOrder` from template `ui.salesMode.nav` (host does not inject nav links). Host sets capability only.
 - Handoff: `docs/handoffs/sales-mode-saas-integration.md`.
 - **No** `CatalogContextViewModel` / `catalogContext` in this contract.
+
+## Variant option picker (PDP)
+
+- `ProductDetailViewModel.optionDefinitions` — canonical dimension order (`name`, optional `values`). Host sends from product catalog.
+- Pure helpers in `variantOptionPicker.ts` (exported from package):
+  - `buildOptionDimensions`, `valuesForDimension`, `selectionsFromVariant`
+  - `isOptionValueSelectable`, `resolveVariantForDimensionSelection`, `chipStateForOptionValue`
+  - `canUseVariantOptionPickers`, `sortOptionValuesAsc`
+- Templates map `variant.options` → `optionValues` `{ option, value }` and `maxAddQtyByVariantId` from `available` + `maxQuantity`.
+
+## Stock → MTO transition (PDP)
+
+Import from `stockToMtoTransition.ts` — **do not** duplicate in `lib/made-to-order-upsell`.
+
+- **Trigger A** (`quantityExceedsImmediate`): modal (`shouldOpenStockToMtoModal`) when requested qty exceeds immediate cap.
+- **Trigger B** (`immediateExhausted`): inline panel when `immediateAvailableQty === 0` but `madeToOrderUpsell` is set.
+- `resolveStockToMtoTransition(product, selected, requestedQty)` — `null` or trigger A/B.
+- Copy: `ui.product.stockExhaustedImmediateTitle`, `stockExhaustedMadeToOrderAvailable`, `buyMadeToOrderCta`.
+
+## Order tracking (public `/track`)
+
+- Types in `tracking.ts`: `OrderTrackingViewModel`, `OrderTrackingViewProps`.
+- `CommerceTemplateViews.OrderTracking` + `TemplateAppPageId` `orderTracking`.
+- Host maps order + labels → `tracking` prop; template **does not fetch**.
+- Layout offset matches template Cart/Confirmation (under fixed/sticky header).
+- Voucher: link `payment.voucherViewUrl` only — no upload in template.
 
 ## Category filters (shop listing)
 

@@ -608,6 +608,11 @@
       ],
       "tagline": "Diseñado con intención. Hecho para vestir.",
       "copyrightName": "Lumen"
+    },
+    "product": {
+      "presentation": {
+        "shortDescription": false
+      }
     }
   },
   "ui": {
@@ -708,7 +713,13 @@
         "sale": "Oferta",
         "bestseller": "Más vendido",
         "limitedEdition": "Edición limitada"
-      }
+      },
+      "stockInsufficientImmediate": "Solo tenemos {count} unidades para entrega inmediata.",
+      "stockInsufficientMadeToOrderHint": "Puedes pedir el resto bajo pedido con el plazo de preparación indicado.",
+      "stockExhaustedImmediateTitle": "Sin stock para entrega inmediata",
+      "stockExhaustedMadeToOrderAvailable": "Disponible a pedido",
+      "buyMadeToOrderCta": "Comprar bajo pedido",
+      "stockUpsellModalTitle": "Opciones de compra"
     },
     "shop": {
       "empty": "No hay piezas con estos filtros.",

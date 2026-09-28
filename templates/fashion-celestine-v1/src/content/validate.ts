@@ -63,9 +63,6 @@ export function validatePayload(payload: unknown): ValidationResult {
   }
 
   const occasionIds = p.sections?.occasions?.collectionIds ?? [];
-  if (occasionIds.length < 3 || occasionIds.length > 5) {
-    errors.push("sections.occasions.collectionIds must have 3–5 items");
-  }
   for (const id of occasionIds) {
     if (!collectionIds.has(id)) {
       errors.push(`sections.occasions.collectionIds missing collection ${id}`);
@@ -73,9 +70,6 @@ export function validatePayload(payload: unknown): ValidationResult {
   }
 
   const signatureIds = p.sections?.signature?.productIds ?? [];
-  if (signatureIds.length < 3) {
-    errors.push("sections.signature.productIds must have at least 3 items");
-  }
   for (const id of signatureIds) {
     if (!productIds.has(id)) {
       errors.push(`sections.signature.productIds missing product ${id}`);
@@ -83,9 +77,6 @@ export function validatePayload(payload: unknown): ValidationResult {
   }
 
   const accessoryIds = p.sections?.accessories?.productIds ?? [];
-  if (accessoryIds.length < 2) {
-    errors.push("sections.accessories.productIds must have at least 2 items");
-  }
   for (const id of accessoryIds) {
     if (!productIds.has(id)) {
       errors.push(`sections.accessories.productIds missing product ${id}`);

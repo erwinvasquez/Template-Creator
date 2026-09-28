@@ -21,11 +21,11 @@ function cartAriaLabel(
 }
 
 function HeaderCartButton({
-  transparent,
+  useDark,
   openCartLabel,
   openCartWithCountLabel,
 }: {
-  transparent: boolean;
+  useDark: boolean;
   openCartLabel: string;
   openCartWithCountLabel: string;
 }) {
@@ -37,7 +37,7 @@ function HeaderCartButton({
       type="button"
       onClick={openCart}
       className={`relative cursor-pointer rounded-full p-2 transition-colors duration-200 ${
-        transparent
+        useDark
           ? "text-white hover:bg-white/10"
           : "text-secondary hover:text-primary"
       }`}
@@ -58,10 +58,10 @@ function HeaderCartButton({
 }
 
 function HeaderAccountLink({
-  transparent,
+  useDark,
   myAccountLabel,
 }: {
-  transparent: boolean;
+  useDark: boolean;
   myAccountLabel: string;
 }) {
   const { payload, basePath } = useSiteContent();
@@ -70,7 +70,7 @@ function HeaderAccountLink({
     <Link
       href={accountPath(basePath, payload.features?.accountBasePath)}
       className={`cursor-pointer rounded-full p-2 transition-colors duration-200 ${
-        transparent
+        useDark
           ? "text-white hover:bg-white/10"
           : "text-secondary hover:text-primary"
       }`}
@@ -97,13 +97,13 @@ export function Header() {
   }
 
   const isHome = pathname === basePath || pathname === `${basePath}/`;
-  const transparent = isHome && !scrolled && !mobileOpen;
+  const useDark = isHome && !scrolled && !mobileOpen;
 
   const primaryLinks = payload.navigation.primary;
   const logoText = payload.brand.displayName || payload.brand.name;
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 16);
+    const onScroll = () => setScrolled(window.scrollY > 24);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -119,17 +119,15 @@ export function Header() {
   return (
     <>
       <header
-        className={`sticky top-0 z-50 w-full border-b transition-colors duration-300 ${
-          transparent
-            ? "border-transparent bg-transparent"
-            : "border-border bg-background/95 backdrop-blur-sm"
+        className={`fixed left-4 right-4 top-4 z-50 transition-all duration-300 ${
+          useDark ? "glass-dark" : "glass shadow-sm"
         }`}
       >
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 md:h-20 md:px-10">
+        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 md:h-[4.25rem] md:px-8">
           <Link
             href={withBasePath(basePath, "/")}
             className={`voxa-wordmark cursor-pointer text-lg transition-colors duration-200 md:text-xl ${
-              transparent ? "text-white" : "text-primary"
+              useDark ? "text-white" : "text-primary"
             }`}
           >
             {logoText}
@@ -144,7 +142,7 @@ export function Header() {
                 key={`${link.type}-${link.label}`}
                 href={withBasePath(basePath, resolveNavHref(link))}
                 className={`cursor-pointer border-b-2 border-transparent pb-0.5 text-[11px] font-semibold uppercase tracking-[0.16em] transition-colors duration-200 hover:border-cta ${
-                  transparent
+                  useDark
                     ? "text-white/80 hover:text-white"
                     : "text-secondary hover:text-primary"
                 }`}
@@ -157,13 +155,13 @@ export function Header() {
           <div className="flex items-center gap-2 md:gap-4">
             {showAccount ? (
               <HeaderAccountLink
-                transparent={transparent}
+                useDark={useDark}
                 myAccountLabel={chrome.myAccount}
               />
             ) : null}
             {showCart ? (
               <HeaderCartButton
-                transparent={transparent}
+                useDark={useDark}
                 openCartLabel={chrome.openCart}
                 openCartWithCountLabel={chrome.openCartWithCount}
               />
@@ -171,7 +169,7 @@ export function Header() {
             <button
               type="button"
               className={`cursor-pointer rounded-full p-2 md:hidden ${
-                transparent ? "text-white" : "text-primary"
+                useDark ? "text-white" : "text-primary"
               }`}
               onClick={() => setMobileOpen((v) => !v)}
               aria-label={mobileOpen ? chrome.closeMenu : chrome.openMenu}
@@ -188,7 +186,7 @@ export function Header() {
       </header>
 
       {mobileOpen && (
-        <div className="fixed inset-0 z-40 bg-background pt-24 animate-fade-in md:hidden">
+        <div className="fixed inset-0 z-40 bg-background pt-28 animate-fade-in md:hidden">
           <nav
             className="flex flex-col gap-1 px-8"
             aria-label={chrome.mobileNavAria}

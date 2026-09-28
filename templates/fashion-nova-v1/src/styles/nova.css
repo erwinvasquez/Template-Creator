@@ -1,0 +1,367 @@
+/*
+  Nova — Syne (display) + Manrope (body).
+  Paleta: hot pink #EC4899, cyan #06B6D4, blush #FDF2F8.
+*/
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Syne:wght@500;600;700;800&display=swap");
+
+:root {
+  --color-primary: #ec4899;
+  --color-secondary: #06b6d4;
+  --color-cta: #ec4899;
+  --color-cta-hover: #db2777;
+  --color-background: #fdf2f8;
+  --color-surface: #fce7f3;
+  --color-text: #18181b;
+  --color-muted: #71717a;
+  --color-border: #fbcfe8;
+  --color-ink: #0f0a0c;
+  --color-glow: rgba(236, 72, 153, 0.18);
+  --color-cyan-glow: rgba(6, 182, 212, 0.14);
+  --font-display: "Syne", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Manrope", ui-sans-serif, system-ui, sans-serif;
+}
+
+@theme {
+  --color-primary: #ec4899;
+  --color-secondary: #06b6d4;
+  --color-cta: #ec4899;
+  --color-cta-hover: #db2777;
+  --color-background: #fdf2f8;
+  --color-surface: #fce7f3;
+  --color-text: #18181b;
+  --color-muted: #71717a;
+  --color-border: #fbcfe8;
+  --color-ink: #0f0a0c;
+  --font-serif: var(--font-display);
+  --font-sans: var(--font-body);
+}
+
+.nova-root {
+  background: var(--color-background);
+  color: var(--color-text);
+  font-family: var(--font-body);
+}
+
+.nova-root ::selection {
+  background: var(--color-glow);
+  color: var(--color-text);
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes soft-drift {
+  from {
+    transform: scale(1.06) translateY(1%);
+  }
+  to {
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out both;
+}
+
+.animate-soft-drift {
+  animation: soft-drift 1.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-up,
+  .animate-fade-in,
+  .animate-soft-drift,
+  .animate-slide-in-right {
+    animation: none;
+  }
+}
+
+.nova-hero-split {
+  display: grid;
+  min-height: 100svh;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 1024px) {
+  .nova-hero-split {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  }
+}
+
+.nova-hero-panel {
+  background: linear-gradient(
+    145deg,
+    var(--color-background) 0%,
+    var(--color-surface) 55%,
+    rgba(236, 72, 153, 0.08) 100%
+  );
+}
+
+.nova-hero-accent {
+  background: linear-gradient(
+    180deg,
+    var(--color-secondary) 0%,
+    rgba(6, 182, 212, 0.65) 100%
+  );
+}
+
+.nova-hero-scrim {
+  background: linear-gradient(
+    to top,
+    rgba(15, 10, 12, 0.72) 0%,
+    rgba(15, 10, 12, 0.2) 50%,
+    transparent 100%
+  );
+}
+
+.nova-wordmark {
+  font-family: var(--font-display);
+  letter-spacing: 0.14em;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.nova-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-secondary);
+}
+
+.nova-eyebrow::before {
+  content: "";
+  display: block;
+  width: 1.5rem;
+  height: 2px;
+  background: var(--color-primary);
+}
+
+.nova-block {
+  border-radius: 0;
+  border: 2px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.nova-block-invert {
+  border-radius: 0;
+  border: 2px solid rgba(255, 255, 255, 0.12);
+  background: var(--color-ink);
+  color: #fff;
+}
+
+.nova-nav {
+  background: rgba(253, 242, 248, 0.92);
+  backdrop-filter: blur(14px);
+  border: 2px solid var(--color-border);
+  border-radius: 0;
+}
+
+.nova-nav-dark {
+  background: rgba(15, 10, 12, 0.55);
+  backdrop-filter: blur(14px);
+  border: 2px solid rgba(255, 255, 255, 0.14);
+  border-radius: 0;
+}
+
+.nova-header-logo {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.nova-nav-link {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.nova-footer {
+  background: var(--color-ink);
+  color: var(--color-background);
+}
+
+.nova-footer-brand {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.nova-footer-col-title {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.55;
+}
+
+.nova-drop-bento {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-auto-rows: minmax(180px, auto);
+}
+
+@media (min-width: 768px) {
+  .nova-drop-bento {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    grid-auto-rows: minmax(200px, auto);
+    gap: 1rem;
+  }
+
+  .nova-drop-bento > :nth-child(1) {
+    grid-column: span 5;
+    grid-row: span 2;
+  }
+
+  .nova-drop-bento > :nth-child(2) {
+    grid-column: span 4;
+    grid-row: span 1;
+  }
+
+  .nova-drop-bento > :nth-child(3) {
+    grid-column: span 3;
+    grid-row: span 1;
+  }
+
+  .nova-drop-bento > :nth-child(4) {
+    grid-column: span 7;
+    grid-row: span 1;
+  }
+}
+
+.nova-trend-zigzag {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .nova-trend-zigzag {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0;
+  }
+
+  .nova-trend-zigzag > :nth-child(2) {
+    transform: translateY(2.5rem);
+  }
+}
+
+.nova-pulse-grid {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (min-width: 1024px) {
+  .nova-pulse-grid {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    min-height: 520px;
+  }
+
+  .nova-pulse-grid > :first-child {
+    grid-column: span 6;
+    grid-row: span 2;
+  }
+
+  .nova-pulse-grid > :not(:first-child) {
+    grid-column: span 3;
+    grid-row: span 1;
+  }
+}
+
+.nova-squad-split {
+  display: grid;
+  gap: 0;
+}
+
+@media (min-width: 768px) {
+  .nova-squad-split {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  }
+}
+
+.nova-flash-rail {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding-bottom: 0.25rem;
+}
+
+.nova-flash-rail::-webkit-scrollbar {
+  display: none;
+}
+
+.nova-flash-rail > * {
+  flex: 0 0 min(78vw, 280px);
+  scroll-snap-align: start;
+}
+
+@media (min-width: 768px) {
+  .nova-flash-rail > * {
+    flex-basis: min(32%, 320px);
+  }
+}
+
+.category-scroll {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.category-scroll::-webkit-scrollbar {
+  display: none;
+}

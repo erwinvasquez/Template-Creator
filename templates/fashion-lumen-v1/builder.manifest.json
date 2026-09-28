@@ -9,15 +9,16 @@
     "industryTags": [
       "fashion",
       "apparel",
-      "sports"
+      "minimal",
+      "editorial"
     ],
     "displayName": {
-      "es": "Lumen CrossFit",
-      "en": "Lumen CrossFit"
+      "es": "Lumen",
+      "en": "Lumen"
     },
     "description": {
-      "es": "E-commerce de ropa deportiva CrossFit: gear WOD, tejidos técnicos, dual sales mode y catálogo mujer/hombre/zapatos/accesorios.",
-      "en": "CrossFit athleticwear ecommerce: WOD gear, technical fabrics, dual sales mode, and full catalog for men, women, shoes and accessories."
+      "es": "E-commerce de moda femenina editorial minimal: quiet luxury daytime, tejidos nobles, dual sales mode y catálogo vestidos/tops/pantalones/abrigos.",
+      "en": "Women's editorial minimal fashion ecommerce: quiet luxury daytime, noble fabrics, dual sales mode, and catalog for dresses, tops, trousers and coats."
     }
   },
   "manifest": {
@@ -38,40 +39,38 @@
             ]
           },
           {
-            "id": "disciplines",
+            "id": "wardrobe",
             "contentSlotIds": [
-              "disciplines.eyebrow",
-              "disciplines.itemCtaLabel",
-              "disciplines.title"
+              "wardrobe.eyebrow",
+              "wardrobe.itemCtaLabel",
+              "wardrobe.title"
             ]
           },
           {
-            "id": "gearSpotlight",
+            "id": "arrivals",
             "contentSlotIds": [
-              "gearSpotlight.eyebrow",
-              "gearSpotlight.title",
-              "gearSpotlight.viewAll"
+              "arrivals.eyebrow",
+              "arrivals.title",
+              "arrivals.viewAll"
             ]
           },
           {
-            "id": "performance",
+            "id": "fabricNote",
             "contentSlotIds": [
-              "performance.body",
-              "performance.cta",
-              "performance.eyebrow",
-              "performance.image",
-              "performance.title"
+              "fabricNote.body",
+              "fabricNote.cta",
+              "fabricNote.eyebrow",
+              "fabricNote.image",
+              "fabricNote.title"
             ]
           },
           {
-            "id": "community",
+            "id": "editorial",
             "contentSlotIds": [
-              "community.eyebrow",
-              "community.placeholder",
-              "community.submitLabel",
-              "community.subtitle",
-              "community.successMessage",
-              "community.title"
+              "editorial.body",
+              "editorial.cta",
+              "editorial.eyebrow",
+              "editorial.title"
             ]
           },
           {
@@ -107,7 +106,26 @@
         "sections": [
           {
             "id": "product",
-            "contentSlotIds": []
+            "contentSlotIds": [
+              "product.addToCart",
+              "product.addingToCart",
+              "product.outOfStock",
+              "product.contact",
+              "product.lowStock",
+              "product.relatedTitle",
+              "product.madeToOrderClosed",
+              "product.buyMadeToOrderCta",
+              "product.stockUpsellModalTitle",
+              "product.stockInsufficientImmediate",
+              "product.stockInsufficientMadeToOrderHint",
+              "product.priceBookLabel",
+              "product.priceProgramLabel",
+              "product.badge.new",
+              "product.badge.featured",
+              "product.badge.sale",
+              "product.badge.bestseller",
+              "product.badge.limitedEdition"
+            ]
           }
         ]
       },
@@ -140,15 +158,15 @@
     },
     "themeDefaults": {
       "colors": {
-        "primary": "#0F0F0F",
-        "secondary": "#2A2A2A",
-        "cta": "#FF4D00",
-        "ctaHover": "#E04400",
-        "background": "#F2F2ED",
-        "surface": "#E8E8E2",
-        "text": "#0F0F0F",
-        "muted": "#4A4A4A",
-        "border": "#D4D4CC"
+        "primary": "#18181B",
+        "secondary": "#BE185D",
+        "cta": "#BE185D",
+        "ctaHover": "#9D174D",
+        "background": "#FAFAFA",
+        "surface": "#F4F4F5",
+        "text": "#18181B",
+        "muted": "#71717A",
+        "border": "#E4E4E7"
       }
     },
     "themeEditable": {
@@ -300,83 +318,110 @@
             "localeScope": "both"
           },
           {
-            "id": "community.eyebrow",
-            "fieldPath": "sections.community.eyebrow",
+            "id": "arrivals.eyebrow",
+            "fieldPath": "sections.arrivals.eyebrow",
             "kind": "string",
-            "label": "community eyebrow",
-            "generationHint": "Copy de sección community; tono del template.",
+            "label": "arrivals eyebrow",
+            "generationHint": "Copy de sección arrivals; tono del template.",
             "required": true,
             "localeScope": "both"
           },
           {
-            "id": "community.placeholder",
-            "fieldPath": "sections.community.placeholder",
+            "id": "arrivals.title",
+            "fieldPath": "sections.arrivals.title",
             "kind": "string",
-            "label": "community placeholder",
-            "generationHint": "Copy de sección community; tono del template.",
+            "label": "arrivals title",
+            "generationHint": "Copy de sección arrivals; tono del template.",
             "required": true,
             "localeScope": "both"
           },
           {
-            "id": "community.submitLabel",
-            "fieldPath": "sections.community.submitLabel",
-            "kind": "string",
-            "label": "community submitLabel",
-            "generationHint": "Copy de sección community; tono del template.",
+            "id": "arrivals.viewAll",
+            "fieldPath": "sections.arrivals.viewAll",
+            "kind": "link",
+            "label": "arrivals viewAll",
+            "generationHint": "Copy de sección arrivals; tono del template.",
             "required": true,
             "localeScope": "both"
           },
           {
-            "id": "community.subtitle",
-            "fieldPath": "sections.community.subtitle",
+            "id": "editorial.body",
+            "fieldPath": "sections.editorial.body",
             "kind": "text",
-            "label": "community subtitle",
-            "generationHint": "Copy de sección community; tono del template.",
+            "label": "editorial body",
+            "generationHint": "Copy de sección editorial; tono del template.",
             "required": true,
             "localeScope": "both"
           },
           {
-            "id": "community.successMessage",
-            "fieldPath": "sections.community.successMessage",
+            "id": "editorial.cta",
+            "fieldPath": "sections.editorial.cta",
+            "kind": "link",
+            "label": "editorial cta",
+            "generationHint": "Copy de sección editorial; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "editorial.eyebrow",
+            "fieldPath": "sections.editorial.eyebrow",
+            "kind": "string",
+            "label": "editorial eyebrow",
+            "generationHint": "Copy de sección editorial; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "editorial.title",
+            "fieldPath": "sections.editorial.title",
+            "kind": "string",
+            "label": "editorial title",
+            "generationHint": "Copy de sección editorial; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "fabricNote.body",
+            "fieldPath": "sections.fabricNote.body",
             "kind": "text",
-            "label": "community successMessage",
-            "generationHint": "Copy de sección community; tono del template.",
+            "label": "fabricNote body",
+            "generationHint": "Copy de sección fabricNote; tono del template.",
             "required": true,
             "localeScope": "both"
           },
           {
-            "id": "community.title",
-            "fieldPath": "sections.community.title",
-            "kind": "string",
-            "label": "community title",
-            "generationHint": "Copy de sección community; tono del template.",
+            "id": "fabricNote.cta",
+            "fieldPath": "sections.fabricNote.cta",
+            "kind": "link",
+            "label": "fabricNote cta",
+            "generationHint": "Copy de sección fabricNote; tono del template.",
             "required": true,
             "localeScope": "both"
           },
           {
-            "id": "disciplines.eyebrow",
-            "fieldPath": "sections.disciplines.eyebrow",
+            "id": "fabricNote.eyebrow",
+            "fieldPath": "sections.fabricNote.eyebrow",
             "kind": "string",
-            "label": "disciplines eyebrow",
-            "generationHint": "Copy de sección disciplines; tono del template.",
+            "label": "fabricNote eyebrow",
+            "generationHint": "Copy de sección fabricNote; tono del template.",
             "required": true,
             "localeScope": "both"
           },
           {
-            "id": "disciplines.itemCtaLabel",
-            "fieldPath": "sections.disciplines.itemCtaLabel",
-            "kind": "string",
-            "label": "disciplines itemCtaLabel",
-            "generationHint": "Copy de sección disciplines; tono del template.",
+            "id": "fabricNote.image",
+            "fieldPath": "sections.fabricNote.image",
+            "kind": "media",
+            "label": "fabricNote image",
+            "generationHint": "Copy de sección fabricNote; tono del template.",
             "required": true,
             "localeScope": "both"
           },
           {
-            "id": "disciplines.title",
-            "fieldPath": "sections.disciplines.title",
+            "id": "fabricNote.title",
+            "fieldPath": "sections.fabricNote.title",
             "kind": "string",
-            "label": "disciplines title",
-            "generationHint": "Copy de sección disciplines; tono del template.",
+            "label": "fabricNote title",
+            "generationHint": "Copy de sección fabricNote; tono del template.",
             "required": true,
             "localeScope": "both"
           },
@@ -447,33 +492,6 @@
             "localeScope": "both"
           },
           {
-            "id": "gearSpotlight.eyebrow",
-            "fieldPath": "sections.gearSpotlight.eyebrow",
-            "kind": "string",
-            "label": "gearSpotlight eyebrow",
-            "generationHint": "Copy de sección gearSpotlight; tono del template.",
-            "required": true,
-            "localeScope": "both"
-          },
-          {
-            "id": "gearSpotlight.title",
-            "fieldPath": "sections.gearSpotlight.title",
-            "kind": "string",
-            "label": "gearSpotlight title",
-            "generationHint": "Copy de sección gearSpotlight; tono del template.",
-            "required": true,
-            "localeScope": "both"
-          },
-          {
-            "id": "gearSpotlight.viewAll",
-            "fieldPath": "sections.gearSpotlight.viewAll",
-            "kind": "link",
-            "label": "gearSpotlight viewAll",
-            "generationHint": "Copy de sección gearSpotlight; tono del template.",
-            "required": true,
-            "localeScope": "both"
-          },
-          {
             "id": "hero.ctaPrimary",
             "fieldPath": "sections.hero.ctaPrimary",
             "kind": "link",
@@ -519,51 +537,6 @@
             "localeScope": "both"
           },
           {
-            "id": "performance.body",
-            "fieldPath": "sections.performance.body",
-            "kind": "text",
-            "label": "performance body",
-            "generationHint": "Copy de sección performance; tono del template.",
-            "required": true,
-            "localeScope": "both"
-          },
-          {
-            "id": "performance.cta",
-            "fieldPath": "sections.performance.cta",
-            "kind": "link",
-            "label": "performance cta",
-            "generationHint": "Copy de sección performance; tono del template.",
-            "required": true,
-            "localeScope": "both"
-          },
-          {
-            "id": "performance.eyebrow",
-            "fieldPath": "sections.performance.eyebrow",
-            "kind": "string",
-            "label": "performance eyebrow",
-            "generationHint": "Copy de sección performance; tono del template.",
-            "required": true,
-            "localeScope": "both"
-          },
-          {
-            "id": "performance.image",
-            "fieldPath": "sections.performance.image",
-            "kind": "media",
-            "label": "performance image",
-            "generationHint": "Copy de sección performance; tono del template.",
-            "required": true,
-            "localeScope": "both"
-          },
-          {
-            "id": "performance.title",
-            "fieldPath": "sections.performance.title",
-            "kind": "string",
-            "label": "performance title",
-            "generationHint": "Copy de sección performance; tono del template.",
-            "required": true,
-            "localeScope": "both"
-          },
-          {
             "id": "shop.description",
             "fieldPath": "sections.shop.description",
             "kind": "text",
@@ -591,6 +564,33 @@
             "localeScope": "both"
           },
           {
+            "id": "wardrobe.eyebrow",
+            "fieldPath": "sections.wardrobe.eyebrow",
+            "kind": "string",
+            "label": "wardrobe eyebrow",
+            "generationHint": "Copy de sección wardrobe; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "wardrobe.itemCtaLabel",
+            "fieldPath": "sections.wardrobe.itemCtaLabel",
+            "kind": "string",
+            "label": "wardrobe itemCtaLabel",
+            "generationHint": "Copy de sección wardrobe; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "wardrobe.title",
+            "fieldPath": "sections.wardrobe.title",
+            "kind": "string",
+            "label": "wardrobe title",
+            "generationHint": "Copy de sección wardrobe; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
             "id": "brand.name",
             "fieldPath": "brand.name",
             "kind": "string",
@@ -603,14 +603,192 @@
             "kind": "string",
             "label": "Brand tagline",
             "editorSurface": "none"
+          },
+          {
+            "id": "product.addToCart",
+            "fieldPath": "ui.product.addToCart",
+            "kind": "string",
+            "label": "Añadir al carrito",
+            "generationHint": "Microcopy PDP; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "product.addingToCart",
+            "fieldPath": "ui.product.addingToCart",
+            "kind": "string",
+            "label": "Añadiendo al carrito",
+            "generationHint": "Microcopy PDP; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "product.outOfStock",
+            "fieldPath": "ui.product.outOfStock",
+            "kind": "string",
+            "label": "Agotado",
+            "generationHint": "Microcopy PDP; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "product.contact",
+            "fieldPath": "ui.product.contact",
+            "kind": "string",
+            "label": "Contactar",
+            "generationHint": "Microcopy PDP; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "product.lowStock",
+            "fieldPath": "ui.product.lowStock",
+            "kind": "string",
+            "label": "Pocas unidades",
+            "generationHint": "Microcopy PDP; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "product.relatedTitle",
+            "fieldPath": "ui.product.relatedTitle",
+            "kind": "string",
+            "label": "Título relacionados",
+            "generationHint": "Microcopy PDP; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "product.madeToOrderClosed",
+            "fieldPath": "ui.product.madeToOrderClosed",
+            "kind": "string",
+            "label": "Pedidos cerrados",
+            "generationHint": "Microcopy PDP; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "product.buyMadeToOrderCta",
+            "fieldPath": "ui.product.buyMadeToOrderCta",
+            "kind": "string",
+            "label": "CTA comprar bajo pedido",
+            "generationHint": "Microcopy PDP; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "product.stockInsufficientImmediate",
+            "fieldPath": "ui.product.stockInsufficientImmediate",
+            "kind": "string",
+            "label": "Stock inmediato insuficiente",
+            "generationHint": "Microcopy PDP; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "product.stockInsufficientMadeToOrderHint",
+            "fieldPath": "ui.product.stockInsufficientMadeToOrderHint",
+            "kind": "string",
+            "label": "Hint upsell MTO",
+            "generationHint": "Microcopy PDP; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "product.priceBookLabel",
+            "fieldPath": "ui.product.priceBookLabel",
+            "kind": "string",
+            "label": "Precio libro",
+            "generationHint": "Microcopy PDP; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "product.priceProgramLabel",
+            "fieldPath": "ui.product.priceProgramLabel",
+            "kind": "string",
+            "label": "Precio programa",
+            "generationHint": "Microcopy PDP; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "product.badge.new",
+            "fieldPath": "ui.product.badges.new",
+            "kind": "string",
+            "label": "Badge nuevo",
+            "generationHint": "Microcopy PDP; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "product.badge.featured",
+            "fieldPath": "ui.product.badges.featured",
+            "kind": "string",
+            "label": "Badge destacado",
+            "generationHint": "Microcopy PDP; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "product.badge.sale",
+            "fieldPath": "ui.product.badges.sale",
+            "kind": "string",
+            "label": "Badge oferta",
+            "generationHint": "Microcopy PDP; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "product.badge.bestseller",
+            "fieldPath": "ui.product.badges.bestseller",
+            "kind": "string",
+            "label": "Badge bestseller",
+            "generationHint": "Microcopy PDP; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "product.badge.limitedEdition",
+            "fieldPath": "ui.product.badges.limitedEdition",
+            "kind": "string",
+            "label": "Badge edición limitada",
+            "generationHint": "Microcopy PDP; tono del template.",
+            "required": true,
+            "localeScope": "both"
+          },
+          {
+            "id": "product.stockUpsellModalTitle",
+            "fieldPath": "ui.product.stockUpsellModalTitle",
+            "kind": "string",
+            "label": "Título modal upsell stock→MTO",
+            "generationHint": "Microcopy PDP; tono del template.",
+            "required": true,
+            "localeScope": "both"
           }
+        ]
+      },
+      "productDetailPresentation": {
+        "supportedFields": [
+          "shortDescription",
+          "description",
+          "categoryLabels",
+          "collectionLabels",
+          "highlights",
+          "bulletPoints",
+          "brandLabel",
+          "specifications",
+          "badges",
+          "stockMessage",
+          "preparationPromise",
+          "relatedProducts"
         ]
       }
     }
   },
   "themeDefaults": {
     "colors": {
-      "ink": "#0F0F0F"
+      "ink": "#18181B"
     }
   }
 }

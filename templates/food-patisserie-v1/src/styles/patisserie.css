@@ -1,0 +1,175 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;500;600;700&family=Rubik:wght@400;500;600;700&display=swap");
+
+:root {
+  --color-primary: #92400e;
+  --color-secondary: #b45309;
+  --color-cta: #92400e;
+  --color-cta-hover: #78350f;
+  --color-background: #fef3c7;
+  --color-surface: #fde68a;
+  --color-text: #78350f;
+  --color-muted: #a16207;
+  --color-border: #fcd34d;
+  --color-ink: #451a03;
+  --color-glow: rgba(180, 83, 9, 0.16);
+  --font-serif: "Rubik", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Nunito Sans", ui-sans-serif, system-ui, sans-serif;
+}
+
+@theme {
+  --color-primary: #92400e;
+  --color-secondary: #b45309;
+  --color-cta: #92400e;
+  --color-cta-hover: #78350f;
+  --color-background: #fef3c7;
+  --color-surface: #fde68a;
+  --color-text: #78350f;
+  --color-muted: #a16207;
+  --color-border: #fcd34d;
+  --color-ink: #451a03;
+  --font-serif: var(--font-rubik);
+  --font-sans: var(--font-nunito);
+}
+
+.patisserie-root {
+  background: var(--color-background);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+}
+
+.patisserie-root ::selection {
+  background: var(--color-glow);
+  color: var(--color-text);
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes soft-drift {
+  from {
+    transform: scale(1.06) translateY(1%);
+  }
+  to {
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes veil-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out both;
+}
+
+.animate-soft-drift {
+  animation: soft-drift 1.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-veil-in {
+  animation: veil-in 0.55s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-up,
+  .animate-fade-in,
+  .animate-soft-drift,
+  .animate-veil-in {
+    animation: none;
+  }
+}
+
+.patisserie-hero {
+  background: radial-gradient(
+    ellipse 80% 60% at 50% 20%,
+    rgba(253, 230, 138, 0.45) 0%,
+    transparent 70%
+  );
+}
+
+.patisserie-hero-frame {
+  border: 6px solid var(--color-surface);
+}
+
+.patisserie-wordmark {
+  font-family: var(--font-serif), ui-sans-serif, system-ui, sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.patisserie-eyebrow {
+  display: inline-block;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-secondary);
+}
+
+.patisserie-note-card {
+  background: linear-gradient(
+    180deg,
+    var(--color-background) 0%,
+    rgba(254, 243, 199, 0.5) 100%
+  );
+}
+
+.patisserie-step-pill {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.patisserie-step-pill:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px -12px rgba(120, 53, 15, 0.15);
+}
+
+.patisserie-footer {
+  margin-top: 2rem;
+}
+
+.patisserie-nav,
+.patisserie-nav-dark {
+  display: none;
+}
+
+.category-scroll {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.category-scroll::-webkit-scrollbar {
+  display: none;
+}

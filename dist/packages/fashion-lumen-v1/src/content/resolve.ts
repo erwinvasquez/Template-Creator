@@ -114,17 +114,17 @@ export function getProductBySlug(payload: ContentPayload, slug: string) {
   return resolveProducts(payload).find((p) => p.slug === slug);
 }
 
-export function getGearSpotlight(payload: ContentPayload) {
+export function getArrivalsProducts(payload: ContentPayload) {
   const all = resolveProducts(payload);
   const byId = new Map(all.map((p) => [p.id, p]));
-  return payload.sections.gearSpotlight.productIds
+  return payload.sections.arrivals.productIds
     .map((id) => byId.get(id))
     .filter((p): p is ResolvedProduct => Boolean(p));
 }
 
-export function getHomeDisciplines(payload: ContentPayload) {
+export function getWardrobeCollections(payload: ContentPayload) {
   const byId = new Map(payload.catalog.collections.map((c) => [c.id, c]));
-  return payload.sections.disciplines.collectionIds.map((id) => {
+  return payload.sections.wardrobe.collectionIds.map((id) => {
     const c = byId.get(id);
     if (!c) throw new Error(`Missing collection ${id}`);
     return {
@@ -149,17 +149,17 @@ export function formatPrice(
 
 export function themeStyle(payload: ContentPayload): Record<string, string> {
   const c = payload.theme?.colors ?? {};
-  const primary = c.primary ?? "#0f0f0f";
-  const secondary = c.secondary ?? "#2a2a2a";
+  const primary = c.primary ?? "#18181b";
+  const secondary = c.secondary ?? "#be185d";
   return {
     "--color-primary": primary,
     "--color-secondary": secondary,
-    "--color-background": c.background ?? "#f2f2ed",
-    "--color-surface": c.surface ?? "#e8e8e2",
-    "--color-text": c.text ?? "#0f0f0f",
-    "--color-muted": c.muted ?? "#4a4a4a",
-    "--color-border": c.border ?? "#d4d4cc",
-    "--color-ink": "#0f0f0f",
+    "--color-background": c.background ?? "#fafafa",
+    "--color-surface": c.surface ?? "#f4f4f5",
+    "--color-text": c.text ?? "#18181b",
+    "--color-muted": c.muted ?? "#71717a",
+    "--color-border": c.border ?? "#e4e4e7",
+    "--color-ink": "#18181b",
     "--color-cta": c.cta ?? primary,
     "--color-cta-hover": c.ctaHover ?? secondary,
   };

@@ -3,23 +3,23 @@
   "templateId": "fashion-lumen-v1",
   "templateVersion": "1.0.0",
   "brand": {
-    "name": "Lumen Pro",
-    "displayName": "LUMEN PRO",
-    "tagline": "Gear de competición para atletas élite.",
+    "name": "Lumen Atelier",
+    "displayName": "Lumen Atelier",
+    "tagline": "Piezas de autor con tejidos de origen certificado.",
     "locale": "es-ES",
     "currency": "EUR"
   },
   "theme": {
     "colors": {
-      "primary": "#0F0F0F",
-      "secondary": "#2A2A2A",
-      "cta": "#00C2FF",
-      "ctaHover": "#00A8E0",
-      "background": "#F2F2ED",
-      "surface": "#E8E8E2",
-      "text": "#0F0F0F",
-      "muted": "#4A4A4A",
-      "border": "#D4D4CC"
+      "primary": "#18181B",
+      "secondary": "#BE185D",
+      "cta": "#BE185D",
+      "ctaHover": "#9D174D",
+      "background": "#FAFAFA",
+      "surface": "#F4F4F5",
+      "text": "#18181B",
+      "muted": "#71717A",
+      "border": "#E4E4E7"
     }
   },
   "features": {
@@ -36,18 +36,13 @@
       },
       {
         "type": "shopFilter",
-        "label": "Mujer",
-        "categorySlug": "mujer"
+        "label": "Vestidos",
+        "categorySlug": "vestidos"
       },
       {
         "type": "shopFilter",
-        "label": "Hombre",
-        "categorySlug": "hombre"
-      },
-      {
-        "type": "shopFilter",
-        "label": "Zapatos",
-        "categorySlug": "zapatos"
+        "label": "Pantalones",
+        "categorySlug": "pantalones"
       },
       {
         "type": "path",
@@ -57,92 +52,138 @@
     ]
   },
   "seo": {
-    "titleTemplate": "%s · Lumen CrossFit",
+    "titleTemplate": "%s · Lumen Atelier",
     "default": {
-      "title": "Lumen CrossFit — Ropa y gear para el box",
-      "description": "Ropa deportiva CrossFit para hombre y mujer: shorts, tops, zapatos y accesorios diseñados para WOD, fuerza y metcon.",
+      "title": "Lumen Atelier — Moda femenina de autor",
+      "description": "Colecciones limitadas con lino, seda y lana. Confección bajo pedido y entrega inmediata.",
       "openGraph": {
-        "title": "Lumen CrossFit — Ropa y gear para el box",
-        "description": "Equipamiento técnico para atletas de CrossFit. Stock inmediato y piezas a pedido."
+        "title": "Lumen Atelier — Moda femenina de autor",
+        "description": "Piezas editoriales con materiales trazables y talleres locales."
       }
     },
     "pages": {
       "shop": {
         "title": "Tienda",
-        "description": "Catálogo completo Lumen: ropa, zapatos y accesorios CrossFit para mujer y hombre."
+        "description": "Catálogo Lumen Atelier: vestidos, tops, pantalones y abrigos."
       },
       "about": {
         "title": "Nosotros",
-        "description": "Lumen nace en el box: gear probado en WOD reales, tejidos técnicos y fit atlético."
+        "description": "Atelier de moda femenina con enfoque en materiales nobles y producción consciente."
       }
     }
   },
   "catalog": {
     "categories": [
       {
-        "id": "cat_mujer",
-        "slug": "mujer",
-        "label": "Mujer"
+        "id": "cat_vestidos",
+        "slug": "vestidos",
+        "label": "Vestidos"
       },
       {
-        "id": "cat_hombre",
-        "slug": "hombre",
-        "label": "Hombre"
+        "id": "cat_tops",
+        "slug": "tops",
+        "label": "Tops"
       },
       {
-        "id": "cat_zapatos",
-        "slug": "zapatos",
-        "label": "Zapatos"
+        "id": "cat_pantalones",
+        "slug": "pantalones",
+        "label": "Pantalones"
       },
       {
-        "id": "cat_accesorios",
-        "slug": "accesorios",
-        "label": "Accesorios"
+        "id": "cat_abrigos",
+        "slug": "abrigos",
+        "label": "Abrigos"
       }
     ],
     "collections": [
       {
-        "id": "col_wod",
-        "slug": "wod-essentials",
-        "name": "WOD Essentials",
-        "description": "Piezas diarias para entrenar duro y recuperar rápido.",
+        "id": "col_primavera",
+        "slug": "primavera-suave",
+        "name": "Primavera Suave",
+        "description": "Tonos claros y tejidos ligeros.",
         "image": {
-          "url": "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=1600&q=80",
-          "alt": "Colección WOD Essentials"
+          "url": "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1600&q=80",
+          "alt": "Colección Primavera Suave"
         }
       },
       {
-        "id": "col_strength",
-        "slug": "strength-series",
-        "name": "Strength Series",
-        "description": "Soporte y compresión para levantamientos y gimnasia.",
+        "id": "col_urbana",
+        "slug": "esencia-urbana",
+        "name": "Esencia Urbana",
+        "description": "Siluetas estructuradas para la ciudad.",
         "image": {
-          "url": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1600&q=80",
-          "alt": "Colección Strength Series"
+          "url": "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1600&q=80",
+          "alt": "Colección Esencia Urbana"
         }
       },
       {
-        "id": "col_metcon",
-        "slug": "metcon-gear",
-        "name": "Metcon Gear",
-        "description": "Ligereza y transpirabilidad para alta intensidad.",
+        "id": "col_lino",
+        "slug": "lino-y-seda",
+        "name": "Lino y Seda",
+        "description": "Fibras naturales con caída impecable.",
         "image": {
-          "url": "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50e?w=1600&q=80",
-          "alt": "Colección Metcon Gear"
+          "url": "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=1600&q=80",
+          "alt": "Colección Lino y Seda"
         }
       }
     ],
     "products": [
       {
         "id": "1",
-        "slug": "shorts-compresion-mujer",
-        "name": "Shorts Compresión Mujer",
-        "description": "Shorts de compresión 4 vías con cintura alta y bolsillo lateral. Secado rápido para metcon y gimnasia.",
-        "price": 48,
-        "categoryId": "cat_mujer",
-        "collectionId": "col_metcon",
+        "slug": "vestido-fluido-lino",
+        "name": "Vestido Fluido de Lino",
+        "description": "Vestido midi de lino europeo con cintura suave.",
+        "price": 185,
+        "categoryId": "cat_vestidos",
+        "collectionId": "col_primavera",
         "colors": [
-          "Negro",
+          "Crema"
+        ],
+        "sizes": [
+          "XS",
+          "S",
+          "M",
+          "L"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=1200&q=80",
+          "alt": "Vestido Fluido de Lino"
+        },
+        "badges": [
+          "featured"
+        ]
+      },
+      {
+        "id": "2",
+        "slug": "top-seda-minimal",
+        "name": "Top de Seda Minimal",
+        "description": "Top de seda con cuello barco.",
+        "price": 98,
+        "categoryId": "cat_tops",
+        "collectionId": "col_lino",
+        "colors": [
+          "Marfil"
+        ],
+        "sizes": [
+          "XS",
+          "S",
+          "M",
+          "L"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1564257631407-4deb1f99d992?w=1200&q=80",
+          "alt": "Top de Seda Minimal"
+        }
+      },
+      {
+        "id": "3",
+        "slug": "pantalon-ancho-lino",
+        "name": "Pantalón Ancho de Lino",
+        "description": "Pantalón de tiro alto con pliegue frontal.",
+        "price": 145,
+        "categoryId": "cat_pantalones",
+        "collectionId": "col_urbana",
+        "colors": [
           "Carbón"
         ],
         "sizes": [
@@ -152,228 +193,85 @@
           "L"
         ],
         "image": {
-          "url": "https://images.unsplash.com/photo-1518310383802-640c2de311b2?w=1200&q=80",
-          "alt": "Shorts Compresión Mujer"
-        },
-        "badges": [
-          "new",
-          "featured"
-        ]
-      },
-      {
-        "id": "2",
-        "slug": "sports-bra-alto-impacto",
-        "name": "Sports Bra Alto Impacto",
-        "description": "Sujetador deportivo con soporte máximo, tirantes cruzados y tejido antibacteriano.",
-        "price": 42,
-        "categoryId": "cat_mujer",
-        "collectionId": "col_wod",
-        "colors": [
-          "Negro",
-          "Naranja"
-        ],
-        "sizes": [
-          "XS",
-          "S",
-          "M",
-          "L"
-        ],
-        "image": {
-          "url": "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=1200&q=80",
-          "alt": "Sports Bra Alto Impacto"
-        },
-        "badges": [
-          "featured"
-        ]
-      },
-      {
-        "id": "3",
-        "slug": "camiseta-tecnica-hombre",
-        "name": "Camiseta Técnica Hombre",
-        "description": "Camiseta ligera con paneles de malla y costuras planas. Ideal para WOD y calentamiento.",
-        "price": 35,
-        "categoryId": "cat_hombre",
-        "collectionId": "col_wod",
-        "colors": [
-          "Negro",
-          "Gris"
-        ],
-        "sizes": [
-          "S",
-          "M",
-          "L",
-          "XL",
-          "XXL"
-        ],
-        "image": {
-          "url": "https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=1200&q=80",
-          "alt": "Camiseta Técnica Hombre"
-        },
-        "badges": [
-          "featured"
-        ]
-      },
-      {
-        "id": "4",
-        "slug": "hoodie-box-fit-hombre",
-        "name": "Hoodie Box Fit Hombre",
-        "description": "Sudadera con capucha, fit atlético y felpa técnica. Para calentar y salir del box.",
-        "price": 68,
-        "categoryId": "cat_hombre",
-        "collectionId": "col_strength",
-        "colors": [
-          "Carbón",
-          "Negro"
-        ],
-        "sizes": [
-          "S",
-          "M",
-          "L",
-          "XL"
-        ],
-        "image": {
-          "url": "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=1200&q=80",
-          "alt": "Hoodie Box Fit Hombre"
-        },
-        "badges": [
-          "new"
-        ]
-      },
-      {
-        "id": "5",
-        "slug": "nano-training-shoes",
-        "name": "Nano Training Shoes",
-        "description": "Zapatilla estable para levantamientos con suela flexible para carreras y saltos.",
-        "price": 129,
-        "categoryId": "cat_zapatos",
-        "collectionId": "col_wod",
-        "colors": [
-          "Negro",
-          "Blanco"
-        ],
-        "sizes": [
-          "38",
-          "39",
-          "40",
-          "41",
-          "42",
-          "43",
-          "44",
-          "45"
-        ],
-        "image": {
-          "url": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=1200&q=80",
-          "alt": "Nano Training Shoes"
-        },
-        "hoverImage": {
-          "url": "https://images.unsplash.com/photo-1606107557195-0f29cb4c3abc?w=1200&q=80",
-          "alt": "Nano Training Shoes lateral"
-        },
-        "badges": [
-          "featured"
-        ]
-      },
-      {
-        "id": "6",
-        "slug": "rodilleras-7mm",
-        "name": "Rodilleras 7mm",
-        "description": "Rodilleras de neopreno 7mm con agarre antideslizante para sentadillas y wall balls.",
-        "price": 55,
-        "categoryId": "cat_accesorios",
-        "collectionId": "col_strength",
-        "colors": [
-          "Negro"
-        ],
-        "sizes": [
-          "S",
-          "M",
-          "L"
-        ],
-        "image": {
-          "url": "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=1200&q=80",
-          "alt": "Rodilleras 7mm"
-        },
-        "badges": [
-          "featured"
-        ]
-      },
-      {
-        "id": "7",
-        "slug": "cuerda-speed-rope",
-        "name": "Cuerda Speed Rope",
-        "description": "Comba de acero con rodamientos de bolas y mango ergonómico. Ajuste rápido de longitud.",
-        "price": 32,
-        "categoryId": "cat_accesorios",
-        "collectionId": "col_metcon",
-        "colors": [
-          "Negro/Naranja"
-        ],
-        "sizes": [
-          "Único"
-        ],
-        "image": {
-          "url": "https://images.unsplash.com/photo-1599058945522-28d584b6f38f?w=1200&q=80",
-          "alt": "Cuerda Speed Rope"
-        },
-        "badges": [
-          "new"
-        ]
-      },
-      {
-        "id": "8",
-        "slug": "leggings-power-mujer",
-        "name": "Leggings Power Mujer",
-        "description": "Leggings de compresión con cintura ancha y refuerzo en glúteos. Cero transparencia en sentadilla.",
-        "price": 58,
-        "categoryId": "cat_mujer",
-        "collectionId": "col_strength",
-        "colors": [
-          "Negro",
-          "Grafito"
-        ],
-        "sizes": [
-          "XS",
-          "S",
-          "M",
-          "L"
-        ],
-        "image": {
-          "url": "https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=1200&q=80",
-          "alt": "Leggings Power Mujer"
-        },
-        "badges": [
-          "featured"
-        ]
-      },
-      {
-        "id": "9",
-        "slug": "muñequeras-lifting",
-        "name": "Muñequeras Lifting",
-        "description": "Muñequeras rígidas de lona con cierre velcro. Soporte para press y jerks.",
-        "price": 28,
-        "categoryId": "cat_accesorios",
-        "collectionId": "col_strength",
-        "colors": [
-          "Negro"
-        ],
-        "sizes": [
-          "Único"
-        ],
-        "image": {
-          "url": "https://images.unsplash.com/photo-1517964600625-797c8b7d08a1?w=1200&q=80",
-          "alt": "Muñequeras Lifting"
+          "url": "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=1200&q=80",
+          "alt": "Pantalón Ancho de Lino"
         }
       },
       {
-        "id": "10",
-        "slug": "tank-wod-mujer",
-        "name": "Tank WOD Mujer",
-        "description": "Tank con espalda nadadora y tejido mesh lateral. Máxima ventilación en chipper y AMRAP.",
-        "price": 32,
-        "categoryId": "cat_mujer",
-        "collectionId": "col_metcon",
+        "id": "4",
+        "slug": "abrigo-lana-oversize",
+        "name": "Abrigo de Lana Oversize",
+        "description": "Abrigo de lana virgen con hombro caído.",
+        "price": 320,
+        "categoryId": "cat_abrigos",
+        "collectionId": "col_primavera",
         "colors": [
-          "Blanco",
+          "Camel"
+        ],
+        "sizes": [
+          "XS",
+          "S",
+          "M",
+          "L"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=1200&q=80",
+          "alt": "Abrigo de Lana Oversize"
+        }
+      },
+      {
+        "id": "5",
+        "slug": "vestido-midi-saten",
+        "name": "Vestido Midi de Satén",
+        "description": "Vestido de satén con espalda abierta.",
+        "price": 210,
+        "categoryId": "cat_vestidos",
+        "collectionId": "col_urbana",
+        "colors": [
+          "Champagne"
+        ],
+        "sizes": [
+          "XS",
+          "S",
+          "M",
+          "L"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=1200&q=80",
+          "alt": "Vestido Midi de Satén"
+        }
+      },
+      {
+        "id": "6",
+        "slug": "blusa-algodon-organico",
+        "name": "Blusa de Algodón Orgánico",
+        "description": "Blusa de algodón orgánico con cuello mao.",
+        "price": 88,
+        "categoryId": "cat_tops",
+        "collectionId": "col_primavera",
+        "colors": [
+          "Blanco"
+        ],
+        "sizes": [
+          "XS",
+          "S",
+          "M",
+          "L"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1582552936334-44886ff0facc?w=1200&q=80",
+          "alt": "Blusa de Algodón Orgánico"
+        }
+      },
+      {
+        "id": "7",
+        "slug": "pantalon-pinzas-seda",
+        "name": "Pantalón de Pinzas en Seda",
+        "description": "Pantalón de pinzas en mezcla de seda.",
+        "price": 168,
+        "categoryId": "cat_pantalones",
+        "collectionId": "col_lino",
+        "colors": [
           "Negro"
         ],
         "sizes": [
@@ -383,154 +281,163 @@
           "L"
         ],
         "image": {
-          "url": "https://images.unsplash.com/photo-1518310383802-640c2de311b2?w=1200&q=80",
-          "alt": "Tank WOD Mujer"
+          "url": "https://images.unsplash.com/photo-1509630879475-866972beea19?w=1200&q=80",
+          "alt": "Pantalón de Pinzas en Seda"
+        }
+      },
+      {
+        "id": "8",
+        "slug": "blazer-estructurado",
+        "name": "Blazer Estructurado",
+        "description": "Blazer entallado con solapa fina.",
+        "price": 245,
+        "categoryId": "cat_abrigos",
+        "collectionId": "col_urbana",
+        "colors": [
+          "Negro"
+        ],
+        "sizes": [
+          "XS",
+          "S",
+          "M",
+          "L"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1591369822096-ffd140ec948f?w=1200&q=80",
+          "alt": "Blazer Estructurado"
         }
       }
     ]
   },
   "sections": {
     "hero": {
-      "headline": "LUMEN PRO",
-      "subheadline": "Equipamiento de competición para RX y scaled.",
+      "headline": "Lumen Atelier",
+      "subheadline": "Piezas de autor con materiales trazables y confección consciente.",
       "image": {
-        "url": "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=2400&q=85",
-        "alt": "Atleta realizando sentadilla en box de CrossFit"
+        "url": "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=2400&q=85",
+        "alt": "Mujer con vestido editorial en estudio"
       },
       "ctaPrimary": {
-        "label": "Ver tienda",
+        "label": "Ver colección",
         "href": "/tienda"
       },
       "ctaSecondary": {
-        "label": "WOD Essentials",
-        "href": "/tienda?coleccion=wod-essentials"
+        "label": "Lino y Seda",
+        "href": "/tienda?coleccion=lino-y-seda"
       }
     },
-    "disciplines": {
-      "eyebrow": "Disciplinas",
-      "title": "Entrena cada modalidad con el gear correcto.",
-      "itemCtaLabel": "Explorar",
+    "wardrobe": {
+      "eyebrow": "Colecciones",
+      "title": "Tres universos, un mismo lenguaje.",
+      "itemCtaLabel": "Ver colección",
       "collectionIds": [
-        "col_wod",
-        "col_strength",
-        "col_metcon"
+        "col_primavera",
+        "col_urbana",
+        "col_lino"
       ]
     },
-    "gearSpotlight": {
-      "eyebrow": "Gear spotlight",
-      "title": "Favoritos del box",
+    "arrivals": {
+      "eyebrow": "Selección",
+      "title": "Favoritas del atelier",
       "viewAll": {
-        "label": "Ver todo",
+        "label": "Ver catálogo",
         "href": "/tienda"
       },
       "productIds": [
         "1",
-        "2",
-        "3",
+        "4",
         "5",
-        "6",
+        "7",
         "8"
       ]
     },
-    "performance": {
-      "eyebrow": "Performance",
-      "title": "Tejidos que aguantan el WOD.",
-      "body": "Materiales de compresión 4 vías, costuras planas y acabados antibacterianos. Diseñado para sudar, levantar y repetir.",
+    "fabricNote": {
+      "eyebrow": "Materia",
+      "title": "El tejido como protagonista.",
+      "body": "Seleccionamos fibras por tacto, origen y comportamiento. Cada lote se prueba antes de entrar en producción.",
       "image": {
-        "url": "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50e?w=2400&q=85",
-        "alt": "Detalle de tejido técnico deportivo"
+        "url": "https://images.unsplash.com/photo-1558171813-1c765d8ddfb5?w=2400&q=85",
+        "alt": "Muestrario de telas naturales"
       },
       "cta": {
-        "label": "Nuestra tecnología",
+        "label": "Conoce el proceso",
         "href": "/nosotros"
       }
     },
-    "community": {
-      "eyebrow": "Comunidad",
-      "title": "Únete al crew Lumen",
-      "subtitle": "Acceso anticipado a drops, eventos de box y entrenamientos exclusivos.",
-      "placeholder": "tu@email.com",
-      "submitLabel": "Unirme",
-      "successMessage": "¡Bienvenido al crew! Te escribiremos pronto."
+    "editorial": {
+      "eyebrow": "Manifiesto",
+      "title": "Menos piezas, más significado.",
+      "body": "Diseñamos para mujeres que valoran la calidad sobre la cantidad y buscan un guardarropa con alma.",
+      "cta": {
+        "label": "Visitar tienda",
+        "href": "/tienda"
+      }
     },
     "shop": {
       "eyebrow": "Tienda",
-      "title": "Todo el catálogo",
-      "description": "Ropa, zapatos y accesorios CrossFit. Filtra por categoría, colección o modo de venta."
+      "title": "Catálogo completo",
+      "description": "Explora vestidos, tops, pantalones y abrigos."
     },
     "about": {
       "intro": {
-        "eyebrow": "Nuestra historia",
-        "title": "Nacidos en el box.",
-        "body": "Lumen nació cuando un grupo de coaches y atletas dejó de conformarse con ropa que no aguantaba el ritmo. Hoy diseñamos piezas probadas en WOD reales: del calentamiento al último burpee."
+        "eyebrow": "Atelier",
+        "title": "Donde nace cada pieza.",
+        "body": "Lumen Atelier trabaja con talleres locales para crear colecciones limitadas con atención artesanal."
       },
       "bannerImage": {
-        "url": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=2400&q=85",
-        "alt": "Interior de box de CrossFit con barras y kettlebells"
+        "url": "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=2400&q=85",
+        "alt": "Taller de confección"
       },
       "blocks": [
         {
-          "id": "fabricacion",
-          "title": "Tejidos técnicos",
-          "body": "Compresión 4 vías, secado rápido y costuras planas que eliminan rozaduras en gimnasia y metcon."
+          "id": "origen",
+          "title": "Origen trazable",
+          "body": "Proveedores certificados y fibras naturales con documentación de origen."
         },
         {
-          "id": "fit",
-          "title": "Fit atlético",
-          "body": "Cortes pensados para sentadilla profunda, muscle-up y carreras. Ni holgado ni restrictivo."
+          "id": "oficio",
+          "title": "Oficio local",
+          "body": "Confección en talleres de proximidad con condiciones laborales justas."
         },
         {
-          "id": "box",
-          "title": "Probado en box",
-          "body": "Cada colección pasa por atletas de distintos niveles antes de llegar a la tienda."
+          "id": "tiempo",
+          "title": "Tiempo consciente",
+          "body": "Producciones en lotes pequeños que respetan el ritmo del oficio."
         }
       ],
       "locations": {
-        "eyebrow": "Box partners",
-        "title": "Dónde probamos",
+        "eyebrow": "Espacios",
+        "title": "Showrooms",
         "items": [
           {
-            "city": "Madrid",
-            "address": "Calle del Hierro 12, 28045",
-            "hours": "Lun–Vie 6:00–22:00"
-          },
-          {
-            "city": "Barcelona",
-            "address": "Passeig de Gràcia 88, 08008",
-            "hours": "Lun–Sáb 7:00–21:00"
+            "city": "Valencia",
+            "address": "Calle de la Paz 18, 46003",
+            "hours": "Mar–Sáb 10:00–19:00"
           }
         ]
       },
       "closing": {
-        "title": "¿Listo para el próximo WOD?",
-        "body": "Explora el catálogo completo o visita nuestro showroom en box partner.",
+        "title": "Reserva tu cita en showroom",
+        "body": "Descubre las piezas en persona o explora el catálogo online.",
         "cta": {
-          "label": "Ir a la tienda",
+          "label": "Ver tienda",
           "href": "/tienda"
         }
       }
     },
     "footer": {
-      "blurb": "Lumen CrossFit — ropa y gear para atletas que viven el box.",
+      "blurb": "Lumen Atelier — moda femenina de autor con materiales nobles.",
       "columns": [
         {
-          "title": "Explorar",
+          "title": "Tienda",
           "links": [
             {
-              "label": "Tienda",
+              "label": "Catálogo",
               "href": "/tienda"
             },
             {
-              "label": "Mujer",
-              "href": "/tienda?categoria=mujer"
-            },
-            {
-              "label": "Hombre",
-              "href": "/tienda?categoria=hombre"
-            },
-            {
-              "label": "Accesorios",
-              "href": "/tienda?categoria=accesorios"
+              "label": "Vestidos",
+              "href": "/tienda?categoria=vestidos"
             }
           ]
         },
@@ -538,16 +445,8 @@
           "title": "Marca",
           "links": [
             {
-              "label": "Nuestra historia",
+              "label": "Atelier",
               "href": "/nosotros"
-            },
-            {
-              "label": "Sostenibilidad",
-              "href": "/nosotros#sostenibilidad"
-            },
-            {
-              "label": "Ateliers",
-              "href": "/nosotros#ateliers"
             }
           ]
         },
@@ -555,26 +454,14 @@
           "title": "Ayuda",
           "links": [
             {
-              "label": "Envíos",
-              "href": "#"
-            },
-            {
-              "label": "Devoluciones",
-              "href": "#"
-            },
-            {
-              "label": "Guía de tallas",
-              "href": "#"
-            },
-            {
               "label": "Contacto",
               "href": "#"
             }
           ]
         }
       ],
-      "tagline": "Train hard. Recover fast.",
-      "copyrightName": "Lumen CrossFit"
+      "tagline": "Crafted with intention.",
+      "copyrightName": "Lumen Atelier"
     }
   },
   "ui": {
@@ -675,7 +562,13 @@
         "sale": "Oferta",
         "bestseller": "Más vendido",
         "limitedEdition": "Edición limitada"
-      }
+      },
+      "stockInsufficientImmediate": "Solo tenemos {count} unidades para entrega inmediata.",
+      "stockInsufficientMadeToOrderHint": "Puedes pedir el resto bajo pedido con el plazo de preparación indicado.",
+      "stockExhaustedImmediateTitle": "Sin stock para entrega inmediata",
+      "stockExhaustedMadeToOrderAvailable": "Disponible a pedido",
+      "buyMadeToOrderCta": "Comprar bajo pedido",
+      "stockUpsellModalTitle": "Opciones de compra"
     },
     "shop": {
       "empty": "No hay piezas con estos filtros.",
@@ -683,7 +576,7 @@
     },
     "notFound": {
       "title": "Página no encontrada",
-      "body": "Esta ruta no existe en Lumen."
+      "body": "Esta ruta no existe en Lumen Atelier."
     },
     "salesMode": {
       "stock": {

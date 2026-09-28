@@ -16,6 +16,7 @@ import { ProductView } from "./components/pages/ProductView";
 import { AcademiaView } from "./components/pages/AcademiaView";
 import { CartView } from "./components/pages/CartView";
 import { OrderConfirmationView } from "./components/commerce/OrderConfirmationView";
+import { OrderTrackingView } from "./components/commerce/OrderTrackingView";
 import { AccountLoginForm } from "./components/account/AccountLoginForm";
 import { AccountRegisterForm } from "./components/account/AccountRegisterForm";
 import { AccountDashboard } from "./components/account/AccountDashboard";
@@ -44,6 +45,7 @@ export function VoxaApp({
   slug,
   commerceHost,
   orderConfirmation,
+  orderTracking,
   accountLogin,
   accountRegister,
   accountDashboard,
@@ -76,6 +78,11 @@ export function VoxaApp({
     case "orderConfirmation":
       view = orderConfirmation ? (
         <OrderConfirmationView {...orderConfirmation} />
+      ) : null;
+      break;
+    case "orderTracking":
+      view = orderTracking ? (
+        <OrderTrackingView {...orderTracking} />
       ) : null;
       break;
     case "accountLogin":

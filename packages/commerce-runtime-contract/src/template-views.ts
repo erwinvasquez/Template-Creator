@@ -28,6 +28,7 @@ export type {
   AccountRegisterFormProps,
   AccountDashboardProps,
 } from "./account";
+import type { OrderTrackingViewProps } from "./tracking";
 
 export interface ProductListingViewProps {
   data: ProductSearchViewModel;
@@ -214,6 +215,7 @@ export interface CommerceTemplateViews {
   CheckoutOrderSummary?: ComponentType<CheckoutOrderSummaryProps>;
   CheckoutSubmitActions?: ComponentType<CheckoutSubmitActionsProps>;
   OrderConfirmation?: ComponentType<OrderConfirmationViewProps>;
+  OrderTracking?: ComponentType<OrderTrackingViewProps>;
   AccountLoginForm?: ComponentType<AccountLoginFormProps>;
   AccountRegisterForm?: ComponentType<AccountRegisterFormProps>;
   AccountDashboard?: ComponentType<AccountDashboardProps>;
@@ -231,6 +233,7 @@ export type TemplateAppPageId =
   | "cart"
   | "checkout"
   | "orderConfirmation"
+  | "orderTracking"
   | "accountLogin"
   | "accountRegister"
   | "accountDashboard";
@@ -248,6 +251,7 @@ export interface TemplateAppProps<TPayload = unknown, THost = unknown> {
   commerceHost?: THost | null;
   checkoutPage?: CheckoutPageProps | null;
   orderConfirmation?: OrderConfirmationViewProps | null;
+  orderTracking?: OrderTrackingViewProps | null;
   accountLogin?: AccountLoginFormProps | null;
   accountRegister?: AccountRegisterFormProps | null;
   accountDashboard?: AccountDashboardProps | null;

@@ -32,6 +32,7 @@
         "checkoutLayout": { "type": "boolean" },
         "checkoutPage": { "type": "boolean" },
         "orderConfirmation": { "type": "boolean" },
+        "orderTracking": { "type": "boolean" },
         "accountLogin": { "type": "boolean" },
         "accountRegister": { "type": "boolean" },
         "accountDashboard": { "type": "boolean" }

@@ -37,7 +37,22 @@
       "fashion-celestine-v1/*": ["./templates/fashion-celestine-v1/src/*"],
       "fashion-lumen-v1": ["./templates/fashion-lumen-v1/src/index.ts"],
       "fashion-lumen-v1/client": ["./templates/fashion-lumen-v1/src/client.ts"],
-      "fashion-lumen-v1/*": ["./templates/fashion-lumen-v1/src/*"]
+      "fashion-lumen-v1/*": ["./templates/fashion-lumen-v1/src/*"],
+      "fashion-velvet-v1": ["./templates/fashion-velvet-v1/src/index.ts"],
+      "fashion-velvet-v1/client": ["./templates/fashion-velvet-v1/src/client.ts"],
+      "fashion-velvet-v1/*": ["./templates/fashion-velvet-v1/src/*"],
+      "fashion-nova-v1": ["./templates/fashion-nova-v1/src/index.ts"],
+      "fashion-nova-v1/client": ["./templates/fashion-nova-v1/src/client.ts"],
+      "fashion-nova-v1/*": ["./templates/fashion-nova-v1/src/*"],
+      "food-trattoria-v1": ["./templates/food-trattoria-v1/src/index.ts"],
+      "food-trattoria-v1/client": ["./templates/food-trattoria-v1/src/client.ts"],
+      "food-trattoria-v1/*": ["./templates/food-trattoria-v1/src/*"],
+      "food-cantina-v1": ["./templates/food-cantina-v1/src/index.ts"],
+      "food-cantina-v1/client": ["./templates/food-cantina-v1/src/client.ts"],
+      "food-cantina-v1/*": ["./templates/food-cantina-v1/src/*"],
+      "food-patisserie-v1": ["./templates/food-patisserie-v1/src/index.ts"],
+      "food-patisserie-v1/client": ["./templates/food-patisserie-v1/src/client.ts"],
+      "food-patisserie-v1/*": ["./templates/food-patisserie-v1/src/*"]
     }
   },
   "include": [

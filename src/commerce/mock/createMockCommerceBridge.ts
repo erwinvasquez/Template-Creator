@@ -35,6 +35,7 @@ type Listener = () => void;
 
 export type MockCommerceBridge = CommerceRuntimeBridge & {
   subscribe: (listener: Listener) => () => void;
+  getCartSnapshot: () => CartViewModel;
   getSelectedProductSlug: () => string | null;
   setSelectedProductSlug: (slug: string | null) => void;
   isCartDrawerOpen: () => boolean;
@@ -326,6 +327,10 @@ export function createMockCommerceBridge(
         variants,
         selectedVariantId: selected,
         canAddToCart: true,
+        optionDefinitions: [
+          { name: "Talla", values: ["S", "M"] },
+          { name: "Color", values: ["Stone", "Negro"] },
+        ],
         specifications: [
           { key: "Composición", value: "100% cashmere" },
           { key: "Origen", value: "Italia" },
@@ -647,6 +652,7 @@ export function createMockCommerceBridge(
     async getCart() {
       return cart;
     },
+    getCartSnapshot: () => cart,
     async getCheckout() {
       const kind = fixtureId === "checkout-pickup" ? "pickup" : "delivery";
       return buildCheckout(kind);

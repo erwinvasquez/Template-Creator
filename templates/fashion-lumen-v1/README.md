@@ -1,6 +1,6 @@
 # fashion-lumen-v1
 
-Template e-commerce plug & play de **ropa deportiva CrossFit** para hombre y mujer: ropa, zapatos y accesorios.
+Template e-commerce plug & play de **moda femenina editorial minimal** (quiet luxury daytime).
 
 ## Identidad
 
@@ -9,17 +9,17 @@ Template e-commerce plug & play de **ropa deportiva CrossFit** para hombre y muj
 | `templateId` | `fashion-lumen-v1` |
 | `TEMPLATE_SLUG` | `lumen` |
 | Categoría | `ecommerce-fashion` |
-| Industry tags | `fashion`, `apparel`, `sports` |
+| Industry tags | `fashion`, `apparel`, `minimal`, `editorial` |
 | Shop path | `/tienda` |
 | PDP | `/tienda/[slug]` |
 | About | `/nosotros` |
-| Tipografías | Barlow Condensed + Barlow |
-| Paleta | Carbón `#0F0F0F` + naranja eléctrico `#FF4D00` |
+| Tipografías | Playfair Display + Inter |
+| Paleta | Carbón `#18181B` + blush `#BE185D` + crema `#FAFAFA` |
 | Sales mode | Ambos (`salesModeSwitch: supported`) |
 
 ## Secciones home
 
-`hero` → `disciplines` → `gearSpotlight` → `performance` → `community` → `footer`
+`hero` → `wardrobe` → `arrivals` → `fabricNote` → `editorial` → `footer`
 
 ## Consumo SaaS
 

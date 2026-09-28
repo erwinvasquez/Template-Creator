@@ -89,6 +89,7 @@
       "checkoutLayout": true,
       "checkoutPage": false,
       "orderConfirmation": true,
+      "orderTracking": true,
       "accountLogin": true,
       "accountRegister": true,
       "accountDashboard": true

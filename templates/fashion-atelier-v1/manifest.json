@@ -87,6 +87,7 @@
       "checkoutLayout": true,
       "checkoutPage": false,
       "orderConfirmation": true,
+      "orderTracking": true,
       "accountLogin": true,
       "accountRegister": true,
       "accountDashboard": true
@@ -185,8 +186,7 @@
     "commerceFeaturedProductsPath": "sections.featured.productIds",
     "commerceFeaturedCollectionsPath": "sections.collections.collectionIds",
     "featuredProductPath": "sections.featured.productIds",
-    "collectionIdsPath": "sections.collections.collectionIds",
-    "collectionsCount": 3
+    "collectionIdsPath": "sections.collections.collectionIds"
   },
   "export": {
     "files": [

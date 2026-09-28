@@ -595,7 +595,7 @@
       "title": "Tu inscripción",
       "empty": "Aún no has añadido programas.",
       "exploreCta": "Ver catálogo",
-      "checkout": "Confirmar inscripción",
+      "checkout": "Finalizar compra",
       "shippingHint": "Acceso inmediato al aula tras la confirmación"
     },
     "product": {
@@ -609,6 +609,12 @@
       "addingToCart": "Añadiendo…",
       "priceBookLabel": "Precio del ejemplar",
       "priceProgramLabel": "Inversión por plaza en la cohorte",
+      "stockInsufficientImmediate": "Solo tenemos {count} unidades para entrega inmediata.",
+      "stockInsufficientMadeToOrderHint": "Puedes pedir el resto bajo pedido con el plazo de preparación indicado.",
+      "stockExhaustedImmediateTitle": "Sin stock para entrega inmediata",
+      "stockExhaustedMadeToOrderAvailable": "Disponible a pedido",
+      "buyMadeToOrderCta": "Comprar bajo pedido",
+      "stockUpsellModalTitle": "Opciones de compra",
       "badges": {
         "new": "Nueva cohorte",
         "featured": "Destacado",
