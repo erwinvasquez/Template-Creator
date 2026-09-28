@@ -104,6 +104,24 @@ export function createPayloadCommerceBridge(
 
   let cart = emptyCart();
 
+  function cardAvailabilityFields(
+    p: (typeof products)[0],
+  ): Pick<ProductCardViewModel, "stockLabel" | "madeToOrderUpsell"> {
+    const mode = currentSalesMode();
+    const isDemoStockZero =
+      dualSalesMode && mode === "stock" && p.slug === products[0]?.slug;
+    if (!isDemoStockZero) {
+      return { stockLabel: "available" };
+    }
+    return {
+      stockLabel: "out_of_stock",
+      madeToOrderUpsell: {
+        productHref: `${SHOP_PATH}/${p.slug}?salesMode=madeToOrder`,
+        preparationPromiseLabel: mtoPrepLabel ?? "3–5 días",
+      },
+    };
+  }
+
   function toCard(p: (typeof products)[0]): ProductCardViewModel {
     return {
       id: p.id,
@@ -115,7 +133,7 @@ export function createPayloadCommerceBridge(
       displayPrice: formatEur(p.price),
       currency: payload.brand.currency,
       defaultVariantId: `${p.id}-default`,
-      stockLabel: "available",
+      ...cardAvailabilityFields(p),
       badges: [
         ...(p.isNew ? ["new"] : []),
         ...(p.isFeatured ? ["featured"] : []),

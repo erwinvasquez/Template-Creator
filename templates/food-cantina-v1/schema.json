@@ -56,6 +56,9 @@
     },
     "ui": {
       "$ref": "../../packages/template-content-contract/uiCopy.schema.json"
+    },
+    "layout": {
+      "$ref": "#/$defs/Layout"
     }
   },
   "$defs": {
@@ -977,6 +980,39 @@
         },
         "relatedProducts": {
           "type": "boolean"
+        }
+      }
+    },
+    "Layout": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "pages": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "home": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "sectionOrder": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {
+                    "type": "string",
+                    "enum": [
+                      "hero",
+                      "lanes",
+                      "salsaBar",
+                      "mercado",
+                      "fiesta",
+                      "merch"
+                    ]
+                  }
+                }
+              }
+            }
+          }
         }
       }
     }

@@ -1,19 +1,9 @@
 "use client";
 
-import { Hero } from "../Hero";
-import { Signatures } from "../Signatures";
-import { CraftBand } from "../CraftBand";
-import { MaterialsRow } from "../MaterialsRow";
-import { AppointmentBand } from "../AppointmentBand";
+import { useSiteContent } from "../../lib/site-content";
+import { renderHomeSections } from "../../lib/home-section-registry";
 
 export function HomeView() {
-  return (
-    <>
-      <Hero />
-      <Signatures />
-      <CraftBand />
-      <MaterialsRow />
-      <AppointmentBand />
-    </>
-  );
+  const { payload } = useSiteContent();
+  return <>{renderHomeSections(payload)}</>;
 }

@@ -42,6 +42,11 @@ export {
 } from "./stockToMtoTransition";
 export type { StockToMtoTransitionTrigger } from "./stockToMtoTransition";
 export {
+  catalogCardHref,
+  resolveCatalogAvailabilityPresentation,
+} from "./catalogAvailabilityPresentation";
+export type { CatalogAvailabilityPresentation } from "./catalogAvailabilityPresentation";
+export {
   createEmptyAccountLoginState,
   createEmptyAccountRegisterState,
 } from "./account";

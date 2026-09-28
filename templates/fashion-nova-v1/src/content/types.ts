@@ -82,6 +82,16 @@ export type CatalogProduct = {
   badges?: Array<"new" | "featured">;
 };
 
+export type HomePageLayout = {
+  sectionOrder?: string[];
+};
+
+export type Layout = {
+  pages?: {
+    home?: HomePageLayout;
+  };
+};
+
 export type ContentPayload = {
   schemaVersion: "1.0.0";
   templateId: "fashion-nova-v1";
@@ -95,6 +105,7 @@ export type ContentPayload = {
     /** Mount-relative account root. Default `/cuenta`. SaaS may use `/account`. */
     accountBasePath?: string;
   };
+  layout?: Layout;
   navigation: { primary: NavLink[] };
   seo: {
     titleTemplate: string;

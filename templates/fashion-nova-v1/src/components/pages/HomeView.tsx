@@ -1,21 +1,9 @@
 "use client";
 
-import { Hero } from "../Hero";
-import { DropZone } from "../DropZone";
-import { TrendWall } from "../TrendWall";
-import { ColorPulse } from "../ColorPulse";
-import { SquadStrip } from "../SquadStrip";
-import { FlashLane } from "../FlashLane";
+import { useSiteContent } from "../../lib/site-content";
+import { renderHomeSections } from "../../lib/home-section-registry";
 
 export function HomeView() {
-  return (
-    <>
-      <Hero />
-      <DropZone />
-      <TrendWall />
-      <ColorPulse />
-      <SquadStrip />
-      <FlashLane />
-    </>
-  );
+  const { payload } = useSiteContent();
+  return <>{renderHomeSections(payload)}</>;
 }

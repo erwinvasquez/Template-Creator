@@ -98,6 +98,16 @@ export type MaterialItem = {
   image: MediaRef;
 };
 
+export type HomePageLayout = {
+  sectionOrder?: string[];
+};
+
+export type Layout = {
+  pages?: {
+    home?: HomePageLayout;
+  };
+};
+
 export type ContentPayload = {
   schemaVersion: "1.0.0";
   templateId: "jewelry-orion-v1";
@@ -112,6 +122,7 @@ export type ContentPayload = {
     /** Mount-relative account root. Default `/cuenta`. SaaS may use `/account`. */
     accountBasePath?: string;
   };
+  layout?: Layout;
   navigation: { primary: NavLink[] };
   seo: {
     titleTemplate: string;

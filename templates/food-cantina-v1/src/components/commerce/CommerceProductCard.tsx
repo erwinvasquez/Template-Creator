@@ -3,6 +3,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { ProductCardViewModel } from "@shopenlinea/commerce-runtime-contract";
+import {
+  catalogCardHref,
+  resolveCatalogAvailabilityPresentation,
+} from "@shopenlinea/commerce-runtime-contract";
 import { useSiteContent } from "../../lib/site-content";
 import { requireUi } from "../../lib/ui";
 import { withBasePath } from "../../content/resolve";
@@ -21,11 +25,10 @@ export function CommerceProductCard({
   const isNew = product.badges?.includes("new");
   const isFeatured = product.badges?.includes("featured");
   const isSale = product.badges?.includes("sale");
-  const isOut = product.stockLabel === "out_of_stock";
-  const href = withBasePath(
-    basePath,
-    product.href.startsWith("/") ? product.href : `/${product.href}`,
-  );
+  const presentation = resolveCatalogAvailabilityPresentation(product);
+  const soldOut = presentation === "sold_out";
+  const mtoAvailable = presentation === "made_to_order_available";
+  const href = withBasePath(basePath, catalogCardHref(product));
 
   const primaryBadge = isNew
     ? badges.new
@@ -50,7 +53,7 @@ export function CommerceProductCard({
               alt={product.name}
               fill
               priority={priority}
-              className={`object-cover transition-transform duration-500 group-hover:scale-105 ${isOut ? "opacity-50" : ""}`}
+              className={`object-cover transition-transform duration-500 group-hover:scale-105 ${soldOut ? "opacity-50" : ""}`}
               sizes="(max-width: 768px) 50vw, 33vw"
             />
           )}
@@ -62,6 +65,15 @@ export function CommerceProductCard({
           {product.discountPercent != null && product.discountPercent > 0 ? (
             <span className="absolute right-0 top-0 bg-secondary px-2 py-1 text-[10px] font-bold uppercase text-background">
               −{product.discountPercent}%
+            </span>
+          ) : null}
+          {mtoAvailable ? (
+            <span className="absolute inset-x-0 bottom-0 bg-secondary py-2 text-center text-[10px] font-bold uppercase tracking-[0.12em] text-background">
+              {productUi.buyMadeToOrderCta}
+            </span>
+          ) : soldOut ? (
+            <span className="absolute inset-x-0 bottom-0 bg-primary/80 py-2 text-center text-[10px] font-bold uppercase tracking-[0.12em] text-background">
+              {productUi.outOfStock}
             </span>
           ) : null}
         </div>

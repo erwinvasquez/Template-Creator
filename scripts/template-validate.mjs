@@ -404,6 +404,18 @@ if (fs.existsSync(heroPath)) {
   }
 }
 
+const homeViewPath = path.join(root, "src", "components", "pages", "HomeView.tsx");
+const homeRegistryPath = path.join(root, "src", "lib", "home-section-registry.tsx");
+if (fs.existsSync(homeViewPath)) {
+  const homeSrc = fs.readFileSync(homeViewPath, "utf8");
+  if (!homeSrc.includes("home-section-registry")) {
+    errors.push("[home] HomeView.tsx must import home-section-registry");
+  }
+}
+if (fs.existsSync(homeViewPath) && !fs.existsSync(homeRegistryPath)) {
+  errors.push("[home] missing src/lib/home-section-registry.tsx");
+}
+
 // Phase 0 — client.ts must export canonical symbols (static check)
 const clientPath = path.join(root, "src", "client.ts");
 if (fs.existsSync(clientPath)) {

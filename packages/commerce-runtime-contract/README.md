@@ -50,6 +50,15 @@ Import from `stockToMtoTransition.ts` — **do not** duplicate in `lib/made-to-o
 - `resolveStockToMtoTransition(product, selected, requestedQty)` — `null` or trigger A/B.
 - Copy: `ui.product.stockExhaustedImmediateTitle`, `stockExhaustedMadeToOrderAvailable`, `buyMadeToOrderCta`.
 
+## Stock → MTO hint (PLP / catalog cards)
+
+Import from `catalogAvailabilityPresentation.ts` — **do not** duplicate locally.
+
+- `ProductCardViewModel.madeToOrderUpsell` — same shape as PDP upsell; host sends in **stock** catalog when dual-mode and MTO channel is open.
+- `resolveCatalogAvailabilityPresentation(product)` → `available` | `contact` | `sold_out` | `made_to_order_available`.
+- `catalogCardHref(product)` — prefer `madeToOrderUpsell.productHref` when `made_to_order_available`.
+- Templates: `sold_out` → overlay `ui.product.outOfStock` + dim image; `made_to_order_available` → label `ui.product.buyMadeToOrderCta`, no sold-out overlay/dim.
+
 ## Order tracking (public `/track`)
 
 - Types in `tracking.ts`: `OrderTrackingViewModel`, `OrderTrackingViewProps`.

@@ -1,21 +1,9 @@
 "use client";
 
-import { Hero } from "../Hero";
-import { ViennoiserieGrid } from "../ViennoiserieGrid";
-import { SeasonalBand } from "../SeasonalBand";
-import { CelebrationCakes } from "../CelebrationCakes";
-import { PatisserieNote } from "../PatisserieNote";
-import { GiftBoxLane } from "../GiftBoxLane";
+import { useSiteContent } from "../../lib/site-content";
+import { renderHomeSections } from "../../lib/home-section-registry";
 
 export function HomeView() {
-  return (
-    <>
-      <Hero />
-      <ViennoiserieGrid />
-      <SeasonalBand />
-      <CelebrationCakes />
-      <PatisserieNote />
-      <GiftBoxLane />
-    </>
-  );
+  const { payload } = useSiteContent();
+  return <>{renderHomeSections(payload)}</>;
 }

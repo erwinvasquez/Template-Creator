@@ -1,19 +1,9 @@
 "use client";
 
-import { Hero } from "../Hero";
-import { WardrobeStrip } from "../WardrobeStrip";
-import { ArrivalsGrid } from "../ArrivalsGrid";
-import { FabricNote } from "../FabricNote";
-import { EditorialBand } from "../EditorialBand";
+import { useSiteContent } from "../../lib/site-content";
+import { renderHomeSections } from "../../lib/home-section-registry";
 
 export function HomeView() {
-  return (
-    <>
-      <Hero />
-      <WardrobeStrip />
-      <ArrivalsGrid />
-      <FabricNote />
-      <EditorialBand />
-    </>
-  );
+  const { payload } = useSiteContent();
+  return <>{renderHomeSections(payload)}</>;
 }

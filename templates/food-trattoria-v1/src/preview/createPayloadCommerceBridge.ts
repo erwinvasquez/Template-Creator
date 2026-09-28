@@ -150,6 +150,24 @@ export function createPayloadCommerceBridge(
     );
   }
 
+  function cardAvailabilityFields(
+    p: (typeof products)[0],
+  ): Pick<ProductCardViewModel, "stockLabel" | "madeToOrderUpsell"> {
+    const mode = currentSalesMode();
+    const isDemoStockZero =
+      dualSalesMode && mode === "stock" && p.slug === products[0]?.slug;
+    if (!isDemoStockZero) {
+      return { stockLabel: "available" };
+    }
+    return {
+      stockLabel: "out_of_stock",
+      madeToOrderUpsell: {
+        productHref: `${SHOP_PATH}/${p.slug}?salesMode=madeToOrder`,
+        preparationPromiseLabel: mtoPrepLabel ?? "3–5 días",
+      },
+    };
+  }
+
   function toCard(p: (typeof products)[0]): ProductCardViewModel {
     const defaultVariant = buildVariants(p)[0];
     return {
@@ -162,7 +180,7 @@ export function createPayloadCommerceBridge(
       displayPrice: money(p.price),
       currency,
       defaultVariantId: defaultVariant?.id ?? `${p.id}-default`,
-      stockLabel: "available",
+      ...cardAvailabilityFields(p),
       badges: [
         ...(p.isNew ? ["new"] : []),
         ...(p.isFeatured ? ["featured"] : []),

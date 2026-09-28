@@ -88,6 +88,32 @@ const PDP_PRESENTATION_CHECKLIST = [
   "| Prep nota PDP | `{ui.salesMode.madeToOrder.preparationLabel}: {product.preparationPromiseLabel}` debajo CTA; sin `ui.product.shippingNote` en PDP |",
 ].join("\n");
 
+const PLP_STOCK_MTO_CHECKLIST = [
+  "## Checklist — PLP stock→MTO (Sprint R6)",
+  "",
+  "| Check | Evidence |",
+  "|-------|----------|",
+  "| Helper contrato | `resolveCatalogAvailabilityPresentation` + `catalogCardHref` (sin lib local) |",
+  "| made_to_order_available | Banner/label `ui.product.buyMadeToOrderCta`; imagen sin dim agotado |",
+  "| sold_out | Overlay `ui.product.outOfStock` + opacity (comportamiento previo) |",
+  "| href MTO | `catalogCardHref(product)` → `?salesMode=madeToOrder` |",
+  "| Preview bridge | `cardAvailabilityFields` en `toCard` con `?dualSalesMode=1` |",
+  "| Vitest | `catalogAvailabilityPresentation.test.ts` + `CommerceProductCard.test.tsx` |",
+].join("\n");
+
+const HOME_SECTION_ORDER_CHECKLIST = [
+  "## Checklist — home section order (Sprint P)",
+  "",
+  "| Check | Evidence |",
+  "|-------|----------|",
+  "| Registry | `src/lib/home-section-registry.tsx` + `DEFAULT_HOME_SECTION_ORDER` |",
+  "| HomeView dinámico | `renderHomeSections(payload)` — sin JSX estático de secciones |",
+  "| Schema | `layout.pages.home.sectionOrder` optional (enum section ids) |",
+  "| Hero @0 | `resolveHomeSectionOrder` fuerza `hero` primero |",
+  "| Footer | Excluido del registry (renderer) |",
+  "| features.newsletter | `shouldRenderHomeSection` oculta newsletter si `false` |",
+].join("\n");
+
 let table = "| Página | Sección | # slots | slotIds |\n|--------|---------|---------|---------|\n";
 for (const page of builder.manifest?.pages || []) {
   for (const section of page.sections || []) {
@@ -166,6 +192,45 @@ if (hasCommerce) {
     proof = proof.replace(
       "## Content contract (Phase 1)",
       SALES_MODE_CHECKLIST + "\n\n## Content contract (Phase 1)",
+    );
+  }
+
+  if (proof.includes("## Checklist — PLP stock→MTO")) {
+    proof = proof.replace(
+      /## Checklist — PLP stock→MTO[\s\S]*?(?=\n## )/,
+      PLP_STOCK_MTO_CHECKLIST + "\n\n",
+    );
+  } else if (proof.includes("## Checklist — sales mode")) {
+    proof = proof.replace(
+      "## Checklist — sales mode",
+      PLP_STOCK_MTO_CHECKLIST + "\n\n## Checklist — sales mode",
+    );
+  } else if (proof.includes("## Content contract (Phase 1)")) {
+    proof = proof.replace(
+      "## Content contract (Phase 1)",
+      PLP_STOCK_MTO_CHECKLIST + "\n\n## Content contract (Phase 1)",
+    );
+  }
+
+  if (proof.includes("## Checklist — home section order")) {
+    proof = proof.replace(
+      /## Checklist — home section order[\s\S]*?(?=\n## )/,
+      HOME_SECTION_ORDER_CHECKLIST + "\n\n",
+    );
+  } else if (proof.includes("## Checklist — PLP stock→MTO")) {
+    proof = proof.replace(
+      "## Checklist — PLP stock→MTO",
+      HOME_SECTION_ORDER_CHECKLIST + "\n\n## Checklist — PLP stock→MTO",
+    );
+  } else if (proof.includes("## Checklist — sales mode")) {
+    proof = proof.replace(
+      "## Checklist — sales mode",
+      HOME_SECTION_ORDER_CHECKLIST + "\n\n## Checklist — sales mode",
+    );
+  } else if (proof.includes("## Content contract (Phase 1)")) {
+    proof = proof.replace(
+      "## Content contract (Phase 1)",
+      HOME_SECTION_ORDER_CHECKLIST + "\n\n## Content contract (Phase 1)",
     );
   }
 }

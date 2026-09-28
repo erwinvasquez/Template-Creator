@@ -1,3 +1,5 @@
+import type { MadeToOrderUpsellViewModel } from "./product";
+
 /** Stock / availability labels for storefront UI. */
 export type StockLabel = "available" | "out_of_stock" | "contact";
 
@@ -82,6 +84,11 @@ export interface ProductCardViewModel {
   badges?: string[];
   /** Optional card-level prep hint from host (made-to-order listings). */
   preparationPromiseLabel?: string | null;
+  /**
+   * Stock PLP: host offers MTO PDP when immediate stock is 0 (dual-mode, stock catalog).
+   * `productHref` should include `?salesMode=madeToOrder` when dual-mode applies.
+   */
+  madeToOrderUpsell?: MadeToOrderUpsellViewModel | null;
 }
 
 export interface ProductSearchViewModel {
