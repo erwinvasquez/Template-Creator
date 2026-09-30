@@ -19,6 +19,16 @@ execSync(`node scripts/validate-template-package.mjs ${templateId}`, {
   stdio: "inherit",
 });
 
+const previousBuildInfoPath = path.join(outRoot, "BUILD_INFO.json");
+let previousBuildInfo = null;
+if (fs.existsSync(previousBuildInfoPath)) {
+  try {
+    previousBuildInfo = JSON.parse(fs.readFileSync(previousBuildInfoPath, "utf8"));
+  } catch {
+    previousBuildInfo = null;
+  }
+}
+
 function rmrf(p) {
   if (fs.existsSync(p)) fs.rmSync(p, { recursive: true, force: true });
 }
@@ -57,10 +67,16 @@ copyDir(srcRoot, outRoot);
 
 const contentHash = hashDir(outRoot);
 const pkg = JSON.parse(fs.readFileSync(path.join(outRoot, "package.json"), "utf8"));
+const exportedAt =
+  previousBuildInfo?.contentHash === contentHash && previousBuildInfo.exportedAt
+    ? previousBuildInfo.exportedAt
+    : process.env.SOURCE_DATE_EPOCH
+      ? new Date(Number(process.env.SOURCE_DATE_EPOCH) * 1000).toISOString()
+      : new Date().toISOString();
 const buildInfo = {
   templateId,
   version: pkg.version,
-  exportedAt: new Date().toISOString(),
+  exportedAt,
   contentHash,
   immutable: true,
   source: `templates/${templateId}`,
@@ -72,7 +88,7 @@ fs.writeFileSync(
 
 fs.writeFileSync(
   path.join(outRoot, "IMMUTABLE"),
-  "Do not edit. Regenerate with: npm run template:export -- fashion-atelier-v1\n",
+  `Do not edit. Regenerate with: npm run template:export -- ${templateId}\n`,
 );
 
 console.log(`Exported immutable package → dist/packages/${templateId}`);

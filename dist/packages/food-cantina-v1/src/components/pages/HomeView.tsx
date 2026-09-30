@@ -1,21 +1,9 @@
 "use client";
 
-import { Hero } from "../Hero";
-import { TacoLanes } from "../TacoLanes";
-import { SalsaBar } from "../SalsaBar";
-import { MercadoStrip } from "../MercadoStrip";
-import { FiestaBand } from "../FiestaBand";
-import { MerchLane } from "../MerchLane";
+import { useSiteContent } from "../../lib/site-content";
+import { renderHomeSections } from "../../lib/home-section-registry";
 
 export function HomeView() {
-  return (
-    <>
-      <Hero />
-      <TacoLanes />
-      <SalsaBar />
-      <MercadoStrip />
-      <FiestaBand />
-      <MerchLane />
-    </>
-  );
+  const { payload } = useSiteContent();
+  return <>{renderHomeSections(payload)}</>;
 }

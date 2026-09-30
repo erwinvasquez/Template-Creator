@@ -1,21 +1,9 @@
 "use client";
 
-import { Hero } from "../Hero";
-import { CoursesStrip } from "../CoursesStrip";
-import { KitchenBand } from "../KitchenBand";
-import { SignatureDishes } from "../SignatureDishes";
-import { SommelierNote } from "../SommelierNote";
-import { PantryLane } from "../PantryLane";
+import { useSiteContent } from "../../lib/site-content";
+import { renderHomeSections } from "../../lib/home-section-registry";
 
 export function HomeView() {
-  return (
-    <>
-      <Hero />
-      <CoursesStrip />
-      <KitchenBand />
-      <SignatureDishes />
-      <SommelierNote />
-      <PantryLane />
-    </>
-  );
+  const { payload } = useSiteContent();
+  return <>{renderHomeSections(payload)}</>;
 }

@@ -3,6 +3,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { ProductCardViewModel } from "@shopenlinea/commerce-runtime-contract";
+import {
+  catalogCardHref,
+  resolveCatalogAvailabilityPresentation,
+} from "@shopenlinea/commerce-runtime-contract";
 import { useSiteContent } from "../../lib/site-content";
 import { requireUi } from "../../lib/ui";
 import { withBasePath } from "../../content/resolve";
@@ -23,11 +27,10 @@ export function CommerceProductCard({
   const isSale = product.badges?.includes("sale");
   const isBestseller = product.badges?.includes("bestseller");
   const isLimited = product.badges?.includes("limitedEdition");
-  const isOut = product.stockLabel === "out_of_stock";
-  const href = withBasePath(
-    basePath,
-    product.href.startsWith("/") ? product.href : `/${product.href}`,
-  );
+  const presentation = resolveCatalogAvailabilityPresentation(product);
+  const soldOut = presentation === "sold_out";
+  const mtoAvailable = presentation === "made_to_order_available";
+  const href = withBasePath(basePath, catalogCardHref(product));
 
   const primaryBadge = isNew
     ? badges.new
@@ -52,7 +55,7 @@ export function CommerceProductCard({
               fill
               priority={priority}
               className={`object-cover transition-opacity duration-500 group-hover:opacity-0 ${
-                isOut ? "opacity-60" : ""
+                soldOut ? "opacity-60" : ""
               }`}
               sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
             />
@@ -77,7 +80,11 @@ export function CommerceProductCard({
               −{product.discountPercent}%
             </span>
           ) : null}
-          {isOut ? (
+          {mtoAvailable ? (
+            <span className="absolute inset-x-0 bottom-0 bg-primary/80 py-2 text-center text-[10px] font-medium uppercase tracking-[0.16em] text-background">
+              {productUi.buyMadeToOrderCta}
+            </span>
+          ) : soldOut ? (
             <span className="absolute inset-x-0 bottom-0 bg-primary/80 py-2 text-center text-[10px] font-medium uppercase tracking-[0.16em] text-background">
               {productUi.outOfStock}
             </span>

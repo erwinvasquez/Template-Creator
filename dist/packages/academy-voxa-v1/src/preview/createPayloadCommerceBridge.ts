@@ -17,7 +17,7 @@ import type {
 } from "@shopenlinea/commerce-runtime-contract";
 import { DEFAULT_PREVIEW_CAPABILITIES } from "@shopenlinea/commerce-runtime-contract";
 import type { ContentPayload } from "../content/types";
-import { formatPrice, resolveProducts } from "../content/resolve";
+import { formatPrice, resolveProducts, SHOP_PATH } from "../content/resolve";
 import type { VoxaCommerceHost } from "../lib/commerce-host";
 import { DEFAULT_BASE_PATH } from "../meta";
 
@@ -104,6 +104,24 @@ export function createPayloadCommerceBridge(
 
   let cart = emptyCart();
 
+  function cardAvailabilityFields(
+    p: (typeof products)[0],
+  ): Pick<ProductCardViewModel, "stockLabel" | "madeToOrderUpsell"> {
+    const mode = currentSalesMode();
+    const isDemoStockZero =
+      dualSalesMode && mode === "stock" && p.slug === products[0]?.slug;
+    if (!isDemoStockZero) {
+      return { stockLabel: "available" };
+    }
+    return {
+      stockLabel: "out_of_stock",
+      madeToOrderUpsell: {
+        productHref: `${SHOP_PATH}/${p.slug}?salesMode=madeToOrder`,
+        preparationPromiseLabel: mtoPrepLabel ?? "3–5 días",
+      },
+    };
+  }
+
   function toCard(p: (typeof products)[0]): ProductCardViewModel {
     const firstModality = (p.metals[0] ?? "Online")
       .toLowerCase()
@@ -118,7 +136,7 @@ export function createPayloadCommerceBridge(
       displayPrice: money(p.price),
       currency,
       defaultVariantId: `${p.id}-${firstModality}`,
-      stockLabel: "available",
+      ...cardAvailabilityFields(p),
       badges: [
         ...(p.isNew ? ["new"] : []),
         ...(p.isLimited ? ["limitedEdition"] : []),

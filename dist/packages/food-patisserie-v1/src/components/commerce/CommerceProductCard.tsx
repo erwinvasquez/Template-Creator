@@ -3,6 +3,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { ProductCardViewModel } from "@shopenlinea/commerce-runtime-contract";
+import {
+  catalogCardHref,
+  resolveCatalogAvailabilityPresentation,
+} from "@shopenlinea/commerce-runtime-contract";
 import { useSiteContent } from "../../lib/site-content";
 import { requireUi } from "../../lib/ui";
 import { withBasePath } from "../../content/resolve";
@@ -20,11 +24,10 @@ export function CommerceProductCard({
 
   const isNew = product.badges?.includes("new");
   const isFeatured = product.badges?.includes("featured");
-  const isOut = product.stockLabel === "out_of_stock";
-  const href = withBasePath(
-    basePath,
-    product.href.startsWith("/") ? product.href : `/${product.href}`,
-  );
+  const presentation = resolveCatalogAvailabilityPresentation(product);
+  const soldOut = presentation === "sold_out";
+  const mtoAvailable = presentation === "made_to_order_available";
+  const href = withBasePath(basePath, catalogCardHref(product));
 
   const primaryBadge = isNew ? badges.new : isFeatured ? badges.featured : null;
   const eyebrow = product.categoryLabels?.[0] ?? null;
@@ -41,7 +44,7 @@ export function CommerceProductCard({
             alt={product.name}
             fill
             priority={priority}
-            className={`object-cover ${isOut ? "opacity-50" : ""}`}
+            className={`object-cover ${soldOut ? "opacity-50" : ""}`}
             sizes="128px"
           />
         )}
@@ -68,7 +71,9 @@ export function CommerceProductCard({
             </span>
           ) : null}
         </p>
-        {isOut ? (
+        {mtoAvailable ? (
+          <p className="mt-1 text-xs font-medium text-primary">{productUi.buyMadeToOrderCta}</p>
+        ) : soldOut ? (
           <p className="mt-1 text-xs text-muted">{productUi.outOfStock}</p>
         ) : null}
       </article>

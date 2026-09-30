@@ -70,6 +70,30 @@ npm run dev
 | Miniaturas líneas | `line.imageUrl` en resumen; placeholder `labels.imagePlaceholder` si falta |
 
 
+## Checklist — home section order (Sprint P)
+
+| Check | Evidence |
+|-------|----------|
+| Registry | `src/lib/home-section-registry.tsx` + `DEFAULT_HOME_SECTION_ORDER` |
+| HomeView dinámico | `renderHomeSections(payload)` — sin JSX estático de secciones |
+| Schema | `layout.pages.home.sectionOrder` optional (enum section ids) |
+| Hero @0 | `resolveHomeSectionOrder` fuerza `hero` primero |
+| Footer | Excluido del registry (renderer) |
+| features.newsletter | `shouldRenderHomeSection` oculta newsletter si `false` |
+
+
+## Checklist — PLP stock→MTO (Sprint R6)
+
+| Check | Evidence |
+|-------|----------|
+| Helper contrato | `resolveCatalogAvailabilityPresentation` + `catalogCardHref` (sin lib local) |
+| made_to_order_available | Banner/label `ui.product.buyMadeToOrderCta`; imagen sin dim agotado |
+| sold_out | Overlay `ui.product.outOfStock` + opacity (comportamiento previo) |
+| href MTO | `catalogCardHref(product)` → `?salesMode=madeToOrder` |
+| Preview bridge | `cardAvailabilityFields` en `toCard` con `?dualSalesMode=1` |
+| Vitest | `catalogAvailabilityPresentation.test.ts` + `CommerceProductCard.test.tsx` |
+
+
 ## Checklist — sales mode (stock / a pedido)
 
 | Check | Evidence |
