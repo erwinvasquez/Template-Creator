@@ -16,6 +16,8 @@ jobs:
       SOURCE_DATE_EPOCH: "0"
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - uses: actions/setup-node@v4
         with:
@@ -42,6 +44,4 @@ jobs:
         run: node scripts/verify-active-template-exports.mjs
 
       - name: git diff --check (PR range)
-        run: |
-          git fetch origin main --depth=1
-          git diff --check origin/main...HEAD
+        run: git diff --check origin/main...HEAD
