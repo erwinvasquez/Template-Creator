@@ -1,6 +1,6 @@
 # Sprint 84 — Hero carrusel + imágenes móvil (track H WG)
 
-**Programa:** Website Builder  
+**Programa:** Website Builder
 **Prerequisito:** ninguno en SaaS; sync SaaS en fase posterior (overlay storefront).
 
 ## Objetivo WG

@@ -1,7 +1,7 @@
 # Sprint 85 — Hero imagen única + carrusel lista (track H WG)
 
-**Programa:** Website Builder  
-**Prerequisito:** Sprint 84 exportado; contexto UX SaaS hotfix `7432fb79`  
+**Programa:** Website Builder
+**Prerequisito:** Sprint 84 exportado; contexto UX SaaS hotfix `7432fb79`
 **Siguiente:** sync SaaS `phase-85-hero-carousel-list-saas-sync-builder.md`
 
 ## Modelo de contenido
