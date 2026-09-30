@@ -1,6 +1,6 @@
 # Sprint 83 — Home section reorder (track P WG)
 
-**Programa:** Website Builder  
+**Programa:** Website Builder
 **Prerequisito:** SaaS P-S3 (`layout.pages.home.sectionOrder` en payload)
 
 ## Objetivo WG

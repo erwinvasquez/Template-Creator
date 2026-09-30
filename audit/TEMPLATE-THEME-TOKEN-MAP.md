@@ -1,7 +1,7 @@
 # Template Theme Token Map — WG ↔ SaaS
 
-**Fecha:** 2026-08-05  
-**Estado:** Implementado en los 5 templates ecommerce (ago 2026)  
+**Fecha:** 2026-08-05
+**Estado:** Implementado en los 5 templates ecommerce (ago 2026)
 **Templates:** `fashion-atelier-v1`, `fashion-celestine-v1`, `jewelry-orion-v1`, `academy-voxa-v1`, `fashion-lumen-v1`
 
 ---

@@ -1,6 +1,6 @@
 # Phase F — Manifest ↔ schema audit (WG)
 
-**Fecha:** 2026-08-05  
+**Fecha:** 2026-08-05
 **Sprint:** Website Builder visual editor — Fase F (WG manifest + nav icons)
 
 ## Acciones en este PR
@@ -23,5 +23,5 @@
 
 ## Header icons (5 templates)
 
-Cart + account en nav sólido: `text-secondary hover:text-primary` (igual que links).  
+Cart + account en nav sólido: `text-secondary hover:text-primary` (igual que links).
 Nav transparente/dark: `text-white` / `text-white/80`. Badge contador: `bg-primary` sin cambio.

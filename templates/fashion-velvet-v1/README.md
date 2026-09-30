@@ -13,11 +13,11 @@ Template plug & play de **moda femenina nocturna de lujo**: vestidos de gala, c�
 
 ## Home (secciones propias)
 
-1. Hero centrado con acentos oro  
-2. SoireesMarquee (marquee horizontal de colecciones)  
-3. GoldCraftBand (timeline de alta costura)  
-4. NocturneGrid (grid asimétrico de looks)  
-5. SalonNote (split editorial + CTA)  
+1. Hero centrado con acentos oro
+2. SoireesMarquee (marquee horizontal de colecciones)
+3. GoldCraftBand (timeline de alta costura)
+4. NocturneGrid (grid asimétrico de looks)
+5. SalonNote (split editorial + CTA)
 6. VelvetEditLane (carril horizontal de lencería)
 
 ## API canónica

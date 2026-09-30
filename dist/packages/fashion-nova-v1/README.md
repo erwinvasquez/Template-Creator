@@ -13,17 +13,17 @@ Template plug & play de **moda femenina bold contemporary/street**: drops urbano
 
 ## Home (secciones propias)
 
-1. Hero split (tipografía bold + imagen)  
-2. DropZone (bento asimétrico de colecciones)  
-3. TrendWall (zigzag de pasos Nova DNA)  
-4. ColorPulse (grid destacado de productos trending)  
-5. SquadStrip (split pink / copy comunidad)  
-6. FlashLane (rail horizontal de accesorios)  
+1. Hero split (tipografía bold + imagen)
+2. DropZone (bento asimétrico de colecciones)
+3. TrendWall (zigzag de pasos Nova DNA)
+4. ColorPulse (grid destacado de productos trending)
+5. SquadStrip (split pink / copy comunidad)
+6. FlashLane (rail horizontal de accesorios)
 
 ## Catálogo demo
 
-- **Categorías:** street, sets, deportivo, accesorios  
-- **Colecciones:** neon-drop, power-set, after-hours  
+- **Categorías:** street, sets, deportivo, accesorios
+- **Colecciones:** neon-drop, power-set, after-hours
 - **9 productos** con bindings en `colorPulse`, `flashLane` y `dropZone`
 
 ## API canónica
