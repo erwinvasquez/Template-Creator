@@ -121,6 +121,7 @@ npm test -- src/commerce/tests/ProductDetailCommerceView.test.tsx
 | Footer | Excluido del registry (renderer) |
 | features.newsletter | `shouldRenderHomeSection` oculta newsletter si `false` |
 
+
 ## Checklist — PLP stock→MTO (Sprint R6)
 
 | Check | Evidence |

@@ -159,6 +159,7 @@ se conservan por compatibilidad del contrato de catálogo; el copy visible ya es
 | Footer | Excluido del registry (renderer) |
 | features.newsletter | `shouldRenderHomeSection` oculta newsletter si `false` |
 
+
 ## Checklist — PLP stock→MTO (Sprint R6)
 
 | Check | Evidence |

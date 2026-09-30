@@ -81,6 +81,7 @@ npm run dev
 | Footer | Excluido del registry (renderer) |
 | features.newsletter | `shouldRenderHomeSection` oculta newsletter si `false` |
 
+
 ## Checklist — PLP stock→MTO (Sprint R6)
 
 | Check | Evidence |
