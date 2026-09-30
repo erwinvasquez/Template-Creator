@@ -149,6 +149,7 @@ for (const templateId of templateIds) {
   }
 
   for (const slot of sectionsSlots(slots)) {
+    if (slot.required === false) continue;
     const val = getPath(defaults, slot.fieldPath);
     if (val === undefined) {
       errors.push(`[B] fieldPath missing in defaults: ${slot.fieldPath}`);
@@ -176,6 +177,7 @@ for (const templateId of templateIds) {
   }
 
   for (const slot of sectionsSlots(slots)) {
+    if (slot.required === false) continue;
     if (slot.kind === "list") {
       if (!wbSlots.has(slot.id)) {
         errors.push(`[C] list slot ${slot.id} missing data-wb-slot on container`);
@@ -200,6 +202,7 @@ for (const templateId of templateIds) {
     }
   }
   for (const slot of sectionsSlots(slots)) {
+    if (slot.required === false) continue;
     if (!slot.fieldPath.startsWith("sections.")) continue;
     if (!expectedSectionPaths.has(slot.fieldPath)) {
       errors.push(`[D] orphan sections slot (no copy in defaults): ${slot.fieldPath}`);

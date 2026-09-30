@@ -182,7 +182,18 @@ export function grepDataWbSlots(srcDir) {
     }
   }
   if (fs.existsSync(srcDir)) walkDir(srcDir);
+  registerHeroCarouselEditorSlots(slots, srcDir);
   return slots;
+}
+
+/** Sprint 85: hero media slots are assigned dynamically in `hero-carousel.tsx`. */
+export function registerHeroCarouselEditorSlots(wbSlots, srcDir) {
+  const heroLib = path.join(srcDir, "lib", "hero-carousel.tsx");
+  if (!fs.existsSync(heroLib)) return;
+  const ids = ["hero.image", "hero.carousel"];
+  for (const id of ids) {
+    if (!wbSlots.has(id)) wbSlots.set(id, [heroLib]);
+  }
 }
 
 const ACCENT_RE = /[áéíóúñüÁÉÍÓÚÑÜ¿¡]/;
