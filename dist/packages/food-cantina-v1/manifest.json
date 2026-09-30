@@ -35,7 +35,9 @@
     {
       "path": "/tienda",
       "page": "shop",
-      "sections": ["shop"],
+      "sections": [
+        "shop"
+      ],
       "queryParams": {
         "categoria": "Optional category slug (catalog.categories[].slug). Navbar shopFilter.categorySlug resolves here.",
         "coleccion": "Optional collection slug (catalog.collections[].slug). Navbar shopFilter.collectionSlug resolves here."
@@ -44,12 +46,17 @@
     {
       "path": "/tienda/[slug]",
       "page": "product",
-      "sections": ["product", "related"]
+      "sections": [
+        "product",
+        "related"
+      ]
     },
     {
       "path": "/historia",
       "page": "about",
-      "sections": ["about"]
+      "sections": [
+        "about"
+      ]
     }
   ],
   "sections": [
@@ -129,6 +136,13 @@
       "recommendedWidth": 2400
     },
     {
+      "id": "hero.carousel[]",
+      "section": "hero",
+      "aspect": "full-bleed",
+      "count": 6,
+      "recommendedWidth": 2400
+    },
+    {
       "id": "lanes[].image",
       "section": "lanes",
       "aspect": "3/4",
@@ -165,21 +179,30 @@
         "path": "sections.mercado.productIds",
         "kind": "product",
         "sectionId": "mercado",
-        "label": { "es": "Destacados barra", "en": "Bar highlights" },
+        "label": {
+          "es": "Destacados barra",
+          "en": "Bar highlights"
+        },
         "maxItems": 8
       },
       {
         "path": "sections.merch.productIds",
         "kind": "product",
         "sectionId": "merch",
-        "label": { "es": "Merch", "en": "Merch" },
+        "label": {
+          "es": "Merch",
+          "en": "Merch"
+        },
         "maxItems": 12
       },
       {
         "path": "sections.lanes.collectionIds",
         "kind": "collection",
         "sectionId": "lanes",
-        "label": { "es": "Rutas de taco", "en": "Taco routes" },
+        "label": {
+          "es": "Rutas de taco",
+          "en": "Taco routes"
+        },
         "maxItems": 4
       }
     ],

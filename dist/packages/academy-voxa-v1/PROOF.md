@@ -160,6 +160,26 @@ se conservan por compatibilidad del contrato de catálogo; el copy visible ya es
 | features.newsletter | `shouldRenderHomeSection` oculta newsletter si `false` |
 
 
+## Checklist — hero lista carrusel (Sprint 85)
+
+| Check | Evidence |
+|-------|----------|
+| Schema | `carouselImages` max 6; secondary/móvil deprecados |
+| Runtime | `resolveHeroSlides`: lista ≥1 ignora `hero.image` como slide |
+| Animación | Solo activa + saliente en DOM; fade 1s sin ghosting |
+| Z-index | Carrusel `z-0`; scrim `z-[1] pointer-events-none`; copy `z-10` |
+| Slots SaaS | `hero.image`, `hero.carousel` (list), slides `hero.carousel.N` en JSX |
+
+## Checklist — hero carousel + móvil (Sprint 84)
+
+| Check | Evidence |
+|-------|----------|
+| Schema hero | `imageSecondary`, `imageMobile`, `imageMobileSecondary`, `carouselIntervalMs` opcionales |
+| Carrusel | `HeroCarouselMedia` fade; intervalo default 4000ms; 1 slide → sin timer |
+| Reduced motion | `prefers-reduced-motion` → primera imagen fija |
+| Slots editor | `hero.image` + secondary/móvil en `builder.manifest` |
+| Migración | Solo `image` → mismo aspecto que antes |
+
 ## Checklist — PLP stock→MTO (Sprint R6)
 
 | Check | Evidence |
@@ -194,15 +214,15 @@ se conservan por compatibilidad del contrato de catálogo; el copy visible ya es
 
 | Namespace | Count |
 |-----------|-------|
-| sections.* slots | 37 |
-| list slots | 5 |
+| sections.* slots | 38 |
+| list slots | 6 |
 | ui.* leaves (defaults) | 109 |
-| data-wb-slot ids | 37 |
+| data-wb-slot ids | 38 |
 | catalogBindings | 2 |
 
 | Página | Sección | # slots | slotIds |
 |--------|---------|---------|---------|
-| home | hero | 5 | hero.ctaPrimary, hero.ctaSecondary, hero.headline, hero.image… |
+| home | hero | 6 | hero.ctaPrimary, hero.ctaSecondary, hero.headline, hero.image… |
 | home | programs | 2 | programs.eyebrow, programs.title |
 | home | method | 4 | method.body, method.eyebrow, method.steps, method.title |
 | home | outcomes | 5 | outcomes.body, outcomes.bullets, outcomes.eyebrow, outcomes.image… |

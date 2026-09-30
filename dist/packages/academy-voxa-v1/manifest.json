@@ -127,6 +127,13 @@
       "recommendedWidth": 2400
     },
     {
+      "id": "hero.carousel[]",
+      "section": "hero",
+      "aspect": "full-bleed",
+      "count": 6,
+      "recommendedWidth": 2400
+    },
+    {
       "id": "outcomes.image",
       "section": "outcomes",
       "aspect": "4/5",

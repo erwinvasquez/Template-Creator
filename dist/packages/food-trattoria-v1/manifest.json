@@ -35,7 +35,9 @@
     {
       "path": "/menu",
       "page": "shop",
-      "sections": ["shop"],
+      "sections": [
+        "shop"
+      ],
       "queryParams": {
         "categoria": "Optional category slug (catalog.categories[].slug). Navbar shopFilter.categorySlug resolves here.",
         "coleccion": "Optional collection slug (catalog.collections[].slug). Navbar shopFilter.collectionSlug resolves here."
@@ -44,12 +46,17 @@
     {
       "path": "/menu/[slug]",
       "page": "product",
-      "sections": ["product", "related"]
+      "sections": [
+        "product",
+        "related"
+      ]
     },
     {
       "path": "/nosotros",
       "page": "about",
-      "sections": ["about"]
+      "sections": [
+        "about"
+      ]
     }
   ],
   "sections": [
@@ -129,6 +136,13 @@
       "recommendedWidth": 2400
     },
     {
+      "id": "hero.carousel[]",
+      "section": "hero",
+      "aspect": "full-bleed",
+      "count": 6,
+      "recommendedWidth": 2400
+    },
+    {
       "id": "courses[].image",
       "section": "courses",
       "aspect": "3/4",
@@ -165,21 +179,30 @@
         "path": "sections.signatures.productIds",
         "kind": "product",
         "sectionId": "signatures",
-        "label": { "es": "Platos firma", "en": "Signature dishes" },
+        "label": {
+          "es": "Platos firma",
+          "en": "Signature dishes"
+        },
         "maxItems": 8
       },
       {
         "path": "sections.pantry.productIds",
         "kind": "product",
         "sectionId": "pantry",
-        "label": { "es": "Despensa", "en": "Pantry" },
+        "label": {
+          "es": "Despensa",
+          "en": "Pantry"
+        },
         "maxItems": 12
       },
       {
         "path": "sections.courses.collectionIds",
         "kind": "collection",
         "sectionId": "courses",
-        "label": { "es": "Cartas de mesa", "en": "Table menus" },
+        "label": {
+          "es": "Cartas de mesa",
+          "en": "Table menus"
+        },
         "maxItems": 4
       }
     ],

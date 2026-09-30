@@ -357,7 +357,8 @@
       "ctaSecondary": {
         "label": "Reservar prueba",
         "href": "/casa#prueba"
-      }
+      },
+      "carouselImages": []
     },
     "occasions": {
       "eyebrow": "Ocasiones",

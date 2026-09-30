@@ -376,7 +376,8 @@
       "ctaSecondary": {
         "label": "Reservar cita",
         "href": "/la-maison#cita"
-      }
+      },
+      "carouselImages": []
     },
     "soirees": {
       "eyebrow": "Colecciones",

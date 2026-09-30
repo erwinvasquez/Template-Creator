@@ -322,7 +322,8 @@
       "ctaSecondary": {
         "label": "Nosotros",
         "href": "/nosotros"
-      }
+      },
+      "carouselImages": []
     },
     "courses": {
       "eyebrow": "Por mesa",

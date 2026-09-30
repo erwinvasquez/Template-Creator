@@ -1,8 +1,15 @@
 import type { ProductDetailPresentation } from "../lib/pdp-presentation";
+export type MediaFocalPoint = {
+  x: number;
+  y: number;
+};
+
 export type MediaRef = {
   mediaId?: string;
   url?: string;
   alt: string;
+  focalPoint?: MediaFocalPoint;
+  focalPointMobile?: MediaFocalPoint;
 };
 
 /** Generic CTA / footer path link (absolute path relative to mount). */
@@ -140,6 +147,12 @@ export type ContentPayload = {
       headline: string;
       subheadline: string;
       image: MediaRef;
+      carouselImages?: MediaRef[];
+      carouselIntervalMs?: number;
+      /** @deprecated Sprint 85 — ignored at runtime */
+      imageSecondary?: MediaRef;
+      imageMobile?: MediaRef;
+      imageMobileSecondary?: MediaRef;
       ctaPrimary: Link;
       ctaSecondary?: Link;
     };

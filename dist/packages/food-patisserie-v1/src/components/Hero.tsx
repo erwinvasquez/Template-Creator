@@ -1,9 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useSiteContent } from "../lib/site-content";
-import { resolveMediaUrl, withBasePath } from "../content/resolve";
+import { withBasePath } from "../content/resolve";
+import { HeroCarouselMedia } from "../lib/hero-carousel";
 
 export function Hero() {
   const { payload, basePath } = useSiteContent();
@@ -17,16 +17,18 @@ export function Hero() {
       </p>
 
       <div className="patisserie-hero-frame relative mt-8 h-[38svh] min-h-[220px] w-full max-w-3xl animate-fade-up overflow-hidden rounded-[2rem] shadow-[0_24px_60px_-12px_rgba(120,53,15,0.25)] [animation-delay:80ms] md:mt-10 md:h-[42svh] md:rounded-[2.5rem]">
-        <Image
-          src={resolveMediaUrl(hero.image, payload.media)}
-          alt={hero.image.alt}
-          fill
-          priority
-          data-wb-slot="hero.image"
-          className="object-cover object-center"
+        <HeroCarouselMedia
+
+          hero={hero}
+
+          media={payload.media}
+
+          className="object-cover"
+
           sizes="(max-width: 768px) 100vw, 768px"
+
         />
-      </div>
+</div>
 
       <div className="mt-10 max-w-2xl text-center animate-fade-up [animation-delay:160ms] md:mt-12">
         <h1

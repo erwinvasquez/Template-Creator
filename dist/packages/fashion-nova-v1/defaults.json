@@ -372,7 +372,8 @@
       "ctaSecondary": {
         "label": "Último drop",
         "href": "/tienda?coleccion=neon-drop"
-      }
+      },
+      "carouselImages": []
     },
     "dropZone": {
       "eyebrow": "Drops",
