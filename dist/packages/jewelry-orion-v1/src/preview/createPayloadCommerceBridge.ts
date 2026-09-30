@@ -17,8 +17,12 @@ import type {
 } from "@shopenlinea/commerce-runtime-contract";
 import { DEFAULT_PREVIEW_CAPABILITIES } from "@shopenlinea/commerce-runtime-contract";
 import type { ContentPayload } from "../content/types";
-import { formatPrice, resolveProducts } from "../content/resolve";
+import { formatPrice, resolveProducts, SHOP_PATH } from "../content/resolve";
 import type { OrionCommerceHost } from "../lib/commerce-host";
+import { DEFAULT_BASE_PATH } from "../meta";
+
+const LAB_CART_PATH = `${DEFAULT_BASE_PATH}/carrito`;
+const LAB_CHECKOUT_PATH = `${DEFAULT_BASE_PATH}/checkout`;
 
 export type PayloadCommerceBridgeOptions = {
   dualSalesMode?: boolean;
@@ -92,13 +96,31 @@ export function createPayloadCommerceBridge(
       subtotalDisplay: money(0),
       requiresShipping: true,
       lines: [],
-      cartHref: "/carrito",
-      checkoutHref: "/checkout",
+      cartHref: LAB_CART_PATH,
+      checkoutHref: LAB_CHECKOUT_PATH,
       promotionLabels: [],
     };
   }
 
   let cart = emptyCart();
+
+  function cardAvailabilityFields(
+    p: (typeof products)[0],
+  ): Pick<ProductCardViewModel, "stockLabel" | "madeToOrderUpsell"> {
+    const mode = currentSalesMode();
+    const isDemoStockZero =
+      dualSalesMode && mode === "stock" && p.slug === products[0]?.slug;
+    if (!isDemoStockZero) {
+      return { stockLabel: "available" };
+    }
+    return {
+      stockLabel: "out_of_stock",
+      madeToOrderUpsell: {
+        productHref: `${SHOP_PATH}/${p.slug}?salesMode=madeToOrder`,
+        preparationPromiseLabel: mtoPrepLabel ?? "3–5 días",
+      },
+    };
+  }
 
   function toCard(p: (typeof products)[0]): ProductCardViewModel {
     return {
@@ -111,7 +133,7 @@ export function createPayloadCommerceBridge(
       displayPrice: money(p.price),
       currency,
       defaultVariantId: `${p.id}-default`,
-      stockLabel: "available",
+      ...cardAvailabilityFields(p),
       badges: [
         ...(p.isNew ? ["new"] : []),
         ...(p.isLimited ? ["limitedEdition"] : []),
@@ -266,6 +288,19 @@ export function createPayloadCommerceBridge(
       if (mtoPrepLabel) detail.preparationPromiseLabel = mtoPrepLabel;
       if (!mtoAccepting) detail.madeToOrderClosed = true;
     }
+    if (dualSalesMode && mode === "stock") {
+      const demoStockZeroSlug = products[0]?.slug;
+      const isDemoStockZero = p.slug === demoStockZeroSlug;
+      for (const v of detail.variants) {
+        v.immediateAvailableQty = isDemoStockZero ? 0 : 2;
+        v.maxQuantity = isDemoStockZero ? 0 : 2;
+      }
+      detail.maxQuantity = isDemoStockZero ? 0 : 2;
+      detail.madeToOrderUpsell = {
+        productHref: `${SHOP_PATH}/${p.slug}?salesMode=madeToOrder`,
+        preparationPromiseLabel: mtoPrepLabel ?? "3–5 días",
+      };
+    }
     return detail;
   }
 
@@ -394,7 +429,7 @@ export function createPayloadCommerceBridge(
     },
     navigateToCheckout() {
       if (typeof window !== "undefined") {
-        window.location.href = "/checkout";
+        window.location.href = LAB_CHECKOUT_PATH;
       }
     },
     async previewCheckout() {
@@ -440,6 +475,7 @@ export function createPayloadCommerceBridge(
       cartDrawerOpen = false;
       notify();
     },
+    getCartSnapshot: () => cart,
     getStoreVersion: () => storeVersion,
   };
 }

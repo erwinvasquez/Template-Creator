@@ -3,6 +3,7 @@
 import Link from "next/link";
 import type { AccountLoginFormProps } from "@shopenlinea/commerce-runtime-contract";
 import { useSiteContent } from "../../lib/site-content";
+import { requireUi } from "../../lib/ui";
 import { accountPath, withBasePath } from "../../content/resolve";
 
 const fieldClass =
@@ -19,6 +20,7 @@ export function AccountLoginForm({
   notices,
 }: AccountLoginFormProps) {
   const { payload, basePath } = useSiteContent();
+  const account = requireUi(payload).account;
   const disabled = Boolean(state.submitting);
   const registerPath = registerHref
     ? withBasePath(basePath, registerHref)
@@ -27,10 +29,12 @@ export function AccountLoginForm({
   return (
     <div className="pb-24 pt-28 md:pt-32">
       <div className="mx-auto max-w-md px-6 md:px-8">
-        <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-cta">
-          Cuenta
+        <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-secondary">
+          {account.eyebrow}
         </p>
-        <h1 className="mt-3 font-serif text-4xl tracking-wide">Iniciar sesión</h1>
+        <h1 className="mt-3 font-serif text-4xl tracking-wide">
+          {account.loginTitle}
+        </h1>
         {notices ? <p className="mt-4 text-sm text-muted">{notices}</p> : null}
 
         <form
@@ -42,7 +46,7 @@ export function AccountLoginForm({
         >
           <div>
             <label className={labelClass} htmlFor="account-login-email">
-              Correo electrónico
+              {account.emailLabel}
             </label>
             <input
               id="account-login-email"
@@ -65,7 +69,7 @@ export function AccountLoginForm({
 
           <div>
             <label className={labelClass} htmlFor="account-login-password">
-              Contraseña
+              {account.passwordLabel}
             </label>
             <input
               id="account-login-password"
@@ -99,7 +103,7 @@ export function AccountLoginForm({
             disabled={disabled}
             className="w-full cursor-pointer bg-primary px-8 py-3.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-background transition-opacity hover:opacity-90 disabled:opacity-40"
           >
-            {state.submitting ? "Entrando…" : "Entrar"}
+            {state.submitting ? account.loginSubmitting : account.loginSubmit}
           </button>
         </form>
 
@@ -110,17 +114,17 @@ export function AccountLoginForm({
             onClick={() => void onGoogleSignIn()}
             className="mt-4 w-full cursor-pointer border border-primary px-8 py-3.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-primary transition-colors hover:bg-primary hover:text-background disabled:opacity-40"
           >
-            Continuar con Google
+            {account.googleSignIn}
           </button>
         ) : null}
 
         <p className="mt-8 text-center text-sm text-muted">
-          ¿No tienes cuenta?{" "}
+          {account.noAccountPrompt}{" "}
           <Link
             href={registerPath}
-            className="cursor-pointer font-medium text-cta transition-colors hover:text-cta-hover"
+            className="cursor-pointer font-medium text-primary transition-colors hover:text-secondary"
           >
-            Regístrate
+            {account.goToRegister}
           </Link>
         </p>
       </div>

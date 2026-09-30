@@ -15,6 +15,7 @@ export function BooksBand() {
   const { payload, basePath } = useSiteContent();
   const { books } = payload.sections;
   const products = getBookProducts(payload);
+  if (!products.length) return null;
 
   return (
     <section id="books" className="voxa-band-ink py-20 text-white md:py-28">
@@ -24,7 +25,7 @@ export function BooksBand() {
             <div className="max-w-xl">
               <p
                 data-wb-slot="books.eyebrow"
-                className="voxa-rule text-[11px] font-semibold uppercase tracking-[0.2em] text-cta"
+                className="voxa-rule text-[11px] font-semibold uppercase tracking-[0.2em] text-secondary"
               >
                 {books.eyebrow}
               </p>
@@ -39,7 +40,7 @@ export function BooksBand() {
               <Link
                 href={withBasePath(basePath, books.cta.href)}
                 data-wb-slot="books.cta"
-                className="inline-flex shrink-0 cursor-pointer border border-white/30 px-7 py-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-white transition-colors duration-200 hover:border-cta hover:bg-cta"
+                className="inline-flex shrink-0 cursor-pointer border border-white/30 px-7 py-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-white transition-colors duration-200 hover:border-cta hover:bg-primary"
               >
                 {books.cta.label}
               </Link>
@@ -64,7 +65,7 @@ export function BooksBand() {
                   />
                 </div>
                 <div className="flex min-w-0 flex-col">
-                  <h3 className="font-serif text-xl leading-tight transition-colors duration-200 group-hover:text-cta">
+                  <h3 className="font-serif text-xl leading-tight transition-colors duration-200 group-hover:text-primary">
                     {product.name}
                   </h3>
                   <p className="mt-2 text-xs uppercase tracking-[0.14em] text-white/50">

@@ -11,7 +11,7 @@ export function Hero() {
   const wordmark = payload.brand.displayName || payload.brand.name;
 
   return (
-    <section className="relative min-h-[640px] w-full overflow-hidden bg-ink md:h-[92svh]">
+    <section className="relative h-[100svh] min-h-[640px] w-full overflow-hidden bg-ink">
       <Image
         src={resolveMediaUrl(hero.image, payload.media)}
         alt={hero.image.alt}
@@ -47,13 +47,14 @@ export function Hero() {
           <Link
             href={withBasePath(basePath, hero.ctaPrimary.href)}
             data-wb-slot="hero.ctaPrimary"
-            className="cursor-pointer rounded-full bg-cta px-7 py-3.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-white transition-colors duration-200 hover:bg-cta-hover"
+            className="cursor-pointer rounded-full bg-primary px-7 py-3.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-background transition-colors duration-200 hover:bg-primary/90"
           >
             {hero.ctaPrimary.label}
           </Link>
           {hero.ctaSecondary ? (
             <Link
               href={withBasePath(basePath, hero.ctaSecondary.href)}
+              data-wb-slot="hero.ctaSecondary"
               className="cursor-pointer rounded-full border border-white/40 px-7 py-3.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-white transition-colors duration-200 hover:border-white hover:bg-white/10"
             >
               {hero.ctaSecondary.label}

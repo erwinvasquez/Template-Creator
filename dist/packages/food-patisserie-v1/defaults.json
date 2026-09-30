@@ -1,0 +1,639 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "food-patisserie-v1",
+  "templateVersion": "1.0.0",
+  "brand": {
+    "name": "Lune",
+    "displayName": "PÂTISSERIE LUNE",
+    "tagline": "Viennoiserie y tortas a pedido.",
+    "locale": "es-ES",
+    "currency": "EUR"
+  },
+  "theme": {
+    "colors": {
+      "primary": "#92400E",
+      "secondary": "#B45309",
+      "cta": "#92400E",
+      "ctaHover": "#78350F",
+      "background": "#FEF3C7",
+      "surface": "#FDE68A",
+      "text": "#78350F",
+      "muted": "#A16207",
+      "border": "#FCD34D"
+    }
+  },
+  "features": {
+    "cart": true,
+    "newsletter": false,
+    "account": true,
+    "accountBasePath": "/cuenta"
+  },
+  "navigation": {
+    "primary": [
+      {
+        "type": "path",
+        "label": "Boutique",
+        "href": "/boutique"
+      },
+      {
+        "type": "shopFilter",
+        "label": "Viennoiserie",
+        "categorySlug": "viennoiserie"
+      },
+      {
+        "type": "shopFilter",
+        "label": "Tortas",
+        "categorySlug": "tortas"
+      },
+      {
+        "type": "shopFilter",
+        "label": "Regalos",
+        "categorySlug": "regalos"
+      },
+      {
+        "type": "path",
+        "label": "Atelier",
+        "href": "/atelier"
+      }
+    ]
+  },
+  "seo": {
+    "titleTemplate": "%s · Pâtisserie Lune",
+    "default": {
+      "title": "Pâtisserie Lune — Pastelería francesa a pedido",
+      "description": "Croissants, tartas de temporada y tortas de celebración elaboradas en nuestro atelier.",
+      "openGraph": {
+        "title": "Pâtisserie Lune — Dulce artesanal",
+        "description": "Viennoiserie de mañana y celebraciones hechas a medida."
+      }
+    },
+    "pages": {
+      "shop": {
+        "title": "Boutique",
+        "description": "Pasteles, chocolates y cajas regalo de la pâtisserie."
+      },
+      "about": {
+        "title": "Atelier",
+        "description": "Taller, equipo y proceso de elaboración a pedido."
+      }
+    }
+  },
+  "catalog": {
+    "categories": [
+      {
+        "id": "cat_vien",
+        "slug": "viennoiserie",
+        "label": "Viennoiserie"
+      },
+      {
+        "id": "cat_tortas",
+        "slug": "tortas",
+        "label": "Tortas"
+      },
+      {
+        "id": "cat_choco",
+        "slug": "chocolates",
+        "label": "Chocolates"
+      },
+      {
+        "id": "cat_regalos",
+        "slug": "regalos",
+        "label": "Regalos"
+      }
+    ],
+    "collections": [
+      {
+        "id": "col_manana",
+        "slug": "mañanas",
+        "name": "Mañanas",
+        "description": "Croissants, pains au chocolat y brioche antes de que se acabe.",
+        "image": {
+          "url": "https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=1600&q=80",
+          "alt": "Croissants y café en bandeja"
+        }
+      },
+      {
+        "id": "col_estacion",
+        "slug": "estacion",
+        "name": "De estación",
+        "description": "Frutas del mercado en tartas y entremets que cambian cada mes.",
+        "image": {
+          "url": "https://images.unsplash.com/photo-1464349095432-e9a21285b5f3?w=1600&q=80",
+          "alt": "Tarta de frutas de temporada"
+        }
+      },
+      {
+        "id": "col_celebracion",
+        "slug": "celebraciones",
+        "name": "Celebraciones",
+        "description": "Tortas de cumpleaños, boda y eventos con diseño personalizado.",
+        "image": {
+          "url": "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=1600&q=80",
+          "alt": "Tarta de celebración decorada"
+        }
+      },
+      {
+        "id": "col_gift",
+        "slug": "gift-box",
+        "name": "Gift box",
+        "description": "Cajas con macarons, chocolates y galletas para regalar.",
+        "image": {
+          "url": "https://images.unsplash.com/photo-1486427944299-d1955d23e34d?w=1600&q=80",
+          "alt": "Caja regalo con pasteles"
+        }
+      }
+    ],
+    "products": [
+      {
+        "id": "1",
+        "slug": "box-croissant",
+        "name": "Box croissant (6)",
+        "description": "Seis croissants de mantequilla francesa. Horneados en la mañana del pedido.",
+        "price": 14,
+        "categoryId": "cat_vien",
+        "collectionId": "col_manana",
+        "colors": [
+          "Único"
+        ],
+        "sizes": [
+          "Único"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=1200&q=80",
+          "alt": "Caja de croissants"
+        },
+        "badges": [
+          "featured"
+        ]
+      },
+      {
+        "id": "2",
+        "slug": "pain-chocolat",
+        "name": "Pain au chocolat (4)",
+        "description": "Cuatro pains con chocolate Valrhona. Pedido con 24 h de antelación.",
+        "price": 12.5,
+        "categoryId": "cat_vien",
+        "collectionId": "col_manana",
+        "colors": [
+          "Único"
+        ],
+        "sizes": [
+          "Único"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=1200&q=80",
+          "alt": "Pain au chocolat"
+        }
+      },
+      {
+        "id": "3",
+        "slug": "tarta-frutas",
+        "name": "Tarta frutas del mercado",
+        "description": "Base de almendra, crema de vainilla y fruta fresca. Tamaño 20 cm.",
+        "price": 38,
+        "categoryId": "cat_tortas",
+        "collectionId": "col_estacion",
+        "colors": [
+          "Único"
+        ],
+        "sizes": [
+          "Único"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1464349095432-e9a21285b5f3?w=1200&q=80",
+          "alt": "Tarta de frutas"
+        },
+        "badges": [
+          "new"
+        ]
+      },
+      {
+        "id": "4",
+        "slug": "entremet-chocolate",
+        "name": "Entremet chocolate",
+        "description": "Capas de ganache, biscuit y crujiente. 8 raciones. A pedido.",
+        "price": 42,
+        "categoryId": "cat_tortas",
+        "collectionId": "col_estacion",
+        "colors": [
+          "Único"
+        ],
+        "sizes": [
+          "Único"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1606313564200-e75d5e7f9668?w=1200&q=80",
+          "alt": "Entremet de chocolate"
+        }
+      },
+      {
+        "id": "5",
+        "slug": "torta-celebracion",
+        "name": "Torta celebración",
+        "description": "Diseño personalizado. Consulta sabores y decoración. Mín. 48 h.",
+        "price": 85,
+        "categoryId": "cat_tortas",
+        "collectionId": "col_celebracion",
+        "colors": [
+          "Único"
+        ],
+        "sizes": [
+          "Único"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=1200&q=80",
+          "alt": "Torta de celebración"
+        },
+        "badges": [
+          "featured"
+        ]
+      },
+      {
+        "id": "6",
+        "slug": "trufas-cacao",
+        "name": "Trufas cacao single",
+        "description": "Caja 12 trufas. Cacao de origen y mantequilla de cacao.",
+        "price": 22,
+        "categoryId": "cat_choco",
+        "collectionId": "col_gift",
+        "colors": [
+          "Único"
+        ],
+        "sizes": [
+          "Único"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1511381939411-adc4097d4e90?w=1200&q=80",
+          "alt": "Trufas de chocolate"
+        }
+      },
+      {
+        "id": "7",
+        "slug": "macaron-mix",
+        "name": "Macarons surtidos (12)",
+        "description": "Sabores de temporada en caja regalo.",
+        "price": 24,
+        "categoryId": "cat_choco",
+        "collectionId": "col_gift",
+        "colors": [
+          "Único"
+        ],
+        "sizes": [
+          "Único"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1569860878021-9a6f5d281d2a?w=1200&q=80",
+          "alt": "Macarons de colores"
+        }
+      },
+      {
+        "id": "8",
+        "slug": "gift-box-lune",
+        "name": "Gift box Lune",
+        "description": "Macarons, trufas y galletas sablé. Lista para regalar.",
+        "price": 48,
+        "categoryId": "cat_regalos",
+        "collectionId": "col_gift",
+        "colors": [
+          "Único"
+        ],
+        "sizes": [
+          "Único"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1486427944299-d1955d23e34d?w=1200&q=80",
+          "alt": "Caja regalo Lune"
+        },
+        "badges": [
+          "featured"
+        ]
+      }
+    ]
+  },
+  "sections": {
+    "hero": {
+      "headline": "Dulce que respeta el tiempo",
+      "subheadline": "Croissants de mantequilla francesa, tartas de estación y celebraciones elaboradas a pedido.",
+      "image": {
+        "url": "https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=2400&q=80",
+        "alt": "Viennoiserie y café en mesa de madera"
+      },
+      "ctaPrimary": {
+        "label": "Ver boutique",
+        "href": "/boutique"
+      },
+      "ctaSecondary": {
+        "label": "Atelier",
+        "href": "/atelier"
+      }
+    },
+    "viennoiserie": {
+      "eyebrow": "Mañanas",
+      "title": "Viennoiserie del día",
+      "collectionIds": [
+        "col_manana",
+        "col_estacion",
+        "col_celebracion",
+        "col_gift"
+      ]
+    },
+    "seasonal": {
+      "eyebrow": "Estación",
+      "title": "Lo que el mercado dicta",
+      "body": "Frutas, especias y chocolates que cambian con el calendario. Nada congelado de fábrica.",
+      "steps": [
+        {
+          "id": "mercado",
+          "title": "Mercado",
+          "body": "Fruta y mantequilla francesa cada mañana."
+        },
+        {
+          "id": "lamas",
+          "title": "Laminado",
+          "body": "Croissants con 27 capas de mantequilla."
+        },
+        {
+          "id": "horneo",
+          "title": "Horneo",
+          "body": "Salen del horno cuando confirmas tu pedido."
+        }
+      ]
+    },
+    "celebration": {
+      "eyebrow": "Celebraciones",
+      "title": "Tortas que cuentan una historia",
+      "productIds": [
+        "5",
+        "4",
+        "3"
+      ],
+      "viewAll": {
+        "label": "Ver boutique",
+        "href": "/boutique"
+      }
+    },
+    "atelierNote": {
+      "eyebrow": "Atelier",
+      "title": "Pedidos a medida con tiempo",
+      "body": "Las tortas de celebración y viennoiserie especial se elaboran tras tu pedido. Te confirmamos fecha de entrega.",
+      "cta": {
+        "label": "Nuestro atelier",
+        "href": "/atelier"
+      }
+    },
+    "giftBox": {
+      "eyebrow": "Regalos",
+      "title": "Cajas para llevar la dulzura",
+      "body": "Macarons, trufas y galletas en packaging listo para regalar.",
+      "productIds": [
+        "6",
+        "7",
+        "8"
+      ],
+      "cta": {
+        "label": "Ver regalos",
+        "href": "/boutique?categoria=regalos"
+      }
+    },
+    "shop": {
+      "eyebrow": "Boutique",
+      "title": "Pasteles y regalos",
+      "description": "Viennoiserie, tortas a pedido y cajas regalo de la pâtisserie."
+    },
+    "about": {
+      "intro": {
+        "eyebrow": "Atelier",
+        "title": "Pastelería francesa con reloj de horno",
+        "body": "Lune abrió como un pequeño laboratorio de laminado. Hoy combinamos viennoiserie de mañana y tortas de celebración hechas a medida."
+      },
+      "bannerImage": {
+        "url": "https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=2400&q=80",
+        "alt": "Pastelero trabajando en atelier"
+      },
+      "blocks": [
+        {
+          "id": "laminado",
+          "title": "Laminado",
+          "body": "Mantequilla francesa y tiempo: la base de todo lo que sale del horno."
+        },
+        {
+          "id": "pedido",
+          "title": "A pedido",
+          "body": "Celebraciones con mínimo 48 h. Confirmamos sabor y decoración contigo."
+        },
+        {
+          "id": "regalo",
+          "title": "Para regalar",
+          "body": "Cajas curadas con lo mejor de cada semana."
+        }
+      ],
+      "locations": {
+        "eyebrow": "Visítanos",
+        "title": "Boutique y atelier",
+        "items": [
+          {
+            "city": "París (barrio)",
+            "address": "Rue des Lunes 7",
+            "hours": "Mar–Sáb 08:00–19:00 · Pedidos online 24/7"
+          }
+        ]
+      },
+      "closing": {
+        "title": "Haz tu pedido",
+        "body": "Indica fecha y ocasión. Te respondemos con opciones de sabor.",
+        "cta": {
+          "label": "Contactar",
+          "href": "#"
+        }
+      }
+    },
+    "footer": {
+      "blurb": "Viennoiserie de mañana y tortas a pedido. Pastelería francesa artesanal.",
+      "columns": [
+        {
+          "title": "Boutique",
+          "links": [
+            {
+              "label": "Todo",
+              "href": "/boutique"
+            },
+            {
+              "label": "Viennoiserie",
+              "href": "/boutique?categoria=viennoiserie"
+            },
+            {
+              "label": "Tortas",
+              "href": "/boutique?categoria=tortas"
+            },
+            {
+              "label": "Regalos",
+              "href": "/boutique?categoria=regalos"
+            }
+          ]
+        },
+        {
+          "title": "Lune",
+          "links": [
+            {
+              "label": "Atelier",
+              "href": "/atelier"
+            },
+            {
+              "label": "Pedidos",
+              "href": "/atelier#pedidos"
+            },
+            {
+              "label": "Contacto",
+              "href": "#"
+            }
+          ]
+        }
+      ],
+      "tagline": "Viennoiserie y tortas a pedido.",
+      "copyrightName": "Pâtisserie Lune"
+    }
+  },
+  "ui": {
+    "chrome": {
+      "openCart": "Abrir carrito",
+      "openCartWithCount": "Abrir carrito, {count} artículos",
+      "myAccount": "Mi cuenta",
+      "openMenu": "Abrir menú",
+      "closeMenu": "Cerrar menú",
+      "mainNavAria": "Principal",
+      "mobileNavAria": "Móvil",
+      "salesModeAria": "Modo de compra"
+    },
+    "account": {
+      "eyebrow": "Cuenta",
+      "loginTitle": "Iniciar sesión",
+      "registerTitle": "Crear cuenta",
+      "dashboardTitle": "Mi cuenta",
+      "emailLabel": "Correo electrónico",
+      "nameLabel": "Nombre",
+      "phoneLabel": "Teléfono",
+      "passwordLabel": "Contraseña",
+      "loginSubmit": "Entrar",
+      "loginSubmitting": "Entrando…",
+      "registerSubmit": "Registrarse",
+      "registerSubmitting": "Registrando…",
+      "logout": "Cerrar sesión",
+      "goToRegister": "Regístrate",
+      "goToLogin": "Inicia sesión",
+      "noAccountPrompt": "¿No tienes cuenta?",
+      "hasAccountPrompt": "¿Ya tienes cuenta?",
+      "googleSignIn": "Continuar con Google"
+    },
+    "listing": {
+      "searchLabel": "Buscar",
+      "searchPlaceholder": "Buscar…",
+      "allCategories": "Todo",
+      "loading": "Cargando…",
+      "loadMore": "Cargar más",
+      "loadingMore": "Cargando…",
+      "noSearchResults": "Sin resultados para esta búsqueda.",
+      "pieceSingular": "pieza",
+      "piecePlural": "piezas",
+      "collectionPrefix": "Colección:",
+      "clearFilter": "Quitar filtro"
+    },
+    "checkout": {
+      "pageTitle": "Checkout",
+      "customerSection": "Cliente",
+      "shippingSection": "Envío",
+      "paymentSection": "Pago",
+      "summarySection": "Resumen",
+      "fullNameRequired": "Indica tu nombre",
+      "emailRequired": "Indica tu correo",
+      "shippingMethodRequired": "Elige un método de envío",
+      "pickupBranchRequired": "Elige una tienda",
+      "paymentMethodRequired": "Elige un método de pago",
+      "phoneNumberLabel": "Número",
+      "discountCodeLabel": "Código",
+      "shippingLineLabel": "Envío",
+      "subtotalLabel": "Subtotal",
+      "totalLabel": "Total",
+      "emptyCartLabel": "Vaciar",
+      "removeLineLabel": "Eliminar",
+      "quantityLabel": "Cantidad",
+      "phoneCountryAria": "Código de país del teléfono",
+      "discountApply": "Aplicar",
+      "taxLabel": "Impuestos",
+      "hasDiscountCodeLabel": "Tengo un código de descuento",
+      "discountLineLabel": "Descuento"
+    },
+    "errors": {
+      "addToCartFailed": "No se pudo añadir al carrito",
+      "orderConfirmFailed": "No se pudo confirmar el pedido",
+      "catalogLoadFailed": "No se pudo cargar el catálogo."
+    },
+    "cart": {
+      "title": "Tu selección",
+      "empty": "Tu carrito está vacío.",
+      "exploreCta": "Explorar tienda",
+      "checkout": "Finalizar compra",
+      "shippingHint": "Envío calculado en el checkout"
+    },
+    "product": {
+      "addToCart": "Añadir al carrito",
+      "relatedTitle": "También te puede gustar",
+      "shippingNote": "2–4 días laborables",
+      "outOfStock": "Agotado",
+      "contact": "Consultar disponibilidad",
+      "lowStock": "Quedan pocas unidades",
+      "madeToOrderClosed": "Pedidos cerrados temporalmente",
+      "addingToCart": "Añadiendo…",
+      "priceBookLabel": "Precio del ejemplar",
+      "priceProgramLabel": "Inversión por plaza en la cohorte",
+      "stockInsufficientImmediate": "Solo tenemos {count} unidades para entrega inmediata.",
+      "stockInsufficientMadeToOrderHint": "Puedes pedir el resto bajo pedido con el plazo de preparación indicado.",
+      "stockExhaustedImmediateTitle": "Sin stock para entrega inmediata",
+      "stockExhaustedMadeToOrderAvailable": "Disponible a pedido",
+      "buyMadeToOrderCta": "Comprar bajo pedido",
+      "stockUpsellModalTitle": "Opciones de compra",
+      "badges": {
+        "new": "Nuevo",
+        "featured": "Destacado",
+        "sale": "Oferta",
+        "bestseller": "Más vendido",
+        "limitedEdition": "Edición limitada"
+      }
+    },
+    "shop": {
+      "empty": "No hay resultados con estos filtros.",
+      "clearFilter": "Quitar filtro"
+    },
+    "notFound": {
+      "title": "Página no encontrada",
+      "body": "Esta ruta no existe."
+    },
+    "salesMode": {
+      "stock": {
+        "navLabel": "Entrega inmediata",
+        "shopBanner": "Catálogo con entrega inmediata según disponibilidad.",
+        "cartLabel": "Compra con entrega inmediata"
+      },
+      "madeToOrder": {
+        "navLabel": "Bajo pedido",
+        "shopBanner": "Catálogo bajo pedido.",
+        "preparationLabel": "Preparación",
+        "closedMessage": "Ahora mismo no aceptamos pedidos a medida.",
+        "reopensPrefix": "Volvemos",
+        "cartLabel": "Compra bajo pedido",
+        "cartClosedWarning": "Los pedidos a medida están cerrados temporalmente."
+      },
+      "nav": [
+        {
+          "salesMode": "stock",
+          "label": "Entrega inmediata",
+          "href": "/boutique?salesMode=stock"
+        },
+        {
+          "salesMode": "madeToOrder",
+          "label": "Bajo pedido",
+          "href": "/boutique?salesMode=madeToOrder"
+        }
+      ]
+    }
+  }
+}

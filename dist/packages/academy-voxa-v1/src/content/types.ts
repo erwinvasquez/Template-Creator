@@ -1,3 +1,4 @@
+import type { ProductDetailPresentation } from "../lib/pdp-presentation";
 export type MediaRef = {
   mediaId?: string;
   url?: string;
@@ -11,7 +12,7 @@ export type Link = {
 };
 
 /**
- * Navbar entry: plain path or shop filter (resolved to /programas?…).
+ * Navbar entry: plain path or shop filter (resolved to /catalogo?…).
  * Prefer `shopFilter` for category/collection entries so the SaaS can validate slugs.
  */
 export type PathNavLink = {
@@ -99,6 +100,16 @@ export type MethodStep = {
   body: string;
 };
 
+export type HomePageLayout = {
+  sectionOrder?: string[];
+};
+
+export type Layout = {
+  pages?: {
+    home?: HomePageLayout;
+  };
+};
+
 export type ContentPayload = {
   schemaVersion: "1.0.0";
   templateId: "academy-voxa-v1";
@@ -113,6 +124,7 @@ export type ContentPayload = {
     /** Mount-relative account root. Default `/cuenta`. SaaS may use `/account`. */
     accountBasePath?: string;
   };
+  layout?: Layout;
   navigation: { primary: NavLink[] };
   seo: {
     titleTemplate: string;
@@ -200,6 +212,9 @@ export type ContentPayload = {
       columns: Array<{ title: string; links: Link[] }>;
       tagline?: string;
       copyrightName?: string;
+    };
+    product?: {
+      presentation?: ProductDetailPresentation;
     };
   };
   ui?: {

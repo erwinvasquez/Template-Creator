@@ -16,7 +16,7 @@ export function AboutView() {
         <Reveal>
           <p
             data-wb-slot="about.intro.eyebrow"
-            className="text-[11px] font-medium uppercase tracking-[0.2em] text-cta"
+            className="text-[11px] font-medium uppercase tracking-[0.2em] text-secondary"
           >
             {about.intro.eyebrow}
           </p>
@@ -51,6 +51,7 @@ export function AboutView() {
       <section
         id="sostenibilidad"
         className="mx-auto grid max-w-7xl gap-12 px-6 py-20 md:grid-cols-2 md:gap-20 md:px-8 md:py-28"
+        data-wb-slot="about.blocks"
       >
         {about.blocks.map((block, i) => (
           <Reveal key={block.id} delay={i * 120}>
@@ -70,14 +71,23 @@ export function AboutView() {
       >
         <div className="mx-auto max-w-7xl px-6 md:px-8">
           <Reveal>
-            <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-cta">
+            <p
+              data-wb-slot="about.locations.eyebrow"
+              className="text-[11px] font-medium uppercase tracking-[0.2em] text-secondary"
+            >
               {about.locations.eyebrow}
             </p>
-            <h2 className="mt-3 font-serif text-3xl tracking-wide md:text-4xl">
+            <h2
+              data-wb-slot="about.locations.title"
+              className="mt-3 font-serif text-3xl tracking-wide md:text-4xl"
+            >
               {about.locations.title}
             </h2>
           </Reveal>
-          <div className="mt-12 grid gap-8 md:grid-cols-3">
+          <div
+            className="mt-12 grid gap-8 md:grid-cols-3"
+            data-wb-slot="about.locations.items"
+          >
             {about.locations.items.map((store, i) => (
               <Reveal key={store.city} delay={i * 100}>
                 <div>
@@ -95,15 +105,22 @@ export function AboutView() {
 
       <section className="mx-auto max-w-7xl px-6 py-20 text-center md:px-8 md:py-28">
         <Reveal>
-          <h2 className="font-serif text-3xl tracking-wide md:text-4xl">
+          <h2
+            data-wb-slot="about.closing.title"
+            className="font-serif text-3xl tracking-wide md:text-4xl"
+          >
             {about.closing.title}
           </h2>
-          <p className="mx-auto mt-4 max-w-md text-sm text-muted">
+          <p
+            data-wb-slot="about.closing.body"
+            className="mx-auto mt-4 max-w-md text-sm text-muted"
+          >
             {about.closing.body}
           </p>
           <Link
             href={withBasePath(basePath, about.closing.cta.href)}
-            className="mt-8 inline-flex cursor-pointer bg-cta px-8 py-3.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-white transition-colors duration-200 hover:bg-cta-hover"
+            data-wb-slot="about.closing.cta"
+            className="mt-8 inline-flex cursor-pointer bg-primary px-8 py-3.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-background transition-colors duration-200 hover:bg-primary/90"
           >
             {about.closing.cta.label}
           </Link>

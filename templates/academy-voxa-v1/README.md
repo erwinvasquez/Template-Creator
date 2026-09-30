@@ -49,8 +49,8 @@ Aliases deprecated (1 release): `VoxaApp`, `voxaCommerceViews`, `VoxaCommercePro
 ## Preview en este repo
 
 - Home: [`/t/voxa`](/t/voxa)
-- Programas: [`/t/voxa/programas`](/t/voxa/programas)
-- Detalle: [`/t/voxa/programas/oratoria-esencial`](/t/voxa/programas/oratoria-esencial)
+- Programas: [`/t/voxa/catalogo`](/t/voxa/catalogo)
+- Detalle: [`/t/voxa/catalogo/oratoria-esencial`](/t/voxa/catalogo/oratoria-esencial)
 - Academia (about): [`/t/voxa/academia`](/t/voxa/academia)
 - Carrito: [`/t/voxa/carrito`](/t/voxa/carrito)
 - Checkout: [`/t/voxa/checkout`](/t/voxa/checkout)
@@ -79,12 +79,12 @@ runtime antepone el base path con `withBasePath`.
 | `path` | `page` | Nota |
 |--------|--------|------|
 | `/` | `home` | |
-| `/programas` | `shop` | Catálogo. Query: `?categoria=<slug>` y/o `?coleccion=<slug>` |
-| `/programas/[slug]` | `product` | Detalle de programa o libro |
+| `/catalogo` | `shop` | Catálogo. Query: `?categoria=<slug>` y/o `?coleccion=<slug>` |
+| `/catalogo/[slug]` | `product` | Detalle de programa o libro |
 | `/academia` | `about` | El path conserva el copy de diseño; el `page` id del contrato es `about` |
 
-**Voxa usa `/programas` como raíz de catálogo.** Todo href de producto que emita el commerce
-bridge, los CTA de "ver programas" y `resolveNavHref()` resuelven contra `SHOP_PATH = "/programas"`.
+**Voxa usa `/catalogo` como raíz de catálogo.** Todo href de producto que emita el commerce
+bridge, los CTA de "ver catálogo" y `resolveNavHref()` resuelven contra `SHOP_PATH = "/catalogo"`.
 
 Carrito, checkout y cuenta **no** están en `manifest.routes[]`: esas URLs las resuelve la
 plataforma. El template aporta la UI (`CartPageView`, `CommerceCartDrawer`, `CheckoutPage`,
@@ -93,11 +93,11 @@ plataforma. El template aporta la UI (`CartPageView`, `CommerceCartDrawer`, `Che
 ### Navegación (`navigation.primary`)
 
 ```json
-{ "type": "path", "label": "Programas", "href": "/programas" }
+{ "type": "path", "label": "Catálogo", "href": "/catalogo" }
 { "type": "shopFilter", "label": "Oratoria", "categorySlug": "oratoria" }
 ```
 
-`resolveNavHref()` convierte `shopFilter` en `/programas?categoria=oratoria` (o `?coleccion=<slug>`).
+`resolveNavHref()` convierte `shopFilter` en `/catalogo?categoria=oratoria` (o `?coleccion=<slug>`).
 El mapper del SaaS debe validar `categorySlug` / `collectionSlug` contra el catálogo real del tenant
 antes de publicar el payload.
 
@@ -126,7 +126,7 @@ Dos campos del contrato se reutilizan con semántica de academia:
 `AccountRegisterForm`, `AccountDashboard`.
 
 Sin host inyectado, `TemplateApp` monta `createPayloadCommerceBridge(payload)`: bridge de preview
-alimentado por el catálogo del payload, con hrefs `/programas/{slug}`.
+alimentado por el catálogo del payload, con hrefs `/catalogo/{slug}`.
 
 ## Reglas para la IA
 

@@ -14,6 +14,7 @@ export function SignatureLooks() {
   const { payload, basePath } = useSiteContent();
   const { signature } = payload.sections;
   const products = getSignatureProducts(payload);
+  if (!products.length) return null;
 
   return (
     <section className="mx-auto max-w-7xl px-6 py-20 md:px-10 md:py-28">
@@ -33,7 +34,8 @@ export function SignatureLooks() {
           {signature.viewAll ? (
             <Link
               href={withBasePath(basePath, signature.viewAll.href)}
-              className="group inline-flex shrink-0 cursor-pointer items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-primary transition-colors duration-200 hover:text-cta"
+              data-wb-slot="signature.viewAll"
+              className="group inline-flex shrink-0 cursor-pointer items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-primary transition-colors duration-200 hover:text-primary"
             >
               {signature.viewAll.label}
               <ArrowRight

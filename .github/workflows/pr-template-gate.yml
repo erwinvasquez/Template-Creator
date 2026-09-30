@@ -1,0 +1,47 @@
+name: PR template gate
+
+on:
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: pr-template-gate-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      SOURCE_DATE_EPOCH: "0"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Assert ten active templates
+        run: node scripts/assert-active-templates.mjs
+
+      - name: Commerce tests
+        run: npm run test:commerce
+
+      - name: Validate all active templates
+        run: |
+          for t in academy-voxa-v1 fashion-atelier-v1 fashion-celestine-v1 fashion-lumen-v1 fashion-nova-v1 fashion-velvet-v1 food-cantina-v1 food-patisserie-v1 food-trattoria-v1 jewelry-orion-v1; do
+            node scripts/template-validate.mjs "$t"
+            node scripts/validate-template-package.mjs "$t"
+          done
+
+      - name: Verify exports match sources (dist policy A)
+        run: node scripts/verify-active-template-exports.mjs
+
+      - name: git diff --check (PR range)
+        run: git diff --check origin/main...HEAD

@@ -24,8 +24,8 @@ el catálogo del `defaults.json` del template (Voxa cursos, Orion joyas, Atelier
 
 | URL | Qué ves |
 |-----|---------|
-| `/t/voxa/programas` | Catálogo Voxa (payload) |
-| `/t/voxa/programas?commerce=catalog-empty` | Fixture vacío |
+| `/t/voxa/catalogo` | Catálogo Voxa (payload) |
+| `/t/voxa/catalogo?commerce=catalog-empty` | Fixture vacío |
 | `/t/atelier/tienda?commerce=catalog-default` | Catálogo mock + cursor |
 | `/t/atelier/tienda?commerce=catalog-search-empty` | Búsqueda sin resultados |
 | `/t/atelier/tienda/abrigo-cashmere-stone?commerce=product-variants` | Variantes mock |
@@ -51,7 +51,7 @@ type MockCommerceBridgeOptions = {
 `useLabCommerceHost(fixture | null, options)` — con fixture crea el mock; con `null`/vacío
 devuelve `null` y el lab shell cae al payload bridge. Orion/Voxa pasan `{ shopPath: SHOP_PATH }`
 desde sus LabShells, así que las cards, el PDP y las líneas del carrito mock
-devuelven `/coleccion/{slug}` o `/programas/{slug}`.
+devuelven `/coleccion/{slug}` o `/catalogo/{slug}`.
 
 ## Añadir un fixture
 

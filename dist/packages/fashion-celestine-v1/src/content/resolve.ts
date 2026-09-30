@@ -48,8 +48,8 @@ export function accountPath(
   return withBasePath(basePath, relative);
 }
 
-/** Mount-relative catalog root for Celestine (vestidos de ocasión). */
-export const SHOP_PATH = "/vestidos" as const;
+/** Mount-relative catalog root for Celestine (colección / catálogo entero). */
+export const SHOP_PATH = "/coleccion" as const;
 
 /**
  * Shop route query params (relative to mount):
@@ -105,6 +105,7 @@ export function resolveProducts(payload: ContentPayload): ResolvedProduct[] {
         ? resolveMediaUrl(p.hoverImage, payload.media)
         : undefined,
       isNew: p.badges?.includes("new") ?? false,
+      /** Catalog-level featured flag; section helpers may override. */
       isFeatured: p.badges?.includes("featured") ?? false,
     };
   });
@@ -114,20 +115,31 @@ export function getProductBySlug(payload: ContentPayload, slug: string) {
   return resolveProducts(payload).find((p) => p.slug === slug);
 }
 
-export function getSignatureProducts(payload: ContentPayload) {
+/**
+ * Looks firma: membership in `sections.signature.productIds` is the source of
+ * truth for the «Look firma» badge (`isFeatured`), not global catalog badges.
+ * `isNew` still comes from catalog badges (`new` wins in ProductCard).
+ */
+export function getSignatureProducts(payload: ContentPayload): ResolvedProduct[] {
   const all = resolveProducts(payload);
   const byId = new Map(all.map((p) => [p.id, p]));
   return payload.sections.signature.productIds
     .map((id) => byId.get(id))
-    .filter((p): p is ResolvedProduct => Boolean(p));
+    .filter((p): p is ResolvedProduct => Boolean(p))
+    .map((p) => ({ ...p, isFeatured: true }));
 }
 
-export function getAccessoryProducts(payload: ContentPayload) {
+/**
+ * Accesorios: never show «Look firma», even if catalog.products[].badges
+ * includes `featured` (SaaS may stamp featured on all hydrated products).
+ */
+export function getAccessoryProducts(payload: ContentPayload): ResolvedProduct[] {
   const all = resolveProducts(payload);
   const byId = new Map(all.map((p) => [p.id, p]));
   return payload.sections.accessories.productIds
     .map((id) => byId.get(id))
-    .filter((p): p is ResolvedProduct => Boolean(p));
+    .filter((p): p is ResolvedProduct => Boolean(p))
+    .map((p) => ({ ...p, isFeatured: false }));
 }
 
 export function getOccasionCollections(payload: ContentPayload) {
@@ -157,15 +169,18 @@ export function formatPrice(
 
 export function themeStyle(payload: ContentPayload): Record<string, string> {
   const c = payload.theme?.colors ?? {};
+  const primary = c.primary ?? "#1a1216";
+  const secondary = c.secondary ?? "#6b4e56";
   return {
-    "--color-primary": c.primary ?? "#1a1216",
-    "--color-secondary": c.secondary ?? "#6b4e56",
-    "--color-cta": c.cta ?? "#9c4f5f",
-    "--color-cta-hover": c.ctaHover ?? "#7e3e4c",
+    "--color-primary": primary,
+    "--color-secondary": secondary,
     "--color-background": c.background ?? "#f8f4f5",
     "--color-surface": c.surface ?? "#efe6e8",
     "--color-text": c.text ?? "#1a1216",
     "--color-muted": c.muted ?? "#746266",
     "--color-border": c.border ?? "#e0d4d7",
+    "--color-ink": "#120d10",
+    "--color-cta": c.cta ?? primary,
+    "--color-cta-hover": c.ctaHover ?? secondary,
   };
 }

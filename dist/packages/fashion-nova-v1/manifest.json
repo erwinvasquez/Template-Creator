@@ -1,0 +1,216 @@
+{
+  "templateId": "fashion-nova-v1",
+  "name": "Nova",
+  "displayName": "Nova",
+  "description": "Template e-commerce de moda femenina bold contemporary/street: tipografía Syne + Manrope, hot pink y cyan sobre blush, grids asimétricos y drops urbanos.",
+  "category": "ecommerce-fashion",
+  "version": "1.0.0",
+  "schemaVersion": "1.0.0",
+  "locale": "es-ES",
+  "preview": {
+    "path": "/t/nova",
+    "thumbnail": "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=1200&q=80"
+  },
+  "runtime": {
+    "framework": "nextjs-app-router",
+    "mountPath": "/t/nova",
+    "codeEntry": "src/index.ts",
+    "packageDir": "templates/fashion-nova-v1",
+    "renderer": "NovaApp"
+  },
+  "routes": [
+    {
+      "path": "/",
+      "page": "home",
+      "sections": [
+        "hero",
+        "dropZone",
+        "trendWall",
+        "colorPulse",
+        "squad",
+        "flashLane",
+        "footer"
+      ]
+    },
+    {
+      "path": "/tienda",
+      "page": "shop",
+      "sections": [
+        "shop"
+      ],
+      "queryParams": {
+        "categoria": "Optional category slug (catalog.categories[].slug). Navbar shopFilter.categorySlug resolves here.",
+        "coleccion": "Optional collection slug (catalog.collections[].slug). Navbar shopFilter.collectionSlug resolves here."
+      }
+    },
+    {
+      "path": "/tienda/[slug]",
+      "page": "product",
+      "sections": [
+        "product",
+        "related"
+      ]
+    },
+    {
+      "path": "/nosotros",
+      "page": "about",
+      "sections": [
+        "about"
+      ]
+    }
+  ],
+  "sections": [
+    "hero",
+    "dropZone",
+    "trendWall",
+    "colorPulse",
+    "squad",
+    "flashLane",
+    "shop",
+    "about",
+    "footer"
+  ],
+  "capabilities": {
+    "catalog": true,
+    "collections": true,
+    "cart": true,
+    "newsletter": false,
+    "themeColors": true,
+    "fontsConfigurable": false
+  },
+  "commerce": {
+    "mode": "preview-only",
+    "contractVersion": null,
+    "views": {
+      "productListing": true,
+      "productDetail": true,
+      "cartPage": true,
+      "cartDrawer": true,
+      "checkoutLayout": true,
+      "checkoutPage": false,
+      "orderConfirmation": true,
+      "orderTracking": true,
+      "accountLogin": true,
+      "accountRegister": true,
+      "accountDashboard": true
+    },
+    "capabilities": {
+      "productListing": "required",
+      "search": "supported",
+      "categoryFilter": "supported",
+      "collectionFilter": "supported",
+      "brandFilter": "supported",
+      "sorting": "required",
+      "cursorPagination": "required",
+      "productDetail": "required",
+      "variantSelector": "required-when-applicable",
+      "gallery": "supported",
+      "stockIndicator": "supported",
+      "relatedProducts": "supported",
+      "cartDrawer": "supported",
+      "cartPage": "supported",
+      "checkoutLayout": "supported",
+      "checkoutMapPicker": "unsupported",
+      "paymentVoucherUpload": "unsupported",
+      "taxCalculation": "host-controlled",
+      "shippingCalculation": "host-controlled",
+      "inventoryValidation": "host-controlled",
+      "placeOrder": "host-controlled",
+      "salesModeSwitch": "unsupported"
+    }
+  },
+  "mediaSlots": [
+    {
+      "id": "hero.image",
+      "section": "hero",
+      "aspect": "full-bleed",
+      "recommendedWidth": 2400
+    },
+    {
+      "id": "occasions[].image",
+      "section": "dropZone",
+      "aspect": "3/4",
+      "count": 3,
+      "recommendedWidth": 1600
+    },
+    {
+      "id": "about.bannerImage",
+      "section": "about",
+      "aspect": "wide",
+      "recommendedWidth": 2400
+    },
+    {
+      "id": "products[].image",
+      "section": "catalog",
+      "aspect": "3/4",
+      "recommendedWidth": 1200
+    },
+    {
+      "id": "products[].hoverImage",
+      "section": "catalog",
+      "aspect": "3/4",
+      "optional": true
+    }
+  ],
+  "constraints": {
+    "catalogRefs": [
+      "sections.colorPulse.productIds",
+      "sections.flashLane.productIds",
+      "sections.dropZone.collectionIds"
+    ],
+    "catalogBindings": [
+      {
+        "path": "sections.colorPulse.productIds",
+        "kind": "product",
+        "sectionId": "colorPulse",
+        "label": {
+          "es": "Looks destacados",
+          "en": "Featured looks"
+        },
+        "maxItems": 8
+      },
+      {
+        "path": "sections.flashLane.productIds",
+        "kind": "product",
+        "sectionId": "flashLane",
+        "label": {
+          "es": "Accesorios flash",
+          "en": "Flash accessories"
+        },
+        "maxItems": 12
+      },
+      {
+        "path": "sections.dropZone.collectionIds",
+        "kind": "collection",
+        "sectionId": "dropZone",
+        "label": {
+          "es": "Drops",
+          "en": "Drops"
+        },
+        "maxItems": 4
+      }
+    ],
+    "commerceFeaturedProductsPath": "sections.colorPulse.productIds",
+    "commerceFeaturedCollectionsPath": "sections.dropZone.collectionIds",
+    "signatureProductPath": "sections.colorPulse.productIds",
+    "occasionIdsPath": "sections.dropZone.collectionIds"
+  },
+  "export": {
+    "files": [
+      "manifest.json",
+      "builder.manifest.json",
+      "schema.json",
+      "defaults.json",
+      "package.json",
+      "src/",
+      "fixtures/",
+      "README.md",
+      "PROOF.md",
+      "BUILD_INFO.json",
+      "IMMUTABLE"
+    ],
+    "command": "npm run template:export -- fashion-nova-v1",
+    "output": "dist/packages/fashion-nova-v1",
+    "consumer": "IA Builder v2 — solo genera/edita Content Payload validado contra schema.json; nunca modifica el código del template."
+  }
+}

@@ -5,6 +5,7 @@ import Link from "next/link";
 import type { ResolvedProduct } from "../content/types";
 import { SHOP_PATH, formatPrice, withBasePath } from "../content/resolve";
 import { useSiteContent } from "../lib/site-content";
+import { requireUi } from "../lib/ui";
 
 export function ProductCard({
   product,
@@ -14,9 +15,9 @@ export function ProductCard({
   priority?: boolean;
 }) {
   const { payload, basePath } = useSiteContent();
-  const badges = payload.ui?.product?.badges;
-  const newLabel = badges?.new ?? "Nueva temporada";
-  const featuredLabel = badges?.featured ?? "Look firma";
+  const badges = requireUi(payload).product.badges;
+  const newLabel = badges.new;
+  const featuredLabel = badges.featured;
 
   return (
     <Link
@@ -34,7 +35,7 @@ export function ProductCard({
             sizes="(max-width: 768px) 100vw, 25vw"
           />
           {(product.isNew || product.isFeatured) && (
-            <span className="absolute left-4 top-4 rounded-full bg-cta px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-white">
+            <span className="absolute left-4 top-4 rounded-full bg-primary px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-background">
               {product.isNew ? newLabel : featuredLabel}
             </span>
           )}
@@ -43,7 +44,7 @@ export function ProductCard({
           <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-secondary">
             {product.categoryLabel}
           </p>
-          <h3 className="mt-2 font-serif text-xl leading-tight text-primary transition-colors duration-200 group-hover:text-cta md:text-2xl">
+          <h3 className="mt-2 font-serif text-xl leading-tight text-primary transition-colors duration-200 group-hover:text-primary md:text-2xl">
             {product.name}
           </h3>
           <p className="mt-2 text-xs text-muted">

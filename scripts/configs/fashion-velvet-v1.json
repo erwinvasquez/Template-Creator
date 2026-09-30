@@ -1,0 +1,23 @@
+{
+  "templateId": "fashion-velvet-v1",
+  "slug": "velvet",
+  "displayName": "Velvet Maison",
+  "appName": "VelvetApp",
+  "cssFile": "velvet.css",
+  "shopPath": "/coleccion",
+  "aboutPath": "/la-maison",
+  "sectionMap": {
+    "occasions": "soirees",
+    "craft": "goldCraft",
+    "signature": "nocturne",
+    "note": "salon",
+    "accessories": "velvetEdit"
+  },
+  "componentMap": {
+    "OccasionsStrip": "SoireesMarquee",
+    "CraftBand": "GoldCraftBand",
+    "SignatureLooks": "NocturneGrid",
+    "AtelierNote": "SalonNote",
+    "AccessoriesLane": "VelvetEditLane"
+  }
+}

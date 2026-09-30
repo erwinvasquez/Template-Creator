@@ -15,7 +15,7 @@ export function AppointmentBand() {
         <Reveal>
           <p
             data-wb-slot="appointment.eyebrow"
-            className="text-[11px] font-medium uppercase tracking-[0.2em] text-cta"
+            className="text-[11px] font-medium uppercase tracking-[0.2em] text-secondary"
           >
             {appointment.eyebrow}
           </p>
@@ -34,7 +34,7 @@ export function AppointmentBand() {
           <Link
             href={withBasePath(basePath, appointment.cta.href)}
             data-wb-slot="appointment.cta"
-            className="mt-9 inline-flex cursor-pointer border border-white/40 px-8 py-3.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-white transition-colors duration-200 hover:border-cta hover:bg-cta"
+            className="mt-9 inline-flex cursor-pointer border border-white/40 px-8 py-3.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-white transition-colors duration-200 hover:border-cta hover:bg-primary"
           >
             {appointment.cta.label}
           </Link>

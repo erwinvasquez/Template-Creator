@@ -13,6 +13,7 @@
   --color-text: #0c0a09;
   --color-muted: #57534e;
   --color-border: #e7e5e4;
+  --color-ink: #1c1917;
   --color-gold-soft: rgba(202, 138, 4, 0.12);
 }
 
@@ -26,6 +27,7 @@
   --color-text: #0c0a09;
   --color-muted: #57534e;
   --color-border: #e7e5e4;
+  --color-ink: #1c1917;
   --font-serif: var(--font-cormorant);
   --font-sans: var(--font-montserrat);
 }
@@ -139,4 +141,13 @@
     transform: none;
     transition: none;
   }
+}
+
+.category-scroll {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.category-scroll::-webkit-scrollbar {
+  display: none;
 }

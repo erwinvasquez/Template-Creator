@@ -5,6 +5,7 @@ import Link from "next/link";
 import type { ResolvedProduct } from "../content/types";
 import { formatPrice, withBasePath } from "../content/resolve";
 import { useSiteContent } from "../lib/site-content";
+import { requireUi } from "../lib/ui";
 
 export function ProductCard({
   product,
@@ -14,9 +15,7 @@ export function ProductCard({
   priority?: boolean;
 }) {
   const { payload, basePath } = useSiteContent();
-  const badges = payload.ui?.product?.badges;
-  const newLabel = badges?.new ?? "Nuevo";
-  const featuredLabel = badges?.featured ?? "Destacado";
+  const badges = requireUi(payload).product.badges;
 
   return (
     <Link
@@ -45,12 +44,12 @@ export function ProductCard({
           )}
           {(product.isNew || product.isFeatured) && (
             <span className="absolute left-3 top-3 text-[10px] font-medium uppercase tracking-[0.16em] text-white">
-              {product.isNew ? newLabel : featuredLabel}
+              {product.isNew ? badges.new : badges.featured}
             </span>
           )}
         </div>
         <div className="mt-4 space-y-1">
-          <h3 className="font-serif text-xl leading-tight tracking-wide transition-colors duration-200 group-hover:text-cta md:text-[1.35rem]">
+          <h3 className="font-serif text-xl leading-tight tracking-wide transition-colors duration-200 group-hover:text-primary md:text-[1.35rem]">
             {product.name}
           </h3>
           <p className="text-sm text-muted">

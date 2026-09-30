@@ -1,0 +1,686 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "fashion-nova-v1",
+  "templateVersion": "1.0.0",
+  "brand": {
+    "name": "Nova",
+    "displayName": "NOVA",
+    "tagline": "Street-luxe para mujeres que marcan el ritmo.",
+    "locale": "es-ES",
+    "currency": "EUR"
+  },
+  "theme": {
+    "colors": {
+      "primary": "#EC4899",
+      "secondary": "#06B6D4",
+      "cta": "#EC4899",
+      "ctaHover": "#DB2777",
+      "background": "#FDF2F8",
+      "surface": "#FCE7F3",
+      "text": "#18181B",
+      "muted": "#71717A",
+      "border": "#FBCFE8"
+    }
+  },
+  "features": {
+    "cart": true,
+    "newsletter": false,
+    "account": true,
+    "accountBasePath": "/cuenta"
+  },
+  "navigation": {
+    "primary": [
+      {
+        "type": "path",
+        "label": "Tienda",
+        "href": "/tienda"
+      },
+      {
+        "type": "shopFilter",
+        "label": "Street",
+        "categorySlug": "street"
+      },
+      {
+        "type": "shopFilter",
+        "label": "Sets",
+        "categorySlug": "sets"
+      },
+      {
+        "type": "path",
+        "label": "Nosotros",
+        "href": "/nosotros"
+      }
+    ]
+  },
+  "seo": {
+    "titleTemplate": "%s · Nova",
+    "default": {
+      "title": "Nova — Moda femenina bold contemporary & street",
+      "description": "Drops urbanos, sets coordinados y piezas deportivas con actitud. Hot pink, cyan y siluetas que no piden permiso.",
+      "openGraph": {
+        "title": "Nova — Street-luxe para mujeres",
+        "description": "Moda contemporánea con bloques audaces, grids asimétricos y colecciones limitadas."
+      }
+    },
+    "pages": {
+      "shop": {
+        "title": "Tienda",
+        "description": "Catálogo Nova: street, sets, deportivo y accesorios."
+      },
+      "about": {
+        "title": "Nosotros",
+        "description": "La marca, el equipo y dónde encontrarnos."
+      }
+    }
+  },
+  "catalog": {
+    "categories": [
+      {
+        "id": "cat_street",
+        "slug": "street",
+        "label": "Street"
+      },
+      {
+        "id": "cat_sets",
+        "slug": "sets",
+        "label": "Sets"
+      },
+      {
+        "id": "cat_deportivo",
+        "slug": "deportivo",
+        "label": "Deportivo"
+      },
+      {
+        "id": "cat_accesorios",
+        "slug": "accesorios",
+        "label": "Accesorios"
+      }
+    ],
+    "collections": [
+      {
+        "id": "col_neon",
+        "slug": "neon-drop",
+        "name": "Neon Drop",
+        "description": "Piezas neón, cortes oversize y energía de ciudad después del atardecer.",
+        "image": {
+          "url": "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=1600&q=80",
+          "alt": "Modelo con look street neón en calle urbana"
+        }
+      },
+      {
+        "id": "col_power",
+        "slug": "power-set",
+        "name": "Power Set",
+        "description": "Sets coordinados con blazer, falda y leggings para armar el look en un movimiento.",
+        "image": {
+          "url": "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1600&q=80",
+          "alt": "Set coordinado femenino en tonos rosados"
+        }
+      },
+      {
+        "id": "col_after",
+        "slug": "after-hours",
+        "name": "After Hours",
+        "description": "Mini vestidos, bodies y accesorios para la noche sin reglas.",
+        "image": {
+          "url": "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=1600&q=80",
+          "alt": "Look nocturno femenino con luces de neón"
+        }
+      }
+    ],
+    "products": [
+      {
+        "id": "1",
+        "slug": "neon-crop-hoodie",
+        "name": "Neon Crop Hoodie",
+        "description": "Hoodie cropped en algodón cepillado con logo reflectante. Fit relajado, puños acanalados y cordón en contraste cyan.",
+        "price": 89,
+        "categoryId": "cat_street",
+        "collectionId": "col_neon",
+        "colors": [
+          "Hot Pink",
+          "Negro"
+        ],
+        "sizes": [
+          "XS",
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=1200&q=80",
+          "alt": "Hoodie cropped rosa neón"
+        },
+        "hoverImage": {
+          "url": "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=1200&q=80",
+          "alt": "Detalle del hoodie Neon Crop"
+        },
+        "badges": [
+          "featured"
+        ]
+      },
+      {
+        "id": "2",
+        "slug": "power-blazer-set",
+        "name": "Power Blazer Set",
+        "description": "Blazer estructurado + minifalda a juego. Tejido ligero con hombreras suaves y forro satinado. El set que eleva cualquier plan.",
+        "price": 149,
+        "categoryId": "cat_sets",
+        "collectionId": "col_power",
+        "colors": [
+          "Rosa",
+          "Negro"
+        ],
+        "sizes": [
+          "XS",
+          "S",
+          "M",
+          "L"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1200&q=80",
+          "alt": "Set blazer y falda Power"
+        },
+        "badges": [
+          "new",
+          "featured"
+        ]
+      },
+      {
+        "id": "3",
+        "slug": "after-hours-mini",
+        "name": "After Hours Mini",
+        "description": "Mini vestido de satén con abertura lateral y tirantes finos. Brilla bajo la luz sin perder comodidad.",
+        "price": 119,
+        "categoryId": "cat_street",
+        "collectionId": "col_after",
+        "colors": [
+          "Fucsia",
+          "Negro"
+        ],
+        "sizes": [
+          "XS",
+          "S",
+          "M",
+          "L"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=1200&q=80",
+          "alt": "Mini vestido After Hours"
+        },
+        "badges": [
+          "featured"
+        ]
+      },
+      {
+        "id": "4",
+        "slug": "street-cargo-pant",
+        "name": "Street Cargo Pant",
+        "description": "Cargo de tiro alto con bolsillos laterales y cintura ajustable. Silueta amplia, caída street y tejido resistente.",
+        "price": 79,
+        "categoryId": "cat_street",
+        "collectionId": "col_neon",
+        "colors": [
+          "Negro",
+          "Gris cemento"
+        ],
+        "sizes": [
+          "XS",
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=1200&q=80",
+          "alt": "Pantalón cargo street"
+        }
+      },
+      {
+        "id": "5",
+        "slug": "active-set-leggings",
+        "name": "Active Set Leggings",
+        "description": "Leggings de compresión media con cintura alta y costuras contour. Empareja con el top Power para gym o street.",
+        "price": 65,
+        "categoryId": "cat_deportivo",
+        "collectionId": "col_power",
+        "colors": [
+          "Rosa",
+          "Cyan"
+        ],
+        "sizes": [
+          "XS",
+          "S",
+          "M",
+          "L"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=1200&q=80",
+          "alt": "Leggings deportivos Active Set"
+        },
+        "badges": [
+          "new"
+        ]
+      },
+      {
+        "id": "6",
+        "slug": "neon-windbreaker",
+        "name": "Neon Windbreaker",
+        "description": "Cortavientos ligero con panel reflectante y capucha ajustable. Ideal para capas en look urbano.",
+        "price": 99,
+        "categoryId": "cat_deportivo",
+        "collectionId": "col_neon",
+        "colors": [
+          "Cyan",
+          "Negro"
+        ],
+        "sizes": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=1200&q=80",
+          "alt": "Cortavientos neón"
+        }
+      },
+      {
+        "id": "7",
+        "slug": "chain-crossbody",
+        "name": "Chain Crossbody",
+        "description": "Bolso bandolera mini con cadena gruesa y piel sintética soft-touch. El accesorio que cierra cualquier after.",
+        "price": 59,
+        "categoryId": "cat_accesorios",
+        "collectionId": "col_after",
+        "colors": [
+          "Plateado",
+          "Negro"
+        ],
+        "sizes": [
+          "Única"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=1200&q=80",
+          "alt": "Bolso crossbody con cadena"
+        }
+      },
+      {
+        "id": "8",
+        "slug": "oversized-graphic-tee",
+        "name": "Oversized Graphic Tee",
+        "description": "Camiseta oversize con print frontal exclusivo del drop. Algodón premium, hombro caído y largo extra.",
+        "price": 45,
+        "categoryId": "cat_street",
+        "collectionId": "col_neon",
+        "colors": [
+          "Blanco",
+          "Negro"
+        ],
+        "sizes": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=1200&q=80",
+          "alt": "Camiseta oversize con gráfico"
+        },
+        "badges": [
+          "new"
+        ]
+      },
+      {
+        "id": "9",
+        "slug": "power-pleated-skirt",
+        "name": "Power Pleated Skirt",
+        "description": "Falda plisada de tiro alto con cierre oculto. Combina con el blazer del set o con hoodie para contraste.",
+        "price": 69,
+        "categoryId": "cat_sets",
+        "collectionId": "col_power",
+        "colors": [
+          "Rosa",
+          "Negro"
+        ],
+        "sizes": [
+          "XS",
+          "S",
+          "M",
+          "L"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1583496664526-48ddd50403af?w=1200&q=80",
+          "alt": "Falda plisada Power"
+        }
+      }
+    ]
+  },
+  "sections": {
+    "hero": {
+      "headline": "Tu calle. Tu regla.",
+      "subheadline": "Street-luxe con bloques audaces, drops limitados y sets que no necesitan explicación.",
+      "image": {
+        "url": "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=2400&q=80",
+        "alt": "Modelo Nova con look street pink en entorno urbano"
+      },
+      "ctaPrimary": {
+        "label": "Ver tienda",
+        "href": "/tienda"
+      },
+      "ctaSecondary": {
+        "label": "Último drop",
+        "href": "/tienda?coleccion=neon-drop"
+      }
+    },
+    "dropZone": {
+      "eyebrow": "Drops",
+      "title": "Colecciones que mueven la ciudad.",
+      "collectionIds": [
+        "col_neon",
+        "col_power",
+        "col_after"
+      ]
+    },
+    "trendWall": {
+      "eyebrow": "Nova DNA",
+      "title": "De la calle al after sin cambiar de actitud.",
+      "body": "Diseñamos para mujeres que mezclan deportivo, tailoring y neón sin pedir permiso. Cada drop es edición limitada.",
+      "steps": [
+        {
+          "id": "drop",
+          "title": "Drop",
+          "body": "Lanzamos colecciones cortas con piezas que no vuelven. Si te encaja, es ahora."
+        },
+        {
+          "id": "mix",
+          "title": "Mix",
+          "body": "Sets coordinados y piezas sueltas para armar looks en capas: hoodie + falda + crossbody."
+        },
+        {
+          "id": "move",
+          "title": "Move",
+          "body": "Telas que aguantan el día y la noche. Desde el gym al after sin cambiar de energía."
+        }
+      ]
+    },
+    "colorPulse": {
+      "eyebrow": "Trending now",
+      "title": "Lo que está petando esta semana.",
+      "productIds": [
+        "2",
+        "1",
+        "3",
+        "8"
+      ],
+      "viewAll": {
+        "label": "Ver todo",
+        "href": "/tienda"
+      }
+    },
+    "squad": {
+      "eyebrow": "Nova Squad",
+      "title": "No seguimos tendencias. Las activamos.",
+      "body": "Somos una marca hecha por y para mujeres que viven la ciudad en primera fila. Drops limitados, envío rápido y una comunidad que comparte el mismo ritmo.",
+      "cta": {
+        "label": "Conócenos",
+        "href": "/nosotros"
+      }
+    },
+    "flashLane": {
+      "eyebrow": "Flash lane",
+      "title": "Accesorios y capas al vuelo.",
+      "body": "Crossbody, cortavientos y piezas para rematar el look antes de que se agote el drop.",
+      "productIds": [
+        "7",
+        "6",
+        "9"
+      ],
+      "cta": {
+        "label": "Ver accesorios",
+        "href": "/tienda?categoria=accesorios"
+      }
+    },
+    "shop": {
+      "eyebrow": "Tienda",
+      "title": "Todo el catálogo",
+      "description": "Filtra por categoría o explora los drops activos."
+    },
+    "about": {
+      "intro": {
+        "eyebrow": "Nosotros",
+        "title": "Nova nace en la calle.",
+        "body": "Marca femenina de moda contemporary/street con drops limitados, paleta hot pink + cyan y piezas que mezclan deportivo, tailoring y actitud urbana."
+      },
+      "bannerImage": {
+        "url": "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=2400&q=80",
+        "alt": "Interior de tienda urbana con ropa contemporánea"
+      },
+      "blocks": [
+        {
+          "id": "drops",
+          "title": "Drops limitados",
+          "body": "Colecciones cortas que no se repiten. Escasez real, no marketing vacío."
+        },
+        {
+          "id": "community",
+          "title": "Comunidad activa",
+          "body": "Nova Squad: mujeres que comparten looks, feedback y acceso anticipado a lanzamientos."
+        },
+        {
+          "id": "sustain",
+          "title": "Producción consciente",
+          "body": "Series pequeñas para evitar sobrestock. Calidad que aguanta temporadas, no solo un post."
+        }
+      ],
+      "locations": {
+        "eyebrow": "Flagship",
+        "title": "Tienda & pick-up",
+        "items": [
+          {
+            "city": "Madrid",
+            "address": "Calle Fuencarral 42, Malasaña",
+            "hours": "Lun–Sáb 11:00–20:00"
+          }
+        ]
+      },
+      "closing": {
+        "title": "Únete al squad",
+        "body": "Sigue los drops, recibe avisos de restock y accede a piezas antes que nadie.",
+        "cta": {
+          "label": "Escribir a Nova",
+          "href": "#"
+        }
+      }
+    },
+    "footer": {
+      "blurb": "Moda femenina bold contemporary/street. Drops limitados, envío rápido y actitud sin filtros.",
+      "columns": [
+        {
+          "title": "Tienda",
+          "links": [
+            {
+              "label": "Todo",
+              "href": "/tienda"
+            },
+            {
+              "label": "Street",
+              "href": "/tienda?categoria=street"
+            },
+            {
+              "label": "Sets",
+              "href": "/tienda?categoria=sets"
+            },
+            {
+              "label": "Accesorios",
+              "href": "/tienda?categoria=accesorios"
+            }
+          ]
+        },
+        {
+          "title": "Marca",
+          "links": [
+            {
+              "label": "Sobre Nova",
+              "href": "/nosotros"
+            },
+            {
+              "label": "Nova Squad",
+              "href": "/nosotros#squad"
+            },
+            {
+              "label": "Contacto",
+              "href": "#"
+            }
+          ]
+        }
+      ],
+      "tagline": "Street-luxe para mujeres que marcan el ritmo.",
+      "copyrightName": "Nova"
+    }
+  },
+  "ui": {
+    "chrome": {
+      "openCart": "Abrir carrito",
+      "openCartWithCount": "Abrir carrito, {count} artículos",
+      "myAccount": "Mi cuenta",
+      "openMenu": "Abrir menú",
+      "closeMenu": "Cerrar menú",
+      "mainNavAria": "Principal",
+      "mobileNavAria": "Móvil",
+      "salesModeAria": "Modo de compra"
+    },
+    "account": {
+      "eyebrow": "Cuenta",
+      "loginTitle": "Iniciar sesión",
+      "registerTitle": "Crear cuenta",
+      "dashboardTitle": "Mi cuenta",
+      "emailLabel": "Correo electrónico",
+      "nameLabel": "Nombre",
+      "phoneLabel": "Teléfono",
+      "passwordLabel": "Contraseña",
+      "loginSubmit": "Entrar",
+      "loginSubmitting": "Entrando…",
+      "registerSubmit": "Registrarse",
+      "registerSubmitting": "Registrando…",
+      "logout": "Cerrar sesión",
+      "goToRegister": "Regístrate",
+      "goToLogin": "Inicia sesión",
+      "noAccountPrompt": "¿No tienes cuenta?",
+      "hasAccountPrompt": "¿Ya tienes cuenta?",
+      "googleSignIn": "Continuar con Google"
+    },
+    "listing": {
+      "searchLabel": "Buscar",
+      "searchPlaceholder": "Buscar…",
+      "allCategories": "Todo",
+      "loading": "Cargando…",
+      "loadMore": "Cargar más",
+      "loadingMore": "Cargando…",
+      "noSearchResults": "Sin resultados para esta búsqueda.",
+      "pieceSingular": "pieza",
+      "piecePlural": "piezas",
+      "collectionPrefix": "Colección:",
+      "clearFilter": "Quitar filtro"
+    },
+    "checkout": {
+      "pageTitle": "Checkout",
+      "customerSection": "Cliente",
+      "shippingSection": "Envío",
+      "paymentSection": "Pago",
+      "summarySection": "Resumen",
+      "fullNameRequired": "Indica tu nombre",
+      "emailRequired": "Indica tu correo",
+      "shippingMethodRequired": "Elige un método de envío",
+      "pickupBranchRequired": "Elige una tienda",
+      "paymentMethodRequired": "Elige un método de pago",
+      "phoneNumberLabel": "Número",
+      "discountCodeLabel": "Código",
+      "shippingLineLabel": "Envío",
+      "subtotalLabel": "Subtotal",
+      "totalLabel": "Total",
+      "emptyCartLabel": "Vaciar",
+      "removeLineLabel": "Eliminar",
+      "quantityLabel": "Cantidad",
+      "phoneCountryAria": "Código de país del teléfono",
+      "discountApply": "Aplicar",
+      "taxLabel": "Impuestos",
+      "hasDiscountCodeLabel": "Tengo un código de descuento",
+      "discountLineLabel": "Descuento"
+    },
+    "errors": {
+      "addToCartFailed": "No se pudo añadir al carrito",
+      "orderConfirmFailed": "No se pudo confirmar el pedido",
+      "catalogLoadFailed": "No se pudo cargar el catálogo."
+    },
+    "cart": {
+      "title": "Tu bolsa",
+      "empty": "Tu bolsa está vacía. El drop no espera.",
+      "exploreCta": "Ir a la tienda",
+      "checkout": "Finalizar compra",
+      "shippingHint": "Envío 24–48 h en península"
+    },
+    "product": {
+      "addToCart": "Añadir al carrito",
+      "relatedTitle": "También te puede gustar",
+      "shippingNote": "Envío 24–48 h en península · Devolución gratuita 30 días",
+      "outOfStock": "Agotado",
+      "contact": "Avísame cuando vuelva",
+      "lowStock": "Últimas unidades",
+      "madeToOrderClosed": "Drop cerrado",
+      "addingToCart": "Añadiendo…",
+      "priceBookLabel": "Precio",
+      "priceProgramLabel": "Precio",
+      "stockInsufficientImmediate": "Solo tenemos {count} unidades para entrega inmediata.",
+      "stockInsufficientMadeToOrderHint": "Puedes pedir el resto bajo pedido con el plazo de preparación indicado.",
+      "stockExhaustedImmediateTitle": "Sin stock para entrega inmediata",
+      "stockExhaustedMadeToOrderAvailable": "Disponible a pedido",
+      "buyMadeToOrderCta": "Comprar bajo pedido",
+      "stockUpsellModalTitle": "Opciones de compra",
+      "badges": {
+        "new": "Nuevo drop",
+        "featured": "Trending",
+        "sale": "Oferta",
+        "bestseller": "Top ventas",
+        "limitedEdition": "Edición limitada"
+      }
+    },
+    "shop": {
+      "empty": "No hay piezas con estos filtros.",
+      "clearFilter": "Quitar filtro"
+    },
+    "notFound": {
+      "title": "Página no encontrada",
+      "body": "Esta ruta no existe en Nova."
+    },
+    "salesMode": {
+      "stock": {
+        "navLabel": "Entrega inmediata",
+        "shopBanner": "Catálogo con entrega inmediata según disponibilidad.",
+        "cartLabel": "Compra con entrega inmediata"
+      },
+      "madeToOrder": {
+        "navLabel": "Bajo pedido",
+        "shopBanner": "Catálogo bajo pedido.",
+        "preparationLabel": "Preparación",
+        "closedMessage": "Ahora mismo no aceptamos pedidos a medida.",
+        "reopensPrefix": "Volvemos",
+        "cartLabel": "Compra bajo pedido",
+        "cartClosedWarning": "Los pedidos a medida están cerrados temporalmente. No podrás completar el checkout hasta que reabran."
+      },
+      "nav": [
+        {
+          "salesMode": "stock",
+          "label": "Entrega inmediata",
+          "href": "/tienda?salesMode=stock"
+        },
+        {
+          "salesMode": "madeToOrder",
+          "label": "Bajo pedido",
+          "href": "/tienda?salesMode=madeToOrder"
+        }
+      ]
+    }
+  }
+}

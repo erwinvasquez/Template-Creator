@@ -28,7 +28,7 @@ export function CraftBand() {
           <div className="max-w-md">
             <p
               data-wb-slot="craft.eyebrow"
-              className="text-[11px] font-medium uppercase tracking-[0.2em] text-cta"
+              className="text-[11px] font-medium uppercase tracking-[0.2em] text-secondary"
             >
               {craft.eyebrow}
             </p>
@@ -47,7 +47,8 @@ export function CraftBand() {
             {craft.cta && (
               <Link
                 href={withBasePath(basePath, craft.cta.href)}
-                className="mt-8 inline-flex cursor-pointer border border-primary px-7 py-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-primary transition-colors duration-200 hover:bg-primary hover:text-white"
+                data-wb-slot="craft.cta"
+                className="mt-8 inline-flex cursor-pointer border border-primary px-7 py-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-primary transition-colors duration-200 hover:bg-primary hover:text-background"
               >
                 {craft.cta.label}
               </Link>

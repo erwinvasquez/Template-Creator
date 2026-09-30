@@ -27,11 +27,12 @@
         "programs",
         "method",
         "outcomes",
-        "books"
+        "books",
+        "footer"
       ]
     },
     {
-      "path": "/programas",
+      "path": "/catalogo",
       "page": "shop",
       "sections": [
         "shop"
@@ -42,7 +43,7 @@
       }
     },
     {
-      "path": "/programas/[slug]",
+      "path": "/catalogo/[slug]",
       "page": "product",
       "sections": [
         "product",
@@ -86,8 +87,9 @@
       "cartPage": true,
       "cartDrawer": true,
       "checkoutLayout": true,
-      "checkoutPage": true,
+      "checkoutPage": false,
       "orderConfirmation": true,
+      "orderTracking": true,
       "accountLogin": true,
       "accountRegister": true,
       "accountDashboard": true

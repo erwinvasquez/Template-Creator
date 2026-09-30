@@ -1,5 +1,7 @@
 @import "tailwindcss";
 @source "../../templates/fashion-atelier-v1/src";
+@source "../../templates/fashion-celestine-v1/src";
+@source "../../templates/fashion-lumen-v1/src";
 @source "../../templates/jewelry-orion-v1/src";
 @source "../../templates/academy-voxa-v1/src";
 

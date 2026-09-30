@@ -1,0 +1,686 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "fashion-velvet-v1",
+  "templateVersion": "1.0.0",
+  "brand": {
+    "name": "Velvet Maison",
+    "displayName": "Velvet Maison",
+    "tagline": "Glamour nocturno, confeccionado para ti.",
+    "locale": "es-ES",
+    "currency": "EUR"
+  },
+  "theme": {
+    "colors": {
+      "primary": "#1C1917",
+      "secondary": "#CA8A04",
+      "cta": "#CA8A04",
+      "ctaHover": "#A16207",
+      "background": "#FAFAF9",
+      "surface": "#F5F5F4",
+      "text": "#1C1917",
+      "muted": "#78716C",
+      "border": "#E7E5E4"
+    }
+  },
+  "features": {
+    "cart": true,
+    "newsletter": false,
+    "account": true,
+    "accountBasePath": "/cuenta"
+  },
+  "navigation": {
+    "primary": [
+      {
+        "type": "path",
+        "label": "Colección",
+        "href": "/coleccion"
+      },
+      {
+        "type": "shopFilter",
+        "label": "Noche",
+        "categorySlug": "noche"
+      },
+      {
+        "type": "shopFilter",
+        "label": "Gala",
+        "categorySlug": "gala"
+      },
+      {
+        "type": "shopFilter",
+        "label": "Cóctel",
+        "categorySlug": "cocktail"
+      },
+      {
+        "type": "path",
+        "label": "La maison",
+        "href": "/la-maison"
+      }
+    ]
+  },
+  "seo": {
+    "titleTemplate": "%s · Velvet Maison",
+    "default": {
+      "title": "Velvet Maison — Moda nocturna de lujo a medida",
+      "description": "Vestidos de gala, cóctel y lencería femenina confeccionados a medida. Glamour nocturno con acabados de alta costura.",
+      "openGraph": {
+        "title": "Velvet Maison — Glamour nocturno a medida",
+        "description": "Piezas de noche para mujer: siluetas dramáticas, tejidos nobles y confección exclusiva bajo pedido."
+      }
+    },
+    "pages": {
+      "shop": {
+        "title": "Colección",
+        "description": "Colección Velvet Maison: noche, gala, cóctel y lencería de alta costura."
+      },
+      "about": {
+        "title": "La maison",
+        "description": "Nuestra historia, el atelier y cómo reservar tu cita privada."
+      }
+    }
+  },
+  "catalog": {
+    "categories": [
+      {
+        "id": "cat_noche",
+        "slug": "noche",
+        "label": "Noche"
+      },
+      {
+        "id": "cat_gala",
+        "slug": "gala",
+        "label": "Gala"
+      },
+      {
+        "id": "cat_cocktail",
+        "slug": "cocktail",
+        "label": "Cóctel"
+      },
+      {
+        "id": "cat_lenceria",
+        "slug": "lenceria",
+        "label": "Lencería"
+      }
+    ],
+    "collections": [
+      {
+        "id": "col_midnight",
+        "slug": "midnight-glam",
+        "name": "Midnight Glam",
+        "description": "Siluetas dramáticas en terciopelo y satén para la hora más oscura.",
+        "image": {
+          "url": "https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=1600&q=80",
+          "alt": "Vestido de noche negro con brillo sutil"
+        }
+      },
+      {
+        "id": "col_champagne",
+        "slug": "champagne-hour",
+        "name": "Champagne Hour",
+        "description": "Tonos champagne y perla para cócteles, cenas y estrenos.",
+        "image": {
+          "url": "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=1600&q=80",
+          "alt": "Vestido champagne con luz cálida de atardecer"
+        }
+      },
+      {
+        "id": "col_noir",
+        "slug": "velvet-noir",
+        "name": "Velvet Noir",
+        "description": "Negro profundo, transparencias controladas y lencería de salón.",
+        "image": {
+          "url": "https://images.unsplash.com/photo-1539008835657-9e8e9680c956?w=1600&q=80",
+          "alt": "Look nocturno en terciopelo negro"
+        }
+      }
+    ],
+    "products": [
+      {
+        "id": "1",
+        "slug": "vestido-midnight-velvet",
+        "name": "Midnight Velvet",
+        "description": "Vestido largo de noche en terciopelo italiano con abertura lateral y espalda descubierta. Confección a medida con una prueba de ajuste en el salon.",
+        "price": 1480,
+        "categoryId": "cat_noche",
+        "collectionId": "col_midnight",
+        "colors": [
+          "Negro profundo",
+          "Burdeos"
+        ],
+        "sizes": [
+          "34",
+          "36",
+          "38",
+          "40",
+          "42"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=1200&q=80",
+          "alt": "Vestido Midnight Velvet en terciopelo negro"
+        },
+        "hoverImage": {
+          "url": "https://images.unsplash.com/photo-1539008835657-9e8e9680c956?w=1200&q=80",
+          "alt": "Detalle de espalda del vestido Midnight Velvet"
+        },
+        "badges": [
+          "featured"
+        ]
+      },
+      {
+        "id": "2",
+        "slug": "vestido-gala-obsidiana",
+        "name": "Gala Obsidiana",
+        "description": "Silueta de gala con corpiño estructurado y falda en cascada de mikado. Ideal para galas, premios y cenas de etiqueta.",
+        "price": 2200,
+        "categoryId": "cat_gala",
+        "collectionId": "col_midnight",
+        "colors": [
+          "Obsidiana",
+          "Plata lunar"
+        ],
+        "sizes": [
+          "A medida"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=1200&q=80",
+          "alt": "Vestido de gala Obsidiana"
+        },
+        "badges": [
+          "new",
+          "featured"
+        ]
+      },
+      {
+        "id": "3",
+        "slug": "vestido-coctel-champagne",
+        "name": "Champagne Hour",
+        "description": "Midi de satén duchesse con drapeado asimétrico y hombro descubierto. Pensado para cócteles íntimos y cenas de autor.",
+        "price": 890,
+        "categoryId": "cat_cocktail",
+        "collectionId": "col_champagne",
+        "colors": [
+          "Champagne",
+          "Marfil cálido"
+        ],
+        "sizes": [
+          "34",
+          "36",
+          "38",
+          "40"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1568252542512-9fe8fe9c87bb?w=1200&q=80",
+          "alt": "Vestido cóctel Champagne Hour"
+        },
+        "badges": [
+          "featured"
+        ]
+      },
+      {
+        "id": "4",
+        "slug": "vestido-noche-aurora",
+        "name": "Noche Aurora",
+        "description": "Vestido de noche con transparencias en tul plisado y bordado de cristales sutiles. Movimiento fluido para salas de baile y afters.",
+        "price": 1650,
+        "categoryId": "cat_noche",
+        "collectionId": "col_champagne",
+        "colors": [
+          "Negro",
+          "Champagne"
+        ],
+        "sizes": [
+          "34",
+          "36",
+          "38",
+          "40",
+          "42"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=1200&q=80",
+          "alt": "Vestido Noche Aurora con tul plisado"
+        },
+        "badges": [
+          "new"
+        ]
+      },
+      {
+        "id": "5",
+        "slug": "vestido-columna-oro",
+        "name": "Columna de Oro",
+        "description": "Vestido columna de gala en crepe metalizado con abertura alta. Línea escultórica para alfombras rojas y estrenos.",
+        "price": 1980,
+        "categoryId": "cat_gala",
+        "collectionId": "col_champagne",
+        "colors": [
+          "Oro viejo",
+          "Bronce"
+        ],
+        "sizes": [
+          "34",
+          "36",
+          "38",
+          "40"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1572804013309-59a6b3bcdb8a?w=1200&q=80",
+          "alt": "Vestido Columna de Oro metalizado"
+        }
+      },
+      {
+        "id": "6",
+        "slug": "vestido-drapeado-luna",
+        "name": "Drapeado de Luna",
+        "description": "Vestido cóctel con drapeado diagonal y espalda cruzada en seda pesada. Elegancia contenida para recepciones y cenas privadas.",
+        "price": 760,
+        "categoryId": "cat_cocktail",
+        "collectionId": "col_noir",
+        "colors": [
+          "Grafito",
+          "Negro"
+        ],
+        "sizes": [
+          "34",
+          "36",
+          "38",
+          "40",
+          "42"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=1200&q=80",
+          "alt": "Vestido Drapeado de Luna"
+        }
+      },
+      {
+        "id": "7",
+        "slug": "body-lenceria-noir",
+        "name": "Body Lingerie Noir",
+        "description": "Body de encaje francés con tirantes finos y cierre posterior. Pieza de salón para completar un look nocturno bajo un smoking o blazer.",
+        "price": 420,
+        "categoryId": "cat_lenceria",
+        "collectionId": "col_noir",
+        "colors": [
+          "Negro",
+          "Burdeos"
+        ],
+        "sizes": [
+          "34",
+          "36",
+          "38",
+          "40"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=1200&q=80",
+          "alt": "Body Lingerie Noir en encaje"
+        },
+        "badges": [
+          "featured"
+        ]
+      },
+      {
+        "id": "8",
+        "slug": "kimono-velvet-noir",
+        "name": "Kimono Velvet Noir",
+        "description": "Kimono corto de terciopelo con cinturón de satén. Capa ligera para salir del salón o cerrar la noche con actitud.",
+        "price": 580,
+        "categoryId": "cat_lenceria",
+        "collectionId": "col_noir",
+        "colors": [
+          "Negro",
+          "Verde botella"
+        ],
+        "sizes": [
+          "S/M",
+          "M/L"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1539008835657-9e8e9680c956?w=1200&q=80",
+          "alt": "Kimono Velvet Noir"
+        }
+      },
+      {
+        "id": "9",
+        "slug": "top-seda-medianoche",
+        "name": "Top Seda Medianoche",
+        "description": "Top de seda líquida con escote profundo y espalda nadadora. Combínalo con pantalón de gala o falda lápiz del atelier.",
+        "price": 340,
+        "categoryId": "cat_noche",
+        "collectionId": "col_midnight",
+        "colors": [
+          "Medianoche",
+          "Champagne"
+        ],
+        "sizes": [
+          "34",
+          "36",
+          "38",
+          "40"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=1200&q=80",
+          "alt": "Top Seda Medianoche"
+        }
+      }
+    ]
+  },
+  "sections": {
+    "hero": {
+      "headline": "La noche es tuya.",
+      "subheadline": "Vestidos de gala, cóctel y lencería femenina confeccionados a medida. Glamour nocturno con la precisión de un atelier de lujo.",
+      "image": {
+        "url": "https://images.unsplash.com/photo-1539008835657-9e8e9680c956?w=2400&q=80",
+        "alt": "Modelo Velvet Maison en vestido de noche negro"
+      },
+      "ctaPrimary": {
+        "label": "Explorar colección",
+        "href": "/coleccion"
+      },
+      "ctaSecondary": {
+        "label": "Reservar cita",
+        "href": "/la-maison#cita"
+      }
+    },
+    "soirees": {
+      "eyebrow": "Colecciones",
+      "title": "Tres mundos, una misma medianoche.",
+      "collectionIds": [
+        "col_midnight",
+        "col_champagne",
+        "col_noir"
+      ]
+    },
+    "goldCraft": {
+      "eyebrow": "Alta costura",
+      "title": "Del boceto a la primera salida.",
+      "body": "Cada pieza nace en el salon: medimos, probamos y afinamos hasta que la silueta respira contigo bajo las luces de la noche.",
+      "steps": [
+        {
+          "id": "consulta",
+          "title": "Consulta privada",
+          "body": "Definimos ocasión, silueta y tejido en una cita exclusiva. Boceto y muestras de tela sobre la mesa del salon."
+        },
+        {
+          "id": "confeccion",
+          "title": "Confección",
+          "body": "Corte y costura en taller propio. Acabados a mano en transparencias, bordados y estructuras internas."
+        },
+        {
+          "id": "prueba",
+          "title": "Prueba final",
+          "body": "Ajuste bajo luz cálida, como en la noche real. Solo entregamos cuando el movimiento y la caída son perfectos."
+        }
+      ]
+    },
+    "nocturne": {
+      "eyebrow": "Selección nocturna",
+      "title": "Piezas que dominan la penumbra.",
+      "productIds": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "viewAll": {
+        "label": "Ver toda la colección",
+        "href": "/coleccion"
+      }
+    },
+    "salon": {
+      "eyebrow": "Salon privado",
+      "title": "Tu cita, tu ritual.",
+      "body": "Reservamos tiempo para ti: probador con luz tenue, asesoría de joyería y calzado, y la calma de un espacio sin prisas.",
+      "cta": {
+        "label": "Conocer la maison",
+        "href": "/la-maison"
+      }
+    },
+    "velvetEdit": {
+      "eyebrow": "Velvet Edit",
+      "title": "El detalle que enciende el look.",
+      "body": "Lencería, kimonos y piezas de salón para completar la noche. Confección a medida, misma obsesión por el acabado.",
+      "productIds": [
+        "7",
+        "8",
+        "9"
+      ],
+      "cta": {
+        "label": "Ver lencería",
+        "href": "/coleccion?categoria=lenceria"
+      }
+    },
+    "shop": {
+      "eyebrow": "Colección",
+      "title": "Moda nocturna a medida",
+      "description": "Filtra por categoría o explora las colecciones Midnight Glam, Champagne Hour y Velvet Noir."
+    },
+    "about": {
+      "intro": {
+        "eyebrow": "La maison",
+        "title": "Velvet Maison nace para la noche.",
+        "body": "Somos un atelier de moda femenina nocturna: vestidos de gala, cóctel y lencería confeccionados bajo pedido. Sin prisa, sin pasillo: solo piezas que brillan cuando cae el sol."
+      },
+      "bannerImage": {
+        "url": "https://images.unsplash.com/photo-1558171813-4c088753af8f?w=2400&q=80",
+        "alt": "Atelier Velvet Maison con telas oscuras y luz cálida"
+      },
+      "blocks": [
+        {
+          "id": "craft",
+          "title": "Alta costura nocturna",
+          "body": "Preferimos menos piezas y más precisión: cada vestido pasa por consulta, confección y prueba bajo luz de salón."
+        },
+        {
+          "id": "salon",
+          "title": "Salon a medida",
+          "body": "Citamos en privado, escuchamos la ocasión y afinamos silueta, tejido y largo contigo."
+        },
+        {
+          "id": "edit",
+          "title": "Velvet Edit",
+          "body": "Lencería y piezas de salón para cerrar el look con la misma exigencia que un vestido de gala."
+        }
+      ],
+      "locations": {
+        "eyebrow": "Visítanos",
+        "title": "Salon de pruebas",
+        "items": [
+          {
+            "city": "Madrid",
+            "address": "Calle de la Noche 8, Salamanca",
+            "hours": "Mar–Sáb 11:00–20:00 · Solo con cita"
+          }
+        ]
+      },
+      "closing": {
+        "title": "Reserva tu cita",
+        "body": "Cuéntanos la ocasión y te proponemos fecha para conocernos en el salon.",
+        "cta": {
+          "label": "Escribir a Velvet Maison",
+          "href": "#"
+        }
+      }
+    },
+    "footer": {
+      "blurb": "Moda femenina nocturna de lujo. Vestidos de gala, cóctel y lencería confeccionados a medida.",
+      "columns": [
+        {
+          "title": "Colección",
+          "links": [
+            {
+              "label": "Toda la colección",
+              "href": "/coleccion"
+            },
+            {
+              "label": "Noche",
+              "href": "/coleccion?categoria=noche"
+            },
+            {
+              "label": "Gala",
+              "href": "/coleccion?categoria=gala"
+            },
+            {
+              "label": "Lencería",
+              "href": "/coleccion?categoria=lenceria"
+            }
+          ]
+        },
+        {
+          "title": "Maison",
+          "links": [
+            {
+              "label": "Sobre Velvet Maison",
+              "href": "/la-maison"
+            },
+            {
+              "label": "Salon de pruebas",
+              "href": "/la-maison#cita"
+            },
+            {
+              "label": "Contacto",
+              "href": "#"
+            }
+          ]
+        }
+      ],
+      "tagline": "Glamour nocturno, confeccionado para ti.",
+      "copyrightName": "Velvet Maison"
+    }
+  },
+  "ui": {
+    "chrome": {
+      "openCart": "Abrir carrito",
+      "openCartWithCount": "Abrir carrito, {count} artículos",
+      "myAccount": "Mi cuenta",
+      "openMenu": "Abrir menú",
+      "closeMenu": "Cerrar menú",
+      "mainNavAria": "Principal",
+      "mobileNavAria": "Móvil",
+      "salesModeAria": "Modo de compra"
+    },
+    "account": {
+      "eyebrow": "Cuenta",
+      "loginTitle": "Iniciar sesión",
+      "registerTitle": "Crear cuenta",
+      "dashboardTitle": "Mi cuenta",
+      "emailLabel": "Correo electrónico",
+      "nameLabel": "Nombre",
+      "phoneLabel": "Teléfono",
+      "passwordLabel": "Contraseña",
+      "loginSubmit": "Entrar",
+      "loginSubmitting": "Entrando…",
+      "registerSubmit": "Registrarse",
+      "registerSubmitting": "Registrando…",
+      "logout": "Cerrar sesión",
+      "goToRegister": "Regístrate",
+      "goToLogin": "Inicia sesión",
+      "noAccountPrompt": "¿No tienes cuenta?",
+      "hasAccountPrompt": "¿Ya tienes cuenta?",
+      "googleSignIn": "Continuar con Google"
+    },
+    "listing": {
+      "searchLabel": "Buscar",
+      "searchPlaceholder": "Buscar…",
+      "allCategories": "Todo",
+      "loading": "Cargando…",
+      "loadMore": "Cargar más",
+      "loadingMore": "Cargando…",
+      "noSearchResults": "Sin resultados para esta búsqueda.",
+      "pieceSingular": "pieza",
+      "piecePlural": "piezas",
+      "collectionPrefix": "Colección:",
+      "clearFilter": "Quitar filtro"
+    },
+    "checkout": {
+      "pageTitle": "Checkout",
+      "customerSection": "Cliente",
+      "shippingSection": "Envío",
+      "paymentSection": "Pago",
+      "summarySection": "Resumen",
+      "fullNameRequired": "Indica tu nombre",
+      "emailRequired": "Indica tu correo",
+      "shippingMethodRequired": "Elige un método de envío",
+      "pickupBranchRequired": "Elige una tienda",
+      "paymentMethodRequired": "Elige un método de pago",
+      "phoneNumberLabel": "Número",
+      "discountCodeLabel": "Código",
+      "shippingLineLabel": "Envío",
+      "subtotalLabel": "Subtotal",
+      "totalLabel": "Total",
+      "emptyCartLabel": "Vaciar",
+      "removeLineLabel": "Eliminar",
+      "quantityLabel": "Cantidad",
+      "phoneCountryAria": "Código de país del teléfono",
+      "discountApply": "Aplicar",
+      "taxLabel": "Impuestos",
+      "hasDiscountCodeLabel": "Tengo un código de descuento",
+      "discountLineLabel": "Descuento"
+    },
+    "errors": {
+      "addToCartFailed": "No se pudo añadir al carrito",
+      "orderConfirmFailed": "No se pudo confirmar el pedido",
+      "catalogLoadFailed": "No se pudo cargar el catálogo."
+    },
+    "cart": {
+      "title": "Tu selección",
+      "empty": "Aún no has reservado ninguna pieza.",
+      "exploreCta": "Ver colección",
+      "checkout": "Finalizar compra",
+      "shippingHint": "Las citas de prueba se confirman tras la señal de reserva"
+    },
+    "product": {
+      "addToCart": "Reservar pieza",
+      "relatedTitle": "Otras piezas de esta noche",
+      "shippingNote": "Confección a medida · Incluye prueba en el salon",
+      "outOfStock": "Agotado",
+      "contact": "Consultar disponibilidad",
+      "lowStock": "Quedan pocas unidades",
+      "madeToOrderClosed": "Pedidos cerrados temporalmente",
+      "addingToCart": "Añadiendo…",
+      "priceBookLabel": "Inversión de la pieza",
+      "priceProgramLabel": "Inversión por plaza",
+      "stockInsufficientImmediate": "Solo tenemos {count} unidades para entrega inmediata.",
+      "stockInsufficientMadeToOrderHint": "Puedes pedir el resto bajo pedido con el plazo de preparación indicado.",
+      "stockExhaustedImmediateTitle": "Sin stock para entrega inmediata",
+      "stockExhaustedMadeToOrderAvailable": "Disponible a pedido",
+      "buyMadeToOrderCta": "Comprar bajo pedido",
+      "stockUpsellModalTitle": "Opciones de compra",
+      "badges": {
+        "new": "Nuevo",
+        "featured": "Nocturno",
+        "sale": "Oferta",
+        "bestseller": "Esencial",
+        "limitedEdition": "Edición limitada"
+      }
+    },
+    "shop": {
+      "empty": "No hay piezas con estos filtros.",
+      "clearFilter": "Quitar filtro"
+    },
+    "notFound": {
+      "title": "Página no encontrada",
+      "body": "Esta ruta no existe en Velvet Maison."
+    },
+    "salesMode": {
+      "stock": {
+        "navLabel": "Entrega inmediata",
+        "shopBanner": "Catálogo con entrega inmediata según disponibilidad.",
+        "cartLabel": "Compra con entrega inmediata"
+      },
+      "madeToOrder": {
+        "navLabel": "Confección a medida",
+        "shopBanner": "Todas las piezas se confeccionan bajo pedido en nuestro atelier.",
+        "preparationLabel": "Plazo de confección",
+        "closedMessage": "Ahora mismo no aceptamos nuevos pedidos a medida.",
+        "reopensPrefix": "Reabrimos",
+        "cartLabel": "Pedido a medida",
+        "cartClosedWarning": "Los pedidos a medida están cerrados temporalmente. No podrás completar el checkout hasta que reabran."
+      },
+      "nav": [
+        {
+          "salesMode": "madeToOrder",
+          "label": "Confección a medida",
+          "href": "/coleccion?salesMode=madeToOrder"
+        }
+      ]
+    }
+  }
+}

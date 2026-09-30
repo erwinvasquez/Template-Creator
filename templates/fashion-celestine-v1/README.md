@@ -7,7 +7,7 @@ Template plug & play de **vestidos de ocasión**: fiesta, novias, quinceañeras,
 - **Marca demo:** Celestine
 - **Tipografía:** Cormorant + Jost
 - **Color:** rosewood `#9C4F5F` sobre perla `#F8F4F5` (sin oro Atelier ni champagne Orion)
-- **Shop path:** `/vestidos` · **About:** `/casa`
+- **Shop path:** `/coleccion` · **About:** `/casa`
 - **Lab:** `/t/celestine`
 
 ## Home (secciones propias)
@@ -46,6 +46,6 @@ npm run validate:template-package -- fashion-celestine-v1
 ## Preview
 
 - `/t/celestine`
-- `/t/celestine/vestidos`
-- `/t/celestine/vestidos/vestido-novia-lilia`
+- `/t/celestine/coleccion`
+- `/t/celestine/coleccion/vestido-novia-lilia`
 - Fixture: `/t/celestine?payload=alt-brand`

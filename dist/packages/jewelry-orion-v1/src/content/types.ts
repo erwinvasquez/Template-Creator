@@ -1,3 +1,4 @@
+import type { ProductDetailPresentation } from "../lib/pdp-presentation";
 export type MediaRef = {
   mediaId?: string;
   url?: string;
@@ -97,6 +98,16 @@ export type MaterialItem = {
   image: MediaRef;
 };
 
+export type HomePageLayout = {
+  sectionOrder?: string[];
+};
+
+export type Layout = {
+  pages?: {
+    home?: HomePageLayout;
+  };
+};
+
 export type ContentPayload = {
   schemaVersion: "1.0.0";
   templateId: "jewelry-orion-v1";
@@ -111,6 +122,7 @@ export type ContentPayload = {
     /** Mount-relative account root. Default `/cuenta`. SaaS may use `/account`. */
     accountBasePath?: string;
   };
+  layout?: Layout;
   navigation: { primary: NavLink[] };
   seo: {
     titleTemplate: string;
@@ -192,62 +204,139 @@ export type ContentPayload = {
       tagline?: string;
       copyrightName?: string;
     };
-  };
-  ui?: {
-    cart?: {
-      title?: string;
-      empty?: string;
-      exploreCta?: string;
-      checkout?: string;
-      shippingHint?: string;
-    };
     product?: {
-      addToCart?: string;
-      relatedTitle?: string;
-      shippingNote?: string;
-      outOfStock?: string;
-      contact?: string;
-      lowStock?: string;
-      madeToOrderClosed?: string;
-      badges?: {
-        new?: string;
-        /** Orion legacy badge label; kept alongside `limitedEdition`. */
-        limited?: string;
-        limitedEdition?: string;
-        featured?: string;
-        sale?: string;
-        bestseller?: string;
-      };
+      presentation?: ProductDetailPresentation;
     };
-    shop?: {
-      empty?: string;
-      clearFilter?: string;
+  };
+  ui: TemplateUi;
+};
+
+export type TemplateUi = {
+  chrome: {
+    openCart: string;
+    openCartWithCount: string;
+    myAccount: string;
+    openMenu: string;
+    closeMenu: string;
+    mainNavAria: string;
+    mobileNavAria: string;
+    salesModeAria: string;
+  };
+  account: {
+    eyebrow: string;
+    loginTitle: string;
+    registerTitle: string;
+    dashboardTitle: string;
+    emailLabel: string;
+    nameLabel: string;
+    phoneLabel: string;
+    passwordLabel: string;
+    loginSubmit: string;
+    loginSubmitting: string;
+    registerSubmit: string;
+    registerSubmitting: string;
+    logout: string;
+    goToRegister: string;
+    goToLogin: string;
+    noAccountPrompt: string;
+    hasAccountPrompt: string;
+    googleSignIn: string;
+  };
+  listing: {
+    searchLabel: string;
+    searchPlaceholder: string;
+    allCategories: string;
+    loading: string;
+    loadMore: string;
+    loadingMore: string;
+    noSearchResults: string;
+    pieceSingular: string;
+    piecePlural: string;
+    collectionPrefix: string;
+    clearFilter: string;
+  };
+  checkout: {
+    pageTitle: string;
+    customerSection: string;
+    shippingSection: string;
+    paymentSection: string;
+    summarySection: string;
+    fullNameRequired: string;
+    emailRequired: string;
+    shippingMethodRequired: string;
+    pickupBranchRequired: string;
+    paymentMethodRequired: string;
+    phoneNumberLabel: string;
+    discountCodeLabel: string;
+    shippingLineLabel: string;
+    subtotalLabel: string;
+    totalLabel: string;
+    emptyCartLabel: string;
+    removeLineLabel: string;
+    quantityLabel: string;
+    phoneCountryAria: string;
+    discountApply: string;
+    taxLabel: string;
+    hasDiscountCodeLabel: string;
+    discountLineLabel: string;
+  };
+  errors: {
+    addToCartFailed: string;
+    orderConfirmFailed: string;
+    catalogLoadFailed: string;
+  };
+  cart: {
+    title: string;
+    empty: string;
+    exploreCta: string;
+    checkout: string;
+    shippingHint: string;
+  };
+  product: {
+    addToCart: string;
+    relatedTitle: string;
+    shippingNote: string;
+    outOfStock: string;
+    contact: string;
+    lowStock: string;
+    madeToOrderClosed: string;
+    addingToCart: string;
+    badges: {
+      new: string;
+      featured: string;
+      sale: string;
+      bestseller: string;
+      limitedEdition: string;
     };
-    notFound?: {
-      title?: string;
-      body?: string;
+  };
+  shop: {
+    empty: string;
+    clearFilter: string;
+  };
+  notFound: {
+    title: string;
+    body: string;
+  };
+  salesMode: {
+    stock: {
+      navLabel: string;
+      shopBanner: string;
+      cartLabel: string;
     };
-    salesMode?: {
-      stock?: {
-        navLabel?: string;
-        shopBanner?: string;
-        cartLabel?: string;
-      };
-      madeToOrder?: {
-        navLabel?: string;
-        shopBanner?: string;
-        preparationLabel?: string;
-        closedMessage?: string;
-        reopensPrefix?: string;
-        cartLabel?: string;
-        cartClosedWarning?: string;
-      };
-      nav?: Array<{
-        salesMode: "stock" | "madeToOrder";
-        label: string;
-        href: string;
-      }>;
+    madeToOrder: {
+      navLabel: string;
+      shopBanner: string;
+      preparationLabel: string;
+      closedMessage: string;
+      reopensPrefix: string;
+      cartLabel: string;
+      cartClosedWarning: string;
     };
+    nav: Array<{
+      salesMode: "stock" | "madeToOrder";
+      label: string;
+      href: string;
+    }>;
   };
 };
 

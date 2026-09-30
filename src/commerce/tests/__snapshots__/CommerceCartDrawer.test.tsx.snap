@@ -4,10 +4,10 @@ exports[`CommerceCartDrawer > empty cart snapshot 1`] = `
 <div>
   <div
     class="atelier-root min-h-full flex flex-col"
-    style="--color-primary: #1C1917; --color-secondary: #44403C; --color-cta: #CA8A04; --color-cta-hover: #A16207; --color-background: #FAFAF9; --color-surface: #F5F5F4; --color-text: #0C0A09; --color-muted: #57534E; --color-border: #E7E5E4;"
+    style="--color-primary: #1C1917; --color-secondary: #44403C; --color-background: #FAFAF9; --color-surface: #F5F5F4; --color-text: #0C0A09; --color-muted: #57534E; --color-border: #E7E5E4; --color-ink: #1c1917; --color-cta: #CA8A04; --color-cta-hover: #A16207;"
   >
     <div
-      aria-label="Carrito"
+      aria-label="Tu selección"
       aria-modal="true"
       class="fixed inset-0 z-[60]"
       role="dialog"
@@ -90,7 +90,7 @@ exports[`CommerceCartDrawer > empty cart snapshot 1`] = `
               Tu carrito está vacío.
             </p>
             <a
-              class="cursor-pointer text-sm font-medium uppercase tracking-[0.14em] text-cta transition-colors duration-200 hover:text-cta-hover"
+              class="cursor-pointer text-sm font-medium uppercase tracking-[0.14em] text-primary transition-colors duration-200 hover:text-secondary"
               href="/t/atelier/tienda"
             >
               Explorar tienda
@@ -107,10 +107,10 @@ exports[`CommerceCartDrawer > promotion cart shows label and lines 1`] = `
 <div>
   <div
     class="atelier-root min-h-full flex flex-col"
-    style="--color-primary: #1C1917; --color-secondary: #44403C; --color-cta: #CA8A04; --color-cta-hover: #A16207; --color-background: #FAFAF9; --color-surface: #F5F5F4; --color-text: #0C0A09; --color-muted: #57534E; --color-border: #E7E5E4;"
+    style="--color-primary: #1C1917; --color-secondary: #44403C; --color-background: #FAFAF9; --color-surface: #F5F5F4; --color-text: #0C0A09; --color-muted: #57534E; --color-border: #E7E5E4; --color-ink: #1c1917; --color-cta: #CA8A04; --color-cta-hover: #A16207;"
   >
     <div
-      aria-label="Carrito"
+      aria-label="Tu selección"
       aria-modal="true"
       class="fixed inset-0 z-[60]"
       role="dialog"
@@ -296,7 +296,7 @@ exports[`CommerceCartDrawer > promotion cart shows label and lines 1`] = `
           class="border-t border-border px-6 py-5"
         >
           <p
-            class="mb-2 text-xs text-cta"
+            class="mb-2 text-xs text-primary"
           >
             −10% bienvenida
           </p>
@@ -315,7 +315,7 @@ exports[`CommerceCartDrawer > promotion cart shows label and lines 1`] = `
             </span>
           </div>
           <button
-            class="w-full cursor-pointer bg-cta px-6 py-3.5 text-sm font-semibold uppercase tracking-[0.14em] text-white transition-colors duration-200 hover:bg-cta-hover"
+            class="w-full cursor-pointer bg-primary px-6 py-3.5 text-sm font-semibold uppercase tracking-[0.14em] text-background transition-colors duration-200 hover:bg-primary/90"
             type="button"
           >
             Finalizar compra

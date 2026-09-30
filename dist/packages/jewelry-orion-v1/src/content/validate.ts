@@ -1,5 +1,12 @@
+import uiCopySchema from "@web-generator/template-content-contract/uiCopy.schema.json";
+import { inlineUiSchema } from "@web-generator/template-content-contract/schemaForAjv";
 import type { ContentPayload } from "./types";
 import schema from "../../schema.json";
+
+const schemaForAjv = inlineUiSchema(
+  schema as Record<string, unknown>,
+  uiCopySchema as Record<string, unknown>,
+);
 
 export type ValidationResult =
   | { ok: true }
@@ -15,7 +22,7 @@ export function validatePayload(payload: unknown): ValidationResult {
 
   const ajv = new Ajv2020({ allErrors: true, strict: false });
   addFormats(ajv);
-  const validate = ajv.compile(schema);
+  const validate = ajv.compile(schemaForAjv);
   const schemaOk = validate(payload);
   if (!schemaOk && validate.errors) {
     for (const err of validate.errors) {
@@ -61,10 +68,6 @@ export function validatePayload(payload: unknown): ValidationResult {
       errors.push(`sections.signatures.productIds missing product ${id}`);
     }
   }
-  if (signatureIds.length !== 3) {
-    errors.push("sections.signatures.productIds must have exactly 3 items");
-  }
-
   const materialItems = p.sections?.materials?.items ?? [];
   if (materialItems.length !== 4) {
     errors.push("sections.materials.items must have exactly 4 items");

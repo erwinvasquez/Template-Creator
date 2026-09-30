@@ -39,6 +39,72 @@ import {
   loadManifest as loadCelestineManifest,
   loadPayload as loadCelestinePayload,
 } from "fashion-celestine-v1";
+import type {
+  ContentPayload as LumenContentPayload,
+  TemplatePage as LumenTemplatePage,
+} from "fashion-lumen-v1";
+import {
+  TemplateApp as LumenTemplateApp,
+  DEFAULT_BASE_PATH as LUMEN_DEFAULT_BASE_PATH,
+  TEMPLATE_ID as LUMEN_TEMPLATE_ID,
+  loadManifest as loadLumenManifest,
+  loadPayload as loadLumenPayload,
+} from "fashion-lumen-v1";
+import type {
+  ContentPayload as VelvetContentPayload,
+  TemplatePage as VelvetTemplatePage,
+} from "fashion-velvet-v1";
+import {
+  TemplateApp as VelvetTemplateApp,
+  DEFAULT_BASE_PATH as VELVET_DEFAULT_BASE_PATH,
+  TEMPLATE_ID as VELVET_TEMPLATE_ID,
+  loadManifest as loadVelvetManifest,
+  loadPayload as loadVelvetPayload,
+} from "fashion-velvet-v1";
+import type {
+  ContentPayload as NovaContentPayload,
+  TemplatePage as NovaTemplatePage,
+} from "fashion-nova-v1";
+import {
+  TemplateApp as NovaTemplateApp,
+  DEFAULT_BASE_PATH as NOVA_DEFAULT_BASE_PATH,
+  TEMPLATE_ID as NOVA_TEMPLATE_ID,
+  loadManifest as loadNovaManifest,
+  loadPayload as loadNovaPayload,
+} from "fashion-nova-v1";
+import type {
+  ContentPayload as TrattoriaContentPayload,
+  TemplatePage as TrattoriaTemplatePage,
+} from "food-trattoria-v1";
+import {
+  TemplateApp as TrattoriaTemplateApp,
+  DEFAULT_BASE_PATH as TRATTORIA_DEFAULT_BASE_PATH,
+  TEMPLATE_ID as TRATTORIA_TEMPLATE_ID,
+  loadManifest as loadTrattoriaManifest,
+  loadPayload as loadTrattoriaPayload,
+} from "food-trattoria-v1";
+import type {
+  ContentPayload as CantinaContentPayload,
+  TemplatePage as CantinaTemplatePage,
+} from "food-cantina-v1";
+import {
+  TemplateApp as CantinaTemplateApp,
+  DEFAULT_BASE_PATH as CANTINA_DEFAULT_BASE_PATH,
+  TEMPLATE_ID as CANTINA_TEMPLATE_ID,
+  loadManifest as loadCantinaManifest,
+  loadPayload as loadCantinaPayload,
+} from "food-cantina-v1";
+import type {
+  ContentPayload as PatisserieContentPayload,
+  TemplatePage as PatisserieTemplatePage,
+} from "food-patisserie-v1";
+import {
+  TemplateApp as PatisserieTemplateApp,
+  DEFAULT_BASE_PATH as PATISSERIE_DEFAULT_BASE_PATH,
+  TEMPLATE_ID as PATISSERIE_TEMPLATE_ID,
+  loadManifest as loadPatisserieManifest,
+  loadPayload as loadPatisseriePayload,
+} from "food-patisserie-v1";
 
 export type TemplateRenderer<TPayload = ContentPayload, TPage = TemplatePage> = {
   templateId: string;
@@ -137,11 +203,152 @@ export const celestineRenderer: TemplateRenderer<
   ),
 };
 
+export const lumenRenderer: TemplateRenderer<
+  LumenContentPayload,
+  LumenTemplatePage
+> = {
+  templateId: LUMEN_TEMPLATE_ID,
+  slug: "lumen",
+  basePath: LUMEN_DEFAULT_BASE_PATH,
+  getManifest: () => loadLumenManifest(),
+  getDefaults: () => loadLumenPayload(),
+  loadPayload: loadLumenPayload,
+  renderApp: ({ page, payload, basePath = LUMEN_DEFAULT_BASE_PATH, slug }) => (
+    <LumenTemplateApp
+      page={page}
+      payload={payload}
+      basePath={basePath}
+      slug={slug}
+    />
+  ),
+};
+
+export const velvetRenderer: TemplateRenderer<
+  VelvetContentPayload,
+  VelvetTemplatePage
+> = {
+  templateId: VELVET_TEMPLATE_ID,
+  slug: "velvet",
+  basePath: VELVET_DEFAULT_BASE_PATH,
+  getManifest: () => loadVelvetManifest(),
+  getDefaults: () => loadVelvetPayload(),
+  loadPayload: loadVelvetPayload,
+  renderApp: ({ page, payload, basePath = VELVET_DEFAULT_BASE_PATH, slug }) => (
+    <VelvetTemplateApp
+      page={page}
+      payload={payload}
+      basePath={basePath}
+      slug={slug}
+    />
+  ),
+};
+
+export const novaRenderer: TemplateRenderer<
+  NovaContentPayload,
+  NovaTemplatePage
+> = {
+  templateId: NOVA_TEMPLATE_ID,
+  slug: "nova",
+  basePath: NOVA_DEFAULT_BASE_PATH,
+  getManifest: () => loadNovaManifest(),
+  getDefaults: () => loadNovaPayload(),
+  loadPayload: loadNovaPayload,
+  renderApp: ({ page, payload, basePath = NOVA_DEFAULT_BASE_PATH, slug }) => (
+    <NovaTemplateApp
+      page={page}
+      payload={payload}
+      basePath={basePath}
+      slug={slug}
+    />
+  ),
+};
+
+export const trattoriaRenderer: TemplateRenderer<
+  TrattoriaContentPayload,
+  TrattoriaTemplatePage
+> = {
+  templateId: TRATTORIA_TEMPLATE_ID,
+  slug: "trattoria",
+  basePath: TRATTORIA_DEFAULT_BASE_PATH,
+  getManifest: () => loadTrattoriaManifest(),
+  getDefaults: () => loadTrattoriaPayload(),
+  loadPayload: loadTrattoriaPayload,
+  renderApp: ({
+    page,
+    payload,
+    basePath = TRATTORIA_DEFAULT_BASE_PATH,
+    slug,
+  }) => (
+    <TrattoriaTemplateApp
+      page={page}
+      payload={payload}
+      basePath={basePath}
+      slug={slug}
+    />
+  ),
+};
+
+export const cantinaRenderer: TemplateRenderer<
+  CantinaContentPayload,
+  CantinaTemplatePage
+> = {
+  templateId: CANTINA_TEMPLATE_ID,
+  slug: "cantina",
+  basePath: CANTINA_DEFAULT_BASE_PATH,
+  getManifest: () => loadCantinaManifest(),
+  getDefaults: () => loadCantinaPayload(),
+  loadPayload: loadCantinaPayload,
+  renderApp: ({
+    page,
+    payload,
+    basePath = CANTINA_DEFAULT_BASE_PATH,
+    slug,
+  }) => (
+    <CantinaTemplateApp
+      page={page}
+      payload={payload}
+      basePath={basePath}
+      slug={slug}
+    />
+  ),
+};
+
+export const patisserieRenderer: TemplateRenderer<
+  PatisserieContentPayload,
+  PatisserieTemplatePage
+> = {
+  templateId: PATISSERIE_TEMPLATE_ID,
+  slug: "patisserie",
+  basePath: PATISSERIE_DEFAULT_BASE_PATH,
+  getManifest: () => loadPatisserieManifest(),
+  getDefaults: () => loadPatisseriePayload(),
+  loadPayload: loadPatisseriePayload,
+  renderApp: ({
+    page,
+    payload,
+    basePath = PATISSERIE_DEFAULT_BASE_PATH,
+    slug,
+  }) => (
+    <PatisserieTemplateApp
+      page={page}
+      payload={payload}
+      basePath={basePath}
+      slug={slug}
+    />
+  ),
+};
+
 const renderers: TemplateRenderer<any, any>[] = [
   atelierRenderer,
   orionRenderer,
   voxaRenderer,
   celestineRenderer,
+  lumenRenderer,
+  velvetRenderer,
+  novaRenderer,
+  trattoriaRenderer,
+  cantinaRenderer,
+  patisserieRenderer,
 ];
 
 export function listRenderers(): TemplateRenderer<any, any>[] {

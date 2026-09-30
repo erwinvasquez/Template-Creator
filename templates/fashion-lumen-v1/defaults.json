@@ -1,0 +1,724 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "fashion-lumen-v1",
+  "templateVersion": "1.0.0",
+  "brand": {
+    "name": "Lumen",
+    "displayName": "Lumen",
+    "tagline": "Moda femenina editorial con siluetas atemporales y tejidos nobles.",
+    "locale": "es-ES",
+    "currency": "EUR"
+  },
+  "theme": {
+    "colors": {
+      "primary": "#18181B",
+      "secondary": "#BE185D",
+      "cta": "#BE185D",
+      "ctaHover": "#9D174D",
+      "background": "#FAFAFA",
+      "surface": "#F4F4F5",
+      "text": "#18181B",
+      "muted": "#71717A",
+      "border": "#E4E4E7"
+    }
+  },
+  "features": {
+    "cart": true,
+    "account": true,
+    "accountBasePath": "/cuenta"
+  },
+  "navigation": {
+    "primary": [
+      {
+        "type": "path",
+        "label": "Tienda",
+        "href": "/tienda"
+      },
+      {
+        "type": "shopFilter",
+        "label": "Vestidos",
+        "categorySlug": "vestidos"
+      },
+      {
+        "type": "shopFilter",
+        "label": "Tops",
+        "categorySlug": "tops"
+      },
+      {
+        "type": "path",
+        "label": "Nosotros",
+        "href": "/nosotros"
+      }
+    ]
+  },
+  "seo": {
+    "titleTemplate": "%s · Lumen",
+    "default": {
+      "title": "Lumen — Moda femenina editorial",
+      "description": "Vestidos, tops, pantalones y abrigos con estética quiet luxury. Tejidos nobles, siluetas limpias y piezas a medida.",
+      "openGraph": {
+        "title": "Lumen — Moda femenina editorial",
+        "description": "Colecciones cápsula para el día a día con entrega inmediata y confección bajo pedido."
+      }
+    },
+    "pages": {
+      "shop": {
+        "title": "Tienda",
+        "description": "Catálogo completo Lumen: vestidos, tops, pantalones y abrigos para mujer."
+      },
+      "about": {
+        "title": "Nosotros",
+        "description": "Lumen nace del deseo de vestir con calma: tejidos naturales, cortes precisos y una estética editorial minimal."
+      }
+    }
+  },
+  "catalog": {
+    "categories": [
+      {
+        "id": "cat_vestidos",
+        "slug": "vestidos",
+        "label": "Vestidos"
+      },
+      {
+        "id": "cat_tops",
+        "slug": "tops",
+        "label": "Tops"
+      },
+      {
+        "id": "cat_pantalones",
+        "slug": "pantalones",
+        "label": "Pantalones"
+      },
+      {
+        "id": "cat_abrigos",
+        "slug": "abrigos",
+        "label": "Abrigos"
+      }
+    ],
+    "collections": [
+      {
+        "id": "col_primavera",
+        "slug": "primavera-suave",
+        "name": "Primavera Suave",
+        "description": "Tonos claros, lino ligero y siluetas fluidas para días luminosos.",
+        "image": {
+          "url": "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1600&q=80",
+          "alt": "Colección Primavera Suave"
+        }
+      },
+      {
+        "id": "col_urbana",
+        "slug": "esencia-urbana",
+        "name": "Esencia Urbana",
+        "description": "Piezas estructuradas y versátiles para la ciudad con actitud serena.",
+        "image": {
+          "url": "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1600&q=80",
+          "alt": "Colección Esencia Urbana"
+        }
+      },
+      {
+        "id": "col_lino",
+        "slug": "lino-y-seda",
+        "name": "Lino y Seda",
+        "description": "Tejidos nobles con caída natural y acabados artesanales.",
+        "image": {
+          "url": "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=1600&q=80",
+          "alt": "Colección Lino y Seda"
+        }
+      }
+    ],
+    "products": [
+      {
+        "id": "1",
+        "slug": "vestido-fluido-lino",
+        "name": "Vestido Fluido de Lino",
+        "description": "Vestido midi de lino europeo con cintura suave y escote limpio. Ideal para días cálidos con elegancia discreta.",
+        "price": 185,
+        "categoryId": "cat_vestidos",
+        "collectionId": "col_primavera",
+        "colors": [
+          "Crema",
+          "Arena"
+        ],
+        "sizes": [
+          "XS",
+          "S",
+          "M",
+          "L"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=1200&q=80",
+          "alt": "Vestido Fluido de Lino"
+        },
+        "badges": [
+          "new",
+          "featured"
+        ]
+      },
+      {
+        "id": "2",
+        "slug": "top-seda-minimal",
+        "name": "Top de Seda Minimal",
+        "description": "Top de seda con cuello barco y caída delicada. Una pieza esencial para capas editoriales.",
+        "price": 98,
+        "categoryId": "cat_tops",
+        "collectionId": "col_lino",
+        "colors": [
+          "Marfil",
+          "Negro"
+        ],
+        "sizes": [
+          "XS",
+          "S",
+          "M",
+          "L"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1564257631407-4deb1f99d992?w=1200&q=80",
+          "alt": "Top de Seda Minimal"
+        },
+        "badges": [
+          "featured"
+        ]
+      },
+      {
+        "id": "3",
+        "slug": "pantalon-ancho-lino",
+        "name": "Pantalón Ancho de Lino",
+        "description": "Pantalón de tiro alto con pliegue frontal y pernera amplia. Silueta relajada con presencia.",
+        "price": 145,
+        "categoryId": "cat_pantalones",
+        "collectionId": "col_urbana",
+        "colors": [
+          "Carbón",
+          "Blanco roto"
+        ],
+        "sizes": [
+          "XS",
+          "S",
+          "M",
+          "L"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=1200&q=80",
+          "alt": "Pantalón Ancho de Lino"
+        },
+        "badges": [
+          "featured"
+        ]
+      },
+      {
+        "id": "4",
+        "slug": "abrigo-lana-oversize",
+        "name": "Abrigo de Lana Oversize",
+        "description": "Abrigo de lana virgen con hombro caído y forro de seda. Calidez sin volumen excesivo.",
+        "price": 320,
+        "categoryId": "cat_abrigos",
+        "collectionId": "col_primavera",
+        "colors": [
+          "Camel",
+          "Gris perla"
+        ],
+        "sizes": [
+          "XS",
+          "S",
+          "M",
+          "L"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=1200&q=80",
+          "alt": "Abrigo de Lana Oversize"
+        },
+        "badges": [
+          "new"
+        ]
+      },
+      {
+        "id": "5",
+        "slug": "vestido-midi-saten",
+        "name": "Vestido Midi de Satén",
+        "description": "Vestido de satén con espalda abierta y corte sesgado. Brillo contenido para ocasiones especiales.",
+        "price": 210,
+        "categoryId": "cat_vestidos",
+        "collectionId": "col_urbana",
+        "colors": [
+          "Champagne",
+          "Negro"
+        ],
+        "sizes": [
+          "XS",
+          "S",
+          "M",
+          "L"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=1200&q=80",
+          "alt": "Vestido Midi de Satén"
+        },
+        "hoverImage": {
+          "url": "https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=1200&q=80",
+          "alt": "Vestido Midi de Satén detalle"
+        },
+        "badges": [
+          "featured"
+        ]
+      },
+      {
+        "id": "6",
+        "slug": "blusa-algodon-organico",
+        "name": "Blusa de Algodón Orgánico",
+        "description": "Blusa de algodón orgánico con puños abotonados y cuello mao. Ligereza para capas diarias.",
+        "price": 88,
+        "categoryId": "cat_tops",
+        "collectionId": "col_primavera",
+        "colors": [
+          "Blanco",
+          "Azul cielo"
+        ],
+        "sizes": [
+          "XS",
+          "S",
+          "M",
+          "L"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1582552936334-44886ff0facc?w=1200&q=80",
+          "alt": "Blusa de Algodón Orgánico"
+        },
+        "badges": [
+          "new"
+        ]
+      },
+      {
+        "id": "7",
+        "slug": "pantalon-pinzas-seda",
+        "name": "Pantalón de Pinzas en Seda",
+        "description": "Pantalón de pinzas en mezcla de seda con pernera recta. Elegancia de oficina con tacto suave.",
+        "price": 168,
+        "categoryId": "cat_pantalones",
+        "collectionId": "col_lino",
+        "colors": [
+          "Negro",
+          "Taupe"
+        ],
+        "sizes": [
+          "XS",
+          "S",
+          "M",
+          "L"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1509630879475-866972beea19?w=1200&q=80",
+          "alt": "Pantalón de Pinzas en Seda"
+        },
+        "badges": [
+          "featured"
+        ]
+      },
+      {
+        "id": "8",
+        "slug": "blazer-estructurado",
+        "name": "Blazer Estructurado",
+        "description": "Blazer entallado con solapa fina y un solo botón. La pieza que eleva cualquier look diurno.",
+        "price": 245,
+        "categoryId": "cat_abrigos",
+        "collectionId": "col_urbana",
+        "colors": [
+          "Negro",
+          "Crema"
+        ],
+        "sizes": [
+          "XS",
+          "S",
+          "M",
+          "L"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1591369822096-ffd140ec948f?w=1200&q=80",
+          "alt": "Blazer Estructurado"
+        },
+        "badges": [
+          "featured"
+        ]
+      },
+      {
+        "id": "9",
+        "slug": "falda-midi-plisada",
+        "name": "Falda Midi Plisada",
+        "description": "Falda plisada de viscosa con cintura elástica. Movimiento y feminidad en proporciones contenidas.",
+        "price": 125,
+        "categoryId": "cat_vestidos",
+        "collectionId": "col_primavera",
+        "colors": [
+          "Rosa polvo",
+          "Negro"
+        ],
+        "sizes": [
+          "XS",
+          "S",
+          "M",
+          "L"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?w=1200&q=80",
+          "alt": "Falda Midi Plisada"
+        }
+      },
+      {
+        "id": "10",
+        "slug": "camisa-oversize-lino",
+        "name": "Camisa Oversize de Lino",
+        "description": "Camisa amplia de lino lavado con bolsillo de parche. Capa ligera para entretiempo.",
+        "price": 112,
+        "categoryId": "cat_tops",
+        "collectionId": "col_lino",
+        "colors": [
+          "Blanco roto",
+          "Oliva suave"
+        ],
+        "sizes": [
+          "XS",
+          "S",
+          "M",
+          "L"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=1200&q=80",
+          "alt": "Camisa Oversize de Lino"
+        }
+      }
+    ]
+  },
+  "sections": {
+    "hero": {
+      "headline": "Lumen",
+      "subheadline": "Moda femenina editorial con siluetas atemporales, tejidos nobles y una estética de quiet luxury.",
+      "image": {
+        "url": "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=2400&q=85",
+        "alt": "Mujer con vestido fluido en ambiente luminoso"
+      },
+      "ctaPrimary": {
+        "label": "Ver tienda",
+        "href": "/tienda"
+      },
+      "ctaSecondary": {
+        "label": "Primavera Suave",
+        "href": "/tienda?coleccion=primavera-suave"
+      }
+    },
+    "wardrobe": {
+      "eyebrow": "Guardarropa",
+      "title": "Colecciones cápsula para vestir con calma.",
+      "itemCtaLabel": "Descubrir",
+      "collectionIds": [
+        "col_primavera",
+        "col_urbana",
+        "col_lino"
+      ]
+    },
+    "arrivals": {
+      "eyebrow": "Nuevas llegadas",
+      "title": "Piezas recién añadidas",
+      "viewAll": {
+        "label": "Ver todo",
+        "href": "/tienda"
+      },
+      "productIds": [
+        "1",
+        "2",
+        "3",
+        "5",
+        "6",
+        "8"
+      ]
+    },
+    "fabricNote": {
+      "eyebrow": "Tejidos",
+      "title": "Materiales que hablan en voz baja.",
+      "body": "Lino europeo, seda natural y lana virgen seleccionados por su tacto y durabilidad. Cada pieza se confecciona con acabados artesanales y un compromiso con la transparencia en el origen.",
+      "image": {
+        "url": "https://images.unsplash.com/photo-1558171813-1c765d8ddfb5?w=2400&q=85",
+        "alt": "Detalle de tejido de lino y seda"
+      },
+      "cta": {
+        "label": "Nuestra filosofía",
+        "href": "/nosotros"
+      }
+    },
+    "editorial": {
+      "eyebrow": "Editorial",
+      "title": "La elegancia no necesita ruido para ser recordada.",
+      "body": "Creemos en un guardarropa reducido, bien considerado, donde cada prenda acompaña el ritmo del día sin competir por atención.",
+      "cta": {
+        "label": "Explorar colecciones",
+        "href": "/tienda"
+      }
+    },
+    "shop": {
+      "eyebrow": "Tienda",
+      "title": "Todo el catálogo",
+      "description": "Vestidos, tops, pantalones y abrigos. Filtra por categoría, colección o modo de venta."
+    },
+    "about": {
+      "intro": {
+        "eyebrow": "Nuestra historia",
+        "title": "Vestir con intención.",
+        "body": "Lumen nació de la búsqueda de un guardarropa consciente: piezas que perduran más allá de las temporadas, confeccionadas con respeto por el oficio y la mujer que las lleva."
+      },
+      "bannerImage": {
+        "url": "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=2400&q=85",
+        "alt": "Estudio de diseño con telas y siluetas"
+      },
+      "blocks": [
+        {
+          "id": "materiales",
+          "title": "Materiales nobles",
+          "body": "Lino, seda y lana de proveedores certificados. Priorizamos fibras naturales con trazabilidad y acabados que mejoran con el uso."
+        },
+        {
+          "id": "confeccion",
+          "title": "Confección consciente",
+          "body": "Talleres locales con condiciones justas. Producciones limitadas para evitar exceso de stock y garantizar atención al detalle."
+        },
+        {
+          "id": "diseno",
+          "title": "Diseño atemporal",
+          "body": "Siluetas limpias y proporciones estudiadas. Menos tendencia, más presencia: piezas que se integran en un guardarropa duradero."
+        }
+      ],
+      "locations": {
+        "eyebrow": "Showroom",
+        "title": "Dónde encontrarnos",
+        "items": [
+          {
+            "city": "Madrid",
+            "address": "Calle de Serrano 45, 28001",
+            "hours": "Lun–Sáb 11:00–20:00"
+          },
+          {
+            "city": "Barcelona",
+            "address": "Passeig de Gràcia 72, 08008",
+            "hours": "Mar–Sáb 11:00–19:00"
+          }
+        ]
+      },
+      "closing": {
+        "title": "¿Lista para descubrir tu próxima pieza esencial?",
+        "body": "Visita nuestro showroom o explora el catálogo completo con entrega inmediata y confección bajo pedido.",
+        "cta": {
+          "label": "Ir a la tienda",
+          "href": "/tienda"
+        }
+      }
+    },
+    "footer": {
+      "blurb": "Lumen — moda femenina editorial con quiet luxury y tejidos nobles.",
+      "columns": [
+        {
+          "title": "Explorar",
+          "links": [
+            {
+              "label": "Tienda",
+              "href": "/tienda"
+            },
+            {
+              "label": "Vestidos",
+              "href": "/tienda?categoria=vestidos"
+            },
+            {
+              "label": "Tops",
+              "href": "/tienda?categoria=tops"
+            },
+            {
+              "label": "Abrigos",
+              "href": "/tienda?categoria=abrigos"
+            }
+          ]
+        },
+        {
+          "title": "Marca",
+          "links": [
+            {
+              "label": "Nuestra historia",
+              "href": "/nosotros"
+            },
+            {
+              "label": "Sostenibilidad",
+              "href": "/nosotros#sostenibilidad"
+            },
+            {
+              "label": "Atelier",
+              "href": "/nosotros#atelier"
+            }
+          ]
+        },
+        {
+          "title": "Ayuda",
+          "links": [
+            {
+              "label": "Envíos",
+              "href": "#"
+            },
+            {
+              "label": "Devoluciones",
+              "href": "#"
+            },
+            {
+              "label": "Guía de tallas",
+              "href": "#"
+            },
+            {
+              "label": "Contacto",
+              "href": "#"
+            }
+          ]
+        }
+      ],
+      "tagline": "Quiet luxury, every day.",
+      "copyrightName": "Lumen"
+    }
+  },
+  "ui": {
+    "chrome": {
+      "openCart": "Abrir carrito",
+      "openCartWithCount": "Abrir carrito, {count} artículos",
+      "myAccount": "Mi cuenta",
+      "openMenu": "Abrir menú",
+      "closeMenu": "Cerrar menú",
+      "mainNavAria": "Principal",
+      "mobileNavAria": "Móvil",
+      "salesModeAria": "Modo de compra"
+    },
+    "account": {
+      "eyebrow": "Cuenta",
+      "loginTitle": "Iniciar sesión",
+      "registerTitle": "Crear cuenta",
+      "dashboardTitle": "Mi cuenta",
+      "emailLabel": "Correo electrónico",
+      "nameLabel": "Nombre",
+      "phoneLabel": "Teléfono",
+      "passwordLabel": "Contraseña",
+      "loginSubmit": "Entrar",
+      "loginSubmitting": "Entrando…",
+      "registerSubmit": "Registrarse",
+      "registerSubmitting": "Registrando…",
+      "logout": "Cerrar sesión",
+      "goToRegister": "Regístrate",
+      "goToLogin": "Inicia sesión",
+      "noAccountPrompt": "¿No tienes cuenta?",
+      "hasAccountPrompt": "¿Ya tienes cuenta?",
+      "googleSignIn": "Continuar con Google"
+    },
+    "listing": {
+      "searchLabel": "Buscar",
+      "searchPlaceholder": "Buscar…",
+      "allCategories": "Todo",
+      "loading": "Cargando…",
+      "loadMore": "Cargar más",
+      "loadingMore": "Cargando…",
+      "noSearchResults": "Sin resultados para esta búsqueda.",
+      "pieceSingular": "pieza",
+      "piecePlural": "piezas",
+      "collectionPrefix": "Colección:",
+      "clearFilter": "Quitar filtro"
+    },
+    "checkout": {
+      "pageTitle": "Checkout",
+      "customerSection": "Cliente",
+      "shippingSection": "Envío",
+      "paymentSection": "Pago",
+      "summarySection": "Resumen",
+      "fullNameRequired": "Indica tu nombre",
+      "emailRequired": "Indica tu correo",
+      "shippingMethodRequired": "Elige un método de envío",
+      "pickupBranchRequired": "Elige una tienda",
+      "paymentMethodRequired": "Elige un método de pago",
+      "phoneNumberLabel": "Número",
+      "discountCodeLabel": "Código",
+      "shippingLineLabel": "Envío",
+      "subtotalLabel": "Subtotal",
+      "totalLabel": "Total",
+      "emptyCartLabel": "Vaciar",
+      "removeLineLabel": "Eliminar",
+      "quantityLabel": "Cantidad",
+      "phoneCountryAria": "Código de país del teléfono",
+      "discountApply": "Aplicar",
+      "taxLabel": "Impuestos",
+      "hasDiscountCodeLabel": "Tengo un código de descuento",
+      "discountLineLabel": "Descuento"
+    },
+    "errors": {
+      "addToCartFailed": "No se pudo añadir al carrito",
+      "orderConfirmFailed": "No se pudo confirmar el pedido",
+      "catalogLoadFailed": "No se pudo cargar el catálogo."
+    },
+    "cart": {
+      "title": "Tu selección",
+      "empty": "Tu carrito está vacío.",
+      "exploreCta": "Explorar tienda",
+      "checkout": "Finalizar compra",
+      "shippingHint": "Envío calculado en el checkout"
+    },
+    "product": {
+      "addToCart": "Añadir al carrito",
+      "relatedTitle": "También te puede gustar",
+      "shippingNote": "2–4 días laborables",
+      "outOfStock": "Agotado",
+      "contact": "Consultar disponibilidad",
+      "lowStock": "Quedan pocas unidades",
+      "madeToOrderClosed": "Pedidos cerrados temporalmente",
+      "addingToCart": "Añadiendo…",
+      "priceBookLabel": "Precio del ejemplar",
+      "priceProgramLabel": "Inversión por plaza en la cohorte",
+      "stockInsufficientImmediate": "Solo tenemos {count} unidades para entrega inmediata.",
+      "stockInsufficientMadeToOrderHint": "Puedes pedir el resto bajo pedido con el plazo de preparación indicado.",
+      "stockExhaustedImmediateTitle": "Sin stock para entrega inmediata",
+      "stockExhaustedMadeToOrderAvailable": "Disponible a pedido",
+      "buyMadeToOrderCta": "Comprar bajo pedido",
+      "stockUpsellModalTitle": "Opciones de compra",
+      "badges": {
+        "new": "Nuevo",
+        "featured": "Destacado",
+        "sale": "Oferta",
+        "bestseller": "Más vendido",
+        "limitedEdition": "Edición limitada"
+      }
+    },
+    "shop": {
+      "empty": "No hay piezas con estos filtros.",
+      "clearFilter": "Quitar filtro"
+    },
+    "notFound": {
+      "title": "Página no encontrada",
+      "body": "Esta ruta no existe en Lumen."
+    },
+    "salesMode": {
+      "stock": {
+        "navLabel": "Entrega inmediata",
+        "shopBanner": "Catálogo con entrega inmediata según disponibilidad.",
+        "cartLabel": "Compra con entrega inmediata"
+      },
+      "madeToOrder": {
+        "navLabel": "Bajo pedido",
+        "shopBanner": "Catálogo bajo pedido.",
+        "preparationLabel": "Preparación",
+        "closedMessage": "Ahora mismo no aceptamos pedidos a medida.",
+        "reopensPrefix": "Volvemos",
+        "cartLabel": "Compra bajo pedido",
+        "cartClosedWarning": "Los pedidos a medida están cerrados temporalmente. No podrás completar el checkout hasta que reabran."
+      },
+      "nav": [
+        {
+          "salesMode": "stock",
+          "label": "Entrega inmediata",
+          "href": "/tienda?salesMode=stock"
+        },
+        {
+          "salesMode": "madeToOrder",
+          "label": "Bajo pedido",
+          "href": "/tienda?salesMode=madeToOrder"
+        }
+      ]
+    }
+  }
+}

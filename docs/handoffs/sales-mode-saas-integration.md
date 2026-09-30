@@ -6,6 +6,13 @@
 
 > **No usar** `CatalogContextViewModel` / `catalog-context.ts` / `catalogContext` en el host como contrato de templates. Fue provisional en SaaS; los packages WG **no** lo consumen.
 
+### Cambio UX (chrome de modo)
+
+- Switch **fuera del navbar** del sitio.
+- Solo en **página shop**, fila del **eyebrow**, derecha, opciones con `|`.
+- Sin `shopBanner` genérico; avisos prep/cerrado solo si el host manda campos.
+- **Sin campos API nuevos** — misma capability + query `?salesMode=`.
+
 ---
 
 ## 1. Versión WG
@@ -30,7 +37,7 @@ Tras el sync SaaS: copiar esos `dist/packages/*` → `packages/*` y correr `pnpm
 |-------|--------|
 | `capabilities.salesModeSwitch` | `"supported"` **solo** si la org tiene **ambos** canales (stock + a pedido). En caso contrario `"unsupported"` (o omitir → preview default unsupported). |
 
-Si no es `supported` → el template **no** pinta chrome de modo (nav de modos, banner shop, línea de modo en carrito).
+Si no es `supported` → el template **no** pinta chrome de modo (switch en shop, avisos prep/cerrado, línea de modo en carrito).
 
 ### `ProductFilterViewModel` (listing)
 
@@ -39,7 +46,7 @@ Enviar estos campos **cuando** `salesModeSwitch === "supported"` **y** `salesMod
 | Campo | Tipo | Notas |
 |-------|------|--------|
 | `salesMode` | `"stock" \| "madeToOrder"` | Siempre en filters |
-| `madeToOrderAcceptingOrders` | `boolean?` | `false` → banner de cerrado |
+| `madeToOrderAcceptingOrders` | `boolean?` | `false` → aviso de cerrado (no caja `shopBanner`) |
 | `preparationPromiseLabel` | `string \| null?` | **Solo valor** (`"3–5 días"`). Sin prefijo “Preparación:” |
 | `madeToOrderReopensAtLabel` | `string \| null?` | **Solo valor** de reapertura (`"10:00"`). Sin prefijo “Volvemos” |
 
@@ -64,13 +71,22 @@ En modo `stock` (aunque dual-mode esté on): no hace falta mandar prep/cerrado/r
 
 Tope del selector +/-. **Nunca** enviar copy de “Máx. N” para UI: el template no lo muestra.
 
-### Nav
+### Switch de modo (convención UI — todos los templates)
 
-El host **no** inyecta enlaces de modo. Viven en el payload del template:
+El host **no** inyecta enlaces de modo ni chrome en el navbar del storefront. Labels/hrefs viven en el payload:
 
 `defaults.json` → `ui.salesMode.nav[]` → `{ salesMode, label, href }`
 
-El host solo pone `salesModeSwitch: "supported"`. El template lee la query `?salesMode=stock|madeToOrder` y llama `setCatalogFilters({ salesMode })`.
+El host solo pone `salesModeSwitch: "supported"`. El template:
+
+1. Muestra el switch **solo en la página de shop**, **misma fila que el eyebrow**, alineado a la derecha.
+2. Separa opciones con `|` (ej. `Entrega inmediata | Bajo pedido`).
+3. **No** lo pone en el navbar del sitio (desktop ni móvil).
+4. **No** pinta `shopBanner` genérico; los labels del switch bastan.
+5. Solo muestra prep/cerrado/reopen si el host envía esos campos.
+6. Lee `?salesMode=stock|madeToOrder` y llama `setCatalogFilters({ salesMode })`.
+
+**Sin cambio de API** respecto al capability/query: es convención de posicionamiento + menos chrome duplicado.
 
 ---
 
@@ -132,9 +148,9 @@ Dual-mode:
 | Template | Lab |
 |----------|-----|
 | Atelier | `/t/atelier/tienda?dualSalesMode=1&salesMode=madeToOrder` |
-| Celestine | `/t/celestine/vestidos?dualSalesMode=1&salesMode=madeToOrder` |
+| Celestine | `/t/celestine/coleccion?dualSalesMode=1&salesMode=madeToOrder` |
 | Orion | `/t/orion/coleccion?dualSalesMode=1&salesMode=madeToOrder` |
-| Voxa | `/t/voxa/programas?dualSalesMode=1&salesMode=madeToOrder` |
+| Voxa | `/t/voxa/catalogo?dualSalesMode=1&salesMode=madeToOrder` |
 
 También acepta `salesModeSwitch=1`. Stock dual: `salesMode=stock`.
 
@@ -143,22 +159,24 @@ Nav hrefs en defaults:
 | Template | stock | madeToOrder |
 |----------|-------|-------------|
 | Atelier | `/tienda?salesMode=stock` | `/tienda?salesMode=madeToOrder` |
-| Celestine | `/vestidos?salesMode=stock` | `/vestidos?salesMode=madeToOrder` |
+| Celestine | `/coleccion?salesMode=stock` | `/coleccion?salesMode=madeToOrder` |
 | Orion | `/coleccion?salesMode=stock` | `/coleccion?salesMode=madeToOrder` |
-| Voxa | `/programas?salesMode=stock` | `/programas?salesMode=madeToOrder` |
+| Voxa | `/catalogo?salesMode=stock` | `/catalogo?salesMode=madeToOrder` |
 
 ---
 
 ## 5. Checklist verificación manual (SaaS post-sync)
 
-- [ ] Org **un solo** canal → sin pestañas/banner/línea de modo en storefront
-- [ ] Org **ambos** canales → `salesModeSwitch: "supported"`; aparecen nav de modos (desde payload) + banner en shop
+- [ ] Org **un solo** canal → sin switch / avisos de modo / línea de modo en storefront
+- [ ] Org **ambos** canales → `salesModeSwitch: "supported"`; switch en **fila del eyebrow del shop** (derecha, con `|`), **no** en navbar del sitio
+- [ ] Sin caja/banner genérico `shopBanner` duplicando los labels
 - [ ] Entrar por `?salesMode=madeToOrder` filtra/contexto MTO; stock análogo
 - [ ] PDP MTO muestra prep solo si el host mandó `preparationPromiseLabel` (valor); prefijo sale del payload
 - [ ] MTO cerrado: mensaje claro + CTA deshabilitado; reopen si hay `madeToOrderReopensAtLabel`
 - [ ] Carrito dual-mode: línea “Compra bajo pedido” / “entrega inmediata”; warning si MTO no acepta pedidos
 - [ ] Selector cantidad respeta `maxQuantity` **sin** texto “Máx. N”
 - [ ] No depende de `catalogContext` en el template
+- [ ] Host **no** inyecta tabs de modo en su propio header/chrome
 
 ---
 

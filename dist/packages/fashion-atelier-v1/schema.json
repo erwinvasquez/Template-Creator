@@ -13,7 +13,8 @@
     "navigation",
     "seo",
     "catalog",
-    "sections"
+    "sections",
+    "ui"
   ],
   "properties": {
     "schemaVersion": {
@@ -54,7 +55,10 @@
       "$ref": "#/$defs/Sections"
     },
     "ui": {
-      "$ref": "#/$defs/UiCopy"
+      "$ref": "../../packages/template-content-contract/uiCopy.schema.json"
+    },
+    "layout": {
+      "$ref": "#/$defs/Layout"
     }
   },
   "$defs": {
@@ -620,8 +624,6 @@
             },
             "collectionIds": {
               "type": "array",
-              "minItems": 3,
-              "maxItems": 3,
               "items": {
                 "type": "string"
               }
@@ -648,7 +650,6 @@
             },
             "productIds": {
               "type": "array",
-              "minItems": 1,
               "items": {
                 "type": "string"
               }
@@ -886,170 +887,84 @@
               "type": "string"
             }
           }
-        }
-      }
-    },
-    "UiCopy": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "cart": {
-          "type": "object",
-          "properties": {
-            "title": {
-              "type": "string"
-            },
-            "empty": {
-              "type": "string"
-            },
-            "exploreCta": {
-              "type": "string"
-            },
-            "checkout": {
-              "type": "string"
-            },
-            "shippingHint": {
-              "type": "string"
-            }
-          }
         },
         "product": {
           "type": "object",
+          "additionalProperties": false,
           "properties": {
-            "addToCart": {
-              "type": "string"
-            },
-            "relatedTitle": {
-              "type": "string"
-            },
-            "shippingNote": {
-              "type": "string"
-            },
-            "outOfStock": {
-              "type": "string"
-            },
-            "contact": {
-              "type": "string"
-            },
-            "lowStock": {
-              "type": "string"
-            },
-            "madeToOrderClosed": {
-              "type": "string"
-            },
-            "badges": {
-              "type": "object",
-              "properties": {
-                "new": {
-                  "type": "string"
-                },
-                "featured": {
-                  "type": "string"
-                },
-                "sale": {
-                  "type": "string"
-                },
-                "bestseller": {
-                  "type": "string"
-                },
-                "limitedEdition": {
-                  "type": "string"
-                }
-              }
+            "presentation": {
+              "$ref": "#/$defs/ProductDetailPresentation"
             }
           }
+        }
+      }
+    },
+    "ProductDetailPresentation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "shortDescription": {
+          "type": "boolean"
         },
-        "shop": {
-          "type": "object",
-          "properties": {
-            "empty": {
-              "type": "string"
-            },
-            "clearFilter": {
-              "type": "string"
-            }
-          }
+        "description": {
+          "type": "boolean"
         },
-        "notFound": {
-          "type": "object",
-          "properties": {
-            "title": {
-              "type": "string"
-            },
-            "body": {
-              "type": "string"
-            }
-          }
+        "categoryLabels": {
+          "type": "boolean"
         },
-        "salesMode": {
+        "collectionLabels": {
+          "type": "boolean"
+        },
+        "highlights": {
+          "type": "boolean"
+        },
+        "bulletPoints": {
+          "type": "boolean"
+        },
+        "brandLabel": {
+          "type": "boolean"
+        },
+        "specifications": {
+          "type": "boolean"
+        },
+        "badges": {
+          "type": "boolean"
+        },
+        "stockMessage": {
+          "type": "boolean"
+        },
+        "preparationPromise": {
+          "type": "boolean"
+        },
+        "relatedProducts": {
+          "type": "boolean"
+        }
+      }
+    },
+    "Layout": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "pages": {
           "type": "object",
           "additionalProperties": false,
           "properties": {
-            "stock": {
+            "home": {
               "type": "object",
               "additionalProperties": false,
               "properties": {
-                "navLabel": {
-                  "type": "string"
-                },
-                "shopBanner": {
-                  "type": "string"
-                },
-                "cartLabel": {
-                  "type": "string"
-                }
-              }
-            },
-            "madeToOrder": {
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "navLabel": {
-                  "type": "string"
-                },
-                "shopBanner": {
-                  "type": "string"
-                },
-                "preparationLabel": {
-                  "type": "string"
-                },
-                "closedMessage": {
-                  "type": "string"
-                },
-                "reopensPrefix": {
-                  "type": "string"
-                },
-                "cartLabel": {
-                  "type": "string"
-                },
-                "cartClosedWarning": {
-                  "type": "string"
-                }
-              }
-            },
-            "nav": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "additionalProperties": false,
-                "required": [
-                  "salesMode",
-                  "label",
-                  "href"
-                ],
-                "properties": {
-                  "salesMode": {
+                "sectionOrder": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {
                     "type": "string",
                     "enum": [
-                      "stock",
-                      "madeToOrder"
+                      "hero",
+                      "collections",
+                      "featured",
+                      "editorial",
+                      "newsletter"
                     ]
-                  },
-                  "label": {
-                    "type": "string"
-                  },
-                  "href": {
-                    "type": "string"
                   }
                 }
               }

@@ -1,0 +1,501 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "fashion-nova-v1",
+  "templateVersion": "1.0.0",
+  "brand": {
+    "name": "Nova District",
+    "displayName": "NOVA DISTRICT",
+    "tagline": "Fixture alterno street-luxe.",
+    "locale": "es-ES",
+    "currency": "EUR"
+  },
+  "theme": {
+    "colors": {
+      "primary": "#BE185D",
+      "secondary": "#0891B2",
+      "cta": "#BE185D",
+      "ctaHover": "#9D174D",
+      "background": "#FFF1F2",
+      "surface": "#FFE4E6",
+      "text": "#18181B",
+      "muted": "#71717A",
+      "border": "#FECDD3"
+    }
+  },
+  "features": {
+    "cart": true,
+    "newsletter": false,
+    "account": true,
+    "accountBasePath": "/cuenta"
+  },
+  "navigation": {
+    "primary": [
+      {
+        "type": "path",
+        "label": "Tienda",
+        "href": "/tienda"
+      },
+      {
+        "type": "shopFilter",
+        "label": "Street",
+        "categorySlug": "street"
+      },
+      {
+        "type": "path",
+        "label": "Nosotros",
+        "href": "/nosotros"
+      }
+    ]
+  },
+  "seo": {
+    "titleTemplate": "%s · Nova District",
+    "default": {
+      "title": "Nova District — Fixture alterno",
+      "description": "Fixture de marca alternativa para validar el schema Nova."
+    },
+    "pages": {
+      "shop": {
+        "title": "Tienda",
+        "description": "Catálogo fixture street."
+      },
+      "about": {
+        "title": "Nosotros",
+        "description": "About fixture."
+      }
+    }
+  },
+  "catalog": {
+    "categories": [
+      {
+        "id": "cat_street",
+        "slug": "street",
+        "label": "Street"
+      },
+      {
+        "id": "cat_sets",
+        "slug": "sets",
+        "label": "Sets"
+      },
+      {
+        "id": "cat_deportivo",
+        "slug": "deportivo",
+        "label": "Deportivo"
+      },
+      {
+        "id": "cat_accesorios",
+        "slug": "accesorios",
+        "label": "Accesorios"
+      }
+    ],
+    "collections": [
+      {
+        "id": "col_neon",
+        "slug": "neon-drop",
+        "name": "Neon Drop",
+        "description": "Drop fixture.",
+        "image": {
+          "url": "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=1600&q=80",
+          "alt": "Neon drop"
+        }
+      },
+      {
+        "id": "col_power",
+        "slug": "power-set",
+        "name": "Power Set",
+        "description": "Set fixture.",
+        "image": {
+          "url": "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1600&q=80",
+          "alt": "Power set"
+        }
+      },
+      {
+        "id": "col_after",
+        "slug": "after-hours",
+        "name": "After Hours",
+        "description": "After hours fixture.",
+        "image": {
+          "url": "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=1600&q=80",
+          "alt": "After hours"
+        }
+      }
+    ],
+    "products": [
+      {
+        "id": "1",
+        "slug": "neon-crop-hoodie",
+        "name": "Neon Crop Hoodie",
+        "description": "Hoodie fixture.",
+        "price": 89,
+        "categoryId": "cat_street",
+        "collectionId": "col_neon",
+        "colors": [
+          "Hot Pink"
+        ],
+        "sizes": [
+          "S",
+          "M"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=1200&q=80",
+          "alt": "Hoodie"
+        },
+        "badges": [
+          "featured"
+        ]
+      },
+      {
+        "id": "2",
+        "slug": "power-blazer-set",
+        "name": "Power Blazer Set",
+        "description": "Set fixture.",
+        "price": 149,
+        "categoryId": "cat_sets",
+        "collectionId": "col_power",
+        "colors": [
+          "Rosa"
+        ],
+        "sizes": [
+          "S",
+          "M"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1200&q=80",
+          "alt": "Set"
+        },
+        "badges": [
+          "new"
+        ]
+      },
+      {
+        "id": "3",
+        "slug": "after-hours-mini",
+        "name": "After Hours Mini",
+        "description": "Mini fixture.",
+        "price": 119,
+        "categoryId": "cat_street",
+        "collectionId": "col_after",
+        "colors": [
+          "Fucsia"
+        ],
+        "sizes": [
+          "S",
+          "M"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=1200&q=80",
+          "alt": "Mini"
+        }
+      },
+      {
+        "id": "6",
+        "slug": "neon-windbreaker",
+        "name": "Neon Windbreaker",
+        "description": "Cortavientos fixture.",
+        "price": 99,
+        "categoryId": "cat_deportivo",
+        "collectionId": "col_neon",
+        "colors": [
+          "Cyan"
+        ],
+        "sizes": [
+          "M",
+          "L"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=1200&q=80",
+          "alt": "Windbreaker"
+        }
+      },
+      {
+        "id": "7",
+        "slug": "chain-crossbody",
+        "name": "Chain Crossbody",
+        "description": "Bolso fixture.",
+        "price": 59,
+        "categoryId": "cat_accesorios",
+        "collectionId": "col_after",
+        "colors": [
+          "Negro"
+        ],
+        "sizes": [
+          "Única"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=1200&q=80",
+          "alt": "Bolso"
+        }
+      }
+    ]
+  },
+  "sections": {
+    "hero": {
+      "headline": "Fixture: tu calle, tu regla.",
+      "subheadline": "Marca alternativa para pruebas de schema.",
+      "image": {
+        "url": "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=2400&q=80",
+        "alt": "Hero fixture"
+      },
+      "ctaPrimary": {
+        "label": "Ver tienda",
+        "href": "/tienda"
+      }
+    },
+    "dropZone": {
+      "eyebrow": "Drops",
+      "title": "Fixture de colecciones.",
+      "collectionIds": [
+        "col_neon",
+        "col_power",
+        "col_after"
+      ]
+    },
+    "trendWall": {
+      "eyebrow": "Nova DNA",
+      "title": "Fixture trendWall.",
+      "steps": [
+        {
+          "id": "a",
+          "title": "Drop",
+          "body": "Paso uno."
+        },
+        {
+          "id": "b",
+          "title": "Mix",
+          "body": "Paso dos."
+        },
+        {
+          "id": "c",
+          "title": "Move",
+          "body": "Paso tres."
+        }
+      ]
+    },
+    "colorPulse": {
+      "eyebrow": "Trending",
+      "title": "Fixture looks.",
+      "productIds": [
+        "2",
+        "1",
+        "3"
+      ]
+    },
+    "squad": {
+      "eyebrow": "Squad",
+      "title": "Fixture squad.",
+      "body": "Comunidad fixture.",
+      "cta": {
+        "label": "Nosotros",
+        "href": "/nosotros"
+      }
+    },
+    "flashLane": {
+      "eyebrow": "Flash",
+      "title": "Fixture accesorios.",
+      "body": "Accesorios fixture.",
+      "productIds": [
+        "7",
+        "6"
+      ]
+    },
+    "shop": {
+      "eyebrow": "Tienda",
+      "title": "Catálogo",
+      "description": "Shop fixture."
+    },
+    "about": {
+      "intro": {
+        "eyebrow": "Nosotros",
+        "title": "Fixture about.",
+        "body": "Historia alternativa."
+      },
+      "bannerImage": {
+        "url": "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=2400&q=80",
+        "alt": "Tienda"
+      },
+      "blocks": [
+        {
+          "id": "1",
+          "title": "Bloque",
+          "body": "Texto."
+        }
+      ],
+      "locations": {
+        "eyebrow": "Flagship",
+        "title": "Tienda",
+        "items": [
+          {
+            "city": "Madrid",
+            "address": "Calle fixture 1",
+            "hours": "Lun–Sáb"
+          }
+        ]
+      },
+      "closing": {
+        "title": "Squad",
+        "body": "Escríbenos.",
+        "cta": {
+          "label": "Contacto",
+          "href": "#"
+        }
+      }
+    },
+    "footer": {
+      "blurb": "Fixture footer.",
+      "columns": [
+        {
+          "title": "Tienda",
+          "links": [
+            {
+              "label": "Todo",
+              "href": "/tienda"
+            }
+          ]
+        }
+      ],
+      "copyrightName": "Nova District"
+    }
+  },
+  "ui": {
+    "chrome": {
+      "openCart": "Abrir carrito",
+      "openCartWithCount": "Abrir carrito, {count} artículos",
+      "myAccount": "Mi cuenta",
+      "openMenu": "Abrir menú",
+      "closeMenu": "Cerrar menú",
+      "mainNavAria": "Principal",
+      "mobileNavAria": "Móvil",
+      "salesModeAria": "Modo de compra"
+    },
+    "account": {
+      "eyebrow": "Cuenta",
+      "loginTitle": "Iniciar sesión",
+      "registerTitle": "Crear cuenta",
+      "dashboardTitle": "Mi cuenta",
+      "emailLabel": "Correo electrónico",
+      "nameLabel": "Nombre",
+      "phoneLabel": "Teléfono",
+      "passwordLabel": "Contraseña",
+      "loginSubmit": "Entrar",
+      "loginSubmitting": "Entrando…",
+      "registerSubmit": "Registrarse",
+      "registerSubmitting": "Registrando…",
+      "logout": "Cerrar sesión",
+      "goToRegister": "Regístrate",
+      "goToLogin": "Inicia sesión",
+      "noAccountPrompt": "¿No tienes cuenta?",
+      "hasAccountPrompt": "¿Ya tienes cuenta?",
+      "googleSignIn": "Continuar con Google"
+    },
+    "listing": {
+      "searchLabel": "Buscar",
+      "searchPlaceholder": "Buscar…",
+      "allCategories": "Todo",
+      "loading": "Cargando…",
+      "loadMore": "Cargar más",
+      "loadingMore": "Cargando…",
+      "noSearchResults": "Sin resultados para esta búsqueda.",
+      "pieceSingular": "pieza",
+      "piecePlural": "piezas",
+      "collectionPrefix": "Colección:",
+      "clearFilter": "Quitar filtro"
+    },
+    "checkout": {
+      "pageTitle": "Checkout",
+      "customerSection": "Cliente",
+      "shippingSection": "Envío",
+      "paymentSection": "Pago",
+      "summarySection": "Resumen",
+      "fullNameRequired": "Indica tu nombre",
+      "emailRequired": "Indica tu correo",
+      "shippingMethodRequired": "Elige un método de envío",
+      "pickupBranchRequired": "Elige una tienda",
+      "paymentMethodRequired": "Elige un método de pago",
+      "phoneNumberLabel": "Número",
+      "discountCodeLabel": "Código",
+      "shippingLineLabel": "Envío",
+      "subtotalLabel": "Subtotal",
+      "totalLabel": "Total",
+      "emptyCartLabel": "Vaciar",
+      "removeLineLabel": "Eliminar",
+      "quantityLabel": "Cantidad",
+      "phoneCountryAria": "Código de país del teléfono",
+      "discountApply": "Aplicar",
+      "taxLabel": "Impuestos",
+      "hasDiscountCodeLabel": "Tengo un código de descuento",
+      "discountLineLabel": "Descuento"
+    },
+    "errors": {
+      "addToCartFailed": "No se pudo añadir al carrito",
+      "orderConfirmFailed": "No se pudo confirmar el pedido",
+      "catalogLoadFailed": "No se pudo cargar el catálogo."
+    },
+    "cart": {
+      "title": "Tu bolsa",
+      "empty": "Tu bolsa está vacía.",
+      "exploreCta": "Ir a la tienda",
+      "checkout": "Finalizar compra",
+      "shippingHint": "Envío calculado en el checkout"
+    },
+    "product": {
+      "addToCart": "Añadir al carrito",
+      "relatedTitle": "También te puede gustar",
+      "shippingNote": "2–4 días laborables",
+      "outOfStock": "Agotado",
+      "contact": "Avísame cuando vuelva",
+      "lowStock": "Últimas unidades",
+      "madeToOrderClosed": "Drop cerrado",
+      "addingToCart": "Añadiendo…",
+      "priceBookLabel": "Precio",
+      "priceProgramLabel": "Precio",
+      "badges": {
+        "new": "Nuevo drop",
+        "featured": "Trending",
+        "sale": "Oferta",
+        "bestseller": "Top ventas",
+        "limitedEdition": "Edición limitada"
+      },
+      "stockInsufficientImmediate": "Solo tenemos {count} unidades para entrega inmediata.",
+      "stockInsufficientMadeToOrderHint": "Puedes pedir el resto bajo pedido con el plazo de preparación indicado.",
+      "stockExhaustedImmediateTitle": "Sin stock para entrega inmediata",
+      "stockExhaustedMadeToOrderAvailable": "Disponible a pedido",
+      "buyMadeToOrderCta": "Comprar bajo pedido",
+      "stockUpsellModalTitle": "Opciones de compra"
+    },
+    "shop": {
+      "empty": "Vacío fixture.",
+      "clearFilter": "Quitar filtro"
+    },
+    "notFound": {
+      "title": "Página no encontrada",
+      "body": "Esta ruta no existe."
+    },
+    "salesMode": {
+      "stock": {
+        "navLabel": "Entrega inmediata",
+        "shopBanner": "Catálogo con entrega inmediata según disponibilidad.",
+        "cartLabel": "Compra con entrega inmediata"
+      },
+      "madeToOrder": {
+        "navLabel": "Bajo pedido",
+        "shopBanner": "Catálogo bajo pedido.",
+        "preparationLabel": "Preparación",
+        "closedMessage": "Ahora mismo no aceptamos pedidos a medida.",
+        "reopensPrefix": "Volvemos",
+        "cartLabel": "Compra bajo pedido",
+        "cartClosedWarning": "Los pedidos a medida están cerrados temporalmente. No podrás completar el checkout hasta que reabran."
+      },
+      "nav": [
+        {
+          "salesMode": "stock",
+          "label": "Entrega inmediata",
+          "href": "/tienda?salesMode=stock"
+        },
+        {
+          "salesMode": "madeToOrder",
+          "label": "Bajo pedido",
+          "href": "/tienda?salesMode=madeToOrder"
+        }
+      ]
+    }
+  }
+}

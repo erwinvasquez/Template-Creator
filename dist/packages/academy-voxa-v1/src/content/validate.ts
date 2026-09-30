@@ -1,5 +1,12 @@
+import uiCopySchema from "@web-generator/template-content-contract/uiCopy.schema.json";
+import { inlineUiSchema } from "@web-generator/template-content-contract/schemaForAjv";
 import type { ContentPayload } from "./types";
 import schema from "../../schema.json";
+
+const schemaForAjv = inlineUiSchema(
+  schema as Record<string, unknown>,
+  uiCopySchema as Record<string, unknown>,
+);
 
 export type ValidationResult =
   | { ok: true }
@@ -15,7 +22,7 @@ export function validatePayload(payload: unknown): ValidationResult {
 
   const ajv = new Ajv2020({ allErrors: true, strict: false });
   addFormats(ajv);
-  const validate = ajv.compile(schema);
+  const validate = ajv.compile(schemaForAjv);
   const schemaOk = validate(payload);
   if (!schemaOk && validate.errors) {
     for (const err of validate.errors) {
@@ -61,20 +68,12 @@ export function validatePayload(payload: unknown): ValidationResult {
       errors.push(`sections.programs.productIds missing product ${id}`);
     }
   }
-  if (programIds.length !== 3) {
-    errors.push("sections.programs.productIds must have exactly 3 items");
-  }
-
   const bookIds = p.sections?.books?.productIds ?? [];
   for (const id of bookIds) {
     if (!productIds.has(id)) {
       errors.push(`sections.books.productIds missing product ${id}`);
     }
   }
-  if (bookIds.length < 2) {
-    errors.push("sections.books.productIds must have at least 2 items");
-  }
-
   const methodSteps = p.sections?.method?.steps ?? [];
   if (methodSteps.length < 3 || methodSteps.length > 4) {
     errors.push("sections.method.steps must have 3 or 4 items");

@@ -39,13 +39,14 @@ export function Hero() {
           <Link
             href={withBasePath(basePath, hero.ctaPrimary.href)}
             data-wb-slot="hero.ctaPrimary"
-            className="cursor-pointer bg-cta px-9 py-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-white shadow-[0_10px_36px_rgba(0,0,0,0.5)] ring-1 ring-white/25 transition-colors duration-200 hover:bg-cta-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary"
+            className="cursor-pointer bg-primary px-9 py-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-background shadow-[0_10px_36px_rgba(0,0,0,0.5)] ring-1 ring-white/25 transition-colors duration-200 hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary"
           >
             {hero.ctaPrimary.label}
           </Link>
           {hero.ctaSecondary && (
             <Link
               href={withBasePath(basePath, hero.ctaSecondary.href)}
+              data-wb-slot="hero.ctaSecondary"
               className="cursor-pointer border border-white/70 bg-white/5 px-9 py-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-white backdrop-blur-[2px] transition-colors duration-200 hover:border-white hover:bg-white/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
             >
               {hero.ctaSecondary.label}

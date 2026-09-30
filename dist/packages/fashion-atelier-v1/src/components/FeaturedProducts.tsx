@@ -10,6 +10,7 @@ export function FeaturedProducts() {
   const { payload, basePath } = useSiteContent();
   const { featured } = payload.sections;
   const products = getFeaturedProducts(payload);
+  if (!products.length) return null;
 
   return (
     <section className="bg-surface/60 py-20 md:py-28">
@@ -19,7 +20,7 @@ export function FeaturedProducts() {
             <div>
               <p
                 data-wb-slot="featured.eyebrow"
-                className="text-[11px] font-medium uppercase tracking-[0.2em] text-cta"
+                className="text-[11px] font-medium uppercase tracking-[0.2em] text-secondary"
               >
                 {featured.eyebrow}
               </p>
@@ -33,7 +34,8 @@ export function FeaturedProducts() {
             {featured.viewAll && (
               <Link
                 href={withBasePath(basePath, featured.viewAll.href)}
-                className="cursor-pointer text-[11px] font-semibold uppercase tracking-[0.16em] text-secondary underline decoration-border underline-offset-4 transition-colors duration-200 hover:text-primary hover:decoration-cta"
+                data-wb-slot="featured.viewAll"
+                className="cursor-pointer text-[11px] font-semibold uppercase tracking-[0.16em] text-secondary underline decoration-border underline-offset-4 transition-colors duration-200 hover:text-primary hover:decoration-primary"
               >
                 {featured.viewAll.label}
               </Link>

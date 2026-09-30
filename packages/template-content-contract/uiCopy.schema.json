@@ -1,0 +1,323 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://web-generator.local/packages/template-content-contract/uiCopy.schema.json",
+  "title": "TemplateUiCopy",
+  "description": "Microcopy de interfaz (fase 1: payload only, sin slots SaaS)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "chrome",
+    "account",
+    "listing",
+    "checkout",
+    "errors",
+    "cart",
+    "product",
+    "shop",
+    "notFound",
+    "salesMode"
+  ],
+  "properties": {
+    "chrome": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "openCart",
+        "openCartWithCount",
+        "myAccount",
+        "openMenu",
+        "closeMenu",
+        "mainNavAria",
+        "mobileNavAria",
+        "salesModeAria"
+      ],
+      "properties": {
+        "openCart": { "type": "string", "minLength": 1 },
+        "openCartWithCount": { "type": "string", "minLength": 1 },
+        "myAccount": { "type": "string", "minLength": 1 },
+        "openMenu": { "type": "string", "minLength": 1 },
+        "closeMenu": { "type": "string", "minLength": 1 },
+        "mainNavAria": { "type": "string", "minLength": 1 },
+        "mobileNavAria": { "type": "string", "minLength": 1 },
+        "salesModeAria": { "type": "string", "minLength": 1 }
+      }
+    },
+    "account": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eyebrow",
+        "loginTitle",
+        "registerTitle",
+        "dashboardTitle",
+        "emailLabel",
+        "nameLabel",
+        "phoneLabel",
+        "passwordLabel",
+        "loginSubmit",
+        "loginSubmitting",
+        "registerSubmit",
+        "registerSubmitting",
+        "logout",
+        "goToRegister",
+        "goToLogin",
+        "noAccountPrompt",
+        "hasAccountPrompt",
+        "googleSignIn"
+      ],
+      "properties": {
+        "eyebrow": { "type": "string", "minLength": 1 },
+        "loginTitle": { "type": "string", "minLength": 1 },
+        "registerTitle": { "type": "string", "minLength": 1 },
+        "dashboardTitle": { "type": "string", "minLength": 1 },
+        "emailLabel": { "type": "string", "minLength": 1 },
+        "nameLabel": { "type": "string", "minLength": 1 },
+        "phoneLabel": { "type": "string", "minLength": 1 },
+        "passwordLabel": { "type": "string", "minLength": 1 },
+        "loginSubmit": { "type": "string", "minLength": 1 },
+        "loginSubmitting": { "type": "string", "minLength": 1 },
+        "registerSubmit": { "type": "string", "minLength": 1 },
+        "registerSubmitting": { "type": "string", "minLength": 1 },
+        "logout": { "type": "string", "minLength": 1 },
+        "goToRegister": { "type": "string", "minLength": 1 },
+        "goToLogin": { "type": "string", "minLength": 1 },
+        "noAccountPrompt": { "type": "string", "minLength": 1 },
+        "hasAccountPrompt": { "type": "string", "minLength": 1 },
+        "googleSignIn": { "type": "string", "minLength": 1 }
+      }
+    },
+    "listing": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "searchLabel",
+        "searchPlaceholder",
+        "allCategories",
+        "loading",
+        "loadMore",
+        "loadingMore",
+        "noSearchResults",
+        "pieceSingular",
+        "piecePlural",
+        "collectionPrefix",
+        "clearFilter"
+      ],
+      "properties": {
+        "searchLabel": { "type": "string", "minLength": 1 },
+        "searchPlaceholder": { "type": "string", "minLength": 1 },
+        "allCategories": { "type": "string", "minLength": 1 },
+        "loading": { "type": "string", "minLength": 1 },
+        "loadMore": { "type": "string", "minLength": 1 },
+        "loadingMore": { "type": "string", "minLength": 1 },
+        "noSearchResults": { "type": "string", "minLength": 1 },
+        "pieceSingular": { "type": "string", "minLength": 1 },
+        "piecePlural": { "type": "string", "minLength": 1 },
+        "collectionPrefix": { "type": "string", "minLength": 1 },
+        "clearFilter": { "type": "string", "minLength": 1 }
+      }
+    },
+    "checkout": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "pageTitle",
+        "customerSection",
+        "shippingSection",
+        "paymentSection",
+        "summarySection",
+        "fullNameRequired",
+        "emailRequired",
+        "shippingMethodRequired",
+        "pickupBranchRequired",
+        "paymentMethodRequired",
+        "phoneNumberLabel",
+        "discountCodeLabel",
+        "shippingLineLabel",
+        "subtotalLabel",
+        "totalLabel",
+        "emptyCartLabel",
+        "removeLineLabel",
+        "quantityLabel",
+        "phoneCountryAria",
+        "discountApply",
+        "taxLabel",
+        "hasDiscountCodeLabel",
+        "discountLineLabel"
+      ],
+      "properties": {
+        "pageTitle": { "type": "string", "minLength": 1 },
+        "customerSection": { "type": "string", "minLength": 1 },
+        "shippingSection": { "type": "string", "minLength": 1 },
+        "paymentSection": { "type": "string", "minLength": 1 },
+        "summarySection": { "type": "string", "minLength": 1 },
+        "fullNameRequired": { "type": "string", "minLength": 1 },
+        "emailRequired": { "type": "string", "minLength": 1 },
+        "shippingMethodRequired": { "type": "string", "minLength": 1 },
+        "pickupBranchRequired": { "type": "string", "minLength": 1 },
+        "paymentMethodRequired": { "type": "string", "minLength": 1 },
+        "phoneNumberLabel": { "type": "string", "minLength": 1 },
+        "discountCodeLabel": { "type": "string", "minLength": 1 },
+        "shippingLineLabel": { "type": "string", "minLength": 1 },
+        "subtotalLabel": { "type": "string", "minLength": 1 },
+        "totalLabel": { "type": "string", "minLength": 1 },
+        "emptyCartLabel": { "type": "string", "minLength": 1 },
+        "removeLineLabel": { "type": "string", "minLength": 1 },
+        "quantityLabel": { "type": "string", "minLength": 1 },
+        "phoneCountryAria": { "type": "string", "minLength": 1 },
+        "discountApply": { "type": "string", "minLength": 1 },
+        "taxLabel": { "type": "string", "minLength": 1 },
+        "hasDiscountCodeLabel": { "type": "string", "minLength": 1 },
+        "discountLineLabel": { "type": "string", "minLength": 1 }
+      }
+    },
+    "errors": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["addToCartFailed", "orderConfirmFailed", "catalogLoadFailed"],
+      "properties": {
+        "addToCartFailed": { "type": "string", "minLength": 1 },
+        "orderConfirmFailed": { "type": "string", "minLength": 1 },
+        "catalogLoadFailed": { "type": "string", "minLength": 1 }
+      }
+    },
+    "cart": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["title", "empty", "exploreCta", "checkout", "shippingHint"],
+      "properties": {
+        "title": { "type": "string", "minLength": 1 },
+        "empty": { "type": "string", "minLength": 1 },
+        "exploreCta": { "type": "string", "minLength": 1 },
+        "checkout": { "type": "string", "minLength": 1 },
+        "shippingHint": { "type": "string", "minLength": 1 }
+      }
+    },
+    "product": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "addToCart",
+        "relatedTitle",
+        "shippingNote",
+        "outOfStock",
+        "contact",
+        "lowStock",
+        "madeToOrderClosed",
+        "badges",
+        "addingToCart",
+        "priceBookLabel",
+        "priceProgramLabel",
+        "stockInsufficientImmediate",
+        "stockInsufficientMadeToOrderHint",
+        "stockExhaustedImmediateTitle",
+        "stockExhaustedMadeToOrderAvailable",
+        "buyMadeToOrderCta",
+        "stockUpsellModalTitle"
+      ],
+      "properties": {
+        "addToCart": { "type": "string", "minLength": 1 },
+        "relatedTitle": { "type": "string", "minLength": 1 },
+        "shippingNote": { "type": "string", "minLength": 1 },
+        "outOfStock": { "type": "string", "minLength": 1 },
+        "contact": { "type": "string", "minLength": 1 },
+        "lowStock": { "type": "string", "minLength": 1 },
+        "madeToOrderClosed": { "type": "string", "minLength": 1 },
+        "addingToCart": { "type": "string", "minLength": 1 },
+        "priceBookLabel": { "type": "string", "minLength": 1 },
+        "priceProgramLabel": { "type": "string", "minLength": 1 },
+        "stockInsufficientImmediate": { "type": "string", "minLength": 1 },
+        "stockInsufficientMadeToOrderHint": { "type": "string", "minLength": 1 },
+        "stockExhaustedImmediateTitle": { "type": "string", "minLength": 1 },
+        "stockExhaustedMadeToOrderAvailable": { "type": "string", "minLength": 1 },
+        "buyMadeToOrderCta": { "type": "string", "minLength": 1 },
+        "stockUpsellModalTitle": { "type": "string", "minLength": 1 },
+        "badges": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["new", "featured", "sale", "bestseller", "limitedEdition"],
+          "properties": {
+            "new": { "type": "string", "minLength": 1 },
+            "featured": { "type": "string", "minLength": 1 },
+            "sale": { "type": "string", "minLength": 1 },
+            "bestseller": { "type": "string", "minLength": 1 },
+            "limitedEdition": { "type": "string", "minLength": 1 }
+          }
+        }
+      }
+    },
+    "shop": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["empty", "clearFilter"],
+      "properties": {
+        "empty": { "type": "string", "minLength": 1 },
+        "clearFilter": { "type": "string", "minLength": 1 }
+      }
+    },
+    "notFound": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["title", "body"],
+      "properties": {
+        "title": { "type": "string", "minLength": 1 },
+        "body": { "type": "string", "minLength": 1 }
+      }
+    },
+    "salesMode": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["stock", "madeToOrder", "nav"],
+      "properties": {
+        "stock": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["navLabel", "shopBanner", "cartLabel"],
+          "properties": {
+            "navLabel": { "type": "string", "minLength": 1 },
+            "shopBanner": { "type": "string", "minLength": 1 },
+            "cartLabel": { "type": "string", "minLength": 1 }
+          }
+        },
+        "madeToOrder": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "navLabel",
+            "shopBanner",
+            "preparationLabel",
+            "closedMessage",
+            "reopensPrefix",
+            "cartLabel",
+            "cartClosedWarning"
+          ],
+          "properties": {
+            "navLabel": { "type": "string", "minLength": 1 },
+            "shopBanner": { "type": "string", "minLength": 1 },
+            "preparationLabel": { "type": "string", "minLength": 1 },
+            "closedMessage": { "type": "string", "minLength": 1 },
+            "reopensPrefix": { "type": "string", "minLength": 1 },
+            "cartLabel": { "type": "string", "minLength": 1 },
+            "cartClosedWarning": { "type": "string", "minLength": 1 }
+          }
+        },
+        "nav": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["salesMode", "label", "href"],
+            "properties": {
+              "salesMode": {
+                "type": "string",
+                "enum": ["stock", "madeToOrder"]
+              },
+              "label": { "type": "string", "minLength": 1 },
+              "href": { "type": "string", "minLength": 1 }
+            }
+          }
+        }
+      }
+    }
+  }
+}

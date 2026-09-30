@@ -50,23 +50,55 @@ Exportar **exactamente** estos símbolos (aliases internos deprecated OK 1 relea
 | `useRequiredCommerceHost` / `useHostCart` | Host-controlled |
 | `createPayloadCommerceBridge` | Preview sin host SaaS |
 | `resolveNavHref`, `accountPath`, `withBasePath` | Nav helpers |
+| `hostCheckoutSkin` | Pintura checkout host-owned (primitivas + Layout) |
 | `TEMPLATE_ID`, `TEMPLATE_SLUG`, `DEFAULT_BASE_PATH` | Metadata |
 | Tipos: `ContentPayload`, `NavLink`, `TemplatePage` | Content |
 
-`renderer.tsx`: props estables (`page`, `payload`, `basePath`, `slug?`, `commerceHost?`, checkout/account props del contract) + **`customMain?: ReactNode`** (`<main>{customMain ?? view}</main>`).
+`renderer.tsx`: props estables (`page`, `payload`, `basePath`, `slug?`, `commerceHost?`, `orderConfirmation?`, `orderTracking?`, checkout/account props del contract) + **`customMain?: ReactNode`** (`<main>{customMain ?? view}</main>`).
 
 ### Commerce (UI tipada)
 
 Implementar `CommerceTemplateViews` vía contrato:
 
 - `ProductListing`, `ProductDetail`, `CartPage`, `CartDrawer`
-- `CheckoutPage` + subcomponentes tipados (**no** slots `ReactNode` del host)
-- `OrderConfirmation` si el manifest lo declara
+- `OrderConfirmation` si el manifest lo declara (líneas con `imageUrl` del host)
+- `OrderTracking` si `manifest.commerce.views.orderTracking === true` (ver abajo)
 - `AccountLoginForm`, `AccountRegisterForm`, `AccountDashboard`
 
-Prohibido: `CartProvider` local, Firebase/Firestore en el template, precios/stock/checkout propios.
+**Checkout (host-owned):** **no** `CheckoutPage` ni subvistas checkout en `commerceViews`. El SaaS monta lógica en `CheckoutPageContent`; el template exporta **`hostCheckoutSkin`** (pintura). Ver `docs/architecture/HOST-CHECKOUT-SKIN.md`.
 
-### Routing
+Obligatorio si `manifest.commerce.views.checkoutLayout === true`:
+
+1. `manifest.commerce.views.checkoutPage: false` (nunca `true`).
+2. `src/checkout/CheckoutPrimitives.tsx` — primitivas presentacionales (`Field`, `RadioOption`, `PaymentCard`, `SummaryLine`, `LineItem` con `compareAtPriceDisplay`, `CountrySelect`, `CheckboxRow`, `PhoneRow`, `Notice`, `ErrorText`, botones).
+3. `src/checkout/hostCheckoutSkin.ts` — objeto completo con **`satisfies HostCheckoutSkin`** (todas las keys del contrato, incl. `phoneRowClassName`, `fieldLabelClassName`, `mutedTextClassName`, `sectionGapClassName`).
+4. `src/components/commerce/CheckoutLayout.tsx` — grid/columnas (sin lógica).
+5. `client.ts` export `hostCheckoutSkin`; **prohibido** `CheckoutPage`, `CheckoutOrderSummary`, `CheckoutDiscountCode`, etc. en `client.ts` / `commerceViews`.
+6. `renderer.tsx` sin case `checkout` / prop `checkoutPage`.
+
+Prohibido en checkout template: fetch/APIs, `placeOrder`, `payload.ui.checkout`, copy editable de checkout.
+
+Prohibido (commerce general): `CartProvider` local, Firebase/Firestore en el template, precios/stock/checkout propios.
+
+### Order tracking (público `/track`)
+
+Obligatorio en **todos** los templates ecommerce con bloque `commerce` (paridad SaaS storefront):
+
+1. `src/components/commerce/OrderTrackingView.tsx` — props `OrderTrackingViewProps` del contrato; **sin fetch** ni imports del host SaaS.
+2. Labels y copy vienen en `tracking.labels` + campos del `OrderTrackingViewModel` (host traduce antes de pasar props).
+3. Registrar `OrderTracking` en `commerceViews` y exportar el componente en `client.ts`.
+4. `renderer.tsx`: prop `orderTracking?` + `case "orderTracking"` (igual que `orderConfirmation`).
+5. `manifest.commerce.views.orderTracking: true` + `commerce.schema.json` con propiedad `orderTracking`.
+6. **Layout bajo header:** copiar offset de `CartPageView` / `OrderConfirmationView` del mismo template (no copiar CSS literal entre templates):
+   - Header flotante `fixed top-4` → típico `pb-24 pt-28 md:pt-32`, `max-w-2xl px-6 md:px-8`
+   - Header `fixed top-0` full width (ej. nova) → mismo offset que cart/confirmation del template
+   - Header `sticky top-0` u offset menor en cart (orion, voxa) → `pb-24 pt-12 md:pt-16`, `px-6 md:px-10`
+7. Tokens visuales del template (serif, `primary`/`secondary`, milestones) — estructura de secciones común, estilos propios. **Prohibido** `bg-cta` / `text-cta` (deprecated; ver `audit/TEMPLATE-THEME-TOKEN-MAP.md`).
+8. **Prohibido:** subir voucher en template (`uploadPaymentVoucher`); solo enlazar `payment.voucherViewUrl` si el host envía URL.
+9. **Miniaturas líneas:** mostrar `line.imageUrl` en resumen (grid thumb 64×64); tracking usa `labels.imagePlaceholder` si falta imagen; confirmación deja caja vacía como cart.
+10. Vitest: mock `OrderTrackingViewModel` / líneas con `imageUrl`; PROOF con evidencia `/track` mock.
+
+Referencia: `fashion-atelier-v1`, `fashion-lumen-v1` (clusters de spacing).
 
 1. `routes[]` solo `page` ∈ `home | shop | product | about` (paths relativos al mount).
 2. Cart / checkout / account **no** van en `routes[]` (URLs de plataforma).
@@ -111,7 +143,8 @@ Obligatorio si `defaults.catalog.products` no está vacío. El SaaS vacía el ca
 ```
 
 - `catalogRefs`: **todos** los paths `productIds` / `collectionIds` bajo `sections.*` (incl. listas secundarias: books, accessories…).
-- `catalogBindings`: **uno por cada** `catalogRefs` (metadata UI: kind, sectionId, label, maxItems). Ningún catalogRef huérfano.
+- `catalogBindings`: **uno por cada** `catalogRefs` (metadata UI: kind, sectionId, label; `maxItems` opcional como hint SaaS). Ningún catalogRef huérfano.
+- `sections.*.productIds` / `collectionIds`: **sin** `minItems`/`maxItems` en `schema.json`; validación semántica solo comprueba que los IDs existan en `catalog`. Si la lista resuelve vacía → **ocultar** la sección en home (no placeholder).
 - `commerceFeaturedProductsPath`: un path donde el host escribe featured products del tenant.
 - `commerceFeaturedCollectionsPath`: igual para colecciones; **omitir** la clave si el template no tiene grid de colecciones en home.
 - Legacy (`featuredProductPath`, `collectionIdsPath`, `occasionIdsPath`, …) OK 1 release como alias; no inventar nombres nuevos ad hoc.
@@ -127,13 +160,60 @@ Obligatorio si `defaults.catalog.products` no está vacío. El SaaS vacía el ca
 7. Componentes React: `data-wb-slot="{slotId}"` en copy/media/CTA **estáticos** (no product cards).
 8. `CommerceAwareCatalog`: solo `setCatalogFilters` desde payload si hay taxonomy demo (`hasPayloadTaxonomy`); en SaaS el host resuelve slugs.
 9. **Modos de catálogo (stock / a pedido):**
-   - Capability `salesModeSwitch`: chrome de modo (nav, banner shop, línea carrito) **solo** si `=== "supported"` (org con ambos canales). Si no → cero UI de “modo”.
+   - Capability `salesModeSwitch`: chrome de modo **solo** si `=== "supported"` (org con ambos canales). Si no → cero UI de “modo”.
+   - **Placement:** switch solo en página shop, **misma fila que el eyebrow**, derecha, opciones separadas con `|`. Nunca en el navbar del sitio.
+   - No pintar `shopBanner` genérico junto al switch; avisos prep/cerrado solo si el host envía campos.
    - Nunca mostrar “Máx. N” / `maxQuantity` en copy; solo limitar el selector +/-.
-   - A pedido: mostrar `preparationPromiseLabel` y cierre (`madeToOrderClosed` / `madeToOrderAcceptingOrders === false` + `madeToOrderReopensAtLabel`) **solo** si el host los envía; no inventar plazos.
-   - `defaults.ui.salesMode` + `SHOP_QUERY.salesMode`; nav dual vía `ui.salesMode.nav` (hrefs `?salesMode=stock|madeToOrder`).
-   - Helper `src/lib/sales-mode.ts` + `SalesModeShopBanner`; mismo comportamiento en todos los templates ecommerce.
+   - A pedido en **shop** (`SalesModeShopBanner`): prep/cerrado con prefijos `ui.salesMode.madeToOrder` **solo** si el host envía campos en `filters`; no inventar plazos.
+   - **PDP plazo de preparación:** un solo bloque **debajo del CTA** y errores de add-to-cart; prefijo `ui.salesMode.madeToOrder.preparationLabel` + valor `product.preparationPromiseLabel` (host). Clases canónicas: `mt-4 text-[11px] font-medium uppercase tracking-[0.14em] text-muted`. Si el host no envía el campo → no renderizar (sin fallback). **Prohibido** pintar `ui.product.shippingNote` en PDP; **prohibido** duplicar prep encima del buy box.
+   - A pedido en PDP: `madeToOrderClosed` / `madeToOrderReopensAtLabel` **encima** del buy box si el host los envía (copy con prefijos `ui.salesMode` / `ui.product`).
+   - **Upsell stock→MTO (PDP):** si el host envía `madeToOrderUpsell` y `variant.immediateAvailableQty > 0`, al superar `maxQuantity` mostrar modal con título `ui.product.stockUpsellModalTitle`; cuerpo `ui.product.stockInsufficientImmediate` con `{count}` = tope compra inmediata (`stockCap` / `maxQuantity`), no inventario bruto; hint + `buyMadeToOrderCta`; prep con prefijo `ui.salesMode.madeToOrder.preparationLabel`. CTA → `madeToOrderUpsell.productHref` (host incluye `?salesMode=madeToOrder`). El `+` en el stepper abre el modal en el tope de stock si hay upsell.
+   - `defaults.ui.salesMode` + `SHOP_QUERY.salesMode`; `ui.salesMode.nav` (hrefs `?salesMode=stock|madeToOrder`).
+   - Helper `src/lib/sales-mode.ts` + `SalesModeShopSwitch` / `SalesModeShopBanner` (notices); mismo comportamiento en todos los templates ecommerce.
+   - **Filtros de categoría (shop / listing):** una sola línea con scroll horizontal **sin barra visible**. Contenedor: clase `category-scroll` + `flex` + `overflow-x-auto` (prohibido `flex-wrap`); chips/links con `shrink-0`. Patrón recomendado: `-mx-6 px-6 md:-mx-8 md:px-8` para scroll hasta el borde en móvil. CSS obligatorio en `src/styles/*.css`:
+     ```css
+     .category-scroll { scrollbar-width: none; -ms-overflow-style: none; }
+     .category-scroll::-webkit-scrollbar { display: none; }
+     ```
+     Aplica en `ProductListingView` (commerce host) y `ShopCatalog` (preview demo) cuando hay chips de categoría.
 
-`npm run template:validate` comprueba IDs, paths, catalogBindings, listSchema, sync routes↔pages, mediaSlots estáticos, y drift vs `schema.json` `$defs.Sections`.
+10. **PDP (`ProductDetailCommerceView`) — layout imagen + detalles:**
+   - **Dos modelos válidos:**
+     - **Columnas lado a lado** (Atelier, Orion, Celestine, Velvet, Nova, Lumen): galería izquierda + panel compra derecha en el mismo grid. **Obligatorio** el contrato de anchos abajo.
+     - **Editorial / otro** (Voxa: hero full-bleed + banda de galería + contenido): no aplica el grid 50/50; miniaturas en banda con scroll propio.
+   - **Columnas iguales (split PDP):** grid `md:grid-cols-2` o `lg:grid-cols-2`. **Prohibido** `grid-cols-[1.05fr_0.95fr]`, `[1.08fr_0.92fr]` u otras fr desiguales — la columna imagen y el panel de detalles deben tener **el mismo ancho** (como con 2 miniaturas).
+   - **Contención (obligatoria):** cadena `min-w-0` en wrapper de página, contenedor `max-w-7xl`, grid y **ambas** columnas. Sin esto, muchas miniaturas expanden el track del grid y la imagen se ve más ancha que el panel.
+   - **Columna galería:** `min-w-0 w-full max-w-full`. Imagen principal en caja con `aspect-*` + `overflow-hidden` (ancho = columna, no contenido).
+   - **Miniaturas:** wrapper `w-full min-w-0 overflow-x-auto` **alrededor** del `ul`; `ul` con `flex gap-*` (**sin** `flex-wrap`, **sin** `overflow-x-auto` en el `ul`); cada `li`/`button` `shrink-0`. Scroll horizontal sin ensanchar la columna.
+   - **`sizes` imagen principal:** `(max-width: …) 100vw, 50vw` en split 50/50 (no `55vw`).
+   - **Nota de plazo (prep host):** ver bullet PDP plazo en §9 (debajo del CTA; no `shippingNote`).
+   - **PDP presentation toggles:** `src/lib/pdp-presentation.ts` + guards `isPdpFieldVisible` en bloques secundarios; locked: nombre, precio, galería, variantes, qty, CTA. `presentation` undefined → todo visible.
+   - Referencias: `templates/fashion-atelier-v1/src/components/commerce/ProductDetailCommerceView.tsx`, `fashion-celestine-v1` (mismo archivo).
+
+11. **Hero (home):** altura de pantalla en todos los breakpoints: `h-[100svh] min-h-[640px]` en el `<section>` raíz de `src/components/Hero.tsx`. Prohibido `md:h-[92svh]` u otros `min-h` distintos de 640px en el hero.
+
+12. **Contrato de contenido Fase 1 + B (WG ↔ SaaS)** — ver `audit/WG-SAAS-CONTENT-CONTRACT-PHASE1.md`:
+    - **`sections.*`:** CERO estricto — slot + `contentSlotIds` + `data-wb-slot` + `generationHint`. Footer en page `home`.
+    - **`ui.*`:** completo en `defaults.json` vía `@web-generator/template-content-contract/uiCopy.schema.json`. **Fase B:** slots **solo** `ui.product.*` en page product (sin `data-wb-slot`, sin `shippingNote`). Resto `ui.*` sin slots.
+    - **PDP presentation:** `sections.product.presentation` opcional en schema; toggles con `isPdpFieldVisible` en `ProductDetailCommerceView`; `manifest.capabilities.productDetailPresentation.supportedFields`; merge SaaS (sin slot WG).
+    - **`brand.*` / `navigation.*`:** paneles SaaS; excluidos de cobertura D.
+    - **`catalog.*`:** commerce runtime + `catalogBindings`.
+    - Validación: `npm run template:validate` incluye `template-validate-content` (A–D).
+    - Herramientas: `sync-builder-slots.mjs`, `merge-ui-defaults.mjs`, `generate-template-proof.mjs`.
+
+13. **Theme token map (brand vs template-fixed)** — ver `audit/TEMPLATE-THEME-TOKEN-MAP.md`:
+    - **SaaS inyecta solo** `theme.colors.{ primary, secondary, background }` (`themeEditable`). El resto es template-fixed.
+    - **`themeStyle()`** en `src/content/resolve.ts`: mapear `primary`/`secondary`/`background` desde payload; **`--color-ink` fijo** (no leer del payload); alias `--color-cta` = `c.cta ?? primary`, `--color-cta-hover` = `c.ctaHover ?? secondary`.
+    - **`builder.manifest` `themeDefaults.colors.ink`:** documenta footer; **no** añadir a `themeEditable`.
+    - **`src/styles/*.css`:** definir `--color-ink` en `:root` y `@theme`.
+    - **Prohibido en componentes:** `bg-cta`, `text-cta`, `var(--color-primary)` en `Footer.tsx`. Footer → **`bg-ink text-background`** (obligatorio en `<footer>`; prohibido `voxa-band-ink`, `velvet-band-ink`, `nova-footer` u otras clases solo para fondo de footer).
+    - **Tier A (brand):** `bg-primary` / `text-primary` en CTAs de conversión, chips activos, hovers fuertes; `text-secondary` en eyebrows/labels; `text-background` sobre botones primary.
+    - **Tier B (template-fixed):** `ink` (footer), `text`, `muted`, `border`, `surface` — no editables por merchant en Fase actual.
+    - **Tier C (contexto):** hero overlay `from-primary/…` + `text-white`; nav transparente independiente.
+    - Codemod de referencia: `node scripts/apply-theme-token-map.mjs {templateId}`.
+    - Validación: `template-validate.mjs` falla si hay `bg-cta`/`text-cta` en `src/` o footer usa `primary` como fondo estructural.
+
+`npm run template:validate` comprueba IDs, paths, catalogBindings, listSchema, sync routes↔pages, mediaSlots estáticos, drift vs `schema.json` `$defs.Sections`, **category-scroll contract**, **PDP split layout** (auditoría manual / checklist §10), **hero height contract**, **hostCheckoutSkin completo** (si `checkoutLayout`), **theme token map**, y **content contract Phase 1**.
 
 ### Validación (antes de cerrar)
 
@@ -148,7 +228,7 @@ Debe pasar taxonomía + builder + schema + exports canónicos.
 
 ## Qué es común vs qué cambia
 
-**Común (contrato):** API `TemplateApp` / `commerceViews`, routes page ids, commerce views tipadas, taxonomía, `builder.manifest`, exports, peers, **`manifest.constraints.catalogRefs` + `catalogBindings` + `commerceFeatured*`**, `data-wb-slot`, `themeEditable`, **sales-mode chrome gated by `salesModeSwitch`**.
+**Común (contrato):** API `TemplateApp` / `commerceViews`, routes page ids, commerce views tipadas (sin `CheckoutPage`), **`hostCheckoutSkin` completo**, taxonomía, `builder.manifest`, exports, peers, **`manifest.constraints.catalogRefs` + `catalogBindings` + `commerceFeatured*`**, `data-wb-slot` (**solo `sections.*`**), `themeEditable`, **theme token map (primary/secondary/background brand; ink/text/muted/border/surface fixed)**, **sales-mode chrome gated by `salesModeSwitch`**, **category filter row**, **PDP split 50/50 + galería miniaturas con scroll contenedor**, **hero `h-[100svh] min-h-[640px]`**, **`ui.*` payload-only (Phase 1)**, **content contract A–D**.
 
 **Cambia por diseño:** secciones, tipografías, tokens, motion, path visible de shop/about, copy, presencia de newsletter/cita/etc. (los *paths* dentro de `catalogRefs` apuntan a esas secciones variables).
 
@@ -164,10 +244,33 @@ Al crear: diseña identidad primero; **después** schema/defaults. No fuerces sl
 - **`page`**: solo `home` | `shop` | `product` | `about`. Sin `atelier`, `cart`, `checkout` como page id.
 - Path visible libre; page id fijo (`/coleccion` sigue siendo `shop`).
 
+### Shop path y etiqueta de nav (obligatorio)
+
+El path de `page: "shop"` nombra **todo el catálogo**, no una categoría del demo.
+
+1. **Path ≠ categoría.** Prohibido usar como shop root palabras de un solo tipo de producto si el catálogo puede crecer (`/vestidos`, `/zapatos`, `/anillos`, `/libros` como raíz de tienda).
+2. **Path y etiqueta alineados.** Si el path es `/coleccion`, el link de nav al shop dice “Colección” (o equivalente), no “Vestidos”. Las categorías siguen en `shopFilter` con su propio label (“Novias”, “Fiesta”…).
+3. **Categorías en query**, no en el path: `?categoria=` / `shopFilter.categorySlug` (y `coleccion` análogo).
+4. **Personalidad por template** (no hace falta el mismo path en todos):
+
+| Tono | Paths OK (ej.) | Labels de nav OK |
+|------|----------------|------------------|
+| Neutro ecommerce | `/tienda`, `/catalogo`, `/productos` | Tienda, Catálogo, Productos |
+| Atelier / lujo | `/coleccion`, `/boutique`, `/seleccion` | Colección, Boutique, Selección |
+| Academia (catálogo mixto) | `/catalogo`, `/tienda`, `/oferta` | Catálogo, Tienda, Oferta |
+| Academia (solo cursos) | `/programas`, `/cursos` | Programas, Cursos |
+
+Referencias actuales: Atelier `/tienda`, Celestine `/coleccion`, Orion `/coleccion`, Voxa `/catalogo`.
+
+5. PDP = `{shopPath}/[slug]` (misma raíz que el listado). `SHOP_PATH` / manifest / builder / defaults / lab / `ui.salesMode.nav` deben coincidir.
+6. Si se renombra un shop path ya publicado: redirects en el host SaaS para URLs indexadas.
+
+**Anti-patrón:** `/vestidos?categoria=zapatos` o label “Vestidos” apuntando al catálogo entero.
+
 ### Carrito y checkout
 
-- Template aporta UI tipada; host pasa VM + state + actions (o `customMain` dentro del shell).
-- Prohibido que el host dibuje inputs/radios/cards de pago en integraciones nuevas.
+- **Carrito / account:** template aporta UI tipada en `commerceViews`; host pasa VM + state + actions (o `customMain` en shell).
+- **Checkout:** 100% host SaaS (`CheckoutPageContent`). Template solo `hostCheckoutSkin` + `CheckoutLayout`. El host cablea `skin.Field`, `skin.LineItem`, etc. — no dibujar inputs shadcn propios en integraciones V2.
 
 ---
 

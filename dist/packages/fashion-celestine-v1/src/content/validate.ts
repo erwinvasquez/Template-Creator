@@ -1,5 +1,12 @@
+import uiCopySchema from "@web-generator/template-content-contract/uiCopy.schema.json";
+import { inlineUiSchema } from "@web-generator/template-content-contract/schemaForAjv";
 import type { ContentPayload } from "./types";
 import schema from "../../schema.json";
+
+const schemaForAjv = inlineUiSchema(
+  schema as Record<string, unknown>,
+  uiCopySchema as Record<string, unknown>,
+);
 
 export type ValidationResult =
   | { ok: true }
@@ -15,7 +22,7 @@ export function validatePayload(payload: unknown): ValidationResult {
 
   const ajv = new Ajv2020({ allErrors: true, strict: false });
   addFormats(ajv);
-  const validate = ajv.compile(schema);
+  const validate = ajv.compile(schemaForAjv);
   const schemaOk = validate(payload);
   if (!schemaOk && validate.errors) {
     for (const err of validate.errors) {
@@ -56,9 +63,6 @@ export function validatePayload(payload: unknown): ValidationResult {
   }
 
   const occasionIds = p.sections?.occasions?.collectionIds ?? [];
-  if (occasionIds.length < 3 || occasionIds.length > 5) {
-    errors.push("sections.occasions.collectionIds must have 3–5 items");
-  }
   for (const id of occasionIds) {
     if (!collectionIds.has(id)) {
       errors.push(`sections.occasions.collectionIds missing collection ${id}`);
@@ -66,9 +70,6 @@ export function validatePayload(payload: unknown): ValidationResult {
   }
 
   const signatureIds = p.sections?.signature?.productIds ?? [];
-  if (signatureIds.length < 3) {
-    errors.push("sections.signature.productIds must have at least 3 items");
-  }
   for (const id of signatureIds) {
     if (!productIds.has(id)) {
       errors.push(`sections.signature.productIds missing product ${id}`);
@@ -76,9 +77,6 @@ export function validatePayload(payload: unknown): ValidationResult {
   }
 
   const accessoryIds = p.sections?.accessories?.productIds ?? [];
-  if (accessoryIds.length < 2) {
-    errors.push("sections.accessories.productIds must have at least 2 items");
-  }
   for (const id of accessoryIds) {
     if (!productIds.has(id)) {
       errors.push(`sections.accessories.productIds missing product ${id}`);

@@ -57,6 +57,9 @@
         "orderConfirmation": {
           "type": "boolean"
         },
+        "orderTracking": {
+          "type": "boolean"
+        },
         "accountLogin": {
           "type": "boolean"
         },

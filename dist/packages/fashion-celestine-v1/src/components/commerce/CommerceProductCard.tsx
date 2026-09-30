@@ -3,7 +3,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { ProductCardViewModel } from "@shopenlinea/commerce-runtime-contract";
+import {
+  catalogCardHref,
+  resolveCatalogAvailabilityPresentation,
+} from "@shopenlinea/commerce-runtime-contract";
 import { useSiteContent } from "../../lib/site-content";
+import { requireUi } from "../../lib/ui";
 import { withBasePath } from "../../content/resolve";
 
 export function CommerceProductCard({
@@ -14,36 +19,29 @@ export function CommerceProductCard({
   priority?: boolean;
 }) {
   const { payload, basePath } = useSiteContent();
-  const badges = payload.ui?.product?.badges;
-  const newLabel = badges?.new ?? "Nueva temporada";
-  const featuredLabel = badges?.featured ?? "Look firma";
-  const saleLabel = badges?.sale ?? "Oferta";
-  const bestsellerLabel = badges?.bestseller ?? "Más pedida";
-  const limitedLabel =
-    badges?.limitedEdition ?? "Edición limitada";
-  const outOfStockLabel = payload.ui?.product?.outOfStock ?? "Agotado";
+  const productUi = requireUi(payload).product;
+  const badges = productUi.badges;
 
   const isNew = product.badges?.includes("new");
   const isFeatured = product.badges?.includes("featured");
   const isSale = product.badges?.includes("sale");
   const isBestseller = product.badges?.includes("bestseller");
   const isLimited = product.badges?.includes("limitedEdition");
-  const isOut = product.stockLabel === "out_of_stock";
-  const href = withBasePath(
-    basePath,
-    product.href.startsWith("/") ? product.href : `/${product.href}`,
-  );
+  const presentation = resolveCatalogAvailabilityPresentation(product);
+  const soldOut = presentation === "sold_out";
+  const mtoAvailable = presentation === "made_to_order_available";
+  const href = withBasePath(basePath, catalogCardHref(product));
 
   const primaryBadge = isNew
-    ? newLabel
+    ? badges.new
     : isFeatured
-      ? featuredLabel
+      ? badges.featured
       : isSale
-        ? saleLabel
+        ? badges.sale
         : isBestseller
-          ? bestsellerLabel
+          ? badges.bestseller
           : isLimited
-            ? limitedLabel
+            ? badges.limitedEdition
             : null;
 
   const eyebrow = product.categoryLabels?.[0] ?? null;
@@ -62,10 +60,8 @@ export function CommerceProductCard({
               fill
               priority={priority}
               className={`object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04] ${
-                product.galleryPreview
-                  ? "group-hover:opacity-0"
-                  : ""
-              } ${isOut ? "opacity-60" : ""}`}
+                product.galleryPreview ? "group-hover:opacity-0" : ""
+              } ${soldOut ? "opacity-60" : ""}`}
               sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
             />
           )}
@@ -80,18 +76,22 @@ export function CommerceProductCard({
             />
           )}
           {primaryBadge ? (
-            <span className="absolute left-4 top-4 rounded-full bg-cta px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-white">
+            <span className="absolute left-4 top-4 rounded-full bg-primary px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-background">
               {primaryBadge}
             </span>
           ) : null}
           {product.discountPercent != null && product.discountPercent > 0 ? (
-            <span className="absolute right-4 top-4 rounded-full bg-white/90 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-cta shadow-sm backdrop-blur-sm">
+            <span className="absolute right-4 top-4 rounded-full bg-white/90 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-secondary shadow-sm backdrop-blur-sm">
               −{product.discountPercent}%
             </span>
           ) : null}
-          {isOut ? (
-            <span className="absolute inset-x-0 bottom-0 bg-primary/75 py-2 text-center text-[10px] font-medium uppercase tracking-[0.16em] text-white">
-              {outOfStockLabel}
+          {mtoAvailable ? (
+            <span className="absolute inset-x-0 bottom-0 bg-primary/75 py-2 text-center text-[10px] font-medium uppercase tracking-[0.16em] text-background">
+              {productUi.buyMadeToOrderCta}
+            </span>
+          ) : soldOut ? (
+            <span className="absolute inset-x-0 bottom-0 bg-primary/75 py-2 text-center text-[10px] font-medium uppercase tracking-[0.16em] text-background">
+              {productUi.outOfStock}
             </span>
           ) : null}
         </div>
@@ -101,7 +101,7 @@ export function CommerceProductCard({
               {eyebrow}
             </p>
           ) : null}
-          <h3 className="mt-2 font-serif text-xl leading-tight text-primary transition-colors duration-200 group-hover:text-cta md:text-2xl">
+          <h3 className="mt-2 font-serif text-xl leading-tight text-primary transition-colors duration-200 group-hover:text-primary md:text-2xl">
             {product.name}
           </h3>
           <p className="mt-auto border-t border-border pt-4 font-serif text-lg text-primary">

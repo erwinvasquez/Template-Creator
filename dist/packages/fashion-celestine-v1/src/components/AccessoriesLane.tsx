@@ -14,6 +14,7 @@ export function AccessoriesLane() {
   const { payload, basePath } = useSiteContent();
   const { accessories } = payload.sections;
   const products = getAccessoryProducts(payload);
+  if (!products.length) return null;
 
   return (
     <section className="mx-auto max-w-7xl px-6 py-20 md:px-10 md:py-28">
@@ -39,7 +40,8 @@ export function AccessoriesLane() {
           {accessories.cta ? (
             <Link
               href={withBasePath(basePath, accessories.cta.href)}
-              className="group inline-flex shrink-0 cursor-pointer items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-primary transition-colors duration-200 hover:text-cta"
+              data-wb-slot="accessories.cta"
+              className="group inline-flex shrink-0 cursor-pointer items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-primary transition-colors duration-200 hover:text-primary"
             >
               {accessories.cta.label}
               <ArrowRight

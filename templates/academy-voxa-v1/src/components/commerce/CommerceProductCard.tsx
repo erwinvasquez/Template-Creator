@@ -3,7 +3,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { ProductCardViewModel } from "@shopenlinea/commerce-runtime-contract";
+import {
+  catalogCardHref,
+  resolveCatalogAvailabilityPresentation,
+} from "@shopenlinea/commerce-runtime-contract";
 import { useSiteContent } from "../../lib/site-content";
+import { requireUi } from "../../lib/ui";
 import { withBasePath } from "../../content/resolve";
 
 export function CommerceProductCard({
@@ -14,14 +19,8 @@ export function CommerceProductCard({
   priority?: boolean;
 }) {
   const { payload, basePath } = useSiteContent();
-  const badges = payload.ui?.product?.badges;
-  const newLabel = badges?.new ?? "Nueva cohorte";
-  const featuredLabel = badges?.featured ?? "Destacado";
-  const saleLabel = badges?.sale ?? "Oferta";
-  const bestsellerLabel = badges?.bestseller ?? "Más elegido";
-  const limitedLabel =
-    badges?.limitedEdition ?? badges?.limited ?? "Plazas limitadas";
-  const outOfStockLabel = payload.ui?.product?.outOfStock ?? "Agotado";
+  const productUi = requireUi(payload).product;
+  const badges = productUi.badges;
 
   const isNew = product.badges?.includes("new");
   const isFeatured = product.badges?.includes("featured");
@@ -30,22 +29,21 @@ export function CommerceProductCard({
   const isLimited =
     product.badges?.includes("limitedEdition") ||
     product.badges?.includes("limited");
-  const isOut = product.stockLabel === "out_of_stock";
-  const href = withBasePath(
-    basePath,
-    product.href.startsWith("/") ? product.href : `/${product.href}`,
-  );
+  const presentation = resolveCatalogAvailabilityPresentation(product);
+  const soldOut = presentation === "sold_out";
+  const mtoAvailable = presentation === "made_to_order_available";
+  const href = withBasePath(basePath, catalogCardHref(product));
 
   const primaryBadge = isNew
-    ? newLabel
+    ? badges.new
     : isLimited
-      ? limitedLabel
+      ? badges.limitedEdition
       : isFeatured
-        ? featuredLabel
+        ? badges.featured
         : isSale
-          ? saleLabel
+          ? badges.sale
           : isBestseller
-            ? bestsellerLabel
+            ? badges.bestseller
             : null;
 
   const meta = product.categoryLabels?.[0] ?? null;
@@ -64,13 +62,13 @@ export function CommerceProductCard({
               fill
               priority={priority}
               className={`object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04] ${
-                isOut ? "opacity-60" : ""
+                soldOut ? "opacity-60" : ""
               }`}
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
           )}
           {primaryBadge ? (
-            <span className="absolute left-4 top-4 rounded-full bg-cta px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-white">
+            <span className="absolute left-4 top-4 rounded-full bg-primary px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-background">
               {primaryBadge}
             </span>
           ) : null}
@@ -79,9 +77,13 @@ export function CommerceProductCard({
               −{product.discountPercent}%
             </span>
           ) : null}
-          {isOut ? (
+          {mtoAvailable ? (
             <span className="absolute inset-x-0 bottom-0 bg-ink/80 py-2 text-center text-[10px] font-medium uppercase tracking-[0.16em] text-white">
-              {outOfStockLabel}
+              {productUi.buyMadeToOrderCta}
+            </span>
+          ) : soldOut ? (
+            <span className="absolute inset-x-0 bottom-0 bg-ink/80 py-2 text-center text-[10px] font-medium uppercase tracking-[0.16em] text-white">
+              {productUi.outOfStock}
             </span>
           ) : null}
         </div>
@@ -91,7 +93,7 @@ export function CommerceProductCard({
               {meta}
             </p>
           ) : null}
-          <h3 className="mt-2 font-serif text-xl leading-tight text-primary transition-colors duration-200 group-hover:text-cta md:text-2xl">
+          <h3 className="mt-2 font-serif text-xl leading-tight text-primary transition-colors duration-200 group-hover:text-primary md:text-2xl">
             {product.name}
           </h3>
           <p className="mt-auto flex items-baseline gap-2 border-t border-border pt-5 text-sm text-muted">

@@ -22,7 +22,7 @@ export function Newsletter() {
         <Reveal>
           <p
             data-wb-slot="newsletter.eyebrow"
-            className="text-[11px] font-medium uppercase tracking-[0.2em] text-cta"
+            className="text-[11px] font-medium uppercase tracking-[0.2em] text-secondary"
           >
             {newsletter.eyebrow}
           </p>
@@ -37,8 +37,11 @@ export function Newsletter() {
           </p>
 
           {done ? (
-            <p className="mt-8 text-sm font-medium text-primary">
-              {newsletter.successMessage ?? "Gracias."}
+            <p
+              data-wb-slot="newsletter.successMessage"
+              className="mt-8 text-sm font-medium text-primary"
+            >
+              {newsletter.successMessage}
             </p>
           ) : (
             <form
@@ -54,14 +57,16 @@ export function Newsletter() {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder={newsletter.placeholder ?? ""}
+                data-wb-slot="newsletter.placeholder"
+                placeholder={newsletter.placeholder}
                 className="flex-1 border border-border bg-background px-4 py-3.5 text-sm text-primary placeholder:text-muted outline-none transition-colors duration-200 focus:border-primary"
               />
               <button
                 type="submit"
+                data-wb-slot="newsletter.submitLabel"
                 className="cursor-pointer bg-primary px-6 py-3.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-background transition-colors duration-200 hover:bg-secondary"
               >
-                {newsletter.submitLabel ?? "Enviar"}
+                {newsletter.submitLabel}
               </button>
             </form>
           )}

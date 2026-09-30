@@ -5,13 +5,28 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { Minus, Plus } from "lucide-react";
 import type {
+  ProductDetailViewModel,
   ProductDetailViewProps,
-  ProductVariantViewModel,
   StockLabel,
 } from "@shopenlinea/commerce-runtime-contract";
+import {
+  buildOptionDimensions,
+  canUseVariantOptionPickers,
+  chipStateForOptionValue,
+  resolveVariantForDimensionSelection,
+  selectionsFromVariant,
+  valuesForDimension,
+  type VariantOptionLike,
+  resolveStockToMtoTransition,
+  shouldOpenStockToMtoModal,
+  stockCap,
+} from "@shopenlinea/commerce-runtime-contract";
 import { useSiteContent } from "../../lib/site-content";
+import { requireUi } from "../../lib/ui";
 import { SHOP_PATH, withBasePath } from "../../content/resolve";
 import { CommerceProductCard } from "./CommerceProductCard";
+import { MadeToOrderUpsellDialog } from "./MadeToOrderUpsellDialog";
+import { isPdpFieldVisible } from "../../lib/pdp-presentation";
 
 function parseDisplayPrice(display: string): number | null {
   const n = Number(display.replace(/[^\d,.-]/g, "").replace(",", "."));
@@ -30,42 +45,48 @@ function discountPercent(
 
 function badgeLabel(
   key: string,
-  labels?: Record<string, string | undefined>,
+  labels: Record<string, string>,
 ): string {
-  const known = labels?.[key];
-  if (known) return known;
-  return key.replace(/([A-Z])/g, " $1").replace(/^./, (s) => s.toUpperCase());
+  return labels[key] ?? key;
 }
 
 function stockCopy(
   label: StockLabel | null | undefined,
   ui: {
-    outOfStock?: string;
-    contact?: string;
-    lowStock?: string;
+    outOfStock: string;
+    contact: string;
+    lowStock: string;
   },
 ): string | null {
   if (!label || label === "available") return null;
-  if (label === "out_of_stock") return ui.outOfStock ?? "Agotado";
-  if (label === "contact") return ui.contact ?? "Consultar disponibilidad";
+  if (label === "out_of_stock") return ui.outOfStock;
+  if (label === "contact") return ui.contact;
+  if (label === "low_stock") return ui.lowStock;
   return null;
 }
 
-function optionDimensions(variants: ProductVariantViewModel[]) {
-  const names = new Set<string>();
-  for (const v of variants) {
-    for (const o of v.options) names.add(o.name);
+function toPickerVariants(product: ProductDetailViewModel): VariantOptionLike[] {
+  return product.variants.map((v) => ({
+    id: v.id,
+    optionValues: v.options.map((o) => ({ option: o.name, value: o.value })),
+  }));
+}
+
+function buildMaxAddQtyMap(product: ProductDetailViewModel): Record<string, number> {
+  const map: Record<string, number> = {};
+  for (const v of product.variants) {
+    const maxQty = v.maxQuantity ?? 0;
+    map[v.id] = v.available && maxQty > 0 ? maxQty : 0;
   }
-  return [...names].map((name) => {
-    const values = [
-      ...new Set(
-        variants.flatMap((v) =>
-          v.options.filter((o) => o.name === name).map((o) => o.value),
-        ),
-      ),
-    ];
-    return { name, values };
-  });
+  return map;
+}
+
+function selectionsFromSelectedVariant(
+  pickerVariants: VariantOptionLike[],
+  selectedId: string | undefined,
+): Record<string, string> {
+  const variant = pickerVariants.find((v) => v.id === selectedId);
+  return selectionsFromVariant(variant);
 }
 
 export function ProductDetailCommerceView({
@@ -75,46 +96,77 @@ export function ProductDetailCommerceView({
   errorMessage,
 }: ProductDetailViewProps) {
   const { payload, basePath } = useSiteContent();
+  const ui = requireUi(payload);
+  const uiProduct = ui.product;
+  const uiBadges = uiProduct.badges;
+  const madeToOrderUi = ui.salesMode.madeToOrder;
+  const presentation = payload.sections?.product?.presentation;
+  const checkoutUi = ui.checkout;
   const [pending, setPending] = useState(false);
   const [localError, setLocalError] = useState<string | null>(null);
   const [quantity, setQuantity] = useState(1);
   const [galleryIndex, setGalleryIndex] = useState(0);
   const [galleryManual, setGalleryManual] = useState(false);
-  const [optionSel, setOptionSel] = useState<Record<string, string>>({});
+  const [upsellOpen, setUpsellOpen] = useState(false);
 
   const selected =
     product.variants.find((v) => v.id === product.selectedVariantId) ??
     product.variants[0];
 
-  const uiProduct = payload.ui?.product;
-  const uiBadges = uiProduct?.badges;
-  const relatedTitle =
-    uiProduct?.relatedTitle ?? "Otras piezas de esta ocasión";
-  const shippingNote = uiProduct?.shippingNote;
-  const shopLabel =
-    payload.navigation.primary.find(
-      (l) =>
-        (l.type === "path" && l.href.startsWith(SHOP_PATH)) ||
-        l.type === "shopFilter",
-    )?.label ?? "Vestidos";
+  const relatedTitle = uiProduct.relatedTitle;
+  const shopLabel = payload.navigation.primary.find(
+    (l) =>
+      (l.type === "path" && l.href.startsWith(SHOP_PATH)) ||
+      l.type === "shopFilter",
+  )?.label;
 
-  const dims = useMemo(
-    () => optionDimensions(product.variants),
+  const pickerVariants = useMemo(
+    () => toPickerVariants(product),
     [product.variants],
+  );
+  const dimensions = useMemo(
+    () => buildOptionDimensions(pickerVariants, product.optionDefinitions),
+    [pickerVariants, product.optionDefinitions],
+  );
+  const maxAddQtyMap = useMemo(
+    () => buildMaxAddQtyMap(product),
+    [product.variants],
+  );
+  const selections = useMemo(
+    () => selectionsFromSelectedVariant(pickerVariants, selected?.id),
+    [pickerVariants, selected?.id],
+  );
+  const usePickers = useMemo(
+    () => canUseVariantOptionPickers(pickerVariants),
+    [pickerVariants],
   );
 
   const showVariants =
     capabilities.variantSelector !== "unsupported" &&
     product.variants.length > 1;
 
-  const occasionChips = [
-    ...(product.collectionLabels ?? []),
-    ...(product.categoryLabels ?? []),
-  ].filter((v, i, arr) => arr.indexOf(v) === i);
+  const occasionChips = useMemo(() => {
+    const chips: string[] = [];
+    if (isPdpFieldVisible(presentation, "collectionLabels")) {
+      chips.push(...(product.collectionLabels ?? []));
+    }
+    if (isPdpFieldVisible(presentation, "categoryLabels")) {
+      chips.push(...(product.categoryLabels ?? []));
+    }
+    return chips.filter((v, i, arr) => arr.indexOf(v) === i);
+  }, [
+    presentation,
+    product.collectionLabels,
+    product.categoryLabels,
+  ]);
 
-  const maxQty = Math.max(
-    0,
-    selected?.maxQuantity ?? product.maxQuantity ?? 99,
+  const stockCapQty = stockCap(selected, product);
+  const transition = resolveStockToMtoTransition(product, selected, quantity);
+  const showInlineMto = transition?.kind === "immediateExhausted";
+  const upsell = product.madeToOrderUpsell;
+  const nextQtyTransition = useMemo(
+    () => resolveStockToMtoTransition(product, selected, quantity + 1),
+    [product, selected, quantity],
   );
   const stockLabel = selected?.stockLabel ?? product.stockLabel ?? null;
   const variantAvailable = selected?.available !== false;
@@ -124,7 +176,8 @@ export function ProductDetailCommerceView({
     variantAvailable &&
     !product.madeToOrderClosed &&
     stockLabel !== "out_of_stock" &&
-    maxQty > 0;
+    !showInlineMto &&
+    stockCapQty > 0;
 
   const pct =
     selected?.compareAtPrice && selected.displayPrice
@@ -155,9 +208,6 @@ export function ProductDetailCommerceView({
     setLocalError(null);
     setGalleryManual(false);
     if (selected) {
-      const next: Record<string, string> = {};
-      for (const o of selected.options) next[o.name] = o.value;
-      setOptionSel(next);
       if (selected.imageUrl) {
         const idx = product.gallery.findIndex((g) => g.url === selected.imageUrl);
         if (idx >= 0) setGalleryIndex(idx);
@@ -167,25 +217,19 @@ export function ProductDetailCommerceView({
     }
   }, [selected?.id]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  function pickOption(name: string, value: string) {
-    const next = { ...optionSel, [name]: value };
-    setOptionSel(next);
-    const match = product.variants.find((v) =>
-      Object.entries(next).every(([n, val]) =>
-        v.options.some((o) => o.name === n && o.value === val),
-      ),
-    );
-    if (match) actions.selectVariant(match.id);
-  }
-
   async function onAdd() {
     if (!selected || !canBuy) return;
+    const t = resolveStockToMtoTransition(product, selected, quantity);
+    if (t && shouldOpenStockToMtoModal(t)) {
+      setUpsellOpen(true);
+      return;
+    }
     setPending(true);
     setLocalError(null);
     try {
       const res = await actions.addToCart(selected.id, quantity);
       if (!res.ok) {
-        setLocalError(res.errorMessage ?? "No se pudo reservar la prueba");
+        setLocalError(res.errorMessage ?? ui.errors.addToCartFailed);
         return;
       }
       actions.openCartDrawer();
@@ -194,42 +238,50 @@ export function ProductDetailCommerceView({
     }
   }
 
+  function onIncrementQuantity() {
+    const tInc = resolveStockToMtoTransition(product, selected, quantity + 1);
+    if (tInc && shouldOpenStockToMtoModal(tInc)) {
+      setUpsellOpen(true);
+      return;
+    }
+    setQuantity((q) => Math.min(stockCapQty, q + 1));
+  }
+
   const stockMessage = stockCopy(stockLabel, {
-    outOfStock: uiProduct?.outOfStock,
-    contact: uiProduct?.contact,
-    lowStock: uiProduct?.lowStock,
+    outOfStock: uiProduct.outOfStock,
+    contact: uiProduct.contact,
+    lowStock: uiProduct.lowStock,
   });
 
   const ctaLabel = pending
-    ? "Reservando…"
+    ? uiProduct.addingToCart
     : stockLabel === "out_of_stock" || !variantAvailable
-      ? (uiProduct?.outOfStock ?? "Agotado")
-      : (uiProduct?.addToCart ?? "Reservar prueba");
+      ? uiProduct.outOfStock
+      : uiProduct.addToCart;
 
-  const quantityLabel =
-    product.madeToOrderClosed || product.categoryLabels?.some((c) =>
-      /prueba|reserva/i.test(c),
-    )
-      ? "Plazas"
-      : "Cantidad";
+  const quantityLabel = checkoutUi.quantityLabel;
 
   return (
-    <div className="bg-background pb-24 pt-28 md:pb-32 md:pt-36">
-      <div className="mx-auto max-w-7xl px-6 md:px-10">
+    <div className="min-w-0 bg-background pb-24 pt-28 md:pb-32 md:pt-36">
+      <div className="mx-auto min-w-0 max-w-7xl px-6 md:px-10">
         <nav className="mb-8 text-xs text-muted" aria-label="Breadcrumb">
-          <Link
-            href={withBasePath(basePath, SHOP_PATH)}
-            className="cursor-pointer transition-colors duration-200 hover:text-cta"
-          >
-            {shopLabel}
-          </Link>
-          <span className="mx-2 text-border">/</span>
+          {shopLabel ? (
+            <>
+              <Link
+                href={withBasePath(basePath, SHOP_PATH)}
+                className="cursor-pointer transition-colors duration-200 hover:text-primary"
+              >
+                {shopLabel}
+              </Link>
+              <span className="mx-2 text-border">/</span>
+            </>
+          ) : null}
           <span className="text-primary">{product.name}</span>
         </nav>
 
-        <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12">
+        <div className="grid min-w-0 gap-8 lg:grid-cols-2 lg:gap-12">
           {/* Portrait gallery */}
-          <div>
+          <div className="min-w-0 w-full max-w-full">
             <div className="relative aspect-[3/4] overflow-hidden rounded-2xl bg-surface shadow-[0_24px_48px_-28px_rgba(156,79,95,0.22)]">
               {mainImage?.url && (
                 <Image
@@ -238,58 +290,62 @@ export function ProductDetailCommerceView({
                   fill
                   priority
                   className="object-cover"
-                  sizes="(max-width: 1024px) 100vw, 55vw"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
                 />
               )}
-              {product.badges && product.badges.length > 0 ? (
+              {isPdpFieldVisible(presentation, "badges") &&
+              product.badges &&
+              product.badges.length > 0 ? (
                 <p className="absolute left-4 top-4 flex flex-wrap gap-2">
                   {product.badges.map((b) => (
                     <span
                       key={b}
-                      className="rounded-full bg-cta px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-white shadow-sm"
+                      className="rounded-full bg-primary px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-background shadow-sm"
                     >
-                      {badgeLabel(b, uiBadges as Record<string, string | undefined>)}
+                      {badgeLabel(b, uiBadges)}
                     </span>
                   ))}
                 </p>
               ) : null}
             </div>
             {product.gallery.length > 1 ? (
-              <ul className="mt-4 flex gap-3 overflow-x-auto pb-1">
-                {product.gallery.map((g, i) => {
-                  const active = mainImage?.id === g.id || i === galleryIndex;
-                  return (
-                    <li key={g.id} className="shrink-0">
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setGalleryIndex(i);
-                          setGalleryManual(true);
-                        }}
-                        className={`relative h-20 w-16 cursor-pointer overflow-hidden rounded-2xl border transition-colors duration-200 ${
-                          active
-                            ? "border-cta ring-1 ring-cta/30"
-                            : "border-border hover:border-cta/50"
-                        }`}
-                        aria-label={`Imagen ${i + 1}`}
-                      >
-                        <Image
-                          src={g.url}
-                          alt={g.alt ?? ""}
-                          fill
-                          className="object-cover"
-                          sizes="64px"
-                        />
-                      </button>
-                    </li>
-                  );
-                })}
-              </ul>
+              <div className="mt-4 w-full min-w-0 overflow-x-auto">
+                <ul className="flex gap-3 pb-1">
+                  {product.gallery.map((g, i) => {
+                    const active = mainImage?.id === g.id || i === galleryIndex;
+                    return (
+                      <li key={g.id} className="shrink-0">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setGalleryIndex(i);
+                            setGalleryManual(true);
+                          }}
+                          className={`relative h-20 w-16 cursor-pointer overflow-hidden rounded-2xl border transition-colors duration-200 ${
+                            active
+                              ? "border-cta ring-1 ring-cta/30"
+                              : "border-border hover:border-cta/50"
+                          }`}
+                          aria-label={`Imagen ${i + 1}`}
+                        >
+                          <Image
+                            src={g.url}
+                            alt={g.alt ?? ""}
+                            fill
+                            className="object-cover"
+                            sizes="64px"
+                          />
+                        </button>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
             ) : null}
           </div>
 
           {/* Purchase column */}
-          <div className="celestine-panel rounded-2xl border border-border bg-white p-7 md:p-9">
+          <div className="celestine-panel min-w-0 rounded-2xl border border-border bg-white p-7 md:p-9">
             {occasionChips.length > 0 ? (
               <div className="mb-5 flex flex-wrap gap-2">
                 {occasionChips.map((chip) => (
@@ -317,109 +373,160 @@ export function ProductDetailCommerceView({
                 </p>
               ) : null}
               {pct != null && pct > 0 ? (
-                <span className="rounded-full bg-cta/12 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-cta">
+                <span className="rounded-full bg-primary/12 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-secondary">
                   −{pct}%
                 </span>
               ) : null}
             </div>
 
-            {product.shortDescription ? (
+            {isPdpFieldVisible(presentation, "shortDescription") &&
+            product.shortDescription ? (
               <p className="mt-5 text-sm leading-relaxed text-primary md:text-base">
                 {product.shortDescription}
               </p>
             ) : null}
 
-            {product.description ? (
+            {isPdpFieldVisible(presentation, "description") &&
+            product.description ? (
               <p className="mt-3 text-sm leading-relaxed text-muted md:text-base">
                 {product.description}
               </p>
             ) : null}
 
-            {product.highlights && product.highlights.length > 0 ? (
+            {isPdpFieldVisible(presentation, "highlights") &&
+            product.highlights &&
+            product.highlights.length > 0 ? (
               <ul className="mt-6 space-y-2 border-t border-border pt-6 text-sm text-primary">
                 {product.highlights.map((h) => (
                   <li key={h} className="flex items-start gap-2.5">
-                    <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-cta" />
+                    <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-primary" />
                     <span>{h}</span>
                   </li>
                 ))}
               </ul>
             ) : null}
 
-            {product.bulletPoints && product.bulletPoints.length > 0 ? (
+            {isPdpFieldVisible(presentation, "bulletPoints") &&
+            product.bulletPoints &&
+            product.bulletPoints.length > 0 ? (
               <ul className="mt-4 space-y-1.5 text-sm text-muted">
                 {product.bulletPoints.map((b) => (
                   <li key={b} className="flex items-start gap-2.5">
-                    <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-cta/60" />
+                    <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-primary/60" />
                     <span>{b}</span>
                   </li>
                 ))}
               </ul>
             ) : null}
 
-            {showVariants
-              ? dims.map((dim) => (
-                  <div key={dim.name} className="mt-7 space-y-3">
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-secondary">
-                      {dim.name}
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      {dim.values.map((val) => {
-                        const active = optionSel[dim.name] === val;
-                        const possible = product.variants.some((v) => {
-                          const next = { ...optionSel, [dim.name]: val };
-                          return Object.entries(next).every(([n, vv]) =>
-                            v.options.some((o) => o.name === n && o.value === vv),
+            {showVariants && usePickers
+              ? dimensions.map((dimension, dimensionIndex) => {
+                  const values = valuesForDimension(pickerVariants, dimension);
+                  return (
+                    <div key={dimension} className="mt-7 space-y-3">
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-secondary">
+                        {dimension}
+                      </p>
+                      <div className="flex flex-wrap gap-2">
+                        {values.map((val) => {
+                          const state = chipStateForOptionValue(
+                            pickerVariants,
+                            dimensions,
+                            selections,
+                            dimensionIndex,
+                            val,
+                            maxAddQtyMap,
                           );
-                        });
-                        return (
-                          <button
-                            key={val}
-                            type="button"
-                            disabled={!possible}
-                            onClick={() => pickOption(dim.name, val)}
-                            className={`cursor-pointer rounded-full border px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.12em] transition-colors duration-200 disabled:cursor-not-allowed disabled:opacity-40 ${
-                              active
-                                ? "border-cta bg-cta text-white"
-                                : "border-border bg-background text-primary hover:border-cta/60 hover:text-cta"
-                            }`}
-                          >
-                            {val}
-                          </button>
-                        );
-                      })}
+                          const disabled =
+                            state === "impossible" || state === "soldOut";
+                          const active =
+                            state === "selected" || state === "selectedSoldOut";
+                          const soldOutChip =
+                            state === "soldOut" || state === "selectedSoldOut";
+                          return (
+                            <button
+                              key={val}
+                              type="button"
+                              disabled={disabled}
+                              onClick={() => {
+                                const resolved =
+                                  resolveVariantForDimensionSelection(
+                                    pickerVariants,
+                                    dimensions,
+                                    selections,
+                                    dimensionIndex,
+                                    val,
+                                    {
+                                      maxAddQtyByVariantId: maxAddQtyMap,
+                                      preferredVariantId: selected?.id,
+                                    },
+                                  );
+                                if (resolved) {
+                                  actions.selectVariant(resolved.id);
+                                }
+                              }}
+                              className={`cursor-pointer rounded-full border px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.12em] transition-colors duration-200 disabled:cursor-not-allowed disabled:opacity-40 ${
+                                soldOutChip ? "line-through opacity-60" : ""
+                              } ${
+                                active
+                                  ? "border-cta bg-primary text-background"
+                                  : "border-border bg-background text-primary hover:border-cta/60 hover:text-primary"
+                              }`}
+                            >
+                              {val}
+                            </button>
+                          );
+                        })}
+                      </div>
                     </div>
-                  </div>
-                ))
+                  );
+                })
               : null}
 
-            {capabilities.stockIndicator !== "unsupported" && stockMessage ? (
+            {isPdpFieldVisible(presentation, "stockMessage") &&
+            capabilities.stockIndicator !== "unsupported" &&
+            stockMessage ? (
               <p className="mt-6 text-sm text-muted">{stockMessage}</p>
-            ) : null}
-
-            {product.preparationPromiseLabel ? (
-              <p className="mt-6 text-sm text-muted">
-                {payload.ui?.salesMode?.madeToOrder?.preparationLabel ?? "Preparación"}
-                : {product.preparationPromiseLabel}
-              </p>
             ) : null}
 
             {product.madeToOrderClosed ? (
               <p className="mt-6 rounded-2xl border border-border bg-surface/60 px-4 py-3 text-sm text-muted">
-                {uiProduct?.madeToOrderClosed ??
-                  payload.ui?.salesMode?.madeToOrder?.closedMessage ??
-                  "Reservas cerradas temporalmente"}
+                {uiProduct.madeToOrderClosed}
                 {product.madeToOrderReopensAtLabel
-                  ? ` ${
-                      payload.ui?.salesMode?.madeToOrder?.reopensPrefix
-                        ? `${payload.ui.salesMode.madeToOrder.reopensPrefix} `
-                        : ""
-                    }${product.madeToOrderReopensAtLabel}`
+                  ? ` ${madeToOrderUi.reopensPrefix} ${product.madeToOrderReopensAtLabel}`
                   : ""}
               </p>
             ) : null}
 
-            {canBuy ? (
+
+          {showInlineMto && upsell ? (
+            <div className="mt-10 rounded-lg border border-border bg-surface/60 p-6 md:p-8">
+              <p className="text-sm font-medium text-primary">
+                {uiProduct.stockExhaustedImmediateTitle}
+              </p>
+              <p className="mt-2 text-sm text-muted">
+                {uiProduct.stockExhaustedMadeToOrderAvailable}
+              </p>
+              {upsell.preparationPromiseLabel ? (
+                <p className="mt-4 text-[11px] font-medium uppercase tracking-[0.14em] text-muted">
+                  {madeToOrderUi.preparationLabel}: {upsell.preparationPromiseLabel}
+                </p>
+              ) : null}
+              <Link
+                href={withBasePath(
+                  basePath,
+                  upsell.productHref.startsWith("/")
+                    ? upsell.productHref
+                    : `/${upsell.productHref}`,
+                )}
+                className="mt-6 inline-block cursor-pointer bg-primary px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-background transition-colors duration-200 hover:bg-primary/90"
+              >
+                {uiProduct.buyMadeToOrderCta}
+              </Link>
+            </div>
+          ) : null}
+
+            {!showInlineMto && canBuy ? (
               <div className="mt-8 flex items-center justify-between gap-4">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-secondary">
                   {quantityLabel}
@@ -440,8 +547,10 @@ export function ProductDetailCommerceView({
                   <button
                     type="button"
                     className="cursor-pointer p-3 transition-colors hover:bg-surface disabled:opacity-40"
-                    disabled={quantity >= maxQty || pending}
-                    onClick={() => setQuantity((q) => Math.min(maxQty, q + 1))}
+                    disabled={
+                    (quantity >= stockCapQty && !(nextQtyTransition && shouldOpenStockToMtoModal(nextQtyTransition))) || pending
+                  }
+                  onClick={onIncrementQuantity}
                     aria-label="Más"
                   >
                     <Plus className="h-3.5 w-3.5" strokeWidth={1.5} />
@@ -450,29 +559,38 @@ export function ProductDetailCommerceView({
               </div>
             ) : null}
 
-            <button
-              type="button"
-              disabled={!canBuy || pending}
-              onClick={onAdd}
-              className="mt-6 w-full cursor-pointer rounded-full bg-cta px-6 py-4 text-[11px] font-semibold uppercase tracking-[0.2em] text-white transition-colors duration-200 hover:bg-cta-hover disabled:cursor-not-allowed disabled:opacity-50"
-            >
-              {ctaLabel}
-            </button>
-            {(errorMessage || localError) && (
-              <p className="mt-3 text-sm text-red-700" role="alert">
-                {localError ?? errorMessage}
-              </p>
-            )}
+            {!showInlineMto ? (
+              <>
+                <button
+                  type="button"
+                  disabled={!canBuy || pending}
+                  onClick={onAdd}
+                  className="mt-6 w-full cursor-pointer rounded-full bg-primary px-6 py-4 text-[11px] font-semibold uppercase tracking-[0.2em] text-background transition-colors duration-200 hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  {ctaLabel}
+                </button>
+                {(errorMessage || localError) && (
+                  <p className="mt-3 text-sm text-red-700" role="alert">
+                    {localError ?? errorMessage}
+                  </p>
+                )}
 
-            {shippingNote ? (
-              <p className="mt-6 rounded-2xl border border-border/80 bg-surface/50 px-4 py-3.5 text-sm leading-relaxed text-muted">
-                {shippingNote}
-              </p>
+                {isPdpFieldVisible(presentation, "preparationPromise") &&
+                product.preparationPromiseLabel ? (
+                  <p className="mt-4 text-[11px] font-medium uppercase tracking-[0.14em] text-muted">
+                    {madeToOrderUi.preparationLabel}: {product.preparationPromiseLabel}
+                  </p>
+                ) : null}
+              </>
             ) : null}
 
-            {(product.specifications?.length || product.brandLabel) && (
+            {((isPdpFieldVisible(presentation, "specifications") &&
+              product.specifications?.length) ||
+              (isPdpFieldVisible(presentation, "brandLabel") &&
+                product.brandLabel)) && (
               <dl className="mt-8 space-y-3 border-t border-border pt-7 text-sm">
-                {product.brandLabel ? (
+                {isPdpFieldVisible(presentation, "brandLabel") &&
+                product.brandLabel ? (
                   <div className="flex justify-between gap-4">
                     <dt className="text-muted">Casa</dt>
                     <dd className="text-right font-medium text-primary">
@@ -480,7 +598,8 @@ export function ProductDetailCommerceView({
                     </dd>
                   </div>
                 ) : null}
-                {product.specifications?.map((s) => (
+                {isPdpFieldVisible(presentation, "specifications") &&
+                  product.specifications?.map((s) => (
                   <div key={s.key} className="flex justify-between gap-4">
                     <dt className="text-muted">{s.key}</dt>
                     <dd className="text-right text-primary">{s.value}</dd>
@@ -492,12 +611,12 @@ export function ProductDetailCommerceView({
         </div>
       </div>
 
-      {capabilities.relatedProducts !== "unsupported" &&
-        product.relatedProducts &&
-        product.relatedProducts.length > 0 && (
+      {isPdpFieldVisible(presentation, "relatedProducts") &&
+      capabilities.relatedProducts !== "unsupported" &&
+      product.relatedProducts &&
+      product.relatedProducts.length > 0 && (
           <section className="mx-auto mt-24 max-w-7xl px-6 md:px-10">
-            <p className="celestine-eyebrow">Para completar el look</p>
-            <h2 className="mt-2 font-serif text-3xl tracking-wide text-primary md:text-4xl">
+            <h2 className="font-serif text-3xl tracking-wide text-primary md:text-4xl">
               {relatedTitle}
             </h2>
             <div className="mt-10 grid grid-cols-2 gap-x-5 gap-y-10 md:grid-cols-3 lg:grid-cols-4">
@@ -507,6 +626,24 @@ export function ProductDetailCommerceView({
             </div>
           </section>
         )}
+      {product.madeToOrderUpsell ? (
+        <MadeToOrderUpsellDialog
+          open={upsellOpen}
+          onClose={() => setUpsellOpen(false)}
+          basePath={basePath}
+          upsell={product.madeToOrderUpsell}
+          immediateFulfillmentQty={stockCapQty}
+          stockUpsellModalTitle={uiProduct.stockUpsellModalTitle}
+          stockInsufficientImmediate={uiProduct.stockInsufficientImmediate}
+          stockInsufficientMadeToOrderHint={
+            uiProduct.stockInsufficientMadeToOrderHint
+          }
+          preparationLabel={madeToOrderUi.preparationLabel}
+          preparationPromiseLabel={product.preparationPromiseLabel}
+          buyMadeToOrderCta={uiProduct.buyMadeToOrderCta}
+          dismissLabel={ui.chrome.closeMenu}
+        />
+      ) : null}
     </div>
   );
 }

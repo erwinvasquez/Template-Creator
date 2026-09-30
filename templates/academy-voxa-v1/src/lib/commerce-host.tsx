@@ -26,6 +26,8 @@ export type VoxaCommerceHost = {
   }>;
   getDetail: (slug: string) => Promise<ProductDetailViewModel | null>;
   getCart: () => Promise<CartViewModel>;
+  /** Sync cart from host cache (SaaS R2). Omit in preview bridges without snapshot. */
+  getCartSnapshot?: () => CartViewModel | null;
   getCheckout: () => Promise<CheckoutViewModel>;
   actions: CommerceRuntimeActions;
   subscribe: (listener: () => void) => () => void;
@@ -94,17 +96,28 @@ export function useHostCart(): {
     () => 0,
   );
 
-  const [cart, setCart] = useState<CartViewModel | null>(null);
+  const snapshot = useSyncExternalStore(
+    (onStoreChange) => host.subscribe(onStoreChange),
+    () => host.getCartSnapshot?.() ?? null,
+    () => null,
+  );
+
+  const [bootstrapCart, setBootstrapCart] = useState<CartViewModel | null>(
+    null,
+  );
 
   useEffect(() => {
+    if (snapshot != null) return;
     let cancelled = false;
     void host.getCart().then((c) => {
-      if (!cancelled) setCart(c);
+      if (!cancelled) setBootstrapCart(c);
     });
     return () => {
       cancelled = true;
     };
-  }, [host, version, isOpen]);
+  }, [host, version, snapshot]);
+
+  const cart = snapshot ?? bootstrapCart;
 
   return {
     cart,

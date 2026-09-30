@@ -16,7 +16,7 @@ export function AcademiaView() {
         <Reveal>
           <p
             data-wb-slot="about.intro.eyebrow"
-            className="voxa-rule text-[11px] font-semibold uppercase tracking-[0.2em] text-cta"
+            className="voxa-rule text-[11px] font-semibold uppercase tracking-[0.2em] text-secondary"
           >
             {about.intro.eyebrow}
           </p>
@@ -48,7 +48,10 @@ export function AcademiaView() {
         <div className="absolute inset-0 bg-primary/35" />
       </section>
 
-      <section className="mx-auto grid max-w-7xl gap-12 px-6 py-20 md:grid-cols-2 md:gap-20 md:px-10 md:py-28">
+      <section
+        className="mx-auto grid max-w-7xl gap-12 px-6 py-20 md:grid-cols-2 md:gap-20 md:px-10 md:py-28"
+        data-wb-slot="about.blocks"
+      >
         {about.blocks.map((block, i) => (
           <Reveal key={block.id} delay={i * 120}>
             <h2 className="font-serif text-3xl leading-tight text-primary md:text-4xl">
@@ -69,7 +72,7 @@ export function AcademiaView() {
           <Reveal>
             <p
               data-wb-slot="about.faculty.eyebrow"
-              className="voxa-rule text-[11px] font-semibold uppercase tracking-[0.2em] text-cta"
+              className="voxa-rule text-[11px] font-semibold uppercase tracking-[0.2em] text-secondary"
             >
               {about.faculty.eyebrow}
             </p>
@@ -81,14 +84,17 @@ export function AcademiaView() {
             </h2>
           </Reveal>
 
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
+          <div
+            className="mt-12 grid gap-6 md:grid-cols-3"
+            data-wb-slot="about.faculty.items"
+          >
             {about.faculty.items.map((person, i) => (
               <Reveal key={person.name} delay={i * 100}>
                 <div className="h-full rounded-xl border border-border bg-white p-7">
                   <h3 className="font-serif text-2xl leading-tight text-primary">
                     {person.name}
                   </h3>
-                  <p className="mt-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-cta">
+                  <p className="mt-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-secondary">
                     {person.role}
                   </p>
                   <p className="mt-4 text-sm leading-relaxed text-muted">
@@ -103,15 +109,22 @@ export function AcademiaView() {
 
       <section className="mx-auto max-w-7xl px-6 py-20 text-center md:px-10 md:py-28">
         <Reveal>
-          <h2 className="font-serif text-3xl leading-tight text-primary md:text-4xl">
+          <h2
+            data-wb-slot="about.closing.title"
+            className="font-serif text-3xl leading-tight text-primary md:text-4xl"
+          >
             {about.closing.title}
           </h2>
-          <p className="mx-auto mt-4 max-w-md text-sm text-muted md:text-base">
+          <p
+            data-wb-slot="about.closing.body"
+            className="mx-auto mt-4 max-w-md text-sm text-muted md:text-base"
+          >
             {about.closing.body}
           </p>
           <Link
             href={withBasePath(basePath, about.closing.cta.href)}
-            className="mt-8 inline-flex cursor-pointer bg-cta px-8 py-3.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-white transition-colors duration-200 hover:bg-cta-hover"
+            data-wb-slot="about.closing.cta"
+            className="mt-8 inline-flex cursor-pointer bg-primary px-8 py-3.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-background transition-colors duration-200 hover:bg-primary/90"
           >
             {about.closing.cta.label}
           </Link>

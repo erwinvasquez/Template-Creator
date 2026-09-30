@@ -1,19 +1,9 @@
 "use client";
 
-import { Hero } from "../Hero";
-import { ProgramsStrip } from "../ProgramsStrip";
-import { MethodBand } from "../MethodBand";
-import { OutcomesBand } from "../OutcomesBand";
-import { BooksBand } from "../BooksBand";
+import { useSiteContent } from "../../lib/site-content";
+import { renderHomeSections } from "../../lib/home-section-registry";
 
 export function HomeView() {
-  return (
-    <>
-      <Hero />
-      <ProgramsStrip />
-      <MethodBand />
-      <OutcomesBand />
-      <BooksBand />
-    </>
-  );
+  const { payload } = useSiteContent();
+  return <>{renderHomeSections(payload)}</>;
 }

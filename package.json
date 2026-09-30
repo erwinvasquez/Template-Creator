@@ -4,10 +4,17 @@
   "private": true,
   "workspaces": [
     "packages/*",
+    "packages/template-content-contract",
     "templates/fashion-atelier-v1",
     "templates/jewelry-orion-v1",
     "templates/academy-voxa-v1",
-    "templates/fashion-celestine-v1"
+    "templates/fashion-celestine-v1",
+    "templates/fashion-lumen-v1",
+    "templates/fashion-velvet-v1",
+    "templates/fashion-nova-v1",
+    "templates/food-trattoria-v1",
+    "templates/food-cantina-v1",
+    "templates/food-patisserie-v1"
   ],
   "scripts": {
     "dev": "next dev",
@@ -16,7 +23,14 @@
     "lint": "eslint",
     "template:validate": "node scripts/template-validate.mjs",
     "template:export": "node scripts/template-export.mjs",
+    "content-contract:export": "node scripts/content-contract-export.mjs",
+    "export:saas": "npm run content-contract:export && for t in fashion-atelier-v1 fashion-celestine-v1 fashion-lumen-v1 fashion-velvet-v1 fashion-nova-v1 jewelry-orion-v1 academy-voxa-v1 food-trattoria-v1 food-cantina-v1 food-patisserie-v1; do npm run template:export -- $t; done",
     "validate:template-package": "node scripts/validate-template-package.mjs",
+    "template:validate-content": "node scripts/template-validate-content.mjs",
+    "template:validate-all": "node scripts/template-validate-content.mjs --all && for t in fashion-atelier-v1 fashion-celestine-v1 fashion-lumen-v1 fashion-velvet-v1 fashion-nova-v1 jewelry-orion-v1 academy-voxa-v1 food-trattoria-v1 food-cantina-v1 food-patisserie-v1; do node scripts/template-validate.mjs $t; done",
+    "template:sync-slots": "node scripts/sync-builder-slots.mjs",
+    "template:merge-ui": "node scripts/merge-ui-defaults.mjs",
+    "template:proof": "node scripts/generate-template-proof.mjs",
     "proof:export": "npm run template:export -- fashion-atelier-v1",
     "proof:clean-host": "npm run proof:export && npm run build --prefix hosts/clean-host",
     "typecheck:contract": "npm run typecheck -w @shopenlinea/commerce-runtime-contract",

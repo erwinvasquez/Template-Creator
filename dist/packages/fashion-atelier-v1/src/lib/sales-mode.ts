@@ -2,6 +2,7 @@ import type {
   CommerceTemplateCapabilities,
   SalesMode,
 } from "@shopenlinea/commerce-runtime-contract";
+import type { TemplateUi } from "../content/types";
 
 /** Dual-mode chrome (nav / shop banner / cart mode line) — only when host says so. */
 export function showsSalesModeChrome(
@@ -17,34 +18,14 @@ export function parseSalesModeQuery(
   return null;
 }
 
-export type SalesModeUiCopy = {
-  stock?: {
-    navLabel?: string;
-    shopBanner?: string;
-    cartLabel?: string;
-  };
-  madeToOrder?: {
-    navLabel?: string;
-    shopBanner?: string;
-    preparationLabel?: string;
-    closedMessage?: string;
-    reopensPrefix?: string;
-    cartLabel?: string;
-    cartClosedWarning?: string;
-  };
-  nav?: Array<{
-    salesMode: SalesMode;
-    label: string;
-    href: string;
-  }>;
-};
+export type SalesModeUiCopy = TemplateUi["salesMode"];
 
 export function cartSalesModeLabel(
   salesMode: SalesMode,
-  ui: SalesModeUiCopy | undefined,
+  ui: SalesModeUiCopy,
 ): string {
   if (salesMode === "madeToOrder") {
-    return ui?.madeToOrder?.cartLabel ?? "Compra bajo pedido";
+    return ui.madeToOrder.cartLabel;
   }
-  return ui?.stock?.cartLabel ?? "Compra con entrega inmediata";
+  return ui.stock.cartLabel;
 }
