@@ -347,7 +347,8 @@
       "ctaSecondary": {
         "label": "Conocer la academia",
         "href": "/academia"
-      }
+      },
+      "carouselImages": []
     },
     "programs": {
       "eyebrow": "Programas destacados",

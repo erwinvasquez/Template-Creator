@@ -325,7 +325,8 @@
       "ctaSecondary": {
         "label": "Atelier",
         "href": "/atelier"
-      }
+      },
+      "carouselImages": []
     },
     "viennoiserie": {
       "eyebrow": "Mañanas",

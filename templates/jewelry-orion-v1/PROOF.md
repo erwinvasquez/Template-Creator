@@ -148,6 +148,26 @@ Al publicar un payload el SaaS debe:
 | features.newsletter | `shouldRenderHomeSection` oculta newsletter si `false` |
 
 
+## Checklist — hero lista carrusel (Sprint 85)
+
+| Check | Evidence |
+|-------|----------|
+| Schema | `carouselImages` max 6; secondary/móvil deprecados |
+| Runtime | `resolveHeroSlides`: lista ≥1 ignora `hero.image` como slide |
+| Animación | Solo activa + saliente en DOM; fade 1s sin ghosting |
+| Z-index | Carrusel `z-0`; scrim `z-[1] pointer-events-none`; copy `z-10` |
+| Slots SaaS | `hero.image`, `hero.carousel` (list), slides `hero.carousel.N` en JSX |
+
+## Checklist — hero carousel + móvil (Sprint 84)
+
+| Check | Evidence |
+|-------|----------|
+| Schema hero | `imageSecondary`, `imageMobile`, `imageMobileSecondary`, `carouselIntervalMs` opcionales |
+| Carrusel | `HeroCarouselMedia` fade; intervalo default 4000ms; 1 slide → sin timer |
+| Reduced motion | `prefers-reduced-motion` → primera imagen fija |
+| Slots editor | `hero.image` + secondary/móvil en `builder.manifest` |
+| Migración | Solo `image` → mismo aspecto que antes |
+
 ## Checklist — PLP stock→MTO (Sprint R6)
 
 | Check | Evidence |
@@ -182,15 +202,15 @@ Al publicar un payload el SaaS debe:
 
 | Namespace | Count |
 |-----------|-------|
-| sections.* slots | 36 |
-| list slots | 4 |
+| sections.* slots | 37 |
+| list slots | 5 |
 | ui.* leaves (defaults) | 109 |
-| data-wb-slot ids | 36 |
+| data-wb-slot ids | 37 |
 | catalogBindings | 1 |
 
 | Página | Sección | # slots | slotIds |
 |--------|---------|---------|---------|
-| home | hero | 4 | hero.ctaPrimary, hero.headline, hero.image, hero.subheadline |
+| home | hero | 5 | hero.ctaPrimary, hero.headline, hero.image, hero.carousel… |
 | home | signatures | 2 | signatures.eyebrow, signatures.title |
 | home | craft | 5 | craft.body, craft.cta, craft.eyebrow, craft.image… |
 | home | materials | 3 | materials.eyebrow, materials.items, materials.title |

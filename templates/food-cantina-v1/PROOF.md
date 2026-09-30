@@ -82,6 +82,26 @@ npm run dev
 | features.newsletter | `shouldRenderHomeSection` oculta newsletter si `false` |
 
 
+## Checklist — hero lista carrusel (Sprint 85)
+
+| Check | Evidence |
+|-------|----------|
+| Schema | `carouselImages` max 6; secondary/móvil deprecados |
+| Runtime | `resolveHeroSlides`: lista ≥1 ignora `hero.image` como slide |
+| Animación | Solo activa + saliente en DOM; fade 1s sin ghosting |
+| Z-index | Carrusel `z-0`; scrim `z-[1] pointer-events-none`; copy `z-10` |
+| Slots SaaS | `hero.image`, `hero.carousel` (list), slides `hero.carousel.N` en JSX |
+
+## Checklist — hero carousel + móvil (Sprint 84)
+
+| Check | Evidence |
+|-------|----------|
+| Schema hero | `imageSecondary`, `imageMobile`, `imageMobileSecondary`, `carouselIntervalMs` opcionales |
+| Carrusel | `HeroCarouselMedia` fade; intervalo default 4000ms; 1 slide → sin timer |
+| Reduced motion | `prefers-reduced-motion` → primera imagen fija |
+| Slots editor | `hero.image` + secondary/móvil en `builder.manifest` |
+| Migración | Solo `image` → mismo aspecto que antes |
+
 ## Checklist — PLP stock→MTO (Sprint R6)
 
 | Check | Evidence |
@@ -116,15 +136,15 @@ npm run dev
 
 | Namespace | Count |
 |-----------|-------|
-| sections.* slots | 40 |
-| list slots | 4 |
+| sections.* slots | 41 |
+| list slots | 5 |
 | ui.* leaves (defaults) | 109 |
-| data-wb-slot ids | 40 |
+| data-wb-slot ids | 41 |
 | catalogBindings | 3 |
 
 | Página | Sección | # slots | slotIds |
 |--------|---------|---------|---------|
-| home | hero | 5 | hero.ctaPrimary, hero.ctaSecondary, hero.headline, hero.image… |
+| home | hero | 6 | hero.ctaPrimary, hero.ctaSecondary, hero.headline, hero.image… |
 | home | lanes | 2 | lanes.eyebrow, lanes.title |
 | home | salsaBar | 4 | salsaBar.body, salsaBar.eyebrow, salsaBar.steps, salsaBar.title |
 | home | mercado | 3 | mercado.eyebrow, mercado.title, mercado.viewAll |
