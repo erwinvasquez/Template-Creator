@@ -310,6 +310,12 @@ export type TemplateUi = {
     lowStock: string;
     madeToOrderClosed: string;
     addingToCart: string;
+    stockUpsellModalTitle: string;
+    stockInsufficientImmediate: string;
+    stockInsufficientMadeToOrderHint: string;
+    stockExhaustedImmediateTitle: string;
+    stockExhaustedMadeToOrderAvailable: string;
+    buyMadeToOrderCta: string;
     badges: {
       new: string;
       featured: string;
