@@ -3,6 +3,10 @@ import fs from "node:fs";
 import path from "node:path";
 import crypto from "node:crypto";
 import { execSync } from "node:child_process";
+import {
+  resolveExportedAt,
+  resolveSourceGitSha,
+} from "./lib/export-build-info.mjs";
 
 const templateId = process.argv[2] || "fashion-atelier-v1";
 const srcRoot = path.join(process.cwd(), "templates", templateId);
@@ -67,17 +71,16 @@ copyDir(srcRoot, outRoot);
 
 const contentHash = hashDir(outRoot);
 const pkg = JSON.parse(fs.readFileSync(path.join(outRoot, "package.json"), "utf8"));
-const exportedAt =
-  previousBuildInfo?.contentHash === contentHash && previousBuildInfo.exportedAt
-    ? previousBuildInfo.exportedAt
-    : process.env.SOURCE_DATE_EPOCH
-      ? new Date(Number(process.env.SOURCE_DATE_EPOCH) * 1000).toISOString()
-      : new Date().toISOString();
+const exportedAt = resolveExportedAt(previousBuildInfo, contentHash);
+const sourceGitSha = resolveSourceGitSha(previousBuildInfo, contentHash, {
+  getHeadSha: () => execSync("git rev-parse HEAD", { encoding: "utf8" }).trim(),
+});
 const buildInfo = {
   templateId,
   version: pkg.version,
   exportedAt,
   contentHash,
+  sourceGitSha,
   immutable: true,
   source: `templates/${templateId}`,
 };

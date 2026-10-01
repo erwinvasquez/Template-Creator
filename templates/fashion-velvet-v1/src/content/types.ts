@@ -312,6 +312,12 @@ export type TemplateUi = {
     addingToCart: string;
     priceBookLabel: string;
     priceProgramLabel: string;
+    stockUpsellModalTitle: string;
+    stockInsufficientImmediate: string;
+    stockInsufficientMadeToOrderHint: string;
+    stockExhaustedImmediateTitle: string;
+    stockExhaustedMadeToOrderAvailable: string;
+    buyMadeToOrderCta: string;
     badges: {
       new: string;
       featured: string;

@@ -57,6 +57,7 @@ export function ProductView({ slug }: { slug: string }) {
         selectVariant: host.actions.selectVariant,
         addToCart: host.actions.addToCart,
         openCartDrawer: host.actions.openCartDrawer,
+        confirmAddToCartSuccess: host.actions.confirmAddToCartSuccess,
       }}
     />
   );

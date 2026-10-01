@@ -31,6 +31,15 @@ function HeaderCartButton({
 }) {
   const { cart, openCart } = useHostCart();
   const itemCount = cart?.itemsCount ?? 0;
+  const [badgePulse, setBadgePulse] = useState(false);
+  useEffect(() => {
+    const handler = () => {
+      setBadgePulse(true);
+      window.setTimeout(() => setBadgePulse(false), 600);
+    };
+    window.addEventListener("storefront-cart-badge-pulse", handler);
+    return () => window.removeEventListener("storefront-cart-badge-pulse", handler);
+  }, []);
 
   return (
     <button
@@ -49,7 +58,7 @@ function HeaderCartButton({
     >
       <ShoppingBag className="h-5 w-5" strokeWidth={1.5} />
       {itemCount > 0 && (
-        <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-primary px-1 text-[10px] font-semibold text-background">
+        <span className={`absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-primary px-1 text-[10px] font-semibold text-background${badgePulse ? " motion-safe:animate-pulse motion-safe:scale-110" : ""}`}>
           {itemCount}
         </span>
       )}

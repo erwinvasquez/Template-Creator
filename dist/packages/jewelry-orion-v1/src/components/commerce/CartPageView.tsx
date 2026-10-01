@@ -4,6 +4,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { Minus, Plus, ShoppingBag, X } from "lucide-react";
 import type { CartViewProps } from "@shopenlinea/commerce-runtime-contract";
+import {
+  buildCartSummaryRows,
+  cartLinePromotionLabels,
+  cartLineShowsPromotion,
+  cartShowsPricingUpdating,
+  defaultCartPricingUiLabels,
+  resolveCartEstimatedTotalDisplay,
+} from "@shopenlinea/commerce-runtime-contract";
 import { useCommerceCapabilities } from "../../lib/commerce-host";
 import { useSiteContent } from "../../lib/site-content";
 import { requireUi } from "../../lib/ui";
@@ -19,7 +27,9 @@ export function CartPageView({ cart, actions }: CartViewProps) {
   const { payload, basePath } = useSiteContent();
   const ui = requireUi(payload);
   const cartUi = ui.cart;
-  const checkoutUi = ui.checkout;
+  const pricingLabels = defaultCartPricingUiLabels(cartUi as Record<string, string | undefined>);
+  const summaryRows = buildCartSummaryRows(cart, pricingLabels);
+  const estimatedTotal = resolveCartEstimatedTotalDisplay(cart);
   const capabilities = useCommerceCapabilities();
   const showSalesModeChrome = showsSalesModeChrome(capabilities);
   const salesModeLine =
@@ -57,7 +67,10 @@ export function CartPageView({ cart, actions }: CartViewProps) {
               <p className="mt-6 text-xs text-muted">{salesModeLine}</p>
             ) : null}
             <ul className="mt-12 space-y-8">
-              {cart.lines.map((line) => (
+              {cart.lines.map((line) => {
+                const hasPromotion = cartLineShowsPromotion(line);
+                const promotionLabel = cartLinePromotionLabels(line)[0];
+                return (
                 <li
                   key={line.lineId}
                   className="flex gap-4 border-b border-border pb-8"
@@ -82,12 +95,17 @@ export function CartPageView({ cart, actions }: CartViewProps) {
                         <p className="mt-1 text-xs text-muted">
                           {line.variantLabel}
                         </p>
+                        {promotionLabel ? (
+                          <p className="mt-1 text-[11px] uppercase tracking-[0.12em] text-primary">
+                            {promotionLabel}
+                          </p>
+                        ) : null}
                       </div>
                       <button
                         type="button"
                         onClick={() => actions.removeCartLine(line.variantId)}
                         className="cursor-pointer text-muted transition-colors duration-200 hover:text-primary"
-                        aria-label={checkoutUi.removeLineLabel}
+                        aria-label="Eliminar"
                       >
                         <X className="h-4 w-4" strokeWidth={1.5} />
                       </button>
@@ -103,7 +121,7 @@ export function CartPageView({ cart, actions }: CartViewProps) {
                               Math.max(1, line.quantity - 1),
                             )
                           }
-                          aria-label={checkoutUi.quantityLabel}
+                          aria-label="Menos"
                         >
                           <Minus className="h-3.5 w-3.5" strokeWidth={1.5} />
                         </button>
@@ -122,30 +140,57 @@ export function CartPageView({ cart, actions }: CartViewProps) {
                               ),
                             )
                           }
-                          aria-label={checkoutUi.quantityLabel}
+                          aria-label="Más"
                         >
                           <Plus className="h-3.5 w-3.5" strokeWidth={1.5} />
                         </button>
                       </div>
-                      <p className="text-sm font-medium">
-                        {line.lineDisplayPrice}
-                      </p>
+                      <div className="text-right">
+                        {hasPromotion && line.unitCompareAtPrice ? (
+                          <p className="text-[11px] text-muted line-through">
+                            {line.unitCompareAtPrice}
+                          </p>
+                        ) : null}
+                        <p className="text-sm font-medium">
+                          {line.lineDisplayPrice}
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </li>
-              ))}
+              )})}
             </ul>
 
             <div className="mt-10 border-t border-border pt-6">
-              {cart.promotionLabels?.map((p) => (
-                <p key={p} className="mb-2 text-xs text-primary">
-                  {p}
-                </p>
-              ))}
-              <div className="mb-6 flex justify-between text-sm">
-                <span className="text-muted">{checkoutUi.subtotalLabel}</span>
-                <span className="font-serif text-2xl">{cart.subtotalDisplay}</span>
+              <div className="mb-6 space-y-2 text-sm">
+                {summaryRows.map((row) => (
+                  <div key={row.key} className="flex justify-between gap-3">
+                    <span className="text-muted">{row.label}</span>
+                    <span
+                      className={
+                        row.emphasize
+                          ? "font-serif text-2xl tabular-nums"
+                          : "tabular-nums"
+                      }
+                    >
+                      {row.value}
+                    </span>
+                  </div>
+                ))}
+                {cart.estimatedTotal ? (
+                  <div className="flex justify-between gap-3 border-t border-border pt-2">
+                    <span className="text-muted">{pricingLabels.estimatedTotal}</span>
+                    <span className="font-serif text-2xl tabular-nums">
+                      {estimatedTotal}
+                    </span>
+                  </div>
+                ) : null}
               </div>
+              {cartShowsPricingUpdating(cart) ? (
+                <p className="mb-4 text-xs text-muted" role="status">
+                  {pricingLabels.pricingUpdating}
+                </p>
+              ) : null}
               {cartClosedWarning ? (
                 <p className="mb-4 text-sm text-muted" role="status">
                   {cartClosedWarning}
@@ -164,7 +209,7 @@ export function CartPageView({ cart, actions }: CartViewProps) {
                   onClick={() => actions.clearCart()}
                   className="cursor-pointer px-4 py-3.5 text-xs uppercase tracking-[0.14em] text-muted transition-colors duration-200 hover:text-primary"
                 >
-                  {checkoutUi.emptyCartLabel}
+                  Vaciar
                 </button>
               </div>
             </div>

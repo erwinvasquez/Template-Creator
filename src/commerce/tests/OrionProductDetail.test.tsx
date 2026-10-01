@@ -54,7 +54,7 @@ describe("Orion commerce parity", () => {
     const product = await bridge.getDetail(slug.catalog.products[0].slug);
     expect(product).not.toBeNull();
     const addToCart = vi.fn(async () => ({ ok: true as const }));
-    const openCartDrawer = vi.fn();
+    const confirmAddToCartSuccess = vi.fn();
 
     render(
       <SiteContentProvider payload={payload} basePath="/t/orion">
@@ -64,7 +64,8 @@ describe("Orion commerce parity", () => {
           actions={{
             selectVariant: bridge.actions.selectVariant,
             addToCart,
-            openCartDrawer,
+            openCartDrawer: vi.fn(),
+            confirmAddToCartSuccess,
           }}
         />
       </SiteContentProvider>,
@@ -74,7 +75,7 @@ describe("Orion commerce parity", () => {
     await user.click(screen.getByRole("button", { name: /añadir al estuche/i }));
 
     expect(addToCart).toHaveBeenCalledWith(expect.any(String), 2);
-    expect(openCartDrawer).toHaveBeenCalled();
+    expect(confirmAddToCartSuccess).toHaveBeenCalled();
   });
 
   it("disables the CTA when the variant is out of stock", async () => {

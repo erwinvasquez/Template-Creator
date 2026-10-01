@@ -31,6 +31,9 @@ export type NovaCommerceHost = {
   getCheckout: () => Promise<CheckoutViewModel>;
   actions: CommerceRuntimeActions;
   subscribe: (listener: () => void) => () => void;
+  /** Catalog filter changes (search, category). SaaS runtime uses a dedicated channel. */
+  subscribeCatalog?: (listener: () => void) => () => void;
+  getCatalogVersion?: () => number;
   isCartOpen: () => boolean;
   closeCart: () => void;
   /** Monotonic store version for sync subscriptions. */
@@ -71,6 +74,17 @@ export function useRequiredCommerceHost(): NovaCommerceHost {
 export function useCommerceCapabilities(): CommerceTemplateCapabilities {
   const host = useNovaCommerceHost();
   return host?.capabilities ?? DEFAULT_PREVIEW_CAPABILITIES;
+}
+
+/** Re-renders when catalog filters change (SaaS subscribeCatalog; preview falls back to subscribe). */
+export function useCatalogListingTick(): number {
+  const host = useRequiredCommerceHost();
+  const [tick, setTick] = useState(0);
+  useEffect(() => {
+    const subscribe = host.subscribeCatalog ?? host.subscribe;
+    return subscribe(() => setTick((t) => t + 1));
+  }, [host]);
+  return tick;
 }
 
 /** Live cart snapshot subscribed to host store. */

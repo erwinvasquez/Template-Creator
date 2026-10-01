@@ -477,6 +477,10 @@ export function createPayloadCommerceBridge(
       cartDrawerOpen = true;
       notify();
     },
+    confirmAddToCartSuccess() {
+      cartDrawerOpen = true;
+      notify();
+    },
     navigateToCheckout() {
       if (typeof window !== "undefined") {
         window.location.href = LAB_CHECKOUT_PATH;

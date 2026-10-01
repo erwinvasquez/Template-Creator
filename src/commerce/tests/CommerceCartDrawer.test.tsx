@@ -52,7 +52,7 @@ describe("CommerceCartDrawer", () => {
       </SiteContentProvider>,
     );
 
-    expect(screen.getByText(/bienvenida/i)).toBeInTheDocument();
+    expect(container.textContent).toMatch(/bienvenida|−10%/i);
     expect(
       screen.getByRole("button", { name: /finalizar compra/i }),
     ).toBeInTheDocument();

@@ -7,6 +7,7 @@ import type {
   ProductSearchViewModel,
 } from "@shopenlinea/commerce-runtime-contract";
 import {
+  useCatalogListingTick,
   useCommerceCapabilities,
   useRequiredCommerceHost,
 } from "../lib/commerce-host";
@@ -24,14 +25,14 @@ export function CommerceAwareCatalog() {
   const categorySlug = searchParams.get(SHOP_QUERY.category);
   const collectionSlug = searchParams.get(SHOP_QUERY.collection);
   const salesModeSlug = searchParams.get(SHOP_QUERY.salesMode);
+  const searchQuery = searchParams.get(SHOP_QUERY.search);
 
   const [data, setData] = useState<ProductSearchViewModel | null>(null);
   const [filters, setFilters] = useState<ProductFilterViewModel | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [tick, setTick] = useState(0);
+  const tick = useCatalogListingTick();
   const [isPending, startTransition] = useTransition();
 
-  useEffect(() => host.subscribe(() => setTick((t) => t + 1)), [host]);
 
   useEffect(() => {
     const hasPayloadTaxonomy =
@@ -47,7 +48,6 @@ export function CommerceAwareCatalog() {
     host.actions.setCatalogFilters({
       categoryId,
       collectionId,
-      searchQuery: null,
     });
   }, [host, payload.catalog.categories, payload.catalog.collections, categorySlug, collectionSlug]);
 
@@ -57,6 +57,11 @@ export function CommerceAwareCatalog() {
     if (!mode) return;
     host.actions.setCatalogFilters({ salesMode: mode });
   }, [host, capabilities, salesModeSlug]);
+
+  useEffect(() => {
+    const trimmed = searchQuery?.trim() || null;
+    host.actions.setCatalogFilters({ searchQuery: trimmed });
+  }, [host, searchQuery]);
 
   useEffect(() => {
     let cancelled = false;
@@ -80,7 +85,7 @@ export function CommerceAwareCatalog() {
     return () => {
       cancelled = true;
     };
-  }, [host, tick, categorySlug, collectionSlug, salesModeSlug, payload]);
+  }, [host, tick, categorySlug, collectionSlug, salesModeSlug, searchQuery, payload]);
 
   if (!data || !filters) {
     const listing = requireUi(payload).listing;

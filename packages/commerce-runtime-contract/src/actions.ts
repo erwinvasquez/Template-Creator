@@ -34,6 +34,9 @@ export interface CommerceRuntimeActions {
 
   openCartDrawer(): void;
 
+  /** Post-add UX: drawer en desktop; toast/badge en móvil. */
+  confirmAddToCartSuccess(variantId?: string): void;
+
   navigateToCheckout(): void;
 
   previewCheckout(input: CheckoutPreviewInput): Promise<CheckoutPreviewResult>;

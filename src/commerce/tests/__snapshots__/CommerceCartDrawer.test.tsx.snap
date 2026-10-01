@@ -193,6 +193,11 @@ exports[`CommerceCartDrawer > promotion cart shows label and lines 1`] = `
                     >
                       M / Stone
                     </p>
+                    <p
+                      class="mt-1 text-[11px] uppercase tracking-[0.12em] text-primary"
+                    >
+                      −10% bienvenida
+                    </p>
                   </div>
                   <button
                     aria-label="Eliminar"
@@ -282,11 +287,20 @@ exports[`CommerceCartDrawer > promotion cart shows label and lines 1`] = `
                       </svg>
                     </button>
                   </div>
-                  <p
-                    class="text-sm font-medium"
+                  <div
+                    class="text-right"
                   >
-                    378,00 €
-                  </p>
+                    <p
+                      class="text-[11px] text-muted line-through"
+                    >
+                      420,00 €
+                    </p>
+                    <p
+                      class="text-sm font-medium"
+                    >
+                      378,00 €
+                    </p>
+                  </div>
                 </div>
               </div>
             </li>
@@ -295,24 +309,23 @@ exports[`CommerceCartDrawer > promotion cart shows label and lines 1`] = `
         <div
           class="border-t border-border px-6 py-5"
         >
-          <p
-            class="mb-2 text-xs text-primary"
-          >
-            −10% bienvenida
-          </p>
           <div
-            class="mb-4 flex justify-between text-sm"
+            class="mb-4 space-y-2 text-sm"
           >
-            <span
-              class="text-muted"
+            <div
+              class="flex justify-between gap-3"
             >
-              Subtotal
-            </span>
-            <span
-              class="font-serif text-xl"
-            >
-              378,00 €
-            </span>
+              <span
+                class="text-muted"
+              >
+                Subtotal
+              </span>
+              <span
+                class="font-serif text-xl"
+              >
+                378,00 €
+              </span>
+            </div>
           </div>
           <button
             class="w-full cursor-pointer bg-primary px-6 py-3.5 text-sm font-semibold uppercase tracking-[0.14em] text-background transition-colors duration-200 hover:bg-primary/90"
