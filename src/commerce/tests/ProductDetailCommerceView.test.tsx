@@ -14,7 +14,7 @@ describe("ProductDetailCommerceView", () => {
     const product = await bridge.getProductDetail("abrigo-cashmere-stone");
     expect(product).not.toBeNull();
     const addToCart = vi.fn(async () => ({ ok: true as const }));
-    const openCartDrawer = vi.fn();
+    const confirmAddToCartSuccess = vi.fn();
 
     render(
       <SiteContentProvider payload={defaults as never} basePath="/t/atelier">
@@ -24,7 +24,9 @@ describe("ProductDetailCommerceView", () => {
           actions={{
             selectVariant: bridge.actions.selectVariant,
             addToCart,
-            openCartDrawer,
+            openCartDrawer: vi.fn(),
+            confirmAddToCartSuccess: vi.fn(),
+            confirmAddToCartSuccess,
           }}
         />
       </SiteContentProvider>,
@@ -34,7 +36,7 @@ describe("ProductDetailCommerceView", () => {
     await user.click(screen.getByRole("button", { name: /añadir al carrito/i }));
 
     expect(addToCart).toHaveBeenCalledWith(expect.any(String), 2);
-    expect(openCartDrawer).toHaveBeenCalled();
+    expect(confirmAddToCartSuccess).toHaveBeenCalled();
   });
 
   it("shows compare-at price and sale percent", async () => {
@@ -50,6 +52,7 @@ describe("ProductDetailCommerceView", () => {
             selectVariant: bridge.actions.selectVariant,
             addToCart: vi.fn(async () => ({ ok: true })),
             openCartDrawer: vi.fn(),
+            confirmAddToCartSuccess: vi.fn(),
           }}
         />
       </SiteContentProvider>,
@@ -72,6 +75,7 @@ describe("ProductDetailCommerceView", () => {
             selectVariant: bridge.actions.selectVariant,
             addToCart: vi.fn(async () => ({ ok: true })),
             openCartDrawer: vi.fn(),
+            confirmAddToCartSuccess: vi.fn(),
           }}
         />
       </SiteContentProvider>,
@@ -119,6 +123,7 @@ describe("ProductDetailCommerceView", () => {
             selectVariant: vi.fn(),
             addToCart: vi.fn(async () => ({ ok: true })),
             openCartDrawer: vi.fn(),
+            confirmAddToCartSuccess: vi.fn(),
           }}
         />
       </SiteContentProvider>,
@@ -179,6 +184,7 @@ describe("ProductDetailCommerceView", () => {
             selectVariant: vi.fn(),
             addToCart: vi.fn(async () => ({ ok: true })),
             openCartDrawer: vi.fn(),
+            confirmAddToCartSuccess: vi.fn(),
           }}
         />
       </SiteContentProvider>,
@@ -263,6 +269,7 @@ describe("ProductDetailCommerceView", () => {
             selectVariant,
             addToCart: vi.fn(async () => ({ ok: true })),
             openCartDrawer: vi.fn(),
+            confirmAddToCartSuccess: vi.fn(),
           }}
         />
       </SiteContentProvider>,

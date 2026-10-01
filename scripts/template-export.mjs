@@ -67,6 +67,14 @@ copyDir(srcRoot, outRoot);
 
 const contentHash = hashDir(outRoot);
 const pkg = JSON.parse(fs.readFileSync(path.join(outRoot, "package.json"), "utf8"));
+let sourceGitSha = process.env.WG_SOURCE_GIT_SHA?.trim() || "";
+if (!sourceGitSha) {
+  try {
+    sourceGitSha = execSync("git rev-parse HEAD", { encoding: "utf8" }).trim();
+  } catch {
+    sourceGitSha = "";
+  }
+}
 const exportedAt =
   previousBuildInfo?.contentHash === contentHash && previousBuildInfo.exportedAt
     ? previousBuildInfo.exportedAt
@@ -78,6 +86,7 @@ const buildInfo = {
   version: pkg.version,
   exportedAt,
   contentHash,
+  sourceGitSha,
   immutable: true,
   source: `templates/${templateId}`,
 };

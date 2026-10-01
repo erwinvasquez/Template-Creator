@@ -239,7 +239,7 @@ export function ProductDetailCommerceView({
         setLocalError(res.errorMessage ?? ui.errors.addToCartFailed);
         return;
       }
-      actions.openCartDrawer();
+      actions.confirmAddToCartSuccess(selected.id);
     } finally {
       setPending(false);
     }

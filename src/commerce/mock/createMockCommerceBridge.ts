@@ -138,6 +138,7 @@ export function createMockCommerceBridge(
       subtotal: unit * 0.9,
       subtotalDisplay: formatEur(unit * 0.9),
       promotionLabels: ["−10% bienvenida"],
+      appliedPromotions: [{ label: "−10% bienvenida" }],
       lines: [
         {
           lineId: "line-1",
@@ -152,6 +153,7 @@ export function createMockCommerceBridge(
           unitDisplayPrice: formatEur(unit * 0.9),
           unitCompareAtPrice: p.displayPrice,
           lineDisplayPrice: formatEur(unit * 0.9),
+          pricingAdjustments: [{ label: "−10% bienvenida" }],
           options: [
             { name: "Talla", value: "M" },
             { name: "Color", value: "Stone" },
@@ -612,6 +614,10 @@ export function createMockCommerceBridge(
       return { ok: true };
     },
     openCartDrawer() {
+      cartDrawerOpen = true;
+      notify();
+    },
+    confirmAddToCartSuccess(_variantId: string) {
       cartDrawerOpen = true;
       notify();
     },

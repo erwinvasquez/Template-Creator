@@ -1,9 +1,16 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState, useTransition } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import type { ProductListingViewProps } from "@shopenlinea/commerce-runtime-contract";
 import { useSiteContent } from "../../lib/site-content";
 import { requireUi } from "../../lib/ui";
+import {
+  buildShopListingHref,
+  SHOP_QUERY,
+  SHOP_SEARCH_CLEAR_MS,
+  shouldClearShopSearchOnEmpty,
+} from "../../content/resolve";
 import { CommerceProductCard } from "./CommerceProductCard";
 import { SalesModeShopBanner } from "./SalesModeShopBanner";
 
@@ -20,14 +27,38 @@ export function ProductListingView({
   loadingMore,
   errorMessage,
 }: ProductListingViewProps) {
-  const { payload } = useSiteContent();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const { payload, basePath } = useSiteContent();
   const ui = requireUi(payload);
   const listing = ui.listing;
   const shop = ui.shop;
-  const [search, setSearch] = useState(filters.searchQuery ?? "");
+  const qFromUrl = searchParams.get(SHOP_QUERY.search) ?? "";
+  const [search, setSearch] = useState(filters.searchQuery ?? qFromUrl);
+  const [, startNavTransition] = useTransition();
   const [busy, setBusy] = useState(false);
   const [extra, setExtra] = useState(data.products);
   const [cursor, setCursor] = useState(data.nextCursor);
+
+  useEffect(() => {
+    setSearch(filters.searchQuery ?? qFromUrl);
+  }, [filters.searchQuery, qFromUrl]);
+
+  useEffect(() => {
+    if (!shouldClearShopSearchOnEmpty(search, qFromUrl)) return;
+    const timer = window.setTimeout(() => {
+      const target = buildShopListingHref(basePath, searchParams, { q: null });
+      startNavTransition(() => router.push(target));
+    }, SHOP_SEARCH_CLEAR_MS);
+    return () => window.clearTimeout(timer);
+  }, [search, qFromUrl, basePath, searchParams, router]);
+
+  function submitSearch() {
+    setExtra([]);
+    setCursor(null);
+    const target = buildShopListingHref(basePath, searchParams, { q: search || null });
+    startNavTransition(() => router.push(target));
+  }
 
   const products = extra.length ? extra : data.products;
   const showSearch =
@@ -56,9 +87,7 @@ export function ProductListingView({
           className="mb-8"
           onSubmit={(e) => {
             e.preventDefault();
-            actions.setCatalogFilters({ searchQuery: search || null });
-            setExtra([]);
-            setCursor(null);
+            submitSearch();
           }}
         >
           <label className="sr-only" htmlFor="commerce-search">

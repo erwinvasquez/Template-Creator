@@ -272,6 +272,7 @@ export type TemplateUi = {
   errors: {
     addToCartFailed: string;
     orderConfirmFailed: string;
+    catalogLoadFailed: string;
   };
   cart: {
     title: string;
@@ -288,6 +289,13 @@ export type TemplateUi = {
     contact: string;
     lowStock: string;
     madeToOrderClosed: string;
+    addingToCart: string;
+    stockUpsellModalTitle: string;
+    stockInsufficientImmediate: string;
+    stockInsufficientMadeToOrderHint: string;
+    stockExhaustedImmediateTitle: string;
+    stockExhaustedMadeToOrderAvailable: string;
+    buyMadeToOrderCta: string;
     badges: {
       new: string;
       featured: string;

@@ -198,7 +198,6 @@
       "required": [
         "addToCart",
         "relatedTitle",
-        "shippingNote",
         "outOfStock",
         "contact",
         "lowStock",
@@ -218,6 +217,9 @@
         "addToCart": { "type": "string", "minLength": 1 },
         "relatedTitle": { "type": "string", "minLength": 1 },
         "shippingNote": { "type": "string", "minLength": 1 },
+        "shippingFiesta": { "type": "string", "minLength": 1 },
+        "shippingAtelierNote": { "type": "string", "minLength": 1 },
+        "shippingSommelier": { "type": "string", "minLength": 1 },
         "outOfStock": { "type": "string", "minLength": 1 },
         "contact": { "type": "string", "minLength": 1 },
         "lowStock": { "type": "string", "minLength": 1 },
@@ -243,7 +245,13 @@
             "limitedEdition": { "type": "string", "minLength": 1 }
           }
         }
-      }
+      },
+      "anyOf": [
+        { "required": ["shippingNote"] },
+        { "required": ["shippingFiesta"] },
+        { "required": ["shippingAtelierNote"] },
+        { "required": ["shippingSommelier"] }
+      ]
     },
     "shop": {
       "type": "object",

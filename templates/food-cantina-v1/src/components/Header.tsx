@@ -29,6 +29,15 @@ function HeaderCartButton({
 }) {
   const { cart, openCart } = useHostCart();
   const itemCount = cart?.itemsCount ?? 0;
+  const [badgePulse, setBadgePulse] = useState(false);
+  useEffect(() => {
+    const handler = () => {
+      setBadgePulse(true);
+      window.setTimeout(() => setBadgePulse(false), 600);
+    };
+    window.addEventListener("storefront-cart-badge-pulse", handler);
+    return () => window.removeEventListener("storefront-cart-badge-pulse", handler);
+  }, []);
 
   return (
     <button

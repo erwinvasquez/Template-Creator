@@ -217,7 +217,7 @@ export function ProductDetailCommerceView({
         setLocalError(res.errorMessage ?? errorsUi.addToCartFailed);
         return;
       }
-      actions.openCartDrawer();
+      actions.confirmAddToCartSuccess(selected.id);
     } finally {
       setPending(false);
     }

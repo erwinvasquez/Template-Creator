@@ -1,8 +1,9 @@
 {
   "templateId": "fashion-celestine-v1",
   "version": "1.0.0",
-  "exportedAt": "2026-09-30T23:42:06.250Z",
-  "contentHash": "73bf1bcce3d9f8846f9e663651e0835e55558f84480df2f583527bf387e93a27",
+  "exportedAt": "2026-10-01T13:40:37.845Z",
+  "contentHash": "1e79a8c41ae4b3819365951a124ff6c7f20a0f9dee561f8085ca8e22188dee91",
+  "sourceGitSha": "d28f084d6d75b0a58abdb100ae153cd6c9c587b8",
   "immutable": true,
   "source": "templates/fashion-celestine-v1"
 }

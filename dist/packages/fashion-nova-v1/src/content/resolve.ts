@@ -60,7 +60,35 @@ export const SHOP_QUERY = {
   category: "categoria",
   collection: "coleccion",
   salesMode: "salesMode",
+  search: "q",
 } as const;
+
+export const SHOP_SEARCH_CLEAR_MS = 300;
+
+export type ShopListingHrefPatch = {
+  q?: string | null;
+};
+
+export function buildShopListingHref(
+  basePath: string,
+  searchParams: URLSearchParams,
+  patch: ShopListingHrefPatch = {},
+): string {
+  const params = new URLSearchParams(searchParams.toString());
+  params.delete("after");
+  params.delete("afterProductId");
+  if ("q" in patch) {
+    const trimmed = patch.q?.trim();
+    if (trimmed) params.set(SHOP_QUERY.search, trimmed);
+    else params.delete(SHOP_QUERY.search);
+  }
+  const qs = params.toString();
+  return withBasePath(basePath, qs ? `${SHOP_PATH}?${qs}` : SHOP_PATH);
+}
+
+export function shouldClearShopSearchOnEmpty(draft: string, qFromUrl: string): boolean {
+  return draft.length === 0 && qFromUrl.length > 0;
+}
 
 /** Resolve navbar entry to a template-relative href. */
 export function resolveNavHref(link: NavLink): string {
