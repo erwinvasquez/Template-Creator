@@ -47,6 +47,21 @@ export {
 } from "./catalogAvailabilityPresentation";
 export type { CatalogAvailabilityPresentation } from "./catalogAvailabilityPresentation";
 export {
+  explicitVariantIdsForGalleryItem,
+  galleryItemHasVariantAssociation,
+  preferredGalleryIndexForVariant,
+  resolveMainGalleryItem,
+  resolveVariantIdForGallerySelection,
+} from "./productDetailGalleryVariantSync";
+export type { GalleryVariantAssociationInput } from "./productDetailGalleryVariantSync";
+export {
+  useProductDetailGalleryVariantSync,
+} from "./useProductDetailGalleryVariantSync";
+export type {
+  ProductDetailGalleryVariantSyncParams,
+  ProductDetailGalleryVariantSyncResult,
+} from "./useProductDetailGalleryVariantSync";
+export {
   buildCartSummaryRows,
   cartHasPromotionalPricing,
   cartLinePromotionLabels,

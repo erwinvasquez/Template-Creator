@@ -20,6 +20,7 @@ import {
   resolveStockToMtoTransition,
   shouldOpenStockToMtoModal,
   stockCap,
+  useProductDetailGalleryVariantSync,
 } from "@shopenlinea/commerce-runtime-contract";
 import { useSiteContent } from "../../lib/site-content";
 import { requireUi } from "../../lib/ui";
@@ -122,12 +123,7 @@ export function ProductDetailCommerceView({
   const [pending, setPending] = useState(false);
   const [localError, setLocalError] = useState<string | null>(null);
   const [quantity, setQuantity] = useState(1);
-  const [galleryIndex, setGalleryIndex] = useState(0);
   const [upsellOpen, setUpsellOpen] = useState(false);
-
-  const selected =
-    product.variants.find((v) => v.id === product.selectedVariantId) ??
-    product.variants[0];
 
   const shopLabel =
     payload.navigation.primary.find(
@@ -148,6 +144,18 @@ export function ProductDetailCommerceView({
     () => buildMaxAddQtyMap(product),
     [product.variants],
   );
+  const {
+    activeGalleryIndex: galleryIndex,
+    mainImage,
+    onGalleryItemClick,
+    selectedVariant: selected,
+  } = useProductDetailGalleryVariantSync({
+    product,
+    onSelectVariant: actions.selectVariant,
+    pickerVariants,
+    dimensions,
+    maxAddQtyMap,
+  });
   const selections = useMemo(
     () => selectionsFromSelectedVariant(pickerVariants, selected?.id),
     [pickerVariants, selected?.id],
@@ -221,13 +229,9 @@ export function ProductDetailCommerceView({
     return presentation ? null : "Programa Voxa";
   }, [presentation, product.collectionLabels, product.categoryLabels]);
 
-  const mainImage =
-    product.gallery[galleryIndex] ?? product.gallery[0] ?? null;
-
   useEffect(() => {
     setQuantity(1);
     setLocalError(null);
-    setGalleryIndex(0);
   }, [product.id, selected?.id]);
 
   async function onAdd() {
@@ -574,7 +578,7 @@ export function ProductDetailCommerceView({
                     <button
                       key={g.id}
                       type="button"
-                      onClick={() => setGalleryIndex(i)}
+                      onClick={() => onGalleryItemClick(i)}
                       className={`relative h-20 w-28 shrink-0 cursor-pointer overflow-hidden rounded-lg border transition-colors duration-200 ${
                         active
                           ? "border-cta"

@@ -119,6 +119,8 @@ export function createMockCommerceBridge(
   let selectedProductSlug: string | null =
     fixtureId === "product-out-of-stock"
       ? "producto-agotado"
+      : fixtureId === "sf01-gallery-variant"
+        ? "sf01-gallery-sync"
       : fixtureId === "product-variants"
         ? "abrigo-cashmere-stone"
         : fixtureId === "product-simple"
@@ -276,6 +278,63 @@ export function createMockCommerceBridge(
           selectedVariantId: "oos-v1",
         },
       );
+    }
+
+    if (fixtureId === "sf01-gallery-variant" || slug === "sf01-gallery-sync") {
+      const RED = "v-red-pearl";
+      const BLUE = "v-blue-silk";
+      const redUrl = "https://images.unsplash.com/photo-red-sf01?w=800";
+      const blueUrl = "https://images.unsplash.com/photo-blue-sf01?w=800";
+      const lifestyleUrl = "https://images.unsplash.com/photo-life-sf01?w=800";
+      const variants: ProductVariantViewModel[] = [
+        {
+          id: RED,
+          label: "Rojo / Perla",
+          options: [
+            { name: "Color", value: "Rojo" },
+            { name: "Material", value: "Perla" },
+          ],
+          displayPrice: "100,00 €",
+          stockLabel: "available",
+          maxQuantity: 5,
+          available: true,
+          imageUrl: redUrl,
+        },
+        {
+          id: BLUE,
+          label: "Celeste / Seda",
+          options: [
+            { name: "Color", value: "Celeste" },
+            { name: "Material", value: "Seda" },
+          ],
+          displayPrice: "120,00 €",
+          stockLabel: "available",
+          maxQuantity: 5,
+          available: true,
+          imageUrl: blueUrl,
+        },
+      ];
+      const selected = selectedVariantId ?? RED;
+      return {
+        id: "sf01",
+        slug: "sf01-gallery-sync",
+        href: "/tienda/sf01-gallery-sync",
+        name: "SF-01 Gallery Sync",
+        description: "Fixture SF-01",
+        gallery: [
+          { id: "g-red", url: redUrl, alt: "Rojo", variantId: RED },
+          { id: "g-blue", url: blueUrl, alt: "Celeste", variantId: BLUE },
+          { id: "g-life", url: lifestyleUrl, alt: "Lifestyle" },
+        ],
+        variants,
+        currency: "EUR",
+        selectedVariantId: selected,
+        canAddToCart: true,
+        optionDefinitions: [
+          { name: "Color", values: ["Rojo", "Celeste"] },
+          { name: "Material", values: ["Perla", "Seda"] },
+        ],
+      };
     }
 
     if (fixtureId === "product-variants" || slug === "abrigo-cashmere-stone") {

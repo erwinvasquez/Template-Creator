@@ -1,9 +1,9 @@
 {
   "templateId": "academy-voxa-v1",
   "version": "1.0.0",
-  "exportedAt": "2026-10-01T13:40:41.346Z",
-  "contentHash": "88660de3d4d49893490e3624849c4466f0cbcaec2ade5f5650a35d5756d19d6b",
-  "sourceGitSha": "fdfa3534d5b36e9c714adbe457a293177f002830",
+  "exportedAt": "2026-10-01T15:34:54.972Z",
+  "contentHash": "959e5ea2ed119272225254686733eee89e2d02834ca6e5f3e45569eaff5b1ae8",
+  "sourceGitSha": "2237b67110e91579d4cce6587cd609f62912ae90",
   "immutable": true,
   "source": "templates/academy-voxa-v1"
 }
