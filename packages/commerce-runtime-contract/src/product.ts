@@ -33,17 +33,12 @@ export interface ProductVariantViewModel {
   imageUrl?: string | null;
 }
 
-/**
- * Host offers navigation to a made-to-order PDP when immediate stock is insufficient.
- * `productHref` should include `?salesMode=madeToOrder` when dual-mode applies.
- */
+/** Solo cuando el host resuelve salesMode=stock y el producto también vende en MTO. */
 export interface MadeToOrderUpsellViewModel {
+  /** Valor formateado, ej. "3–5 días" — sin prefijo "Preparación:" */
+  preparationPromiseLabel: string;
+  /** Mismo slug/ruta PDP; host incluye ?salesMode=madeToOrder */
   productHref: string;
-  /**
-   * Optional MTO preparation value for the upsell target (host sends value only).
-   * Falls back to `ProductDetailViewModel.preparationPromiseLabel` in templates when omitted.
-   */
-  preparationPromiseLabel?: string | null;
 }
 
 export interface ProductOptionDefinitionViewModel {
@@ -79,7 +74,7 @@ export interface ProductDetailViewModel {
    * Template may prefix with `ui.salesMode.madeToOrder.reopensPrefix`.
    */
   madeToOrderReopensAtLabel?: string | null;
-  /** Stock PDP: offer MTO product when immediate qty is exceeded. */
+  /** Upsell stock → MTO cuando el producto vende en ambos modos (solo contexto stock). */
   madeToOrderUpsell?: MadeToOrderUpsellViewModel | null;
   highlights?: string[];
   bulletPoints?: string[];
