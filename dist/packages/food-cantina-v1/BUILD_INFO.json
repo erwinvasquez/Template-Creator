@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "exportedAt": "2026-10-01T13:41:14.807Z",
   "contentHash": "2496f40ebd85b2bf0b92e366ab75c486d024892b624747b63ec564c8c297866c",
-  "sourceGitSha": "66f2535a5dab780b65ffd010a369b7110da0ccdd",
+  "sourceGitSha": "fdfa3534d5b36e9c714adbe457a293177f002830",
   "immutable": true,
   "source": "templates/food-cantina-v1"
 }
