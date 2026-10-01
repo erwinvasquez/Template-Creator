@@ -20,6 +20,7 @@ import {
   resolveStockToMtoTransition,
   shouldOpenStockToMtoModal,
   stockCap,
+  useProductDetailGalleryVariantSync,
 } from "@shopenlinea/commerce-runtime-contract";
 import { useSiteContent } from "../../lib/site-content";
 import { requireUi } from "../../lib/ui";
@@ -105,13 +106,7 @@ export function ProductDetailCommerceView({
   const [pending, setPending] = useState(false);
   const [localError, setLocalError] = useState<string | null>(null);
   const [quantity, setQuantity] = useState(1);
-  const [galleryIndex, setGalleryIndex] = useState(0);
-  const [galleryManual, setGalleryManual] = useState(false);
   const [upsellOpen, setUpsellOpen] = useState(false);
-
-  const selected =
-    product.variants.find((v) => v.id === product.selectedVariantId) ??
-    product.variants[0];
 
   const relatedTitle = uiProduct.relatedTitle;
   const shopLabel = payload.navigation.primary.find(
@@ -132,6 +127,19 @@ export function ProductDetailCommerceView({
     () => buildMaxAddQtyMap(product),
     [product.variants],
   );
+  const {
+    activeGalleryIndex: galleryIndex,
+    mainImage,
+    onGalleryItemClick,
+    selectedVariant: selected,
+  } = useProductDetailGalleryVariantSync({
+    product,
+    onSelectVariant: actions.selectVariant,
+    pickerVariants,
+    dimensions,
+    maxAddQtyMap,
+  });
+
   const selections = useMemo(
     () => selectionsFromSelectedVariant(pickerVariants, selected?.id),
     [pickerVariants, selected?.id],
@@ -184,38 +192,10 @@ export function ProductDetailCommerceView({
       ? discountPercent(selected.displayPrice, selected.compareAtPrice)
       : null;
 
-  const mainImage = useMemo(() => {
-    if (!galleryManual && selected?.imageUrl) {
-      const match = product.gallery.find((g) => g.url === selected.imageUrl);
-      if (match) return match;
-      return {
-        id: "variant",
-        url: selected.imageUrl,
-        alt: product.name,
-      };
-    }
-    return product.gallery[galleryIndex] ?? product.gallery[0] ?? null;
-  }, [
-    galleryManual,
-    selected,
-    product.gallery,
-    product.name,
-    galleryIndex,
-  ]);
-
   useEffect(() => {
     setQuantity(1);
     setLocalError(null);
-    setGalleryManual(false);
-    if (selected) {
-      if (selected.imageUrl) {
-        const idx = product.gallery.findIndex((g) => g.url === selected.imageUrl);
-        if (idx >= 0) setGalleryIndex(idx);
-      } else {
-        setGalleryIndex(0);
-      }
-    }
-  }, [selected?.id]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [selected?.id]);
 
   async function onAdd() {
     if (!selected || !canBuy) return;
@@ -317,10 +297,7 @@ export function ProductDetailCommerceView({
                       <li key={g.id} className="shrink-0">
                         <button
                           type="button"
-                          onClick={() => {
-                            setGalleryIndex(i);
-                            setGalleryManual(true);
-                          }}
+                          onClick={() => onGalleryItemClick(i)}
                           className={`relative h-20 w-16 cursor-pointer overflow-hidden rounded-2xl border transition-colors duration-200 ${
                             active
                               ? "border-secondary ring-1 ring-secondary/30"
