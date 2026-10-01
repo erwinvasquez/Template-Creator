@@ -4,6 +4,7 @@ export type CommerceFixtureId =
   | "catalog-search-empty"
   | "product-simple"
   | "product-variants"
+  | "sf01-gallery-variant"
   | "product-out-of-stock"
   | "cart-empty"
   | "cart-promotion"
@@ -16,6 +17,7 @@ export const COMMERCE_FIXTURE_IDS: CommerceFixtureId[] = [
   "catalog-search-empty",
   "product-simple",
   "product-variants",
+  "sf01-gallery-variant",
   "product-out-of-stock",
   "cart-empty",
   "cart-promotion",

@@ -4,6 +4,10 @@ export interface ProductGalleryItemViewModel {
   id: string;
   url: string;
   alt?: string | null;
+  /** Media asociado a una variante (host / catálogo). */
+  variantId?: string | null;
+  /** Varias variantes comparten el mismo asset (opcional; host puede omitir y usar `variantId` + `variant.imageUrl`). */
+  variantIds?: readonly string[] | null;
 }
 
 export interface ProductVariantOptionViewModel {
