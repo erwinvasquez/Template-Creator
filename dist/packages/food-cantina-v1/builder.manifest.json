@@ -36,6 +36,7 @@
               "hero.ctaSecondary",
               "hero.headline",
               "hero.image",
+              "hero.carousel",
               "hero.subheadline"
             ]
           },
@@ -458,10 +459,39 @@
             "id": "hero.image",
             "fieldPath": "sections.hero.image",
             "kind": "media",
-            "label": "hero image",
-            "generationHint": "Copy de sección hero; tono del template.",
-            "required": true,
+            "label": "Hero imagen",
+            "generationHint": "Imagen única del hero cuando carouselImages está vacío.",
+            "required": false,
             "localeScope": "both"
+          },
+          {
+            "id": "hero.carousel",
+            "fieldPath": "sections.hero.carouselImages",
+            "kind": "list",
+            "label": "Hero carrusel",
+            "generationHint": "Hasta 6 imágenes. Con al menos una, el runtime usa solo esta lista (hero.image no es slide).",
+            "required": false,
+            "localeScope": "both",
+            "listSchema": {
+              "itemType": "object",
+              "fields": [
+                {
+                  "key": "url",
+                  "kind": "string",
+                  "label": "URL"
+                },
+                {
+                  "key": "mediaId",
+                  "kind": "string",
+                  "label": "Media ID"
+                },
+                {
+                  "key": "alt",
+                  "kind": "string",
+                  "label": "Texto alternativo"
+                }
+              ]
+            }
           },
           {
             "id": "hero.subheadline",

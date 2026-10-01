@@ -1,9 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useSiteContent } from "../lib/site-content";
-import { resolveMediaUrl, withBasePath } from "../content/resolve";
+import { withBasePath } from "../content/resolve";
+import { HeroCarouselMedia } from "../lib/hero-carousel";
 
 export function Hero() {
   const { payload, basePath } = useSiteContent();
@@ -55,16 +55,18 @@ export function Hero() {
 
       <div className="relative min-h-[42svh] lg:min-h-0">
         <div className="nova-hero-accent absolute inset-y-0 left-0 z-10 hidden w-3 lg:block" />
-        <Image
-          src={resolveMediaUrl(hero.image, payload.media)}
-          alt={hero.image.alt}
-          fill
-          priority
-          data-wb-slot="hero.image"
-          className="animate-slide-in-right object-cover object-top"
+        <HeroCarouselMedia
+
+          hero={hero}
+
+          media={payload.media}
+
+          className="animate-slide-in-right object-cover"
+
           sizes="(max-width: 1024px) 100vw, 55vw"
+
         />
-        <div className="nova-hero-scrim absolute inset-0 lg:hidden" />
+<div className="pointer-events-none z-[1] nova-hero-scrim absolute inset-0 lg:hidden" />
       </div>
     </section>
   );

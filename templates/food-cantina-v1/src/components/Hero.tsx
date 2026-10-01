@@ -1,9 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useSiteContent } from "../lib/site-content";
-import { resolveMediaUrl, withBasePath } from "../content/resolve";
+import { withBasePath } from "../content/resolve";
+import { HeroCarouselMedia } from "../lib/hero-carousel";
 
 export function Hero() {
   const { payload, basePath } = useSiteContent();
@@ -12,16 +12,18 @@ export function Hero() {
 
   return (
     <section className="relative h-[100svh] min-h-[640px] w-full overflow-hidden bg-ink">
-      <Image
-        src={resolveMediaUrl(hero.image, payload.media)}
-        alt={hero.image.alt}
-        fill
-        priority
-        data-wb-slot="hero.image"
-        className="object-cover object-center"
+      <HeroCarouselMedia
+
+        hero={hero}
+
+        media={payload.media}
+
+        className="object-cover"
+
         sizes="100vw"
+
       />
-      <div className="cantina-hero-scrim absolute inset-0" />
+<div className="pointer-events-none z-[1] cantina-hero-scrim absolute inset-0" />
 
       <div className="cantina-hero-block absolute bottom-0 left-0 z-10 max-w-2xl px-6 py-10 md:px-10 md:py-14 lg:max-w-3xl lg:px-14">
         <p className="cantina-wordmark animate-fade-up text-2xl text-background md:text-4xl">

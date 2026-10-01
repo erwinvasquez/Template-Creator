@@ -1,0 +1,709 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "jewelry-orion-v1",
+  "templateVersion": "1.3.0",
+  "brand": {
+    "name": "Orion",
+    "displayName": "ORION",
+    "tagline": "Alta joyería con alma celestial.",
+    "locale": "es-ES",
+    "currency": "EUR"
+  },
+  "theme": {
+    "colors": {
+      "primary": "#141210",
+      "secondary": "#5C564F",
+      "cta": "#B8956A",
+      "ctaHover": "#9A7A55",
+      "background": "#FAFAF8",
+      "surface": "#F0EDE8",
+      "text": "#121212",
+      "muted": "#6B6560",
+      "border": "#DDD6CC",
+      "ink": "#0E0E10"
+    }
+  },
+  "features": {
+    "cart": true,
+    "appointment": true,
+    "account": true,
+    "accountBasePath": "/cuenta"
+  },
+  "navigation": {
+    "primary": [
+      {
+        "type": "path",
+        "label": "Colección",
+        "href": "/coleccion"
+      },
+      {
+        "type": "shopFilter",
+        "label": "Anillos",
+        "categorySlug": "anillos"
+      },
+      {
+        "type": "shopFilter",
+        "label": "Collares",
+        "categorySlug": "collares"
+      },
+      {
+        "type": "path",
+        "label": "Atelier",
+        "href": "/atelier"
+      }
+    ]
+  },
+  "seo": {
+    "titleTemplate": "%s · Orion",
+    "default": {
+      "title": "Orion — Alta joyería",
+      "description": "Anillos, collares, aretes y pulseras de alta joyería, hechos a mano en Madrid con materiales trazables.",
+      "openGraph": {
+        "title": "Orion — Alta joyería",
+        "description": "Piezas atemporales, talladas para durar generaciones."
+      }
+    },
+    "pages": {
+      "shop": {
+        "title": "Colección",
+        "description": "Explora la colección completa Orion: anillos, collares, aretes y pulseras."
+      },
+      "atelier": {
+        "title": "Atelier",
+        "description": "La historia de Orion: orfebrería hecha a mano con materiales trazables."
+      }
+    }
+  },
+  "catalog": {
+    "categories": [
+      {
+        "id": "cat_anillos",
+        "slug": "anillos",
+        "label": "Anillos"
+      },
+      {
+        "id": "cat_collares",
+        "slug": "collares",
+        "label": "Collares"
+      },
+      {
+        "id": "cat_aretes",
+        "slug": "aretes",
+        "label": "Aretes"
+      },
+      {
+        "id": "cat_pulseras",
+        "slug": "pulseras",
+        "label": "Pulseras"
+      }
+    ],
+    "collections": [
+      {
+        "id": "col_aurora",
+        "slug": "coleccion-aurora",
+        "name": "Colección Aurora",
+        "description": "Diamantes y perlas con un brillo luminoso, casi líquido.",
+        "image": {
+          "url": "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=1600&q=80",
+          "alt": "Anillo de diamante de la Colección Aurora"
+        }
+      },
+      {
+        "id": "col_nocturne",
+        "slug": "coleccion-nocturne",
+        "name": "Colección Nocturne",
+        "description": "Zafiros y piedras profundas para presencias nocturnas.",
+        "image": {
+          "url": "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=1600&q=80",
+          "alt": "Collar con piedra azul de la Colección Nocturne"
+        }
+      },
+      {
+        "id": "col_terra",
+        "slug": "coleccion-terra",
+        "name": "Colección Terra",
+        "description": "Oro cálido y formas orgánicas inspiradas en la tierra.",
+        "image": {
+          "url": "https://images.unsplash.com/photo-1584302179602-e4c3d3fd629d?w=1600&q=80",
+          "alt": "Anillos de oro de la Colección Terra"
+        }
+      }
+    ],
+    "products": [
+      {
+        "id": "1",
+        "slug": "anillo-solitaire-aurora",
+        "name": "Anillo Solitaire Aurora",
+        "description": "Solitario con diamante central talla brillante de 0,8 quilates, engastado en cuatro garras sobre banda de oro blanco. Una pieza icónica, pensada para durar generaciones.",
+        "price": 2450,
+        "categoryId": "cat_anillos",
+        "collectionId": "col_aurora",
+        "metals": [
+          "Oro blanco 18k",
+          "Oro amarillo 18k",
+          "Platino"
+        ],
+        "sizes": [
+          "50",
+          "52",
+          "54",
+          "56",
+          "58"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=1200&q=80",
+          "alt": "Anillo Solitaire Aurora con diamante central"
+        }
+      },
+      {
+        "id": "2",
+        "slug": "anillo-constelacion-ambar",
+        "name": "Anillo Constelación Ámbar",
+        "description": "Anillo de oro amarillo con racimo de gemas talla rosa dispuestas en constelación irregular. Textura martillada a mano en el interior de la banda.",
+        "price": 1380,
+        "categoryId": "cat_anillos",
+        "collectionId": "col_terra",
+        "metals": [
+          "Oro amarillo 18k",
+          "Oro rosa 18k"
+        ],
+        "sizes": [
+          "50",
+          "52",
+          "54",
+          "56"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1611955167811-4711904bb9f8?w=1200&q=80",
+          "alt": "Anillo Constelación Ámbar con gemas en racimo"
+        },
+        "badges": [
+          "new"
+        ]
+      },
+      {
+        "id": "3",
+        "slug": "anillo-trio-oro",
+        "name": "Anillo Trío Oro",
+        "description": "Set de tres anillos apilables en oro de distintos tonos, pensados para combinarse o llevarse por separado. Acabado satinado.",
+        "price": 890,
+        "categoryId": "cat_anillos",
+        "collectionId": "col_terra",
+        "metals": [
+          "Oro amarillo 18k",
+          "Oro blanco 18k",
+          "Oro rosa 18k"
+        ],
+        "sizes": [
+          "50",
+          "52",
+          "54",
+          "56",
+          "58"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1584302179602-e4c3d3fd629d?w=1200&q=80",
+          "alt": "Set de tres anillos apilables Trío Oro"
+        }
+      },
+      {
+        "id": "4",
+        "slug": "collar-perla-regia",
+        "name": "Collar Perla Regia",
+        "description": "Sautoir de perlas cultivadas de agua dulce, seleccionadas una a una por su oriente y lustre, con cierre de oro blanco y diamante.",
+        "price": 1650,
+        "categoryId": "cat_collares",
+        "collectionId": "col_aurora",
+        "metals": [
+          "Oro blanco 18k",
+          "Plata 925"
+        ],
+        "sizes": [
+          "40 cm",
+          "45 cm",
+          "50 cm"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=1200&q=80",
+          "alt": "Collar de perlas Perla Regia en estuche"
+        }
+      },
+      {
+        "id": "5",
+        "slug": "collar-luna-azul",
+        "name": "Collar Luna Azul",
+        "description": "Doble cadena de oro con dije de topacio azul talla octogonal y luna creciente engastada con diamantes de acento.",
+        "price": 720,
+        "categoryId": "cat_collares",
+        "collectionId": "col_nocturne",
+        "metals": [
+          "Oro amarillo 18k",
+          "Oro blanco 18k"
+        ],
+        "sizes": [
+          "40 cm",
+          "45 cm"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=1200&q=80",
+          "alt": "Collar Luna Azul con dije de topacio"
+        },
+        "badges": [
+          "new"
+        ]
+      },
+      {
+        "id": "6",
+        "slug": "collar-cadenas-doradas",
+        "name": "Collar Cadenas Doradas",
+        "description": "Conjunto de cadenas superpuestas en oro amarillo, cada una con un dije distinto. Se venden y llevan como una sola pieza.",
+        "price": 540,
+        "categoryId": "cat_collares",
+        "collectionId": "col_terra",
+        "metals": [
+          "Oro amarillo 18k"
+        ],
+        "sizes": [
+          "40 cm",
+          "45 cm",
+          "50 cm"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1506630448388-4e683c67ddb0?w=1200&q=80",
+          "alt": "Collar Cadenas Doradas con dijes superpuestos"
+        }
+      },
+      {
+        "id": "7",
+        "slug": "aretes-zafiro-cascada",
+        "name": "Aretes Zafiro Cascada",
+        "description": "Aretes largos con zafiro azul talla pera como pieza central, rodeado de baguettes y diamantes en cascada. Cierre de mariposa reforzado.",
+        "price": 980,
+        "categoryId": "cat_aretes",
+        "collectionId": "col_nocturne",
+        "metals": [
+          "Oro blanco 18k",
+          "Platino"
+        ],
+        "sizes": [
+          "Único"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=1200&q=80",
+          "alt": "Aretes Zafiro Cascada con piedra azul"
+        },
+        "badges": [
+          "limited"
+        ]
+      },
+      {
+        "id": "8",
+        "slug": "aretes-aro-trenzado",
+        "name": "Aretes Aro Trenzado",
+        "description": "Aros medianos en oro amarillo con textura trenzada, forjados a mano. Ligeros, pensados para el uso diario.",
+        "price": 410,
+        "categoryId": "cat_aretes",
+        "collectionId": "col_aurora",
+        "metals": [
+          "Oro amarillo 18k",
+          "Oro rosa 18k"
+        ],
+        "sizes": [
+          "Único"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=1200&q=80",
+          "alt": "Aretes de aro trenzado en oro"
+        }
+      },
+      {
+        "id": "9",
+        "slug": "pulsera-infinito-rose",
+        "name": "Pulsera Infinito Rosé",
+        "description": "Pulsera rígida en oro rosa con motivo de infinito repetido, pavimentado en diamantes. Cierre de caja oculto con seguro doble.",
+        "price": 1120,
+        "categoryId": "cat_pulseras",
+        "collectionId": "col_terra",
+        "metals": [
+          "Oro rosa 18k",
+          "Oro blanco 18k"
+        ],
+        "sizes": [
+          "16 cm",
+          "18 cm",
+          "20 cm"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=1200&q=80",
+          "alt": "Pulsera Infinito Rosé con motivo pavimentado"
+        },
+        "hoverImage": {
+          "url": "https://images.unsplash.com/photo-1596944924616-7b38e7cfac36?w=1200&q=80",
+          "alt": "Pulsera Infinito Rosé puesta, vista de detalle"
+        }
+      },
+      {
+        "id": "10",
+        "slug": "pulsera-rio-diamante",
+        "name": "Pulsera Río Diamante",
+        "description": "Pulsera tenis de diamantes talla brillante engastados en línea continua sobre platino. La pieza más luminosa de la maison.",
+        "price": 3200,
+        "categoryId": "cat_pulseras",
+        "collectionId": "col_aurora",
+        "metals": [
+          "Platino",
+          "Oro blanco 18k"
+        ],
+        "sizes": [
+          "16 cm",
+          "18 cm",
+          "20 cm"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=1200&q=80",
+          "alt": "Pulsera tenis Río Diamante"
+        },
+        "badges": [
+          "limited"
+        ]
+      }
+    ]
+  },
+  "sections": {
+    "hero": {
+      "headline": "ORION",
+      "subheadline": "Piezas atemporales, talladas para durar generaciones.",
+      "image": {
+        "url": "https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=1200&q=80",
+        "alt": "focal desktop",
+        "focalPoint": {
+          "x": 0.15,
+          "y": 0.25
+        }
+      },
+      "ctaPrimary": {
+        "label": "Descubrir la colección",
+        "href": "/coleccion"
+      },
+      "carouselImages": []
+    },
+    "signatures": {
+      "eyebrow": "Piezas insignia",
+      "title": "Tres formas de brillar",
+      "productIds": [
+        "1",
+        "4",
+        "9"
+      ]
+    },
+    "craft": {
+      "eyebrow": "El atelier",
+      "title": "Cada pieza, forjada a mano",
+      "body": "En nuestro taller de Madrid, maestros joyeros funden, engastan y pulen cada pieza durante semanas. Ninguna joya sale de nuestras manos sin haber sido examinada bajo lupa, una a una.",
+      "image": {
+        "url": "https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=1600&q=80",
+        "alt": "Mujer luciendo un collar Orion, detalle de cuello"
+      },
+      "cta": {
+        "label": "Conocer el atelier",
+        "href": "/atelier"
+      }
+    },
+    "materials": {
+      "eyebrow": "Materiales",
+      "title": "Los elementos de la maison",
+      "items": [
+        {
+          "id": "oro",
+          "name": "Oro",
+          "description": "Oro reciclado de 18 quilates, fundido y pulido a mano en nuestro taller.",
+          "image": {
+            "url": "https://images.unsplash.com/photo-1610375461369-d613b564f4c4?w=1200&q=80",
+            "alt": "Lingotes de oro de 18 quilates"
+          }
+        },
+        {
+          "id": "platino",
+          "name": "Platino",
+          "description": "Platino 950, elegido por su brillo frío y su durabilidad excepcional.",
+          "image": {
+            "url": "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=1200&q=80",
+            "alt": "Pulsera de platino con diamantes"
+          }
+        },
+        {
+          "id": "diamante",
+          "name": "Diamante",
+          "description": "Piedras certificadas GIA, seleccionadas por corte, color y pureza.",
+          "image": {
+            "url": "https://images.unsplash.com/photo-1599707367072-cd6ada2bc375?w=1200&q=80",
+            "alt": "Diamantes sueltos sobre superficie oscura"
+          }
+        },
+        {
+          "id": "perla",
+          "name": "Perla",
+          "description": "Perlas cultivadas de agua dulce, seleccionadas por su oriente y lustre.",
+          "image": {
+            "url": "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=1200&q=80",
+            "alt": "Collar de perlas en estuche"
+          }
+        }
+      ]
+    },
+    "appointment": {
+      "eyebrow": "Cita privada",
+      "title": "Reserva una visita a puerta cerrada",
+      "body": "Ven a nuestro salón y descubre piezas en persona, con la guía de nuestros joyeros. Servicio personalizado, con cita previa.",
+      "cta": {
+        "label": "Solicitar cita",
+        "href": "/atelier#cita"
+      }
+    },
+    "shop": {
+      "eyebrow": "Colección",
+      "title": "La colección completa",
+      "description": "Anillos, collares, aretes y pulseras. Filtra por categoría para encontrar tu próxima pieza."
+    },
+    "atelier": {
+      "intro": {
+        "eyebrow": "La maison",
+        "title": "Orfebrería con alma celestial",
+        "body": "Orion nace en Madrid en 2014 con una idea clara: crear joyas que se hereden, no que se descarten. Trabajamos con orfebres de tercera generación y proveedores de gemas trazables, para que cada pieza cuente una historia honesta."
+      },
+      "bannerImage": {
+        "url": "https://images.unsplash.com/photo-1608042314453-ae338d80c427?w=2400&q=85",
+        "alt": "Anillos y dije sobre tela clara, mesa de trabajo del atelier"
+      },
+      "blocks": [
+        {
+          "id": "seleccion",
+          "title": "Selección de gemas",
+          "body": "Trabajamos solo con proveedores certificados y trazables. Cada diamante viene acompañado de su certificado GIA o IGI, y cada perla pasa por un control de oriente y lustre."
+        },
+        {
+          "id": "engaste",
+          "title": "Engaste a mano",
+          "body": "Nuestros maestros engastadores dedican entre 15 y 40 horas a cada pieza, según su complejidad. El pulido final se hace siempre a mano, nunca a máquina."
+        }
+      ],
+      "maisons": {
+        "eyebrow": "Presencia",
+        "title": "Nuestras maisons",
+        "items": [
+          {
+            "city": "Madrid",
+            "address": "Calle de Serrano 68",
+            "hours": "Lun–Sáb 11:00–20:00, con cita previa"
+          },
+          {
+            "city": "Barcelona",
+            "address": "Passeig de Gràcia 55",
+            "hours": "Lun–Sáb 11:00–20:00, con cita previa"
+          },
+          {
+            "city": "París",
+            "address": "Place Vendôme 12",
+            "hours": "Mar–Sáb 11:00–19:00, con cita previa"
+          }
+        ]
+      },
+      "closing": {
+        "title": "Empieza tu colección",
+        "body": "Explora las piezas disponibles y reserva la tuya hoy.",
+        "cta": {
+          "label": "Ver colección",
+          "href": "/coleccion"
+        }
+      }
+    },
+    "footer": {
+      "blurb": "Alta joyería hecha a mano en Madrid. Piezas atemporales pensadas para heredarse.",
+      "columns": [
+        {
+          "title": "Colección",
+          "links": [
+            {
+              "label": "Anillos",
+              "href": "/coleccion?categoria=anillos"
+            },
+            {
+              "label": "Collares",
+              "href": "/coleccion?categoria=collares"
+            },
+            {
+              "label": "Aretes",
+              "href": "/coleccion?categoria=aretes"
+            },
+            {
+              "label": "Pulseras",
+              "href": "/coleccion?categoria=pulseras"
+            }
+          ]
+        },
+        {
+          "title": "Maison",
+          "links": [
+            {
+              "label": "Atelier",
+              "href": "/atelier"
+            },
+            {
+              "label": "Cita privada",
+              "href": "/atelier#cita"
+            },
+            {
+              "label": "Contacto",
+              "href": "#"
+            }
+          ]
+        }
+      ],
+      "tagline": "Talladas para durar generaciones.",
+      "copyrightName": "Orion"
+    }
+  },
+  "ui": {
+    "chrome": {
+      "openCart": "Abrir estuche",
+      "openCartWithCount": "Abrir estuche, {count} piezas",
+      "myAccount": "Mi cuenta",
+      "openMenu": "Abrir menú",
+      "closeMenu": "Cerrar menú",
+      "mainNavAria": "Principal",
+      "mobileNavAria": "Móvil",
+      "salesModeAria": "Modo de compra"
+    },
+    "account": {
+      "eyebrow": "Cuenta",
+      "loginTitle": "Iniciar sesión",
+      "registerTitle": "Crear cuenta",
+      "dashboardTitle": "Mi cuenta",
+      "emailLabel": "Correo electrónico",
+      "nameLabel": "Nombre",
+      "phoneLabel": "Teléfono",
+      "passwordLabel": "Contraseña",
+      "loginSubmit": "Entrar",
+      "loginSubmitting": "Entrando…",
+      "registerSubmit": "Registrarse",
+      "registerSubmitting": "Registrando…",
+      "logout": "Cerrar sesión",
+      "goToRegister": "Regístrate",
+      "goToLogin": "Inicia sesión",
+      "noAccountPrompt": "¿No tienes cuenta?",
+      "hasAccountPrompt": "¿Ya tienes cuenta?",
+      "googleSignIn": "Continuar con Google"
+    },
+    "listing": {
+      "searchLabel": "Buscar",
+      "searchPlaceholder": "Buscar…",
+      "allCategories": "Todo",
+      "loading": "Cargando…",
+      "loadMore": "Cargar más",
+      "loadingMore": "Cargando…",
+      "noSearchResults": "Sin resultados para esta búsqueda.",
+      "pieceSingular": "pieza",
+      "piecePlural": "piezas",
+      "collectionPrefix": "Colección:",
+      "clearFilter": "Quitar filtro"
+    },
+    "checkout": {
+      "pageTitle": "Checkout",
+      "customerSection": "Cliente",
+      "shippingSection": "Envío",
+      "paymentSection": "Pago",
+      "summarySection": "Resumen",
+      "fullNameRequired": "Indica tu nombre",
+      "emailRequired": "Indica tu correo",
+      "shippingMethodRequired": "Elige un método de envío",
+      "pickupBranchRequired": "Elige una tienda",
+      "paymentMethodRequired": "Elige un método de pago",
+      "phoneNumberLabel": "Número",
+      "discountCodeLabel": "Código",
+      "shippingLineLabel": "Envío",
+      "subtotalLabel": "Subtotal",
+      "totalLabel": "Total",
+      "emptyCartLabel": "Vaciar",
+      "removeLineLabel": "Eliminar",
+      "quantityLabel": "Cantidad",
+      "phoneCountryAria": "Código de país del teléfono",
+      "discountApply": "Aplicar",
+      "taxLabel": "Impuestos",
+      "hasDiscountCodeLabel": "Tengo un código de descuento",
+      "discountLineLabel": "Descuento"
+    },
+    "errors": {
+      "addToCartFailed": "No se pudo añadir al estuche",
+      "orderConfirmFailed": "No se pudo confirmar el pedido",
+      "catalogLoadFailed": "No se pudo cargar el catálogo."
+    },
+    "cart": {
+      "title": "Tu estuche",
+      "empty": "Aún no has añadido piezas.",
+      "exploreCta": "Explorar colección",
+      "checkout": "Finalizar compra",
+      "shippingHint": "Envío asegurado incluido"
+    },
+    "product": {
+      "addToCart": "Añadir al estuche",
+      "relatedTitle": "Más piezas de esta categoría",
+      "shippingNote": "Envío asegurado en 3–5 días laborables",
+      "outOfStock": "Agotada",
+      "contact": "Consultar disponibilidad",
+      "lowStock": "Últimas unidades",
+      "madeToOrderClosed": "Encargos cerrados temporalmente",
+      "addingToCart": "Añadiendo…",
+      "priceBookLabel": "Precio del ejemplar",
+      "priceProgramLabel": "Inversión por plaza en la cohorte",
+      "stockInsufficientImmediate": "Solo tenemos {count} unidades para entrega inmediata.",
+      "stockInsufficientMadeToOrderHint": "Puedes pedir el resto bajo pedido con el plazo de preparación indicado.",
+      "stockExhaustedImmediateTitle": "Sin stock para entrega inmediata",
+      "stockExhaustedMadeToOrderAvailable": "Disponible a pedido",
+      "buyMadeToOrderCta": "Comprar bajo pedido",
+      "stockUpsellModalTitle": "Opciones de compra",
+      "badges": {
+        "new": "Nuevo",
+        "featured": "Pieza insignia",
+        "sale": "Oferta",
+        "bestseller": "Más vendida",
+        "limitedEdition": "Edición limitada"
+      }
+    },
+    "shop": {
+      "empty": "No hay piezas con estos filtros.",
+      "clearFilter": "Quitar filtro"
+    },
+    "notFound": {
+      "title": "Página no encontrada",
+      "body": "Esta ruta no existe en Orion."
+    },
+    "salesMode": {
+      "stock": {
+        "navLabel": "Entrega inmediata",
+        "shopBanner": "Catálogo con entrega inmediata según disponibilidad.",
+        "cartLabel": "Compra con entrega inmediata"
+      },
+      "madeToOrder": {
+        "navLabel": "Bajo pedido",
+        "shopBanner": "Catálogo bajo pedido.",
+        "preparationLabel": "Preparación",
+        "closedMessage": "Ahora mismo no aceptamos pedidos a medida.",
+        "reopensPrefix": "Volvemos",
+        "cartLabel": "Compra bajo pedido",
+        "cartClosedWarning": "Los pedidos a medida están cerrados temporalmente. No podrás completar el checkout hasta que reabran."
+      },
+      "nav": [
+        {
+          "salesMode": "stock",
+          "label": "Entrega inmediata",
+          "href": "/coleccion?salesMode=stock"
+        },
+        {
+          "salesMode": "madeToOrder",
+          "label": "Bajo pedido",
+          "href": "/coleccion?salesMode=madeToOrder"
+        }
+      ]
+    }
+  }
+}

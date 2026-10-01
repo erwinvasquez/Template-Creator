@@ -35,7 +35,9 @@
     {
       "path": "/boutique",
       "page": "shop",
-      "sections": ["shop"],
+      "sections": [
+        "shop"
+      ],
       "queryParams": {
         "categoria": "Optional category slug (catalog.categories[].slug). Navbar shopFilter.categorySlug resolves here.",
         "coleccion": "Optional collection slug (catalog.collections[].slug). Navbar shopFilter.collectionSlug resolves here."
@@ -44,12 +46,17 @@
     {
       "path": "/boutique/[slug]",
       "page": "product",
-      "sections": ["product", "related"]
+      "sections": [
+        "product",
+        "related"
+      ]
     },
     {
       "path": "/atelier",
       "page": "about",
-      "sections": ["about"]
+      "sections": [
+        "about"
+      ]
     }
   ],
   "sections": [
@@ -129,6 +136,13 @@
       "recommendedWidth": 2400
     },
     {
+      "id": "hero.carousel[]",
+      "section": "hero",
+      "aspect": "full-bleed",
+      "count": 6,
+      "recommendedWidth": 2400
+    },
+    {
       "id": "viennoiserie[].image",
       "section": "viennoiserie",
       "aspect": "3/4",
@@ -165,21 +179,30 @@
         "path": "sections.celebration.productIds",
         "kind": "product",
         "sectionId": "celebration",
-        "label": { "es": "Celebraciones", "en": "Celebrations" },
+        "label": {
+          "es": "Celebraciones",
+          "en": "Celebrations"
+        },
         "maxItems": 8
       },
       {
         "path": "sections.giftBox.productIds",
         "kind": "product",
         "sectionId": "giftBox",
-        "label": { "es": "Cajas regalo", "en": "Gift boxes" },
+        "label": {
+          "es": "Cajas regalo",
+          "en": "Gift boxes"
+        },
         "maxItems": 12
       },
       {
         "path": "sections.viennoiserie.collectionIds",
         "kind": "collection",
         "sectionId": "viennoiserie",
-        "label": { "es": "Viennoiserie", "en": "Viennoiserie" },
+        "label": {
+          "es": "Viennoiserie",
+          "en": "Viennoiserie"
+        },
         "maxItems": 4
       }
     ],

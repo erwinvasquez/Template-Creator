@@ -380,7 +380,8 @@
       "ctaPrimary": {
         "label": "Descubrir la colección",
         "href": "/coleccion"
-      }
+      },
+      "carouselImages": []
     },
     "signatures": {
       "eyebrow": "Piezas insignia",

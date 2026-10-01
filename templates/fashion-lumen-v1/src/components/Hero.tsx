@@ -1,9 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useSiteContent } from "../lib/site-content";
-import { resolveMediaUrl, withBasePath } from "../content/resolve";
+import { withBasePath } from "../content/resolve";
+import { HeroCarouselMedia } from "../lib/hero-carousel";
 
 export function Hero() {
   const { payload, basePath } = useSiteContent();
@@ -11,16 +11,18 @@ export function Hero() {
 
   return (
     <section className="relative h-[100svh] min-h-[640px] w-full overflow-hidden">
-      <Image
-        src={resolveMediaUrl(hero.image, payload.media)}
-        alt={hero.image.alt}
-        fill
-        priority
-        data-wb-slot="hero.image"
-        className="object-cover object-[center_22%] animate-ken-burns"
+      <HeroCarouselMedia
+
+        hero={hero}
+
+        media={payload.media}
+
+        className="object-cover animate-ken-burns"
+
         sizes="100vw"
+
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-primary/60 via-primary/25 to-primary/10" />
+<div className="pointer-events-none z-[1] absolute inset-0 bg-gradient-to-t from-primary/60 via-primary/25 to-primary/10" />
 
       <div className="relative z-10 flex h-full flex-col items-center justify-end px-6 pb-16 text-center md:pb-24">
         <p

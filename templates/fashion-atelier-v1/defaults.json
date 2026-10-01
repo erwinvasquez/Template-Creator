@@ -438,7 +438,8 @@
       "ctaSecondary": {
         "label": "Ver colección",
         "href": "/tienda?categoria=mujer"
-      }
+      },
+      "carouselImages": []
     },
     "collections": {
       "eyebrow": "Colecciones",

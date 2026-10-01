@@ -1,0 +1,640 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "food-cantina-v1",
+  "templateVersion": "1.0.0",
+  "brand": {
+    "name": "Cantina Roja",
+    "displayName": "CANTINA ROJA",
+    "tagline": "Tacos, salsas y fiesta en la mesa.",
+    "locale": "es-ES",
+    "currency": "EUR"
+  },
+  "theme": {
+    "colors": {
+      "primary": "#BE123C",
+      "secondary": "#0D9488",
+      "cta": "#BE123C",
+      "ctaHover": "#9F1239",
+      "background": "#FFFBEB",
+      "surface": "#FEF3C7",
+      "text": "#881337",
+      "muted": "#9F1239",
+      "border": "#FDE68A"
+    }
+  },
+  "features": {
+    "cart": true,
+    "newsletter": false,
+    "account": true,
+    "accountBasePath": "/cuenta"
+  },
+  "navigation": {
+    "primary": [
+      {
+        "type": "path",
+        "label": "Tienda",
+        "href": "/tienda"
+      },
+      {
+        "type": "shopFilter",
+        "label": "Tacos",
+        "categorySlug": "tacos"
+      },
+      {
+        "type": "shopFilter",
+        "label": "Salsas",
+        "categorySlug": "salsas"
+      },
+      {
+        "type": "shopFilter",
+        "label": "Merch",
+        "categorySlug": "merch"
+      },
+      {
+        "type": "path",
+        "label": "Historia",
+        "href": "/historia"
+      }
+    ]
+  },
+  "seo": {
+    "titleTemplate": "%s · Cantina Roja",
+    "default": {
+      "title": "Cantina Roja — Tacos y salsas picantes",
+      "description": "Cantina mexicana: kits de tacos, salsas artesanales, bebidas y merch para llevar la fiesta a casa.",
+      "openGraph": {
+        "title": "Cantina Roja — Sabor de barrio",
+        "description": "Tacos listos, salsas hechas a mano y packs para compartir."
+      }
+    },
+    "pages": {
+      "shop": {
+        "title": "Tienda",
+        "description": "Tacos, salsas, bebidas y merch de la cantina."
+      },
+      "about": {
+        "title": "Historia",
+        "description": "Origen de la cantina, equipo y catering para eventos."
+      }
+    }
+  },
+  "catalog": {
+    "categories": [
+      {
+        "id": "cat_tacos",
+        "slug": "tacos",
+        "label": "Tacos"
+      },
+      {
+        "id": "cat_salsas",
+        "slug": "salsas",
+        "label": "Salsas"
+      },
+      {
+        "id": "cat_bebidas",
+        "slug": "bebidas",
+        "label": "Bebidas"
+      },
+      {
+        "id": "cat_merch",
+        "slug": "merch",
+        "label": "Merch"
+      }
+    ],
+    "collections": [
+      {
+        "id": "col_ruta",
+        "slug": "ruta-del-taco",
+        "name": "Ruta del taco",
+        "description": "Recorre barbacoa, pollo y vegetales en un solo pedido.",
+        "image": {
+          "url": "https://images.unsplash.com/photo-1565299585323-38174c4a6bce?w=1600&q=80",
+          "alt": "Tacos en bandeja con limón y cilantro"
+        }
+      },
+      {
+        "id": "col_picante",
+        "slug": "picante",
+        "name": "Picante nivel",
+        "description": "Salsas que suben de intensidad: verde, roja y habanero.",
+        "image": {
+          "url": "https://images.unsplash.com/photo-1606491956689-2ea86650f4a6?w=1600&q=80",
+          "alt": "Salsas picantes en tarros"
+        }
+      },
+      {
+        "id": "col_familia",
+        "slug": "familia",
+        "name": "Pack familia",
+        "description": "Para mesas largas: tacos, guacamole y bebidas.",
+        "image": {
+          "url": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=1600&q=80",
+          "alt": "Mesa con comida mexicana para compartir"
+        }
+      },
+      {
+        "id": "col_catering",
+        "slug": "catering",
+        "name": "Catering fiesta",
+        "description": "Packs para eventos: tacos al vapor y barra de salsas.",
+        "image": {
+          "url": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1600&q=80",
+          "alt": "Barra de tacos en evento"
+        }
+      }
+    ],
+    "products": [
+      {
+        "id": "1",
+        "slug": "tacos-barbacoa",
+        "name": "Tacos de barbacoa (6)",
+        "description": "Seis tacos de barbacoa de res lentamente cocinada. Incluye cilantro y limón.",
+        "price": 13.5,
+        "categoryId": "cat_tacos",
+        "collectionId": "col_ruta",
+        "colors": [
+          "Único"
+        ],
+        "sizes": [
+          "Único"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1565299585323-38174c4a6bce?w=1200&q=80",
+          "alt": "Tacos de barbacoa"
+        },
+        "badges": [
+          "featured"
+        ]
+      },
+      {
+        "id": "2",
+        "slug": "tacos-pollo",
+        "name": "Tacos de pollo al achiote",
+        "description": "Pollo marinado, piña asada y salsa roja. Pack de 6 tacos.",
+        "price": 12,
+        "categoryId": "cat_tacos",
+        "collectionId": "col_ruta",
+        "colors": [
+          "Único"
+        ],
+        "sizes": [
+          "Único"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1599974579688-e7a6e9beb0c0?w=1200&q=80",
+          "alt": "Tacos de pollo"
+        }
+      },
+      {
+        "id": "3",
+        "slug": "tacos-veg",
+        "name": "Tacos de calabaza",
+        "description": "Calabaza asada, queso fresco y pepitas. Vegetariano. 6 unidades.",
+        "price": 11.5,
+        "categoryId": "cat_tacos",
+        "collectionId": "col_familia",
+        "colors": [
+          "Único"
+        ],
+        "sizes": [
+          "Único"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1613514785940-d59007712a31?w=1200&q=80",
+          "alt": "Tacos vegetarianos"
+        },
+        "badges": [
+          "new"
+        ]
+      },
+      {
+        "id": "4",
+        "slug": "salsa-verde",
+        "name": "Salsa verde picante",
+        "description": "Tarro 250 ml. Tomatillo, chile serrano y cilantro. Nivel medio-alto.",
+        "price": 6.5,
+        "categoryId": "cat_salsas",
+        "collectionId": "col_picante",
+        "colors": [
+          "Único"
+        ],
+        "sizes": [
+          "Único"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1606491956689-2ea86650f4a6?w=1200&q=80",
+          "alt": "Salsa verde en tarro"
+        }
+      },
+      {
+        "id": "5",
+        "slug": "salsa-habanero",
+        "name": "Salsa habanero mango",
+        "description": "Tarro 250 ml. Habanero, mango y lima. Para valientes.",
+        "price": 7,
+        "categoryId": "cat_salsas",
+        "collectionId": "col_picante",
+        "colors": [
+          "Único"
+        ],
+        "sizes": [
+          "Único"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1588137378633-dea1336ce1e9?w=1200&q=80",
+          "alt": "Salsa habanero"
+        },
+        "badges": [
+          "featured"
+        ]
+      },
+      {
+        "id": "6",
+        "slug": "agua-jamaica",
+        "name": "Agua de jamaica",
+        "description": "Botella 1 L. Hibisco, cítricos y poca azúcar. Refrescante.",
+        "price": 5.5,
+        "categoryId": "cat_bebidas",
+        "collectionId": "col_familia",
+        "colors": [
+          "Único"
+        ],
+        "sizes": [
+          "Único"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1622483563222-3bf4fdebf7f5?w=1200&q=80",
+          "alt": "Agua de jamaica"
+        }
+      },
+      {
+        "id": "7",
+        "slug": "pack-fiesta",
+        "name": "Pack fiesta (12 tacos)",
+        "description": "Mix de barbacoa, pollo y calabaza. Guacamole y dos salsas.",
+        "price": 28,
+        "categoryId": "cat_tacos",
+        "collectionId": "col_catering",
+        "colors": [
+          "Único"
+        ],
+        "sizes": [
+          "Único"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=1200&q=80",
+          "alt": "Pack fiesta de tacos"
+        },
+        "badges": [
+          "featured"
+        ]
+      },
+      {
+        "id": "8",
+        "slug": "gorra-cantina",
+        "name": "Gorra Cantina Roja",
+        "description": "Gorra bordada con logo vintage. Ajustable. Algodón.",
+        "price": 18,
+        "categoryId": "cat_merch",
+        "collectionId": "col_catering",
+        "colors": [
+          "Único"
+        ],
+        "sizes": [
+          "Único"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1521369909029-2afed882baee?w=1200&q=80",
+          "alt": "Gorra roja con logo"
+        }
+      }
+    ]
+  },
+  "sections": {
+    "hero": {
+      "headline": "Tacos que no esperan",
+      "subheadline": "Barbacoa lentamente cocinada, salsas hechas a mano y packs para armar la fiesta en casa.",
+      "image": {
+        "url": "https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=1200&q=80",
+        "alt": "WG01 simple hero"
+      },
+      "ctaPrimary": {
+        "label": "Ver tienda",
+        "href": "/tienda"
+      },
+      "ctaSecondary": {
+        "label": "Historia",
+        "href": "/historia"
+      },
+      "carouselImages": []
+    },
+    "lanes": {
+      "eyebrow": "La ruta",
+      "title": "Tres calles de sabor",
+      "collectionIds": [
+        "col_ruta",
+        "col_picante",
+        "col_familia",
+        "col_catering"
+      ]
+    },
+    "salsaBar": {
+      "eyebrow": "Barra de salsas",
+      "title": "Picante con personalidad",
+      "body": "Preparamos cada salsa en lotes pequeños. Pregunta por el nivel y te guiamos.",
+      "steps": [
+        {
+          "id": "tostar",
+          "title": "Tostar chiles",
+          "body": "Aroma ahumado antes de moler."
+        },
+        {
+          "id": "balance",
+          "title": "Balance",
+          "body": "Ácido, sal y picante en la medida justa."
+        },
+        {
+          "id": "servir",
+          "title": "Servir fresco",
+          "body": "Sin conservantes: mejor en la semana."
+        }
+      ]
+    },
+    "mercado": {
+      "eyebrow": "Destacados",
+      "title": "Lo más pedido en la barra",
+      "productIds": [
+        "1",
+        "5",
+        "7"
+      ],
+      "viewAll": {
+        "label": "Ver tienda",
+        "href": "/tienda"
+      }
+    },
+    "fiesta": {
+      "eyebrow": "Catering",
+      "title": "Llevamos la fiesta a tu evento",
+      "body": "Tacos al vapor, barra de salsas y equipo que monta la mesa en minutos. Ideal para cumpleaños y oficinas.",
+      "cta": {
+        "label": "Nuestra historia",
+        "href": "/historia"
+      }
+    },
+    "merch": {
+      "eyebrow": "Merch",
+      "title": "Lleva el logo a la calle",
+      "body": "Gorras, camisetas y salsas extra para los que no pueden vivir sin picante.",
+      "productIds": [
+        "4",
+        "5",
+        "8"
+      ],
+      "cta": {
+        "label": "Ver merch",
+        "href": "/tienda?categoria=merch"
+      }
+    },
+    "shop": {
+      "eyebrow": "Tienda",
+      "title": "Tacos, salsas y más",
+      "description": "Todo lo que sale de la cantina: listo para comer o para armar tu mesa."
+    },
+    "about": {
+      "intro": {
+        "eyebrow": "Historia",
+        "title": "De un puesto de tacos a la cantina del barrio",
+        "body": "Cantina Roja empezó con una plancha y una salsa verde que no duraba el día. Hoy la misma energía en sala y en los packs para llevar."
+      },
+      "bannerImage": {
+        "url": "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=2400&q=80",
+        "alt": "Interior de cantina con neones y mesas"
+      },
+      "blocks": [
+        {
+          "id": "barra",
+          "title": "Barra viva",
+          "body": "Salsas que cambian según la temporada del chile."
+        },
+        {
+          "id": "musica",
+          "title": "Música y mesa",
+          "body": "Ambiente de barrio: compartir tacos y brindar con agua de jamaica."
+        },
+        {
+          "id": "catering",
+          "title": "Fiesta móvil",
+          "body": "Llevamos tacos al vapor y barra de salsas a tu evento."
+        }
+      ],
+      "locations": {
+        "eyebrow": "Encuéntranos",
+        "title": "Cantina y tienda",
+        "items": [
+          {
+            "city": "Ciudad",
+            "address": "Calle Revolución 142",
+            "hours": "Lun–Dom 11:00–00:00"
+          }
+        ]
+      },
+      "closing": {
+        "title": "Reserva catering",
+        "body": "Cuéntanos fecha y personas. Te mandamos menú y precio.",
+        "cta": {
+          "label": "Pedir info",
+          "href": "#"
+        }
+      }
+    },
+    "footer": {
+      "blurb": "Tacos, salsas picantes y merch de cantina. Fiesta en sala o en tu casa.",
+      "columns": [
+        {
+          "title": "Tienda",
+          "links": [
+            {
+              "label": "Todo",
+              "href": "/tienda"
+            },
+            {
+              "label": "Tacos",
+              "href": "/tienda?categoria=tacos"
+            },
+            {
+              "label": "Salsas",
+              "href": "/tienda?categoria=salsas"
+            },
+            {
+              "label": "Merch",
+              "href": "/tienda?categoria=merch"
+            }
+          ]
+        },
+        {
+          "title": "Cantina",
+          "links": [
+            {
+              "label": "Historia",
+              "href": "/historia"
+            },
+            {
+              "label": "Catering",
+              "href": "/historia#catering"
+            },
+            {
+              "label": "Contacto",
+              "href": "#"
+            }
+          ]
+        }
+      ],
+      "tagline": "Tacos y salsas con actitud.",
+      "copyrightName": "Cantina Roja"
+    }
+  },
+  "ui": {
+    "chrome": {
+      "openCart": "Abrir carrito",
+      "openCartWithCount": "Abrir carrito, {count} artículos",
+      "myAccount": "Mi cuenta",
+      "openMenu": "Abrir menú",
+      "closeMenu": "Cerrar menú",
+      "mainNavAria": "Principal",
+      "mobileNavAria": "Móvil",
+      "salesModeAria": "Modo de compra"
+    },
+    "account": {
+      "eyebrow": "Cuenta",
+      "loginTitle": "Iniciar sesión",
+      "registerTitle": "Crear cuenta",
+      "dashboardTitle": "Mi cuenta",
+      "emailLabel": "Correo electrónico",
+      "nameLabel": "Nombre",
+      "phoneLabel": "Teléfono",
+      "passwordLabel": "Contraseña",
+      "loginSubmit": "Entrar",
+      "loginSubmitting": "Entrando…",
+      "registerSubmit": "Registrarse",
+      "registerSubmitting": "Registrando…",
+      "logout": "Cerrar sesión",
+      "goToRegister": "Regístrate",
+      "goToLogin": "Inicia sesión",
+      "noAccountPrompt": "¿No tienes cuenta?",
+      "hasAccountPrompt": "¿Ya tienes cuenta?",
+      "googleSignIn": "Continuar con Google"
+    },
+    "listing": {
+      "searchLabel": "Buscar",
+      "searchPlaceholder": "Buscar…",
+      "allCategories": "Todo",
+      "loading": "Cargando…",
+      "loadMore": "Cargar más",
+      "loadingMore": "Cargando…",
+      "noSearchResults": "Sin resultados para esta búsqueda.",
+      "pieceSingular": "pieza",
+      "piecePlural": "piezas",
+      "collectionPrefix": "Colección:",
+      "clearFilter": "Quitar filtro"
+    },
+    "checkout": {
+      "pageTitle": "Checkout",
+      "customerSection": "Cliente",
+      "shippingSection": "Envío",
+      "paymentSection": "Pago",
+      "summarySection": "Resumen",
+      "fullNameRequired": "Indica tu nombre",
+      "emailRequired": "Indica tu correo",
+      "shippingMethodRequired": "Elige un método de envío",
+      "pickupBranchRequired": "Elige una tienda",
+      "paymentMethodRequired": "Elige un método de pago",
+      "phoneNumberLabel": "Número",
+      "discountCodeLabel": "Código",
+      "shippingLineLabel": "Envío",
+      "subtotalLabel": "Subtotal",
+      "totalLabel": "Total",
+      "emptyCartLabel": "Vaciar",
+      "removeLineLabel": "Eliminar",
+      "quantityLabel": "Cantidad",
+      "phoneCountryAria": "Código de país del teléfono",
+      "discountApply": "Aplicar",
+      "taxLabel": "Impuestos",
+      "hasDiscountCodeLabel": "Tengo un código de descuento",
+      "discountLineLabel": "Descuento"
+    },
+    "errors": {
+      "addToCartFailed": "No se pudo añadir al carrito",
+      "orderConfirmFailed": "No se pudo confirmar el pedido",
+      "catalogLoadFailed": "No se pudo cargar el catálogo."
+    },
+    "cart": {
+      "title": "Tu selección",
+      "empty": "Tu carrito está vacío.",
+      "exploreCta": "Explorar tienda",
+      "checkout": "Finalizar compra",
+      "shippingHint": "Envío calculado en el checkout"
+    },
+    "product": {
+      "addToCart": "Añadir al carrito",
+      "relatedTitle": "También te puede gustar",
+      "shippingNote": "2–4 días laborables",
+      "outOfStock": "Agotado",
+      "contact": "Consultar disponibilidad",
+      "lowStock": "Quedan pocas unidades",
+      "madeToOrderClosed": "Pedidos cerrados temporalmente",
+      "addingToCart": "Añadiendo…",
+      "priceBookLabel": "Precio del ejemplar",
+      "priceProgramLabel": "Inversión por plaza en la cohorte",
+      "stockInsufficientImmediate": "Solo tenemos {count} unidades para entrega inmediata.",
+      "stockInsufficientMadeToOrderHint": "Puedes pedir el resto bajo pedido con el plazo de preparación indicado.",
+      "stockExhaustedImmediateTitle": "Sin stock para entrega inmediata",
+      "stockExhaustedMadeToOrderAvailable": "Disponible a pedido",
+      "buyMadeToOrderCta": "Comprar bajo pedido",
+      "stockUpsellModalTitle": "Opciones de compra",
+      "badges": {
+        "new": "Nuevo",
+        "featured": "Destacado",
+        "sale": "Oferta",
+        "bestseller": "Más vendido",
+        "limitedEdition": "Edición limitada"
+      }
+    },
+    "shop": {
+      "empty": "No hay resultados con estos filtros.",
+      "clearFilter": "Quitar filtro"
+    },
+    "notFound": {
+      "title": "Página no encontrada",
+      "body": "Esta ruta no existe."
+    },
+    "salesMode": {
+      "stock": {
+        "navLabel": "Entrega inmediata",
+        "shopBanner": "Catálogo con entrega inmediata según disponibilidad.",
+        "cartLabel": "Compra con entrega inmediata"
+      },
+      "madeToOrder": {
+        "navLabel": "Bajo pedido",
+        "shopBanner": "Catálogo bajo pedido.",
+        "preparationLabel": "Preparación",
+        "closedMessage": "Ahora mismo no aceptamos pedidos a medida.",
+        "reopensPrefix": "Volvemos",
+        "cartLabel": "Compra bajo pedido",
+        "cartClosedWarning": "Los pedidos a medida están cerrados temporalmente."
+      },
+      "nav": [
+        {
+          "salesMode": "stock",
+          "label": "Entrega inmediata",
+          "href": "/tienda?salesMode=stock"
+        },
+        {
+          "salesMode": "madeToOrder",
+          "label": "Bajo pedido",
+          "href": "/tienda?salesMode=madeToOrder"
+        }
+      ]
+    }
+  }
+}

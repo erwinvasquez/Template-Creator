@@ -1,0 +1,678 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "academy-voxa-v1",
+  "templateVersion": "1.0.0",
+  "brand": {
+    "name": "Voxa",
+    "displayName": "VOXA",
+    "tagline": "Entrena tu voz. Sostén tu idea.",
+    "locale": "es-ES",
+    "currency": "EUR"
+  },
+  "theme": {
+    "colors": {
+      "primary": "#14213D",
+      "secondary": "#3A506B",
+      "cta": "#0D9488",
+      "ctaHover": "#0F766E",
+      "background": "#F4F6F8",
+      "surface": "#E8EEF2",
+      "text": "#12141A",
+      "muted": "#5C6570",
+      "border": "#D5DDE5",
+      "ink": "#0B1220"
+    }
+  },
+  "features": {
+    "cart": true,
+    "appointment": false,
+    "account": true,
+    "newsletter": false,
+    "accountBasePath": "/cuenta"
+  },
+  "navigation": {
+    "primary": [
+      {
+        "type": "path",
+        "label": "Catálogo",
+        "href": "/catalogo"
+      },
+      {
+        "type": "shopFilter",
+        "label": "Oratoria",
+        "categorySlug": "oratoria"
+      },
+      {
+        "type": "shopFilter",
+        "label": "Liderazgo",
+        "categorySlug": "liderazgo"
+      },
+      {
+        "type": "path",
+        "label": "Academia",
+        "href": "/academia"
+      }
+    ]
+  },
+  "seo": {
+    "titleTemplate": "%s · Voxa",
+    "default": {
+      "title": "Voxa — Academia de oratoria y comunicación estratégica",
+      "description": "Programas de oratoria, liderazgo, marca personal y defensa de tesis. Entrenamiento en vivo, feedback grabado y libros de la editorial Voxa.",
+      "openGraph": {
+        "title": "Voxa — Academia de oratoria y comunicación estratégica",
+        "description": "Entrena tu voz, estructura tu mensaje y defiende tus ideas con criterio."
+      }
+    },
+    "pages": {
+      "shop": {
+        "title": "Catálogo",
+        "description": "Catálogo Voxa: programas de oratoria, liderazgo, marca personal y libros de la editorial."
+      },
+      "academia": {
+        "title": "Academia",
+        "description": "Quiénes somos, cómo entrenamos y quién forma parte del claustro Voxa."
+      }
+    }
+  },
+  "catalog": {
+    "categories": [
+      {
+        "id": "cat_oratoria",
+        "slug": "oratoria",
+        "label": "Oratoria"
+      },
+      {
+        "id": "cat_liderazgo",
+        "slug": "liderazgo",
+        "label": "Liderazgo"
+      },
+      {
+        "id": "cat_marca",
+        "slug": "marca-personal",
+        "label": "Marca personal"
+      },
+      {
+        "id": "cat_libros",
+        "slug": "libros",
+        "label": "Libros"
+      }
+    ],
+    "collections": [
+      {
+        "id": "col_fundamentos",
+        "slug": "fundamentos",
+        "name": "Itinerario Fundamentos",
+        "description": "Primeros programas: estructura, respiración, presencia y manejo del miedo escénico.",
+        "image": {
+          "url": "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=1600&q=80",
+          "alt": "Grupo de participantes tomando notas en una sesión de formación"
+        }
+      },
+      {
+        "id": "col_avanzado",
+        "slug": "avanzado",
+        "name": "Itinerario Avanzado",
+        "description": "Programas de alto impacto: escenario, negociación, liderazgo y contenido en vídeo.",
+        "image": {
+          "url": "https://images.unsplash.com/photo-1552664730-d307ca884978?w=1600&q=80",
+          "alt": "Equipo trabajando frente a una pizarra durante un taller"
+        }
+      },
+      {
+        "id": "col_editorial",
+        "slug": "editorial-libros",
+        "name": "Editorial Voxa",
+        "description": "Libros y cuadernos de ejercicios escritos por el claustro de la academia.",
+        "image": {
+          "url": "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=1600&q=80",
+          "alt": "Estantería con libros de comunicación y oratoria"
+        }
+      }
+    ],
+    "products": [
+      {
+        "id": "1",
+        "slug": "oratoria-esencial",
+        "name": "Oratoria Esencial",
+        "description": "El programa de entrada de la academia. Seis semanas para estructurar un mensaje, respirar con criterio y sostener la mirada frente a una sala. Cada sesión incluye práctica grabada y feedback individual por escrito.",
+        "price": 390,
+        "categoryId": "cat_oratoria",
+        "collectionId": "col_fundamentos",
+        "metals": [
+          "Online",
+          "Presencial"
+        ],
+        "sizes": [
+          "6 semanas",
+          "Nivel inicial"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=1200&q=80",
+          "alt": "Ponente dirigiéndose a una audiencia en un auditorio"
+        },
+        "hoverImage": {
+          "url": "https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=1200&q=80",
+          "alt": "Participantes practicando en grupo durante una sesión"
+        }
+      },
+      {
+        "id": "2",
+        "slug": "voz-y-escenario",
+        "name": "Voz y Escenario",
+        "description": "Ocho semanas de entrenamiento vocal y presencia escénica: proyección, ritmo, silencios y uso del espacio. Trabajamos con micrófono, atril y escenario real desde la segunda sesión.",
+        "price": 540,
+        "categoryId": "cat_oratoria",
+        "collectionId": "col_avanzado",
+        "metals": [
+          "Presencial"
+        ],
+        "sizes": [
+          "8 semanas",
+          "Nivel intermedio"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1560439514-4e9645039924?w=1200&q=80",
+          "alt": "Persona hablando sobre un escenario iluminado"
+        },
+        "badges": [
+          "limited"
+        ]
+      },
+      {
+        "id": "3",
+        "slug": "defensa-de-tesis",
+        "name": "Defensa de Tesis",
+        "description": "Intensivo de cuatro semanas para defensas académicas y comités. Ordenamos el argumento, anticipamos preguntas difíciles y ensayamos la defensa completa con cronómetro y tribunal simulado.",
+        "price": 290,
+        "categoryId": "cat_oratoria",
+        "collectionId": "col_fundamentos",
+        "metals": [
+          "Online"
+        ],
+        "sizes": [
+          "4 semanas",
+          "Intensivo"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1200&q=80",
+          "alt": "Aula universitaria durante una presentación"
+        },
+        "badges": [
+          "new"
+        ]
+      },
+      {
+        "id": "4",
+        "slug": "liderazgo-que-persuade",
+        "name": "Liderazgo que Persuade",
+        "description": "Diez semanas para quienes ya dirigen equipos: conversaciones difíciles, reuniones que deciden, comités y comunicación de cambio. Incluye dos sesiones individuales de estrategia con un formador senior.",
+        "price": 720,
+        "categoryId": "cat_liderazgo",
+        "collectionId": "col_avanzado",
+        "metals": [
+          "Online",
+          "Presencial"
+        ],
+        "sizes": [
+          "10 semanas",
+          "Nivel avanzado"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1200&q=80",
+          "alt": "Equipo de trabajo reunido alrededor de una mesa"
+        }
+      },
+      {
+        "id": "5",
+        "slug": "storytelling-corporativo",
+        "name": "Storytelling Corporativo",
+        "description": "Programa para equipos completos: relato de marca, casos de cliente y narrativa de producto. Salimos con una biblioteca de historias lista para usar en ventas y en escenario.",
+        "price": 610,
+        "categoryId": "cat_liderazgo",
+        "collectionId": "col_avanzado",
+        "metals": [
+          "Presencial"
+        ],
+        "sizes": [
+          "8 semanas",
+          "Equipos"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1200&q=80",
+          "alt": "Equipo colaborando en una sesión de trabajo"
+        }
+      },
+      {
+        "id": "6",
+        "slug": "marca-personal-en-video",
+        "name": "Marca Personal en Vídeo",
+        "description": "Seis semanas para hablar a cámara sin sonar a guion: mensaje, encuadre, edición mínima y calendario de publicación. Terminas con seis piezas grabadas y publicadas.",
+        "price": 460,
+        "categoryId": "cat_marca",
+        "collectionId": "col_avanzado",
+        "metals": [
+          "Online"
+        ],
+        "sizes": [
+          "6 semanas",
+          "Nivel intermedio"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?w=1200&q=80",
+          "alt": "Set de grabación con micrófono y cámara"
+        },
+        "badges": [
+          "new"
+        ]
+      },
+      {
+        "id": "7",
+        "slug": "la-voz-que-convence",
+        "name": "La voz que convence",
+        "description": "El libro base de la academia: 248 páginas sobre estructura del mensaje, gestión del miedo y presencia. Incluye 40 ejercicios y las plantillas que usamos en clase.",
+        "price": 24,
+        "categoryId": "cat_libros",
+        "collectionId": "col_editorial",
+        "metals": [
+          "Digital",
+          "Impreso"
+        ],
+        "sizes": [
+          "248 páginas",
+          "Tapa blanda"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=1200&q=80",
+          "alt": "Libro abierto sobre una mesa de madera"
+        }
+      },
+      {
+        "id": "8",
+        "slug": "cuaderno-de-oratoria",
+        "name": "Cuaderno de oratoria",
+        "description": "Cuaderno de trabajo con 120 páginas de ejercicios pautados: calentamiento vocal, guiones de apertura y registro de ensayos. Diseñado para acompañar cualquier programa Voxa.",
+        "price": 19,
+        "categoryId": "cat_libros",
+        "collectionId": "col_editorial",
+        "metals": [
+          "Impreso"
+        ],
+        "sizes": [
+          "120 páginas",
+          "Ejercicios"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1495446815901-a7297e633e8d?w=1200&q=80",
+          "alt": "Cuaderno y libros apilados sobre una mesa"
+        }
+      },
+      {
+        "id": "9",
+        "slug": "hablar-en-publico-sin-miedo",
+        "name": "Hablar en público sin miedo",
+        "description": "Ensayo breve sobre la fisiología del miedo escénico y qué hacer con ella. 190 páginas con protocolos de respiración y rutinas previas a escenario.",
+        "price": 21,
+        "categoryId": "cat_libros",
+        "collectionId": "col_editorial",
+        "metals": [
+          "Digital"
+        ],
+        "sizes": [
+          "190 páginas",
+          "Ebook"
+        ],
+        "image": {
+          "url": "https://images.unsplash.com/photo-1512820790803-83ca734da794?w=1200&q=80",
+          "alt": "Libros de la editorial sobre una estantería"
+        },
+        "badges": [
+          "new"
+        ]
+      }
+    ]
+  },
+  "sections": {
+    "hero": {
+      "headline": "Tu idea merece una voz entrenada",
+      "subheadline": "Academia de oratoria, comunicación estratégica y liderazgo. Programas en vivo con práctica grabada, feedback individual y una editorial propia.",
+      "image": {
+        "url": "https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=1200&q=80",
+        "alt": "ignored"
+      },
+      "ctaPrimary": {
+        "label": "Ver catálogo",
+        "href": "/catalogo"
+      },
+      "ctaSecondary": {
+        "label": "Conocer la academia",
+        "href": "/academia"
+      },
+      "carouselImages": [
+        {
+          "url": "https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=1200&q=80",
+          "alt": "slide 0"
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1200&q=80",
+          "alt": "slide 1"
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=1200&q=80",
+          "alt": "slide 2"
+        }
+      ],
+      "carouselIntervalMs": 2000
+    },
+    "programs": {
+      "eyebrow": "Programas destacados",
+      "title": "Tres formas de empezar a entrenar",
+      "productIds": [
+        "1",
+        "2",
+        "4"
+      ]
+    },
+    "method": {
+      "eyebrow": "Metodología",
+      "title": "Cómo entrenamos en Voxa",
+      "body": "No damos teoría suelta: cada semana hablas, te grabas y recibes correcciones concretas sobre tu propio material.",
+      "steps": [
+        {
+          "id": "diagnostico",
+          "title": "Diagnóstico",
+          "body": "Grabamos una intervención inicial de tres minutos y marcamos qué sostiene tu mensaje y qué lo desordena."
+        },
+        {
+          "id": "estructura",
+          "title": "Estructura",
+          "body": "Construimos el argumento antes que el estilo: tesis, evidencia y cierre. Sin plantillas genéricas."
+        },
+        {
+          "id": "entrenamiento",
+          "title": "Entrenamiento en vivo",
+          "body": "Sesiones semanales con práctica frente a grupo, corrección de voz y trabajo de presencia y silencios."
+        },
+        {
+          "id": "escenario",
+          "title": "Escenario final",
+          "body": "Cierras el programa con una intervención real ante público, grabada en vídeo y evaluada por el claustro."
+        }
+      ]
+    },
+    "outcomes": {
+      "eyebrow": "Resultados",
+      "title": "Lo que cambia al terminar",
+      "body": "Nuestros participantes llegan buscando perder el miedo y se van con un método propio para preparar cualquier intervención en menos de una hora.",
+      "bullets": [
+        "Preparas una intervención de diez minutos con estructura clara y sin leer",
+        "Sostienes preguntas incómodas sin perder el hilo ni el tono",
+        "Ajustas voz, ritmo y silencios según la sala y el formato",
+        "Defiendes tesis, propuestas y presupuestos ante comités exigentes",
+        "Publicas contenido a cámara con criterio y calendario sostenible"
+      ],
+      "image": {
+        "url": "https://images.unsplash.com/photo-1543269865-cbf427effbad?w=1600&q=80",
+        "alt": "Participantes de un programa trabajando en grupo alrededor de una mesa"
+      }
+    },
+    "books": {
+      "eyebrow": "Editorial Voxa",
+      "title": "Libros que acompañan el entrenamiento",
+      "productIds": [
+        "7",
+        "8",
+        "9"
+      ],
+      "cta": {
+        "label": "Ver la editorial",
+        "href": "/catalogo?categoria=libros"
+      }
+    },
+    "shop": {
+      "eyebrow": "Catálogo",
+      "title": "Programas y libros",
+      "description": "Oratoria, liderazgo, marca personal y editorial. Filtra por categoría o por itinerario para encontrar tu punto de partida."
+    },
+    "about": {
+      "intro": {
+        "eyebrow": "La academia",
+        "title": "Formamos a quienes tienen algo que defender",
+        "body": "Voxa nace en Madrid en 2017 como taller de oratoria para investigadores en plena defensa de tesis. Hoy entrenamos a más de 1.200 personas al año: científicos, fundadores, abogados y equipos directivos que necesitan sostener una idea difícil delante de gente exigente."
+      },
+      "bannerImage": {
+        "url": "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=2400&q=85",
+        "alt": "Sesión de formación en un aula con formadora y participantes"
+      },
+      "blocks": [
+        {
+          "id": "criterio",
+          "title": "Criterio antes que carisma",
+          "body": "No enseñamos a imitar a nadie. Trabajamos sobre tu material real —tu tesis, tu comité, tu ronda de inversión— y ajustamos estructura, voz y presencia a lo que necesitas defender."
+        },
+        {
+          "id": "grupos",
+          "title": "Grupos de doce personas",
+          "body": "Cada cohorte se cierra en doce participantes para que todos hablen en cada sesión. El feedback llega por escrito en 48 horas, con la grabación marcada minuto a minuto."
+        }
+      ],
+      "faculty": {
+        "eyebrow": "Claustro",
+        "title": "Quién entrena contigo",
+        "items": [
+          {
+            "name": "Elena Sarabia",
+            "role": "Directora académica",
+            "focus": "Oratoria científica y defensas de tesis"
+          },
+          {
+            "name": "Marc Oliveras",
+            "role": "Formador senior",
+            "focus": "Voz, escenario y comunicación de crisis"
+          },
+          {
+            "name": "Lucía Ferrán",
+            "role": "Formadora de liderazgo",
+            "focus": "Comités, negociación y comunicación de cambio"
+          }
+        ]
+      },
+      "closing": {
+        "title": "Empieza por un diagnóstico",
+        "body": "Elige un programa y entra a la próxima cohorte. Las plazas se cierran en doce participantes.",
+        "cta": {
+          "label": "Ver catálogo",
+          "href": "/catalogo"
+        }
+      }
+    },
+    "footer": {
+      "blurb": "Academia de oratoria y comunicación estratégica. Entrenamiento en vivo, feedback grabado y editorial propia.",
+      "columns": [
+        {
+          "title": "Catálogo",
+          "links": [
+            {
+              "label": "Oratoria",
+              "href": "/catalogo?categoria=oratoria"
+            },
+            {
+              "label": "Liderazgo",
+              "href": "/catalogo?categoria=liderazgo"
+            },
+            {
+              "label": "Marca personal",
+              "href": "/catalogo?categoria=marca-personal"
+            },
+            {
+              "label": "Libros",
+              "href": "/catalogo?categoria=libros"
+            }
+          ]
+        },
+        {
+          "title": "Academia",
+          "links": [
+            {
+              "label": "Sobre Voxa",
+              "href": "/academia"
+            },
+            {
+              "label": "Claustro",
+              "href": "/academia#claustro"
+            },
+            {
+              "label": "Contacto",
+              "href": "#"
+            }
+          ]
+        }
+      ],
+      "tagline": "Entrena tu voz. Sostén tu idea.",
+      "copyrightName": "Voxa"
+    }
+  },
+  "ui": {
+    "chrome": {
+      "openCart": "Abrir carrito",
+      "openCartWithCount": "Abrir carrito, {count} artículos",
+      "myAccount": "Mi cuenta",
+      "openMenu": "Abrir menú",
+      "closeMenu": "Cerrar menú",
+      "mainNavAria": "Principal",
+      "mobileNavAria": "Móvil",
+      "salesModeAria": "Modo de compra"
+    },
+    "account": {
+      "eyebrow": "Cuenta",
+      "loginTitle": "Iniciar sesión",
+      "registerTitle": "Crear cuenta",
+      "dashboardTitle": "Mi cuenta",
+      "emailLabel": "Correo electrónico",
+      "nameLabel": "Nombre",
+      "phoneLabel": "Teléfono",
+      "passwordLabel": "Contraseña",
+      "loginSubmit": "Entrar",
+      "loginSubmitting": "Entrando…",
+      "registerSubmit": "Registrarse",
+      "registerSubmitting": "Registrando…",
+      "logout": "Cerrar sesión",
+      "goToRegister": "Regístrate",
+      "goToLogin": "Inicia sesión",
+      "noAccountPrompt": "¿No tienes cuenta?",
+      "hasAccountPrompt": "¿Ya tienes cuenta?",
+      "googleSignIn": "Continuar con Google"
+    },
+    "listing": {
+      "searchLabel": "Buscar",
+      "searchPlaceholder": "Buscar…",
+      "allCategories": "Todo",
+      "loading": "Cargando…",
+      "loadMore": "Cargar más",
+      "loadingMore": "Cargando…",
+      "noSearchResults": "Sin resultados para esta búsqueda.",
+      "pieceSingular": "pieza",
+      "piecePlural": "piezas",
+      "collectionPrefix": "Colección:",
+      "clearFilter": "Quitar filtro"
+    },
+    "checkout": {
+      "pageTitle": "Checkout",
+      "customerSection": "Cliente",
+      "shippingSection": "Envío",
+      "paymentSection": "Pago",
+      "summarySection": "Resumen",
+      "fullNameRequired": "Indica tu nombre",
+      "emailRequired": "Indica tu correo",
+      "shippingMethodRequired": "Elige un método de envío",
+      "pickupBranchRequired": "Elige una tienda",
+      "paymentMethodRequired": "Elige un método de pago",
+      "phoneNumberLabel": "Número",
+      "discountCodeLabel": "Código",
+      "shippingLineLabel": "Envío",
+      "subtotalLabel": "Subtotal",
+      "totalLabel": "Total",
+      "emptyCartLabel": "Vaciar",
+      "removeLineLabel": "Eliminar",
+      "quantityLabel": "Cantidad",
+      "phoneCountryAria": "Código de país del teléfono",
+      "discountApply": "Aplicar",
+      "taxLabel": "Impuestos",
+      "hasDiscountCodeLabel": "Tengo un código de descuento",
+      "discountLineLabel": "Descuento"
+    },
+    "errors": {
+      "addToCartFailed": "No se pudo añadir al carrito",
+      "orderConfirmFailed": "No se pudo confirmar el pedido",
+      "catalogLoadFailed": "No se pudo cargar el catálogo."
+    },
+    "cart": {
+      "title": "Tu inscripción",
+      "empty": "Aún no has añadido programas.",
+      "exploreCta": "Ver catálogo",
+      "checkout": "Finalizar compra",
+      "shippingHint": "Acceso inmediato al aula tras la confirmación"
+    },
+    "product": {
+      "addToCart": "Inscribirme",
+      "relatedTitle": "Otros programas de esta categoría",
+      "shippingNote": "Plazas limitadas a 12 participantes por cohorte. Acceso al aula el mismo día de la confirmación.",
+      "outOfStock": "Agotado",
+      "contact": "Consultar próxima cohorte",
+      "lowStock": "Últimas plazas",
+      "madeToOrderClosed": "Inscripciones cerradas temporalmente",
+      "addingToCart": "Añadiendo…",
+      "priceBookLabel": "Precio del ejemplar",
+      "priceProgramLabel": "Inversión por plaza en la cohorte",
+      "stockInsufficientImmediate": "Solo tenemos {count} unidades para entrega inmediata.",
+      "stockInsufficientMadeToOrderHint": "Puedes pedir el resto bajo pedido con el plazo de preparación indicado.",
+      "stockExhaustedImmediateTitle": "Sin stock para entrega inmediata",
+      "stockExhaustedMadeToOrderAvailable": "Disponible a pedido",
+      "buyMadeToOrderCta": "Comprar bajo pedido",
+      "stockUpsellModalTitle": "Opciones de compra",
+      "badges": {
+        "new": "Nueva cohorte",
+        "featured": "Destacado",
+        "sale": "Oferta",
+        "bestseller": "Más elegido",
+        "limitedEdition": "Plazas limitadas"
+      }
+    },
+    "shop": {
+      "empty": "No hay programas con estos filtros.",
+      "clearFilter": "Quitar filtro"
+    },
+    "notFound": {
+      "title": "Página no encontrada",
+      "body": "Esta ruta no existe en Voxa."
+    },
+    "salesMode": {
+      "stock": {
+        "navLabel": "Entrega inmediata",
+        "shopBanner": "Catálogo con entrega inmediata según disponibilidad.",
+        "cartLabel": "Compra con entrega inmediata"
+      },
+      "madeToOrder": {
+        "navLabel": "Bajo pedido",
+        "shopBanner": "Catálogo bajo pedido.",
+        "preparationLabel": "Preparación",
+        "closedMessage": "Ahora mismo no aceptamos pedidos a medida.",
+        "reopensPrefix": "Volvemos",
+        "cartLabel": "Compra bajo pedido",
+        "cartClosedWarning": "Los pedidos a medida están cerrados temporalmente. No podrás completar el checkout hasta que reabran."
+      },
+      "nav": [
+        {
+          "salesMode": "stock",
+          "label": "Entrega inmediata",
+          "href": "/catalogo?salesMode=stock"
+        },
+        {
+          "salesMode": "madeToOrder",
+          "label": "Bajo pedido",
+          "href": "/catalogo?salesMode=madeToOrder"
+        }
+      ]
+    }
+  }
+}

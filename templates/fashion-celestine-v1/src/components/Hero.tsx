@@ -1,9 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useSiteContent } from "../lib/site-content";
-import { resolveMediaUrl, withBasePath } from "../content/resolve";
+import { withBasePath } from "../content/resolve";
+import { HeroCarouselMedia } from "../lib/hero-carousel";
 
 export function Hero() {
   const { payload, basePath } = useSiteContent();
@@ -12,17 +12,19 @@ export function Hero() {
 
   return (
     <section className="relative h-[100svh] min-h-[640px] w-full overflow-hidden bg-ink">
-      <Image
-        src={resolveMediaUrl(hero.image, payload.media)}
-        alt={hero.image.alt}
-        fill
-        priority
-        data-wb-slot="hero.image"
-        className="animate-soft-drift object-cover object-center opacity-80"
+      <HeroCarouselMedia
+
+        hero={hero}
+
+        media={payload.media}
+
+        className="animate-soft-drift object-cover opacity-80"
+
         sizes="100vw"
+
       />
-      <div className="celestine-hero-scrim absolute inset-0" />
-      <div className="celestine-hero-veil pointer-events-none absolute inset-0" />
+<div className="pointer-events-none z-[1] celestine-hero-scrim absolute inset-0" />
+      <div className="celestine-hero-veil pointer-events-none z-[1] absolute inset-0" />
 
       <div className="relative z-10 mx-auto flex h-full max-w-7xl flex-col justify-end px-6 pb-16 pt-32 md:px-10 md:pb-24">
         <p className="celestine-wordmark animate-fade-up text-4xl text-white/95 md:text-6xl lg:text-7xl">

@@ -404,7 +404,8 @@
       "ctaSecondary": {
         "label": "Primavera Suave",
         "href": "/tienda?coleccion=primavera-suave"
-      }
+      },
+      "carouselImages": []
     },
     "wardrobe": {
       "eyebrow": "Guardarropa",
