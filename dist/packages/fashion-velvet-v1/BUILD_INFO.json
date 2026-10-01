@@ -1,9 +1,9 @@
 {
   "templateId": "fashion-velvet-v1",
   "version": "1.0.0",
-  "exportedAt": "2026-10-01T13:40:39.282Z",
-  "contentHash": "3f80bbf6713640ae074f5b81e1d26bc5a0860828153cfb441eb3845f3a649884",
-  "sourceGitSha": "fdfa3534d5b36e9c714adbe457a293177f002830",
+  "exportedAt": "1970-01-01T00:00:00.000Z",
+  "contentHash": "772549f7bbbca67f44c86b6eec97621f26959b6ce91c10141a7687eac1290499",
+  "sourceGitSha": "cb27f99f6f672e249bb32b6d8316bb399ef30766",
   "immutable": true,
   "source": "templates/fashion-velvet-v1"
 }
