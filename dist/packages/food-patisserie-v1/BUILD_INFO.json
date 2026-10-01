@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "exportedAt": "2026-10-01T13:41:15.463Z",
   "contentHash": "a06c8798a8194ac7ab4314f8e15f0f30309a1d9acebf56ec4f441c3e824bfa2f",
-  "sourceGitSha": "d28f084d6d75b0a58abdb100ae153cd6c9c587b8",
+  "sourceGitSha": "66f2535a5dab780b65ffd010a369b7110da0ccdd",
   "immutable": true,
   "source": "templates/food-patisserie-v1"
 }
