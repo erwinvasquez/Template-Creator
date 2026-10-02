@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "exportedAt": "2026-10-02T04:34:22.764Z",
   "contentHash": "84ae62400cad86b374aae142a4c887c111ae314d75ad8e744de61b0e1ef96ed0",
-  "sourceGitSha": "2d84b05543658c1486cc37f56016445223ff6bbb",
+  "sourceGitSha": "664356ba43af622b788c1587e24d024173e47e7a",
   "immutable": true,
   "source": "templates/academy-voxa-v1"
 }

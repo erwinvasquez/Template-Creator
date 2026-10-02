@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "exportedAt": "2026-10-02T04:34:20.534Z",
   "contentHash": "476ba218e27ff00734c68d9aa53dbd5bdbf77ee38c9778ed021d48052c51b685",
-  "sourceGitSha": "2d84b05543658c1486cc37f56016445223ff6bbb",
+  "sourceGitSha": "664356ba43af622b788c1587e24d024173e47e7a",
   "immutable": true,
   "source": "templates/fashion-lumen-v1"
 }

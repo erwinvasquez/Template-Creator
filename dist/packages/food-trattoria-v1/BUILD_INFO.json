@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "exportedAt": "2026-10-02T04:34:23.309Z",
   "contentHash": "172ec746694898e3eb33657a69c68a2b792f2e51c52c04af0c114afb3fc29822",
-  "sourceGitSha": "2d84b05543658c1486cc37f56016445223ff6bbb",
+  "sourceGitSha": "664356ba43af622b788c1587e24d024173e47e7a",
   "immutable": true,
   "source": "templates/food-trattoria-v1"
 }
