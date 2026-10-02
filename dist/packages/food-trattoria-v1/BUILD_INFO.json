@@ -1,8 +1,9 @@
 {
   "templateId": "food-trattoria-v1",
   "version": "1.0.0",
-  "exportedAt": "2026-10-02T01:15:45.968Z",
-  "contentHash": "2447becc00da8c886f002558a4716c652856dc5c57bcfa51fb8d2b00a4c87cde",
+  "exportedAt": "2026-10-02T01:39:36.870Z",
+  "contentHash": "b12ab054bb5133a7895a2825745c7223e4613212705b8117695e13830917e615",
+  "sourceGitSha": "cb8024fdf5027059ff9281d0095408a0e0a762dc",
   "immutable": true,
   "source": "templates/food-trattoria-v1"
 }

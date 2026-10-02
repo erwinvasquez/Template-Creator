@@ -1,8 +1,8 @@
 {
   "packageId": "template-content-contract",
   "version": "1.0.0",
-  "exportedAt": "2026-10-02T01:15:39.844Z",
-  "contentHash": "e8775bb0a1524b7c4f09d636c4919add2d90aa126f4fa3172691b0ce7965226c",
+  "exportedAt": "2026-10-02T01:39:31.670Z",
+  "contentHash": "2b01b266e0ebd0445927326bab44aae2d1d8c51027fa2cb6ab6f15f97c386a0b",
   "immutable": true,
   "source": "packages/template-content-contract",
   "artifacts": [
