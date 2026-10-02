@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "exportedAt": "2026-10-02T01:39:34.346Z",
   "contentHash": "6702937e363aeab92f0604f678e1803f13e2373bd50dbb13152724fdecf6b99c",
-  "sourceGitSha": "cb8024fdf5027059ff9281d0095408a0e0a762dc",
+  "sourceGitSha": "83d8996258d8ee367b19a0d89da79fe3baffae87",
   "immutable": true,
   "source": "templates/fashion-velvet-v1"
 }

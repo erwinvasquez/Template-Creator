@@ -3,7 +3,7 @@
   "version": "1.3.0",
   "exportedAt": "2026-10-02T01:39:32.427Z",
   "contentHash": "d353e9db25a45e53129836c4a846299d15b849675ab8c95b035b70bf19089127",
-  "sourceGitSha": "cb8024fdf5027059ff9281d0095408a0e0a762dc",
+  "sourceGitSha": "83d8996258d8ee367b19a0d89da79fe3baffae87",
   "immutable": true,
   "source": "templates/fashion-atelier-v1"
 }

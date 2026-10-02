@@ -8,5 +8,6 @@
   "artifacts": [
     "uiCopy.schema.json",
     "uiCopy.defaults.seed.json"
-  ]
+  ],
+  "sourceGitSha": "83d8996258d8ee367b19a0d89da79fe3baffae87"
 }
