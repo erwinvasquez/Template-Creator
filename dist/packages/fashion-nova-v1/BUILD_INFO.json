@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "exportedAt": "2026-10-02T04:09:47.751Z",
   "contentHash": "964ea955f39201268a061959c8f7881a4a9a70db08f047a7b2d3f19ede14fab5",
-  "sourceGitSha": "7f202ff1b137b993b9b15e57ade2f8a4a97bee6b",
+  "sourceGitSha": "718ba8b4d576c6ed3103941dab46957ceaa42b96",
   "immutable": true,
   "source": "templates/fashion-nova-v1"
 }
