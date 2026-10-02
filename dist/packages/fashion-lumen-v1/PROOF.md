@@ -177,7 +177,7 @@ npm test -- src/commerce/tests/ProductDetailCommerceView.test.tsx
 |-----------|-------|
 | sections.* slots | 39 |
 | list slots | 4 |
-| ui.* leaves (defaults) | 109 |
+| ui.* leaves (defaults) | 110 |
 | data-wb-slot ids | 39 |
 | catalogBindings | 2 |
 

@@ -138,7 +138,7 @@ npm run dev
 |-----------|-------|
 | sections.* slots | 41 |
 | list slots | 5 |
-| ui.* leaves (defaults) | 109 |
+| ui.* leaves (defaults) | 110 |
 | data-wb-slot ids | 41 |
 | catalogBindings | 3 |
 
