@@ -1,13 +1,12 @@
 {
   "packageId": "template-content-contract",
   "version": "1.0.0",
-  "exportedAt": "2026-10-02T04:09:44.998Z",
-  "contentHash": "2b01b266e0ebd0445927326bab44aae2d1d8c51027fa2cb6ab6f15f97c386a0b",
+  "exportedAt": "2026-10-02T04:34:18.892Z",
+  "contentHash": "6cb87a165437b41e26c91b1ec461b67ce20a50cdb22c8d2779a58d7734628fcf",
   "immutable": true,
   "source": "packages/template-content-contract",
   "artifacts": [
     "uiCopy.schema.json",
     "uiCopy.defaults.seed.json"
-  ],
-  "sourceGitSha": "718ba8b4d576c6ed3103941dab46957ceaa42b96"
+  ]
 }

@@ -681,7 +681,8 @@
           "label": "Confección a medida",
           "href": "/coleccion?salesMode=madeToOrder"
         }
-      ]
+      ],
+      "entryPrompt": "¿Qué catálogo querés ver?"
     }
   }
 }

@@ -7,6 +7,10 @@ import type {
   ProductFilterViewModel,
   SalesMode,
 } from "@shopenlinea/commerce-runtime-contract";
+import {
+  buildCatalogSalesModeEntryOptions,
+  salesModeSwitchLinkClassName,
+} from "@shopenlinea/commerce-runtime-contract";
 import { useCommerceCapabilities } from "../../lib/commerce-host";
 import { useSiteContent } from "../../lib/site-content";
 import { requireUi } from "../../lib/ui";
@@ -17,7 +21,7 @@ import {
 } from "../../lib/sales-mode";
 
 /** Keep lab flags (dualSalesMode) and catalog filters when switching mode. */
-function modeHref(
+export function modeHref(
   basePath: string,
   mode: SalesMode,
   searchParams: URLSearchParams,
@@ -39,8 +43,11 @@ export function SalesModeShopSwitch() {
 
   if (!showsSalesModeChrome(capabilities)) return null;
 
-  const nav = ui.salesMode.nav;
-  if (!nav.length) return null;
+  const entryOptions = buildCatalogSalesModeEntryOptions(
+    ui.salesMode,
+    (mode) => modeHref(basePath, mode, searchParams),
+  );
+  if (entryOptions.length < 2) return null;
 
   const activeMode =
     parseSalesModeQuery(searchParams.get(SHOP_QUERY.salesMode)) ?? "stock";
@@ -49,9 +56,9 @@ export function SalesModeShopSwitch() {
     <div
       role="tablist"
       aria-label={ui.chrome.salesModeAria}
-      className="flex shrink-0 flex-wrap items-center justify-end gap-x-3"
+      className="flex shrink-0 flex-wrap items-center justify-end gap-x-3 min-w-0"
     >
-      {nav.map((item, i) => {
+      {entryOptions.map((item, i) => {
         const active = activeMode === item.salesMode;
         return (
           <span key={item.salesMode} className="flex items-center gap-x-3">
@@ -63,10 +70,10 @@ export function SalesModeShopSwitch() {
             <Link
               role="tab"
               aria-selected={active}
-              href={modeHref(basePath, item.salesMode, searchParams)}
-              className={`cursor-pointer text-[11px] font-medium uppercase tracking-[0.2em] transition-colors duration-200 ${
-                active ? "text-primary" : "text-muted hover:text-primary"
-              }`}
+              aria-current={active ? "page" : undefined}
+              data-sales-mode-active={active ? "true" : undefined}
+              href={item.href}
+              className={salesModeSwitchLinkClassName(active)}
             >
               {item.label}
             </Link>

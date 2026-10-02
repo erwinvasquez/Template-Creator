@@ -631,7 +631,8 @@
           "label": "Bajo pedido",
           "href": "/menu?salesMode=madeToOrder"
         }
-      ]
+      ],
+      "entryPrompt": "¿Qué catálogo querés ver?"
     }
   }
 }
