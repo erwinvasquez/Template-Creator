@@ -14,9 +14,17 @@ import type {
   HostCheckoutRadioOptionProps,
   HostCheckoutSummaryLineProps,
 } from "@shopenlinea/commerce-runtime-contract";
+import {
+  hostCheckoutChoiceLabelTextClassName,
+  hostCheckoutContainWidthClassName,
+  hostCheckoutLineItemPricingClassName,
+  hostCheckoutLineItemRowClassName,
+  hostCheckoutLineItemTitleClampClassName,
+  hostCheckoutLineItemVariantClampClassName,
+} from "@shopenlinea/commerce-runtime-contract";
 
 export const checkoutInputClassName =
-  "w-full border border-border bg-background px-4 py-3 text-sm text-primary outline-none transition-colors duration-200 focus:border-primary disabled:opacity-50";
+  `w-full ${hostCheckoutContainWidthClassName} border border-border bg-background px-4 py-3 text-sm text-primary outline-none transition-colors duration-200 focus:border-primary disabled:opacity-50`;
 
 export const checkoutFieldLabelClassName =
   "mb-2 block text-[11px] font-medium uppercase tracking-[0.14em] text-secondary";
@@ -26,13 +34,13 @@ export const checkoutMutedTextClassName = "text-sm text-muted";
 export const checkoutSectionGapClassName = "space-y-5";
 
 export const checkoutPhoneRowClassName =
-  "mt-2 grid grid-cols-1 gap-3 sm:grid-cols-[6.75rem_minmax(0,1fr)] sm:gap-4";
+  `mt-2 grid ${hostCheckoutContainWidthClassName} grid-cols-1 gap-3 sm:grid-cols-[6.75rem_minmax(0,1fr)] sm:gap-4`;
 
 const countrySelectClassName = `${checkoutInputClassName} shrink-0 w-full max-w-[38%] sm:max-w-none sm:w-[6.75rem]`;
 
 export function CheckoutField({ label, htmlFor, children, error }: HostCheckoutFieldProps) {
   return (
-    <div>
+    <div className={hostCheckoutContainWidthClassName}>
       <label className={checkoutFieldLabelClassName} htmlFor={htmlFor}>
         {label}
       </label>
@@ -53,7 +61,7 @@ export function CheckoutRadioOption({
 }: HostCheckoutRadioOptionProps) {
   return (
     <label
-      className={`flex cursor-pointer items-start gap-3 border border-border p-4 transition-opacity ${
+      className={`flex ${hostCheckoutContainWidthClassName} cursor-pointer items-start gap-3 border border-border p-4 transition-opacity ${
         disabled ? "cursor-not-allowed opacity-50" : checked ? "" : "opacity-70 hover:opacity-100"
       }`}
     >
@@ -64,12 +72,20 @@ export function CheckoutRadioOption({
         checked={checked}
         disabled={disabled}
         onChange={() => onChange()}
-        className="mt-1 accent-primary"
+        className="mt-1 shrink-0 accent-primary"
       />
-      <span className="min-w-0">
-        <span className="text-sm font-medium text-primary">{label}</span>
+      <span className="min-w-0 flex-1">
+        <span
+          className={`text-sm font-medium text-primary ${hostCheckoutChoiceLabelTextClassName}`}
+        >
+          {label}
+        </span>
         {description ? (
-          <span className="mt-1 block text-xs text-muted">{description}</span>
+          <span
+            className={`mt-1 block text-xs text-muted ${hostCheckoutChoiceLabelTextClassName}`}
+          >
+            {description}
+          </span>
         ) : null}
       </span>
     </label>
@@ -87,7 +103,7 @@ export function CheckoutPaymentCard({
 }: HostCheckoutPaymentCardProps) {
   return (
     <label
-      className={`flex cursor-pointer items-start gap-3 border border-border p-4 transition-opacity ${
+      className={`flex ${hostCheckoutContainWidthClassName} cursor-pointer items-start gap-3 border border-border p-4 transition-opacity ${
         disabled ? "cursor-not-allowed opacity-50" : checked ? "" : "opacity-70 hover:opacity-100"
       }`}
     >
@@ -98,12 +114,20 @@ export function CheckoutPaymentCard({
         checked={checked}
         disabled={disabled}
         onChange={() => onChange()}
-        className="mt-1 accent-primary"
+        className="mt-1 shrink-0 accent-primary"
       />
-      <span className="min-w-0">
-        <span className="text-sm font-medium text-primary">{title}</span>
+      <span className="min-w-0 flex-1">
+        <span
+          className={`text-sm font-medium text-primary ${hostCheckoutChoiceLabelTextClassName}`}
+        >
+          {title}
+        </span>
         {description ? (
-          <span className="mt-1 block text-xs text-muted">{description}</span>
+          <span
+            className={`mt-1 block text-xs text-muted ${hostCheckoutChoiceLabelTextClassName}`}
+          >
+            {description}
+          </span>
         ) : null}
       </span>
     </label>
@@ -113,14 +137,14 @@ export function CheckoutPaymentCard({
 export function CheckoutSummaryLine({ label, value, emphasis }: HostCheckoutSummaryLineProps) {
   return (
     <div
-      className={`flex justify-between gap-4 ${
+      className={`flex min-w-0 justify-between gap-4 ${
         emphasis
           ? "border-t border-border pt-2 font-semibold text-primary"
           : "text-muted"
       }`}
     >
-      <span>{label}</span>
-      <span className="tabular-nums text-primary">{value}</span>
+      <span className="min-w-0 break-words">{label}</span>
+      <span className="shrink-0 tabular-nums text-primary">{value}</span>
     </div>
   );
 }
@@ -134,23 +158,36 @@ export function CheckoutLineItem({
   compareAtPriceDisplay,
 }: HostCheckoutLineItemProps) {
   return (
-    <li className="flex min-w-0 gap-3">
+    <li className={hostCheckoutLineItemRowClassName}>
       <div className="relative h-12 w-12 shrink-0 overflow-hidden border border-border bg-background">
         {imageUrl ? (
           <Image src={imageUrl} alt="" fill className="object-cover" sizes="48px" />
         ) : null}
       </div>
       <div className="min-w-0 flex-1">
-        <p className="truncate font-medium text-primary">{title}</p>
+        <p
+          className={`${hostCheckoutLineItemTitleClampClassName} font-medium text-primary`}
+          title={title}
+        >
+          {title}
+        </p>
         {variantLabel ? (
-          <p className="truncate text-xs text-muted">{variantLabel}</p>
+          <p
+            className={`${hostCheckoutLineItemVariantClampClassName} text-xs text-muted`}
+            title={variantLabel}
+          >
+            {variantLabel}
+          </p>
         ) : null}
-        <p className="mt-0.5 text-xs tabular-nums text-muted">
-          ×{quantity} —{" "}
-          {compareAtPriceDisplay ? (
-            <span className="mr-1 text-muted line-through">{compareAtPriceDisplay}</span>
-          ) : null}
-          <span className="font-medium text-primary">{priceDisplay}</span>
+        <p className={hostCheckoutLineItemPricingClassName}>
+          <span className="tabular-nums">×{quantity}</span>
+          <span className="mx-1" aria-hidden="true">—</span>
+          <span className="inline-flex min-w-0 max-w-full flex-wrap items-baseline gap-x-1">
+            {compareAtPriceDisplay ? (
+              <span className="text-muted line-through tabular-nums">{compareAtPriceDisplay}</span>
+            ) : null}
+            <span className="font-medium text-primary tabular-nums">{priceDisplay}</span>
+          </span>
         </p>
       </div>
     </li>
@@ -188,15 +225,19 @@ export function CheckoutCheckboxRow({
   children,
 }: HostCheckoutCheckboxRowProps) {
   return (
-    <label className="flex cursor-pointer items-start gap-2">
+    <label
+      className={`flex ${hostCheckoutContainWidthClassName} cursor-pointer items-start gap-2`}
+    >
       <input
         type="checkbox"
-        className="mt-0.5 cursor-pointer accent-primary disabled:cursor-not-allowed"
+        className="mt-0.5 shrink-0 cursor-pointer accent-primary disabled:cursor-not-allowed"
         checked={checked}
         disabled={disabled}
         onChange={(e) => onCheckedChange(e.target.checked)}
       />
-      <span className="text-sm text-primary">{children}</span>
+      <span className={`min-w-0 flex-1 text-sm text-primary ${hostCheckoutChoiceLabelTextClassName}`}>
+        {children}
+      </span>
     </label>
   );
 }
@@ -244,7 +285,9 @@ export function CheckoutOrderSummary({
       {fulfillmentNotice ? (
         <CheckoutNotice>{fulfillmentNotice}</CheckoutNotice>
       ) : null}
-      <div className="space-y-2 border-t border-border pt-4">{totalsSection}</div>
+      <div className="min-w-0 max-w-full space-y-2 border-t border-border pt-4">
+        {totalsSection}
+      </div>
     </div>
   );
 }
