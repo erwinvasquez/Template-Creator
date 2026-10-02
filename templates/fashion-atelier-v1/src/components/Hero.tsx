@@ -10,7 +10,10 @@ export function Hero() {
   const hero = payload.sections.hero;
 
   return (
-    <section className="relative h-[100svh] min-h-[640px] w-full overflow-hidden">
+    <section
+      data-storefront-home-hero=""
+      className="relative h-[100svh] min-h-[640px] w-full overflow-hidden"
+    >
       <HeroCarouselMedia
         hero={hero}
         media={payload.media}

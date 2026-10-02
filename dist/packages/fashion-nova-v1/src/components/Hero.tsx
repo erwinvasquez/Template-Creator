@@ -11,7 +11,10 @@ export function Hero() {
   const wordmark = payload.brand.displayName || payload.brand.name;
 
   return (
-    <section className="nova-hero-split relative h-[100svh] min-h-[640px] w-full overflow-hidden bg-background">
+    <section
+      data-storefront-home-hero=""
+      className="nova-hero-split relative h-[100svh] min-h-[640px] w-full overflow-hidden bg-background"
+    >
       <div className="nova-hero-panel relative z-10 flex flex-col justify-between px-6 pb-12 pt-28 md:px-10 md:pb-16 md:pt-32 lg:px-14">
         <p className="nova-wordmark animate-fade-up text-2xl text-primary md:text-3xl">
           {wordmark}

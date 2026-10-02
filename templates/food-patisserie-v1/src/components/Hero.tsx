@@ -11,7 +11,10 @@ export function Hero() {
   const wordmark = payload.brand.displayName || payload.brand.name;
 
   return (
-    <section className="patisserie-hero relative flex h-[100svh] min-h-[640px] w-full flex-col items-center justify-center overflow-hidden bg-background px-6 pt-24 pb-12 md:px-10 md:pt-28">
+    <section
+      data-storefront-home-hero=""
+      className="patisserie-hero relative flex h-[100svh] min-h-[640px] w-full flex-col items-center justify-center overflow-hidden bg-background px-6 pt-24 pb-12 md:px-10 md:pt-28"
+    >
       <p className="patisserie-wordmark animate-fade-up text-center text-lg text-secondary md:text-xl">
         {wordmark}
       </p>
