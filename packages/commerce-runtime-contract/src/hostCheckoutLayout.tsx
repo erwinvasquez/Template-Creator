@@ -10,9 +10,9 @@ export const hostCheckoutContainWidthClassName = "min-w-0 max-w-full";
 export const hostCheckoutLayoutPageInnerClassName =
   "mx-auto w-full min-w-0 max-w-7xl";
 
-/** Grid principal formulario + resumen. */
+/** Grid principal formulario + resumen (1 col móvil, 2 cols desde lg). */
 export const hostCheckoutLayoutGridClassName =
-  "mt-12 grid w-full min-w-0 max-w-full gap-12 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)]";
+  "mt-12 grid w-full min-w-0 max-w-full grid-cols-1 gap-12 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)]";
 
 export const hostCheckoutLayoutFormColumnClassName =
   "min-w-0 max-w-full space-y-10";
