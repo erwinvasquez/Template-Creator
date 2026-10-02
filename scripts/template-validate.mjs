@@ -402,6 +402,9 @@ if (fs.existsSync(heroPath)) {
   if (heroSrc.includes("md:h-[92svh]")) {
     errors.push("[hero] Hero.tsx must not use md:h-[92svh] (use h-[100svh] on all breakpoints)");
   }
+  if (!heroSrc.includes("data-storefront-home-hero")) {
+    errors.push("[hero] Hero.tsx section must include data-storefront-home-hero");
+  }
 }
 
 const homeViewPath = path.join(root, "src", "components", "pages", "HomeView.tsx");

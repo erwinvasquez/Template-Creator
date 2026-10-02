@@ -11,7 +11,10 @@ export function Hero() {
   const wordmark = payload.brand.displayName || payload.brand.name;
 
   return (
-    <section className="relative h-[100svh] min-h-[640px] w-full overflow-hidden bg-ink">
+    <section
+      data-storefront-home-hero=""
+      className="relative h-[100svh] min-h-[640px] w-full overflow-hidden bg-ink"
+    >
       <HeroCarouselMedia
 
         hero={hero}
