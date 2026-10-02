@@ -1,9 +1,9 @@
 {
   "templateId": "fashion-atelier-v1",
   "version": "1.3.0",
-  "exportedAt": "2026-10-01T15:34:50.438Z",
-  "contentHash": "1a538e1c37e65d27a9ffd510173e9d03e4246429622bee3786f58cc0171bb221",
-  "sourceGitSha": "2237b67110e91579d4cce6587cd609f62912ae90",
+  "exportedAt": "2026-10-02T01:39:32.427Z",
+  "contentHash": "d353e9db25a45e53129836c4a846299d15b849675ab8c95b035b70bf19089127",
+  "sourceGitSha": "cb8024fdf5027059ff9281d0095408a0e0a762dc",
   "immutable": true,
   "source": "templates/fashion-atelier-v1"
 }
