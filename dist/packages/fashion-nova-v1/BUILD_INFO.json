@@ -1,9 +1,9 @@
 {
   "templateId": "fashion-nova-v1",
   "version": "1.0.0",
-  "exportedAt": "2026-10-02T04:07:00.346Z",
+  "exportedAt": "2026-10-02T04:09:47.751Z",
   "contentHash": "964ea955f39201268a061959c8f7881a4a9a70db08f047a7b2d3f19ede14fab5",
-  "sourceGitSha": "373c3db4b43e175494b822402cce005fda16ee81",
+  "sourceGitSha": "a640a6f7289275e867251afa6560065dfa7b29ed",
   "immutable": true,
   "source": "templates/fashion-nova-v1"
 }
