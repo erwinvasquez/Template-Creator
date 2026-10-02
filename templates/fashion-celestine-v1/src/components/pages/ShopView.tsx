@@ -1,7 +1,11 @@
 "use client";
 
 import { Suspense } from "react";
+import { useSearchParams } from "next/navigation";
+import { shouldShowCatalogEntrySelector } from "@shopenlinea/commerce-runtime-contract";
 import { useSiteContent } from "../../lib/site-content";
+import { useCommerceCapabilities } from "../../lib/commerce-host";
+import { SHOP_QUERY } from "../../content/resolve";
 import { CommerceAwareCatalog } from "../CommerceAwareCatalog";
 import { SalesModeShopSwitch } from "../commerce/SalesModeShopBanner";
 
@@ -19,6 +23,17 @@ function ShopCatalogSkeleton() {
   );
 }
 
+function ShopSalesModeSwitch() {
+  const capabilities = useCommerceCapabilities();
+  const searchParams = useSearchParams();
+  const showCatalogEntry = shouldShowCatalogEntrySelector(
+    capabilities,
+    searchParams.get(SHOP_QUERY.salesMode),
+  );
+  if (showCatalogEntry) return null;
+  return <SalesModeShopSwitch />;
+}
+
 export function ShopView() {
   const { payload } = useSiteContent();
   const shop = payload.sections.shop;
@@ -34,7 +49,7 @@ export function ShopView() {
             {shop.eyebrow}
           </p>
           <Suspense fallback={null}>
-            <SalesModeShopSwitch />
+            <ShopSalesModeSwitch />
           </Suspense>
         </div>
         <h1

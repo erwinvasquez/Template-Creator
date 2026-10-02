@@ -7,6 +7,11 @@ import type {
   ProductSearchViewModel,
 } from "@shopenlinea/commerce-runtime-contract";
 import {
+  CatalogSalesModeEntrySelector,
+  buildCatalogSalesModeEntryOptions,
+  shouldShowCatalogEntrySelector,
+} from "@shopenlinea/commerce-runtime-contract";
+import {
   useCatalogListingTick,
   useCommerceCapabilities,
   useRequiredCommerceHost,
@@ -15,12 +20,13 @@ import { useSiteContent } from "../lib/site-content";
 import { requireUi } from "../lib/ui";
 import { SHOP_QUERY } from "../content/resolve";
 import { ProductListingView } from "./commerce/ProductListingView";
+import { modeHref } from "./commerce/SalesModeShopBanner";
 import { parseSalesModeQuery, showsSalesModeChrome } from "../lib/sales-mode";
 
 export function CommerceAwareCatalog() {
   const host = useRequiredCommerceHost();
   const capabilities = useCommerceCapabilities();
-  const { payload } = useSiteContent();
+  const { payload, basePath } = useSiteContent();
   const searchParams = useSearchParams();
   const categorySlug = searchParams.get(SHOP_QUERY.category);
   const collectionSlug = searchParams.get(SHOP_QUERY.collection);
@@ -33,11 +39,16 @@ export function CommerceAwareCatalog() {
   const tick = useCatalogListingTick();
   const [isPending, startTransition] = useTransition();
 
+  const showCatalogEntry = shouldShowCatalogEntrySelector(
+    capabilities,
+    salesModeSlug,
+  );
 
   useEffect(() => {
     const hasPayloadTaxonomy =
       payload.catalog.categories.length > 0 ||
       payload.catalog.collections.length > 0;
+    // Preview/demo: resolve from payload. SaaS runtime: host resolves via taxonomy API.
     if (!hasPayloadTaxonomy) return;
     const categoryId =
       payload.catalog.categories.find((c) => c.slug === categorySlug)?.id ??
@@ -64,6 +75,7 @@ export function CommerceAwareCatalog() {
   }, [host, searchQuery]);
 
   useEffect(() => {
+    if (showCatalogEntry) return;
     let cancelled = false;
     void host
       .getListing()
@@ -85,7 +97,28 @@ export function CommerceAwareCatalog() {
     return () => {
       cancelled = true;
     };
-  }, [host, tick, categorySlug, collectionSlug, salesModeSlug, searchQuery, payload]);
+  }, [
+    host,
+    tick,
+    categorySlug,
+    collectionSlug,
+    salesModeSlug,
+    searchQuery,
+    payload,
+    showCatalogEntry,
+  ]);
+
+  if (showCatalogEntry) {
+    const ui = requireUi(payload);
+    const heading =
+      ui.salesMode.entryPrompt?.trim() || ui.chrome.salesModeAria;
+    const options = buildCatalogSalesModeEntryOptions(ui.salesMode, (mode) =>
+      modeHref(basePath, mode, searchParams),
+    );
+    return (
+      <CatalogSalesModeEntrySelector heading={heading} options={options} />
+    );
+  }
 
   if (!data || !filters) {
     const listing = requireUi(payload).listing;

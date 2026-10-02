@@ -356,6 +356,7 @@ export type TemplateUi = {
       label: string;
       href: string;
     }>;
+    entryPrompt?: string;
   };
 };
 

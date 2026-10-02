@@ -46,6 +46,22 @@ export {
   resolveCatalogAvailabilityPresentation,
 } from "./catalogAvailabilityPresentation";
 export type { CatalogAvailabilityPresentation } from "./catalogAvailabilityPresentation";
+export { CatalogSalesModeEntrySelector } from "./CatalogSalesModeEntrySelector";
+export {
+  buildCatalogSalesModeEntryOptions,
+  catalogEntryCardClassName,
+  catalogEntryGridClassName,
+  catalogEntryHeadingClassName,
+  catalogEntrySectionClassName,
+  parseCatalogSalesModeQuery,
+  salesModeSwitchLinkClassName,
+  shouldShowCatalogEntrySelector,
+  showsDualCatalogSalesMode,
+} from "./catalogSalesModeEntry";
+export type {
+  CatalogSalesModeEntryOption,
+  CatalogSalesModeUiCopy,
+} from "./catalogSalesModeEntry";
 export {
   explicitVariantIdsForGalleryItem,
   galleryItemHasVariantAssociation,

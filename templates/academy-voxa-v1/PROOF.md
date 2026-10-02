@@ -216,7 +216,7 @@ se conservan por compatibilidad del contrato de catálogo; el copy visible ya es
 |-----------|-------|
 | sections.* slots | 38 |
 | list slots | 6 |
-| ui.* leaves (defaults) | 109 |
+| ui.* leaves (defaults) | 110 |
 | data-wb-slot ids | 38 |
 | catalogBindings | 2 |
 

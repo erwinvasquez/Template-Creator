@@ -204,7 +204,7 @@ Al publicar un payload el SaaS debe:
 |-----------|-------|
 | sections.* slots | 37 |
 | list slots | 5 |
-| ui.* leaves (defaults) | 109 |
+| ui.* leaves (defaults) | 110 |
 | data-wb-slot ids | 37 |
 | catalogBindings | 1 |
 
