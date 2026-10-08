@@ -35,6 +35,8 @@ export interface ProductVariantViewModel {
   kitIncludes?: readonly KitIncludeLineViewModel[] | null;
   /** Comparación de catálogo. Ausente si no hay ahorro positivo o falta un precio. */
   kitSavings?: KitSavingsViewModel | null;
+  /** Slots que el cliente debe resolver antes de añadir el kit. */
+  kitChoiceSlots?: readonly KitChoiceSlotViewModel[] | null;
 }
 
 export interface KitIncludeLineViewModel {
@@ -46,6 +48,19 @@ export interface KitSavingsViewModel {
   kitPriceDisplay: string;
   separatePriceDisplay: string;
   savingsDisplay: string;
+}
+
+export interface KitChoiceOptionViewModel {
+  variantId: string;
+  label: string;
+}
+
+export interface KitChoiceSlotViewModel {
+  slotId: string;
+  componentProductId: string;
+  label: string;
+  quantity: number;
+  options: readonly KitChoiceOptionViewModel[];
 }
 
 /** Solo cuando el host resuelve salesMode=stock y el producto también vende en MTO. */

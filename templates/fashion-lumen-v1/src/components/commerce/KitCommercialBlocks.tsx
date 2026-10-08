@@ -1,6 +1,7 @@
 "use client";
 
 import type {
+  KitChoiceSlotViewModel,
   KitIncludeLineViewModel,
   KitSavingsViewModel,
 } from "@shopenlinea/commerce-runtime-contract";
@@ -48,6 +49,41 @@ export function KitIncludesList({
           </li>
         ))}
       </ul>
+    </div>
+  );
+}
+
+export function KitChoiceFields({
+  slots,
+  value,
+  onChange,
+}: {
+  slots?: readonly KitChoiceSlotViewModel[] | null;
+  value: Readonly<Record<string, string>>;
+  onChange: (slotId: string, variantId: string) => void;
+}) {
+  if (!slots || slots.length === 0) return null;
+  return (
+    <div className="mt-4 space-y-3">
+      {slots.map((slot) => (
+        <label key={slot.slotId} className="block text-sm text-primary">
+          <span className="mb-1 block text-[11px] font-medium uppercase tracking-[0.14em] text-muted">
+            {slot.label} × {slot.quantity}
+          </span>
+          <select
+            className="h-11 w-full border border-border bg-background px-3"
+            value={value[slot.slotId] ?? ""}
+            onChange={(event) => onChange(slot.slotId, event.target.value)}
+          >
+            <option value="">—</option>
+            {slot.options.map((option) => (
+              <option key={option.variantId} value={option.variantId}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </label>
+      ))}
     </div>
   );
 }
