@@ -280,7 +280,7 @@ export function CheckoutOrderSummary({
     <div className="space-y-4 min-w-0 text-sm">
       {statusSection ? <div className="min-w-0">{statusSection}</div> : null}
       <div className="space-y-3 min-w-0">{discountSection}</div>
-      <ul className="max-h-64 min-w-0 space-y-3 overflow-y-auto list-none pl-0">
+      <ul className="min-w-0 space-y-3 list-none pl-0">
         {lineItemsSection}
       </ul>
       {promotionsSection ? (

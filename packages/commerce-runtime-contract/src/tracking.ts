@@ -21,6 +21,7 @@ export interface OrderTrackingLineViewModel {
   unitDisplayPrice: string;
   lineDisplayPrice: string;
   imageUrl?: string | null;
+  kitIncludes?: ReadonlyArray<{ label: string; quantity: number }> | null;
 }
 
 export interface OrderTrackingShippingViewModel {
@@ -96,6 +97,7 @@ export interface OrderTrackingLabelsViewModel {
   totalProductsAfterDiscountLabel: string;
   imagePlaceholder: string;
   continueShoppingLabel: string;
+  kitIncludesLabel?: string;
 }
 
 export interface OrderTrackingViewModel {
