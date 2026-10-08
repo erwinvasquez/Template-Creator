@@ -83,6 +83,8 @@ export interface CartLineViewModel {
   lineDiscountDisplay?: string | null;
   pricingAdjustments?: CartLinePricingAdjustmentViewModel[];
   options?: Array<{ name: string; value: string }>;
+  /** Detalle del kit. No son líneas de precio. */
+  kitIncludes?: ReadonlyArray<{ label: string; quantity: number }> | null;
   errorCode?: string | null;
   errorMessage?: string | null;
 }

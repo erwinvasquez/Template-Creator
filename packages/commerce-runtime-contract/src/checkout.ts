@@ -13,6 +13,8 @@ export interface CheckoutLineViewModel {
   quantity: number;
   lineDisplayPrice: string;
   imageUrl?: string | null;
+  /** Detalle del kit. No son líneas de precio. */
+  kitIncludes?: ReadonlyArray<{ label: string; quantity: number }> | null;
 }
 
 export interface CheckoutTotalsViewModel {

@@ -31,6 +31,21 @@ export interface ProductVariantViewModel {
   immediateAvailableQty?: number | null;
   available: boolean;
   imageUrl?: string | null;
+  /** Componentes visibles del kit. Ausente en productos normales. */
+  kitIncludes?: readonly KitIncludeLineViewModel[] | null;
+  /** Comparación de catálogo. Ausente si no hay ahorro positivo o falta un precio. */
+  kitSavings?: KitSavingsViewModel | null;
+}
+
+export interface KitIncludeLineViewModel {
+  label: string;
+  quantity: number;
+}
+
+export interface KitSavingsViewModel {
+  kitPriceDisplay: string;
+  separatePriceDisplay: string;
+  savingsDisplay: string;
 }
 
 /** Solo cuando el host resuelve salesMode=stock y el producto también vende en MTO. */
