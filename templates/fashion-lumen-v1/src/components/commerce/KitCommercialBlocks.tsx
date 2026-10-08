@@ -100,12 +100,19 @@ export function KitIncludesList({
   return (
     <div className="mt-3">
       <p className="text-[11px] font-medium uppercase tracking-[0.14em] text-muted">{title}</p>
-      <ul className="mt-2 space-y-1 text-sm text-primary">
-        {includes.map((line) => (
-          <li key={`${line.label}-${line.quantity}`}>
-            {line.label} × {line.quantity}
-          </li>
-        ))}
+      <ul className="mt-2 space-y-2 text-sm text-primary">
+        {includes.map((line) => {
+          const [name, ...rest] = line.label.split(" — ");
+          const detail = rest.join(" — ");
+          return (
+            <li key={`${line.label}-${line.quantity}`}>
+              <span className="block">{name}</span>
+              <span className="block text-muted">
+                {detail ? `${detail} × ${line.quantity}` : `× ${line.quantity}`}
+              </span>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );
