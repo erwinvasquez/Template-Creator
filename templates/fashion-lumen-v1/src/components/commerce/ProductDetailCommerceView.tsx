@@ -31,7 +31,7 @@ import { useSiteContent } from "../../lib/site-content";
 import { requireUi } from "../../lib/ui";
 import { withBasePath } from "../../content/resolve";
 import { CommerceProductCard } from "./CommerceProductCard";
-import { KitChoiceFields, KitIncludesList, KitSavingsBlock, kitCommercialCopy } from "./KitCommercialBlocks";
+import { KitComposition, KitSavingsBlock, kitCommercialCopy, kitCompositionQuantityCap } from "./KitCommercialBlocks";
 import { MadeToOrderUpsellDialog } from "./MadeToOrderUpsellDialog";
 import { isPdpFieldVisible } from "../../lib/pdp-presentation";
 
@@ -162,7 +162,14 @@ export function ProductDetailCommerceView({
     capabilities.variantSelector !== "unsupported" &&
     product.variants.length > 1;
 
-  const stockCapQty = stockCap(selected, product);
+  const kitChoiceSlots = selected?.kitChoiceSlots ?? [];
+  const kitChoicesComplete = kitChoiceSlots.every((slot) => Boolean(kitChoices[slot.slotId]));
+  const stockCapQty = kitCompositionQuantityCap({
+    fallback: stockCap(selected, product),
+    includes: selected?.kitIncludes,
+    slots: kitChoiceSlots,
+    selections: kitChoices,
+  });
   const transition = resolveStockToMtoTransition(product, selected, quantity);
   const showInlineMto = transition?.kind === "immediateExhausted";
   const upsell = product.madeToOrderUpsell;
@@ -200,8 +207,9 @@ export function ProductDetailCommerceView({
     setLocalError(null);
   }, [selected?.id]);
 
-  const kitChoiceSlots = selected?.kitChoiceSlots ?? [];
-  const kitChoicesComplete = kitChoiceSlots.every((slot) => Boolean(kitChoices[slot.slotId]));
+  useEffect(() => {
+    if (stockCapQty > 0) setQuantity((current) => Math.min(current, stockCapQty));
+  }, [stockCapQty]);
 
   async function onAdd() {
     if (!selected || !canBuy || !kitChoicesComplete) return;
@@ -350,10 +358,11 @@ export function ProductDetailCommerceView({
             </div>
           )}
 
-          <KitIncludesList includes={selected?.kitIncludes} title={kitCopy.includes} />
-          <KitChoiceFields
+          <KitComposition
+            includes={selected?.kitIncludes}
             slots={selected?.kitChoiceSlots}
             value={kitChoices}
+            labels={kitCopy}
             onChange={(slotId, variantId) =>
               setKitChoices((current) => ({ ...current, [slotId]: variantId }))
             }

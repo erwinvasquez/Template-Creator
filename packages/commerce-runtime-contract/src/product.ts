@@ -42,6 +42,11 @@ export interface ProductVariantViewModel {
 export interface KitIncludeLineViewModel {
   label: string;
   quantity: number;
+  available?: boolean;
+  stockLabel?: StockLabel | null;
+  maxQuantity?: number | null;
+  /** Kits que aporta este componente en cada almacén web. Ausente si no limita. */
+  kitCapByWarehouse?: Readonly<Record<string, number>> | null;
 }
 
 export interface KitSavingsViewModel {
@@ -53,6 +58,14 @@ export interface KitSavingsViewModel {
 export interface KitChoiceOptionViewModel {
   variantId: string;
   label: string;
+  /** Precio de catálogo de la variante suelta. No se suma al precio del kit. */
+  displayPrice?: string | null;
+  available: boolean;
+  stockLabel?: StockLabel | null;
+  maxQuantity?: number | null;
+  immediateAvailableQty?: number | null;
+  /** Kits que aporta esta opción en cada almacén web. Ausente si no limita. */
+  kitCapByWarehouse?: Readonly<Record<string, number>> | null;
 }
 
 export interface KitChoiceSlotViewModel {
