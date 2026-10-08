@@ -1,6 +1,8 @@
 "use client";
 
+import { useEffect, useId, useRef, useState } from "react";
 import type {
+  KitChoiceOptionViewModel,
   KitChoiceSlotViewModel,
   KitIncludeLineViewModel,
   KitSavingsViewModel,
@@ -12,10 +14,8 @@ export type KitCommercialCopy = {
   separate: string;
   savings: string;
   choose: string;
+  choosePrompt: string;
   outOfStock: string;
-  catalogPrice: string;
-  availableOne: string;
-  availableMany: (count: number) => string;
 };
 
 /** Copy de la plantilla según el locale ya publicado en el contenido. */
@@ -27,10 +27,8 @@ export function kitCommercialCopy(locale: string | null | undefined): KitCommerc
       separate: "Bought separately",
       savings: "You save",
       choose: "Choose a variant",
+      choosePrompt: "Choose variant",
       outOfStock: "Sold out",
-      catalogPrice: "Catalog price. It is not added to the kit.",
-      availableOne: "1 available",
-      availableMany: (count) => `${count} available`,
     };
   }
   return {
@@ -39,22 +37,21 @@ export function kitCommercialCopy(locale: string | null | undefined): KitCommerc
     separate: "Comprados por separado",
     savings: "Ahorrás",
     choose: "Elige una variante",
+    choosePrompt: "Elegir variante",
     outOfStock: "Agotado",
-    catalogPrice: "Precio de catálogo. No se suma al kit.",
-    availableOne: "1 disponible",
-    availableMany: (count) => `${count} disponibles`,
   };
 }
 
-function availabilityCopy(
-  option: { available: boolean; stockLabel?: string | null; immediateAvailableQty?: number | null },
-  labels: KitCommercialCopy,
-): string | null {
-  if (!option.available || option.stockLabel === "out_of_stock") return labels.outOfStock;
-  if (option.immediateAvailableQty == null) return null;
-  return option.immediateAvailableQty === 1
-    ? labels.availableOne
-    : labels.availableMany(option.immediateAvailableQty);
+function splitCommercialLabel(label: string): { name: string; detail: string | null } {
+  const separator = " — ";
+  const index = label.indexOf(separator);
+  if (index <= 0) return { name: label, detail: null };
+  return { name: label.slice(0, index), detail: label.slice(index + separator.length) };
+}
+
+function customerOptionLabel(slotLabel: string, optionLabel: string): string {
+  const prefix = `${slotLabel.trim()} — `;
+  return optionLabel.startsWith(prefix) ? optionLabel.slice(prefix.length) : optionLabel;
 }
 
 /** Tope del kit según los componentes ya elegidos. El carrito vuelve a validar. */
@@ -114,6 +111,121 @@ export function KitIncludesList({
   );
 }
 
+function ChoiceOptionControl({
+  option,
+  slotLabel,
+  selected,
+  role,
+  labels,
+  onSelect,
+}: {
+  option: KitChoiceOptionViewModel;
+  slotLabel: string;
+  selected: boolean;
+  role: "radio" | "option";
+  labels: KitCommercialCopy;
+  onSelect: () => void;
+}) {
+  const label = customerOptionLabel(slotLabel, option.label);
+  return (
+    <button
+      type="button"
+      role={role}
+      aria-checked={role === "radio" ? selected : undefined}
+      aria-selected={role === "option" ? selected : undefined}
+      disabled={!option.available}
+      data-testid="kit-choice-option"
+      data-selected={selected ? "true" : "false"}
+      className={`flex min-h-11 w-full min-w-0 items-center gap-3 border px-3 py-2 text-left text-sm text-primary disabled:cursor-not-allowed disabled:text-muted ${
+        selected ? "border-primary" : "border-border"
+      }`}
+      onClick={() => {
+        if (!option.available) return;
+        onSelect();
+      }}
+    >
+      <span
+        aria-hidden
+        className={`h-4 w-4 shrink-0 rounded-full border ${selected ? "border-primary bg-primary" : "border-border"}`}
+      />
+      <span className="min-w-0 flex-1 break-words">{label}</span>
+      {!option.available ? <span className="shrink-0 text-xs text-muted">{labels.outOfStock}</span> : null}
+    </button>
+  );
+}
+
+function KitChoiceMenu({
+  slot,
+  value,
+  onChange,
+  labels,
+}: {
+  slot: KitChoiceSlotViewModel;
+  value: Readonly<Record<string, string>>;
+  onChange: (slotId: string, variantId: string) => void;
+  labels: KitCommercialCopy;
+}) {
+  const [open, setOpen] = useState(false);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const listId = useId();
+  const selected = slot.options.find((option) => option.variantId === value[slot.slotId]);
+  const closedLabel = selected ? customerOptionLabel(slot.label, selected.label) : labels.choosePrompt;
+
+  useEffect(() => {
+    if (!open) return;
+    function onPointer(event: MouseEvent) {
+      if (!rootRef.current?.contains(event.target as Node)) setOpen(false);
+    }
+    function onKey(event: KeyboardEvent) {
+      if (event.key === "Escape") setOpen(false);
+    }
+    document.addEventListener("mousedown", onPointer);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onPointer);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
+  return (
+    <div ref={rootRef} data-testid="kit-choice-menu" className="relative min-w-0 max-w-full">
+      <button
+        type="button"
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        aria-controls={listId}
+        className="flex min-h-11 w-full min-w-0 items-center justify-between gap-3 border border-border bg-background px-3 text-left text-sm text-primary"
+        onClick={() => setOpen((current) => !current)}
+      >
+        <span className="min-w-0 break-words">{closedLabel}</span>
+      </button>
+      {open ? (
+        <div
+          id={listId}
+          role="listbox"
+          aria-label={slot.label}
+          className="absolute z-10 mt-1 max-h-60 w-full min-w-0 overflow-auto border border-border bg-background"
+        >
+          {slot.options.map((option) => (
+            <ChoiceOptionControl
+              key={option.variantId}
+              option={option}
+              slotLabel={slot.label}
+              selected={option.variantId === value[slot.slotId]}
+              role="option"
+              labels={labels}
+              onSelect={() => {
+                onChange(slot.slotId, option.variantId);
+                setOpen(false);
+              }}
+            />
+          ))}
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
 export function KitChoiceFields({
   slots,
   value,
@@ -129,46 +241,32 @@ export function KitChoiceFields({
   return (
     <div className="space-y-4">
       {slots.map((slot) => (
-        <div key={slot.slotId}>
+        <div key={slot.slotId} data-testid="kit-choice-slot" className="min-w-0 max-w-full">
           <p className="text-sm text-primary">
             {slot.label} × {slot.quantity}
           </p>
-          <p className="mt-2 text-[11px] font-medium uppercase tracking-[0.14em] text-muted">{labels.choose}</p>
-          <div role="radiogroup" aria-label={slot.label} className="mt-2 space-y-2">
-            {slot.options.map((option) => {
-              const selected = value[slot.slotId] === option.variantId;
-              const stock = availabilityCopy(option, labels);
-              return (
-                <button
-                  key={option.variantId}
-                  type="button"
-                  role="radio"
-                  aria-checked={selected}
-                  disabled={!option.available}
-                  data-testid="kit-choice-option"
-                  data-selected={selected ? "true" : "false"}
-                  className={`flex min-h-11 w-full items-center gap-3 border px-3 py-2 text-left text-sm ${
-                    selected ? "border-primary text-primary" : "border-border text-primary"
-                  } disabled:cursor-not-allowed disabled:text-muted`}
-                  onClick={() => {
-                    if (!option.available) return;
-                    onChange(slot.slotId, option.variantId);
-                  }}
-                >
-                  <span
-                    aria-hidden
-                    className={`h-4 w-4 shrink-0 rounded-full border ${selected ? "border-primary bg-primary" : "border-border"}`}
+          <div data-testid="kit-choice-options" className="mt-2 min-w-0 max-w-full pl-4">
+            <p className="text-[11px] font-medium uppercase tracking-[0.14em] text-muted">{labels.choose}</p>
+            {slot.options.length > 3 ? (
+              <div className="mt-2">
+                <KitChoiceMenu slot={slot} value={value} onChange={onChange} labels={labels} />
+              </div>
+            ) : (
+              <div role="radiogroup" aria-label={slot.label} className="mt-2 space-y-2">
+                {slot.options.map((option) => (
+                  <ChoiceOptionControl
+                    key={option.variantId}
+                    option={option}
+                    slotLabel={slot.label}
+                    selected={value[slot.slotId] === option.variantId}
+                    role="radio"
+                    labels={labels}
+                    onSelect={() => onChange(slot.slotId, option.variantId)}
                   />
-                  <span className="min-w-0 flex-1">
-                    <span className="block">{option.label}</span>
-                    {stock ? <span className="block text-xs text-muted">{stock}</span> : null}
-                  </span>
-                  {option.displayPrice ? <span className="shrink-0 text-xs text-muted">{option.displayPrice}</span> : null}
-                </button>
-              );
-            })}
+                ))}
+              </div>
+            )}
           </div>
-          <p className="mt-1 text-xs text-muted">{labels.catalogPrice}</p>
         </div>
       ))}
     </div>
@@ -196,16 +294,18 @@ export function KitComposition({
       <p className="text-[11px] font-medium uppercase tracking-[0.14em] text-muted">{labels.includes}</p>
       {hasIncludes ? (
         <ul className="mt-2 space-y-2">
-          {includes?.map((line) => (
-            <li key={`${line.label}-${line.quantity}`} className="text-sm text-primary" data-testid="kit-fixed-line">
-              <span>
-                {line.label} × {line.quantity}
-              </span>
-              {line.available === false ? (
-                <span className="ml-2 text-xs text-muted">{labels.outOfStock}</span>
-              ) : null}
-            </li>
-          ))}
+          {includes?.map((line) => {
+            const parts = splitCommercialLabel(line.label);
+            return (
+              <li key={`${line.label}-${line.quantity}`} className="text-sm text-primary" data-testid="kit-fixed-line">
+                <p>{parts.name}</p>
+                <p>
+                  {parts.detail ? `${parts.detail} × ${line.quantity}` : `× ${line.quantity}`}
+                </p>
+                {line.available === false ? <p className="text-xs text-muted">{labels.outOfStock}</p> : null}
+              </li>
+            );
+          })}
         </ul>
       ) : null}
       {hasChoices ? (
