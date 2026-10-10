@@ -21,6 +21,14 @@ export interface CommerceRuntimeActions {
   addToCart(
     variantId: string,
     quantity?: number,
+    options?: {
+      kitSelections?: ReadonlyArray<{
+        slotId: string;
+        componentProductId: string;
+        componentVariantId: string;
+        quantityPerKit: number;
+      }>;
+    },
   ): Promise<CommerceActionResult>;
 
   updateCartQuantity(

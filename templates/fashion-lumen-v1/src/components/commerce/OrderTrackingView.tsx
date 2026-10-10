@@ -185,6 +185,27 @@ export function OrderTrackingView({ tracking }: OrderTrackingViewProps) {
                       {labels.unitPriceLabel}: {line.unitDisplayPrice}
                       <span> × {line.quantity}</span>
                     </p>
+                    {line.kitIncludes && line.kitIncludes.length > 0 && labels.kitIncludesLabel ? (
+                      <div className="mt-3">
+                        <p className="text-[11px] font-medium uppercase tracking-[0.14em] text-muted">
+                          {labels.kitIncludesLabel}
+                        </p>
+                        <ul className="mt-2 space-y-2">
+                          {line.kitIncludes.map((include) => {
+                            const [name, ...rest] = include.label.split(" — ");
+                            const detail = rest.join(" — ");
+                            return (
+                              <li key={`${include.label}-${include.quantity}`}>
+                                <span className="block text-primary">{name}</span>
+                                <span className="block text-muted">
+                                  {detail ? `${detail} × ${include.quantity}` : `× ${include.quantity}`}
+                                </span>
+                              </li>
+                            );
+                          })}
+                        </ul>
+                      </div>
+                    ) : null}
                   </div>
                   <span className="shrink-0 font-medium">{line.lineDisplayPrice}</span>
                 </div>
