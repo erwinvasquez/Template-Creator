@@ -3,6 +3,8 @@
 import Image from "next/image";
 import type { ReactNode } from "react";
 
+import { KitIncludesList, kitCommercialCopy } from "../components/commerce/KitCommercialBlocks";
+import { useSiteContent } from "../lib/site-content";
 import type {
   HostCheckoutCheckboxRowProps,
   HostCheckoutCountrySelectProps,
@@ -156,7 +158,10 @@ export function CheckoutLineItem({
   quantity,
   priceDisplay,
   compareAtPriceDisplay,
+  kitIncludes,
 }: HostCheckoutLineItemProps) {
+  const { payload } = useSiteContent();
+  const kitCopy = kitCommercialCopy(payload.brand.locale);
   return (
     <li className={hostCheckoutLineItemRowClassName}>
       <div className="relative h-12 w-12 shrink-0 overflow-hidden border border-border bg-background">
@@ -179,6 +184,7 @@ export function CheckoutLineItem({
             {variantLabel}
           </p>
         ) : null}
+        <KitIncludesList includes={kitIncludes} title={kitCopy.includes} />
         <p className={hostCheckoutLineItemPricingClassName}>
           <span className="tabular-nums">×{quantity}</span>
           <span className="mx-1" aria-hidden="true">—</span>
