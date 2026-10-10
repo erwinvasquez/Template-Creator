@@ -7,9 +7,16 @@ import type { CartViewProps } from "@shopenlinea/commerce-runtime-contract";
 import {
   buildCartSummaryRows,
   cartLinePromotionLabels,
+  CartLineCommercialMeta,
+  CartLineQuantityPricingColumnTotal,
+  CartLinePromotionMeta,
+  CartLineQuantityPricingUnitPrices,
+  resolveLinePromotionsMultiLabel,
   cartLineShowsPromotion,
+  cartLineShowsQuantityPricing,
   cartShowsPricingUpdating,
   defaultCartPricingUiLabels,
+  defaultQuantityPricingUiLabels,
   resolveCartEstimatedTotalDisplay,
 } from "@shopenlinea/commerce-runtime-contract";
 import { useCommerceCapabilities } from "../../lib/commerce-host";
@@ -30,6 +37,7 @@ export function CartPageView({ cart, actions }: CartViewProps) {
   const kitCopy = kitCommercialCopy(payload.brand.locale);
   const cartUi = ui.cart;
   const pricingLabels = defaultCartPricingUiLabels(cartUi as Record<string, string | undefined>);
+  const qtyPricingLabels = defaultQuantityPricingUiLabels();
   const summaryRows = buildCartSummaryRows(cart, pricingLabels);
   const estimatedTotal = resolveCartEstimatedTotalDisplay(cart);
   const capabilities = useCommerceCapabilities();
@@ -71,7 +79,8 @@ export function CartPageView({ cart, actions }: CartViewProps) {
             <ul className="mt-12 space-y-8">
               {cart.lines.map((line) => {
                 const hasPromotion = cartLineShowsPromotion(line);
-                const promotionLabel = cartLinePromotionLabels(line)[0];
+                const linePromoLabels = cartLinePromotionLabels(line);
+                const hasQuantityPricing = cartLineShowsQuantityPricing(line);
                 return (
                 <li
                   key={line.lineId}
@@ -98,66 +107,81 @@ export function CartPageView({ cart, actions }: CartViewProps) {
                           {line.variantLabel}
                         </p>
                         <KitIncludesList includes={line.kitIncludes} title={kitCopy.includes} />
-                        {promotionLabel ? (
-                          <p className="mt-1 text-[11px] uppercase tracking-[0.12em] text-primary">
-                            {promotionLabel}
-                          </p>
-                        ) : null}
+                        <CartLineCommercialMeta
+                          line={line}
+                          omitPromotion
+                          quantityPricingClassName="mt-1 text-[11px] text-muted"
+                          promotionClassName="mt-1 text-[11px] uppercase tracking-[0.12em] text-primary"
+                          multiPromotionsLabel={resolveLinePromotionsMultiLabel(
+                            pricingLabels,
+                            linePromoLabels.length,
+                          )}
+                        />
+                        <CartLineQuantityPricingUnitPrices
+                          line={line}
+                          perUnitSuffix={qtyPricingLabels.perUnitSuffix}
+                          wrapperClassName="mt-1 text-[11px] leading-snug"
+                          listClassName="text-muted line-through"
+                        />
+                        <CartLinePromotionMeta
+                          line={line}
+                          promotionClassName="mt-1 text-[11px] uppercase tracking-[0.12em] text-primary"
+                          multiPromotionsLabel={resolveLinePromotionsMultiLabel(
+                            pricingLabels,
+                            linePromoLabels.length,
+                          )}
+                        />
                       </div>
                       <button
                         type="button"
-                        onClick={() => actions.removeCartLine(line.variantId)}
+                        onClick={() => actions.removeCartLine(line.lineId)}
                         className="cursor-pointer text-muted transition-colors duration-200 hover:text-primary"
                         aria-label="Eliminar"
                       >
                         <X className="h-4 w-4" strokeWidth={1.5} />
                       </button>
                     </div>
-                    <div className="mt-auto flex items-center justify-between pt-4">
-                      <div className="flex items-center border border-border">
-                        <button
-                          type="button"
-                          className="cursor-pointer p-2 transition-colors duration-200 hover:bg-surface"
-                          onClick={() =>
-                            actions.updateCartQuantity(
-                              line.variantId,
-                              Math.max(1, line.quantity - 1),
-                            )
-                          }
-                          aria-label="Menos"
-                        >
-                          <Minus className="h-3.5 w-3.5" strokeWidth={1.5} />
-                        </button>
-                        <span className="w-8 text-center text-sm">
-                          {line.quantity}
-                        </span>
-                        <button
-                          type="button"
-                          className="cursor-pointer p-2 transition-colors duration-200 hover:bg-surface"
-                          onClick={() =>
-                            actions.updateCartQuantity(
-                              line.variantId,
-                              Math.min(
-                                lineMaxQty(line.maxQuantity),
-                                line.quantity + 1,
-                              ),
-                            )
-                          }
-                          aria-label="Más"
-                        >
-                          <Plus className="h-3.5 w-3.5" strokeWidth={1.5} />
-                        </button>
+                    <div className="mt-auto flex items-end justify-between pt-4">
+                      <div className="flex w-fit items-center border border-border">
+                          <button
+                            type="button"
+                            className="cursor-pointer p-2 transition-colors duration-200 hover:bg-surface"
+                            onClick={() =>
+                              actions.updateCartQuantity(
+                                line.lineId,
+                                Math.max(1, line.quantity - 1),
+                              )
+                            }
+                            aria-label="Menos"
+                          >
+                            <Minus className="h-3.5 w-3.5" strokeWidth={1.5} />
+                          </button>
+                          <span className="w-8 text-center text-sm">
+                            {line.quantity}
+                          </span>
+                          <button
+                            type="button"
+                            className="cursor-pointer p-2 transition-colors duration-200 hover:bg-surface"
+                            onClick={() =>
+                              actions.updateCartQuantity(
+                                line.lineId,
+                                Math.min(
+                                  lineMaxQty(line.maxQuantity),
+                                  line.quantity + 1,
+                                ),
+                              )
+                            }
+                            aria-label="Más"
+                          >
+                            <Plus className="h-3.5 w-3.5" strokeWidth={1.5} />
+                          </button>
                       </div>
-                      <div className="text-right">
-                        {hasPromotion && line.unitCompareAtPrice ? (
-                          <p className="text-[11px] text-muted line-through">
-                            {line.unitCompareAtPrice}
-                          </p>
-                        ) : null}
-                        <p className="text-sm font-medium">
-                          {line.lineDisplayPrice}
-                        </p>
-                      </div>
+                      <CartLineQuantityPricingColumnTotal
+                        line={line}
+                        wrapperClassName="text-right"
+                        finalClassName="text-sm font-medium"
+                        compareClassName="text-[11px] text-muted line-through"
+                      />
                     </div>
                   </div>
                 </li>
