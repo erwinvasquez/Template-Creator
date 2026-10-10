@@ -17,6 +17,7 @@ import { useSiteContent } from "../../lib/site-content";
 import { requireUi } from "../../lib/ui";
 import { withBasePath } from "../../content/resolve";
 import { cartSalesModeLabel, showsSalesModeChrome } from "../../lib/sales-mode";
+import { KitIncludesList, kitCommercialCopy } from "./KitCommercialBlocks";
 
 function lineMaxQty(maxQuantity: number | null | undefined): number {
   return maxQuantity ?? Number.POSITIVE_INFINITY;
@@ -26,6 +27,7 @@ function lineMaxQty(maxQuantity: number | null | undefined): number {
 export function CartPageView({ cart, actions }: CartViewProps) {
   const { payload, basePath } = useSiteContent();
   const ui = requireUi(payload);
+  const kitCopy = kitCommercialCopy(payload.brand.locale);
   const cartUi = ui.cart;
   const pricingLabels = defaultCartPricingUiLabels(cartUi as Record<string, string | undefined>);
   const summaryRows = buildCartSummaryRows(cart, pricingLabels);
@@ -95,6 +97,7 @@ export function CartPageView({ cart, actions }: CartViewProps) {
                         <p className="mt-1 text-xs text-muted">
                           {line.variantLabel}
                         </p>
+                        <KitIncludesList includes={line.kitIncludes} title={kitCopy.includes} />
                         {promotionLabel ? (
                           <p className="mt-1 text-[11px] uppercase tracking-[0.12em] text-primary">
                             {promotionLabel}

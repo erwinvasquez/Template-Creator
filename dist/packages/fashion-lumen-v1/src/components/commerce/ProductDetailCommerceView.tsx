@@ -26,6 +26,7 @@ import { useSiteContent } from "../../lib/site-content";
 import { requireUi } from "../../lib/ui";
 import { withBasePath } from "../../content/resolve";
 import { CommerceProductCard } from "./CommerceProductCard";
+import { KitIncludesList, KitSavingsBlock, kitCommercialCopy } from "./KitCommercialBlocks";
 import { MadeToOrderUpsellDialog } from "./MadeToOrderUpsellDialog";
 import { isPdpFieldVisible } from "../../lib/pdp-presentation";
 
@@ -99,6 +100,7 @@ export function ProductDetailCommerceView({
   const { payload, basePath } = useSiteContent();
   const ui = requireUi(payload);
   const uiProduct = ui.product;
+  const kitCopy = kitCommercialCopy(payload.brand.locale);
   const uiBadges = uiProduct.badges;
   const madeToOrderUi = ui.salesMode.madeToOrder;
   const presentation = payload.sections?.product?.presentation;
@@ -366,6 +368,9 @@ export function ProductDetailCommerceView({
                   </p>
                 ) : null}
               </div>
+
+              <KitIncludesList includes={selected?.kitIncludes} title={kitCopy.includes} />
+              <KitSavingsBlock savings={selected?.kitSavings} labels={kitCopy} />
 
               {isPdpFieldVisible(presentation, "shortDescription") &&
               product.shortDescription ? (

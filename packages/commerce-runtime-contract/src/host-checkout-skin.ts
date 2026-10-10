@@ -57,6 +57,7 @@ export interface HostCheckoutLineItemProps {
   priceDisplay: string;
   compareAtPriceDisplay?: string | null;
   imagePlaceholder?: string;
+  kitIncludes?: ReadonlyArray<{ label: string; quantity: number }> | null;
 }
 
 export interface HostCheckoutCountrySelectProps {
