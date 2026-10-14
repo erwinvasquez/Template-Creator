@@ -50,6 +50,23 @@ export function useProductDetailGalleryVariantSync(
     );
   }, [product.id, selectedVariantId]);
 
+  useEffect(() => {
+    if (typeof window === "undefined" || !selectedVariantId) return;
+    const url = new URL(window.location.href);
+    let changed = false;
+    if (url.searchParams.has("salesMode")) {
+      url.searchParams.delete("salesMode");
+      changed = true;
+    }
+    if (url.searchParams.get("variant") !== selectedVariantId) {
+      url.searchParams.set("variant", selectedVariantId);
+      changed = true;
+    }
+    if (!changed) return;
+    const next = `${url.pathname}${url.search}${url.hash}`;
+    window.history.replaceState(window.history.state, "", next);
+  }, [selectedVariantId]);
+
   const mainImage = useMemo(
     () =>
       resolveMainGalleryItem(product, activeGalleryIndex, selectedVariant),

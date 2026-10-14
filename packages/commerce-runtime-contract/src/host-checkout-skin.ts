@@ -92,6 +92,15 @@ export interface HostCheckoutOrderSummaryProps {
   totalsSection: ReactNode;
   /** Errores preview / “recalculando…”; null si no hay. */
   statusSection?: ReactNode | null;
+  /** Selector together/separate. La skin no calcula grupos ni tarifas. */
+  deliveryPolicySection?: ReactNode | null;
+  /** Resumen, método y precio por grupo. */
+  deliveryGroupsSection?: ReactNode | null;
+  /** Preparación separada del tránsito. */
+  preparationSection?: ReactNode | null;
+  quoteExpired?: boolean;
+  /** Pago bloqueado hasta consentimiento de la cotización vigente. */
+  paymentConsentRequired?: boolean;
 }
 
 /**

@@ -14,6 +14,7 @@ import type {
   ProductDetailViewModel,
   ProductFilterViewModel,
   ProductSearchViewModel,
+  CatalogSessionViewModel,
   ProductVariantViewModel,
 } from "@shopenlinea/commerce-runtime-contract";
 import {
@@ -188,7 +189,7 @@ export function createMockCommerceBridge(
     };
   }
 
-  function buildListing(query: CatalogQueryViewModel): ProductSearchViewModel {
+  function buildListing(query: CatalogQueryViewModel): ProductSearchViewModel & CatalogSessionViewModel {
     let products = [...catalogSource()];
     const q = (query.searchQuery ?? filterState.searchQuery ?? "").trim().toLowerCase();
     if (q) {
@@ -233,6 +234,8 @@ export function createMockCommerceBridge(
         cursor,
       },
       sortOptions: SORT_OPTIONS,
+      queryKey: cursor ?? "catalog",
+      isLoadingMore: false,
     };
   }
 

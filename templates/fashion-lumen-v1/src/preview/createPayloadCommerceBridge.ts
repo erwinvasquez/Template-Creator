@@ -14,6 +14,7 @@ import type {
   ProductDetailViewModel,
   ProductFilterViewModel,
   ProductSearchViewModel,
+  CatalogSessionViewModel,
 } from "@shopenlinea/commerce-runtime-contract";
 import { DEFAULT_PREVIEW_CAPABILITIES } from "@shopenlinea/commerce-runtime-contract";
 import type { ContentPayload } from "../content/types";
@@ -159,7 +160,7 @@ export function createPayloadCommerceBridge(
     };
   }
 
-  function buildListing(query: CatalogQueryViewModel): ProductSearchViewModel {
+  function buildListing(query: CatalogQueryViewModel): ProductSearchViewModel & CatalogSessionViewModel {
     let list = products.map(toCard);
     const q = (query.searchQuery ?? filterState.searchQuery ?? "")
       .toString()
@@ -185,6 +186,8 @@ export function createPayloadCommerceBridge(
         cursor,
       },
       sortOptions: [{ id: "featured", label: "Destacados" }],
+      queryKey: cursor ?? "catalog",
+      isLoadingMore: false,
     };
   }
 

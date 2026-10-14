@@ -1,4 +1,4 @@
-import type { CatalogFilterPatch, ProductSearchViewModel } from "./catalog";
+import type { CatalogFilterPatch, CatalogSessionViewModel, SalesMode } from "./catalog";
 import type {
   CheckoutPreviewInput,
   CheckoutPreviewResult,
@@ -14,7 +14,24 @@ import type { CommerceActionResult } from "./errors";
 export interface CommerceRuntimeActions {
   setCatalogFilters(filters: CatalogFilterPatch): void;
 
-  loadMoreProducts(cursor: string): Promise<ProductSearchViewModel>;
+  /** Reemplaza el snapshot aplicado desde URL (no merge parcial). */
+  replaceCatalogAppliedState?(filters: CatalogFilterPatch): void;
+
+  loadMoreProducts(cursor?: string): Promise<CatalogSessionViewModel>;
+
+  getCatalogSession?(): CatalogSessionViewModel;
+
+  recordPlpScrollPosition?(scrollY: number): void;
+
+  restorePlpScrollPosition?(): void;
+
+  preparePlpNavigation?(): void;
+
+  /** Entrada nueva a tienda: descarta sesión PLP/PDP persistida. */
+  clearCatalogNavigationSession?(): void;
+
+  /** Tras restaurar URL de retorno PLP (mantiene href para PDP). */
+  clearCatalogReturnNavigation?(): void;
 
   selectVariant(variantId: string): void;
 
@@ -22,6 +39,9 @@ export interface CommerceRuntimeActions {
     variantId: string,
     quantity?: number,
     options?: {
+      selectedSalesMode?: SalesMode;
+      /** UUID por interacción. El mismo reintento lo reutiliza. 1.1 puede omitirlo. */
+      mutationId?: string;
       kitSelections?: ReadonlyArray<{
         slotId: string;
         componentProductId: string;

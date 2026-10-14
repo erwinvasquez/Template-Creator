@@ -1,5 +1,6 @@
 import type { AppliedPromotionViewModel } from "./checkout";
 import type { SalesMode } from "./catalog";
+import type { CartLineQuantityPricingViewModel } from "./quantityPricingPresentation";
 
 export interface CartLimitsViewModel {
   maxLines?: number | null;
@@ -56,6 +57,8 @@ export interface CartLinePricingAdjustmentViewModel {
   amountDisplay?: string | null;
 }
 
+export type CartFulfillmentRole = "immediate" | "prepared";
+
 export interface CartLineViewModel {
   lineId: string;
   variantId: string;
@@ -75,6 +78,9 @@ export interface CartLineViewModel {
   unitEffectivePrice?: number;
   /** Subtotal de catálogo de la línea antes de promociones. */
   lineOriginalTotal?: number;
+  /** Total lista de línea (listUnitPrice × quantity) para compare en columna. */
+  lineListOriginalTotal?: number;
+  lineListOriginalTotalDisplay?: string | null;
   /** Descuento asignado a la línea. */
   lineDiscountAmount?: number;
   /** Subtotal final de la línea tras promociones. */
@@ -82,7 +88,23 @@ export interface CartLineViewModel {
   lineOriginalDisplayPrice?: string | null;
   lineDiscountDisplay?: string | null;
   pricingAdjustments?: CartLinePricingAdjustmentViewModel[];
+  /** Precio lista unitario (qty 1) antes de quantity pricing. */
+  listUnitPrice?: number;
+  /** Precio catálogo unitario post-tier, pre-promoción. */
+  catalogUnitPrice?: number;
+  quantityPricing?: CartLineQuantityPricingViewModel | null;
   options?: Array<{ name: string; value: string }>;
+  /** Valor de preparación MTO, sin prefijo. Stock lo deja vacío. */
+  preparationPromiseLabel?: string | null;
+  /** Canal de la línea. El checkout lo deriva de aquí. */
+  salesMode?: SalesMode;
+  /** Hermanas stock/MTO comparten este id. Ausente en carritos legacy. */
+  purchaseGroupId?: string | null;
+  /**
+   * `stock` → immediate, `madeToOrder` → prepared.
+   * Ausente en legacy: el consumidor lo deriva de `salesMode`.
+   */
+  fulfillmentRole?: CartFulfillmentRole | null;
   /** Detalle del kit. No son líneas de precio. */
   kitIncludes?: ReadonlyArray<{ label: string; quantity: number }> | null;
   errorCode?: string | null;
@@ -107,9 +129,12 @@ export interface CartViewModel {
   cartHref: string;
   checkoutHref: string;
   promotionLabels?: string[];
-  /** Subtotal de catálogo antes de descuentos automáticos. */
+  /** Subtotal LIST original cuando existe desglose quantity/promo. */
   subtotalOriginal?: number;
   subtotalOriginalDisplay?: string | null;
+  /** Diferencia acumulada entre subtotal lista y catálogo post-tier. */
+  quantityDiscountTotal?: number;
+  quantityDiscountTotalDisplay?: string | null;
   discountTotal?: number;
   discountTotalDisplay?: string | null;
   subtotalPromotional?: number;

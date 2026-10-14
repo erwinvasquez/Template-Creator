@@ -2,7 +2,7 @@
   "templateId": "fashion-atelier-v1",
   "name": "Atelier",
   "displayName": "Atelier Fashion",
-  "description": "Template e-commerce de moda premium. Identidad visual fija: tipografía Cormorant/Montserrat, negro piedra + acento oro, hero full-bleed, colecciones, destacados, editorial, newsletter, tienda y about.",
+  "description": "Template e-commerce de moda premium. Identidad visual fija: tipograf\u00eda Cormorant/Montserrat, negro piedra + acento oro, hero full-bleed, colecciones, destacados, editorial, newsletter, tienda y about.",
   "category": "ecommerce-fashion",
   "version": "1.3.0",
   "schemaVersion": "1.0.0",
@@ -78,7 +78,7 @@
   },
   "commerce": {
     "mode": "preview-only",
-    "contractVersion": null,
+    "contractVersion": "1.2.0",
     "views": {
       "productListing": true,
       "productDetail": true,
@@ -211,6 +211,6 @@
     ],
     "command": "npm run template:export -- fashion-atelier-v1",
     "output": "dist/packages/fashion-atelier-v1",
-    "consumer": "IA Builder v2 — solo genera/edita Content Payload validado contra schema.json; nunca modifica el código del template."
+    "consumer": "IA Builder v2 \u2014 solo genera/edita Content Payload validado contra schema.json; nunca modifica el c\u00f3digo del template."
   }
 }

@@ -97,3 +97,10 @@ export interface ProductSearchViewModel {
   query: CatalogQueryViewModel;
   sortOptions: CatalogSortOptionViewModel[];
 }
+
+export interface CatalogSessionViewModel {
+  products: ProductCardViewModel[];
+  nextCursor: string | null;
+  queryKey: string;
+  isLoadingMore: boolean;
+}
