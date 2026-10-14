@@ -81,17 +81,43 @@ export {
   buildCartSummaryRows,
   cartHasPromotionalPricing,
   cartLinePromotionLabels,
+  resolveCartLineColumnFinalLineTotal,
+  resolveCartLineColumnOriginalLineTotal,
+  resolveCartLineColumnTotalPresentation,
   cartLineShowsPromotion,
+  cartLineShowsQuantityPricing,
   cartShowsPricingUpdating,
+  formatCartLinePromotionDisplay,
   resolveCartEstimatedTotalDisplay,
+  resolveLinePromotionsMultiLabel,
 } from "./cartPricingPresentation";
-export type { CartPricingUiLabels, CartSummaryRow } from "./cartPricingPresentation";
+export type {
+  CartLineColumnTotalPresentation,
+  CartLinePromotionDisplay,
+  CartPricingUiLabels,
+  CartSummaryRow,
+  FormatCartLinePromotionDisplayOptions,
+} from "./cartPricingPresentation";
 export {
+  CartLineCommercialMeta,
+  CartLinePromotionMeta,
   CartLinePricing,
+  CartLineQuantityPricingColumnTotal,
+  CartLineQuantityPricingNextTier,
+  CartLineQuantityPricingUnitPrices,
   CartSummaryPricing,
   defaultCartPricingUiLabels,
+  defaultQuantityPricingUiLabels,
 } from "./cartPricingViews";
-export type { CartLinePricingProps, CartSummaryPricingProps } from "./cartPricingViews";
+export type {
+  CartLineCommercialMetaProps,
+  CartLinePromotionMetaProps,
+  CartLinePricingProps,
+  CartLineQuantityPricingColumnTotalProps,
+  CartLineQuantityPricingNextTierProps,
+  CartLineQuantityPricingUnitPricesProps,
+  CartSummaryPricingProps,
+} from "./cartPricingViews";
 export {
   createEmptyAccountLoginState,
   createEmptyAccountRegisterState,
