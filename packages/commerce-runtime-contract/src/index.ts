@@ -119,6 +119,34 @@ export type {
   CartSummaryPricingProps,
 } from "./cartPricingViews";
 export {
+  commerceLineItemBodyClassName,
+  commerceLineItemCompareAtClassName,
+  commerceLineItemFinalPriceClassName,
+  commerceLineItemHeaderRowClassName,
+  commerceLineItemImageBorderClassName,
+  commerceLineItemImageShellClassName,
+  commerceLineItemListClassName,
+  commerceLineItemPriceColumnClassName,
+  commerceLineItemPromotionClassName,
+  commerceLineItemQuantityPricingClassName,
+  commerceLineItemQuantityClassName,
+  commerceLineItemRowClassName,
+  commerceLineItemTitleClassName,
+  commerceLineItemVariantClassName,
+} from "./commerceLineItemPresentation";
+export {
+  resolveCatalogShopNavigationHref,
+  resolvePlpReturnHrefForRouter,
+  resolvePlpShopHref,
+} from "./catalogNavigation";
+export type { CatalogNavigationHost } from "./catalogNavigation";
+export { variantHasQuantityPricingCatalog } from "./productDetailQuantityPricingPresentation";
+export {
+  buildProductDetailQuantityPricingDisclosureTiers,
+  ProductDetailQuantityPricingDisclosure,
+} from "./productDetailQuantityPricingDisclosure";
+export type { ProductDetailQuantityPricingDisclosureProps } from "./productDetailQuantityPricingDisclosure";
+export {
   createEmptyAccountLoginState,
   createEmptyAccountRegisterState,
 } from "./account";
