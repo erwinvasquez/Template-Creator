@@ -37,6 +37,7 @@ function PdpStory({
             selectVariant: bridge.actions.selectVariant,
             addToCart: bridge.actions.addToCart,
             openCartDrawer: bridge.actions.openCartDrawer,
+            confirmAddToCartSuccess: bridge.actions.confirmAddToCartSuccess,
           }}
         />
       </div>

@@ -269,6 +269,11 @@ export function CheckoutOrderSummary({
   fulfillmentNotice,
   totalsSection,
   statusSection,
+  deliveryPolicySection,
+  deliveryGroupsSection,
+  preparationSection,
+  quoteExpired,
+  paymentConsentRequired,
 }: HostCheckoutOrderSummaryProps) {
   return (
     <div className="space-y-4 min-w-0 text-sm">
@@ -285,6 +290,11 @@ export function CheckoutOrderSummary({
       {fulfillmentNotice ? (
         <CheckoutNotice>{fulfillmentNotice}</CheckoutNotice>
       ) : null}
+      {deliveryPolicySection ? <div className="min-w-0">{deliveryPolicySection}</div> : null}
+      {deliveryGroupsSection ? <div className="min-w-0 space-y-2">{deliveryGroupsSection}</div> : null}
+      {preparationSection ? <div className="min-w-0">{preparationSection}</div> : null}
+      {quoteExpired ? <CheckoutNotice>La cotización separada ya no es válida.</CheckoutNotice> : null}
+      {paymentConsentRequired ? <CheckoutNotice>Confirma la cotización separada antes de pagar.</CheckoutNotice> : null}
       <div className="min-w-0 max-w-full space-y-2 border-t border-border pt-4">
         {totalsSection}
       </div>

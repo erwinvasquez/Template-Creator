@@ -48,7 +48,7 @@ export interface ProductDetailViewProps {
   capabilities: CommerceTemplateCapabilities;
   actions: Pick<
     CommerceRuntimeActions,
-    "selectVariant" | "addToCart" | "openCartDrawer"
+    "selectVariant" | "addToCart" | "openCartDrawer" | "confirmAddToCartSuccess"
   >;
   loading?: boolean;
   errorMessage?: string | null;

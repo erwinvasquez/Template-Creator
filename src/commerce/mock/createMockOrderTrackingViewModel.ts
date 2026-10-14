@@ -81,6 +81,7 @@ export function createMockOrderTrackingViewModel(
       unitPriceLabel: "Precio",
       lineSubtotalLabel: "Subtotal línea",
       subtotalLabel: "Subtotal",
+      quantityDiscountLabel: "Descuento por cantidad",
       discountLabel: "Descuento",
       shippingLabel: "Envío",
       taxLabel: "Impuestos",

@@ -93,6 +93,7 @@ describe("Orion commerce parity", () => {
             selectVariant: bridge.actions.selectVariant,
             addToCart: vi.fn(async () => ({ ok: true })),
             openCartDrawer: vi.fn(),
+            confirmAddToCartSuccess: vi.fn(),
           }}
         />
       </SiteContentProvider>,

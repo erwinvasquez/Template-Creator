@@ -38,6 +38,8 @@ export type LumenCommerceHost = {
   closeCart: () => void;
   /** Monotonic store version for sync subscriptions. */
   getStoreVersion?: () => number;
+  /** Href de retorno al listado. El host SaaS lo provee; el preview puede omitirlo. */
+  getPlpReturnHref?: () => string | null | undefined;
   capabilities?: CommerceTemplateCapabilities;
 };
 

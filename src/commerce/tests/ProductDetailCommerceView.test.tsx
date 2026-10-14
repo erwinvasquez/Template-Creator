@@ -2,6 +2,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import { DEFAULT_PREVIEW_CAPABILITIES } from "@shopenlinea/commerce-runtime-contract";
+import type { ProductDetailViewModel } from "@shopenlinea/commerce-runtime-contract";
 import { ProductDetailCommerceView } from "fashion-atelier-v1/client";
 import { createMockCommerceBridge } from "../mock/createMockCommerceBridge";
 import defaults from "../../../templates/fashion-atelier-v1/defaults.json";
@@ -25,7 +26,6 @@ describe("ProductDetailCommerceView", () => {
             selectVariant: bridge.actions.selectVariant,
             addToCart,
             openCartDrawer: vi.fn(),
-            confirmAddToCartSuccess: vi.fn(),
             confirmAddToCartSuccess,
           }}
         />
@@ -87,7 +87,7 @@ describe("ProductDetailCommerceView", () => {
 
   it("opens made-to-order upsell when quantity exceeds immediate stock cap", async () => {
     const user = userEvent.setup();
-    const product = {
+    const product: ProductDetailViewModel = {
       id: "p1",
       slug: "ribbon",
       href: "/tienda/ribbon",
@@ -146,7 +146,7 @@ describe("ProductDetailCommerceView", () => {
   });
 
   it("shows inline MTO panel when immediate stock is zero (Trigger B)", async () => {
-    const product = {
+    const product: ProductDetailViewModel = {
       id: "p0",
       slug: "zero-stock",
       href: "/tienda/zero-stock",
@@ -207,7 +207,7 @@ describe("ProductDetailCommerceView", () => {
   it("enables Material Y when naive picker would deadlock on Color=Rojo", async () => {
     const user = userEvent.setup();
     const selectVariant = vi.fn();
-    const product = {
+    const product: ProductDetailViewModel = {
       id: "p-mat",
       slug: "mat-color",
       href: "/tienda/mat-color",
