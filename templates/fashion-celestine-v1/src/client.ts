@@ -38,14 +38,16 @@ export { ProductListingView } from "./components/commerce/ProductListingView";
 export { ProductDetailCommerceView } from "./components/commerce/ProductDetailCommerceView";
 export { CommerceCartDrawer } from "./components/commerce/CommerceCartDrawer";
 export { CartPageView } from "./components/commerce/CartPageView";
+/** @deprecated SaaS host checkout usa hostCheckoutSkin + motor host; no montar CheckoutPage del template. */
 export { CheckoutLayout } from "./components/commerce/CheckoutLayout";
 export { hostCheckoutSkin } from "./checkout/hostCheckoutSkin";
-export { OrderTrackingView } from "./components/commerce/OrderTrackingView";
 export { OrderConfirmationView } from "./components/commerce/OrderConfirmationView";
+export { OrderTrackingView } from "./components/commerce/OrderTrackingView";
 export { CommerceProductCard } from "./components/commerce/CommerceProductCard";
 export { AccountLoginForm } from "./components/account/AccountLoginForm";
 export { AccountRegisterForm } from "./components/account/AccountRegisterForm";
 export { AccountDashboard } from "./components/account/AccountDashboard";
+export { AccountOrdersView } from "./components/account/AccountOrdersView";
 
 import type { CommerceTemplateViews } from "@shopenlinea/commerce-runtime-contract";
 import { ProductListingView } from "./components/commerce/ProductListingView";
@@ -57,6 +59,7 @@ import { OrderTrackingView } from "./components/commerce/OrderTrackingView";
 import { AccountLoginForm } from "./components/account/AccountLoginForm";
 import { AccountRegisterForm } from "./components/account/AccountRegisterForm";
 import { AccountDashboard } from "./components/account/AccountDashboard";
+import { AccountOrdersView } from "./components/account/AccountOrdersView";
 
 export const commerceViews: CommerceTemplateViews = {
   ProductListing: ProductListingView,
@@ -68,6 +71,7 @@ export const commerceViews: CommerceTemplateViews = {
   AccountLoginForm,
   AccountRegisterForm,
   AccountDashboard,
+  AccountOrders: AccountOrdersView,
 };
 
 /** @deprecated Prefer commerceViews */

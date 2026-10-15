@@ -3,7 +3,7 @@
 exports[`CommerceCartDrawer > empty cart snapshot 1`] = `
 <div>
   <div
-    class="atelier-root min-h-full flex flex-col"
+    class="atelier-root flex min-h-[100dvh] flex-col"
     style="--color-primary: #1C1917; --color-secondary: #44403C; --color-background: #FAFAF9; --color-surface: #F5F5F4; --color-text: #0C0A09; --color-muted: #57534E; --color-border: #E7E5E4; --color-ink: #1c1917; --color-cta: #CA8A04; --color-cta-hover: #A16207;"
   >
     <div
@@ -106,7 +106,7 @@ exports[`CommerceCartDrawer > empty cart snapshot 1`] = `
 exports[`CommerceCartDrawer > promotion cart shows label and lines 1`] = `
 <div>
   <div
-    class="atelier-root min-h-full flex flex-col"
+    class="atelier-root flex min-h-[100dvh] flex-col"
     style="--color-primary: #1C1917; --color-secondary: #44403C; --color-background: #FAFAF9; --color-surface: #F5F5F4; --color-text: #0C0A09; --color-muted: #57534E; --color-border: #E7E5E4; --color-ink: #1c1917; --color-cta: #CA8A04; --color-cta-hover: #A16207;"
   >
     <div

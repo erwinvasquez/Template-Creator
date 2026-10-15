@@ -29,7 +29,7 @@ export function SiteContentProvider({
 
   return (
     <SiteContentContext.Provider value={{ payload, basePath }}>
-      <div className="atelier-root min-h-full flex flex-col" style={style}>
+      <div className="atelier-root flex min-h-[100dvh] flex-col" style={style}>
         {children}
       </div>
     </SiteContentContext.Provider>

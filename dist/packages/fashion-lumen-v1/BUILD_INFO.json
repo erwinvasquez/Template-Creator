@@ -2,8 +2,8 @@
   "templateId": "fashion-lumen-v1",
   "version": "1.0.0",
   "exportedAt": "1970-01-01T00:00:00.000Z",
-  "contentHash": "714ea6792e1c3242867e992fad7fc21566c0e3b9cd7b420e5b4765fd5a1f0b2d",
-  "sourceGitSha": "edbedffa0f81aee6ead3d01ad7a4a313708317ad",
+  "contentHash": "796fa3d042369fb99bc5f9a821ccdf202617a681a61fb3fba29ed034531a7328",
+  "sourceGitSha": "3c73833fcd443119e53167c38b5b3a642276f83c",
   "immutable": true,
   "source": "templates/fashion-lumen-v1"
 }
