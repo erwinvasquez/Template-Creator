@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image, { getImageProps } from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { Minus, Plus } from "lucide-react";
@@ -21,6 +21,8 @@ import {
   shouldOpenStockToMtoModal,
   stockCap,
   useProductDetailGalleryVariantSync,
+  useProductHeroVariantIntent,
+  productHeroIntentHandlers,
   ProductDetailQuantityPricingDisclosure,
   defaultQuantityPricingUiLabels,
   variantHasQuantityPricingCatalog,
@@ -147,6 +149,13 @@ export function ProductDetailCommerceView({
     pickerVariants,
     dimensions,
     maxAddQtyMap,
+  });
+
+  const warmVariantHero = useProductHeroVariantIntent({
+    product,
+    activeImageUrl: mainImage?.url,
+    sizes: "(max-width: 768px) 100vw, 50vw",
+    getImageProps,
   });
 
   const selections = useMemo(
@@ -443,6 +452,20 @@ export function ProductDetailCommerceView({
                             key={val}
                             type="button"
                             disabled={disabled}
+                            {...productHeroIntentHandlers(() => {
+                              const resolved = resolveVariantForDimensionSelection(
+                                pickerVariants,
+                                dimensions,
+                                selections,
+                                dimensionIndex,
+                                val,
+                                {
+                                  maxAddQtyByVariantId: maxAddQtyMap,
+                                  preferredVariantId: selected?.id,
+                                },
+                              );
+                              if (resolved) warmVariantHero(resolved.id);
+                            })}
                             onClick={() => {
                               const resolved =
                                 resolveVariantForDimensionSelection(
@@ -490,6 +513,7 @@ export function ProductDetailCommerceView({
                     key={v.id}
                     type="button"
                     disabled={!v.available}
+                    {...productHeroIntentHandlers(() => warmVariantHero(v.id))}
                     onClick={() => actions.selectVariant(v.id)}
                     className={`cursor-pointer border px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.12em] transition-colors disabled:cursor-not-allowed disabled:opacity-40 ${
                       selected?.id === v.id

@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image, { getImageProps } from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { Minus, Plus } from "lucide-react";
@@ -21,7 +21,14 @@ import {
   shouldOpenStockToMtoModal,
   stockCap,
   useProductDetailGalleryVariantSync,
+  useProductHeroVariantIntent,
+  productHeroIntentHandlers,
+  ProductDetailQuantityPricingDisclosure,
+  defaultQuantityPricingUiLabels,
+  variantHasQuantityPricingCatalog,
 } from "@shopenlinea/commerce-runtime-contract";
+import { resolveCatalogShopNavigationHref } from "@shopenlinea/commerce-runtime-contract";
+import { useRequiredCommerceHost } from "../../lib/commerce-host";
 import { useSiteContent } from "../../lib/site-content";
 import { requireUi } from "../../lib/ui";
 import { withBasePath } from "../../content/resolve";
@@ -96,7 +103,9 @@ export function ProductDetailCommerceView({
   actions,
   errorMessage,
 }: ProductDetailViewProps) {
+  const host = useRequiredCommerceHost();
   const { payload, basePath } = useSiteContent();
+  const shopHref = resolveCatalogShopNavigationHref(host, basePath);
   const ui = requireUi(payload);
   const uiProduct = ui.product;
   const uiBadges = uiProduct.badges;
@@ -139,6 +148,13 @@ export function ProductDetailCommerceView({
     maxAddQtyMap,
   });
 
+  const warmVariantHero = useProductHeroVariantIntent({
+    product,
+    activeImageUrl: mainImage?.url,
+    sizes: "(max-width: 768px) 100vw, 50vw",
+    getImageProps,
+  });
+
   const selections = useMemo(
     () => selectionsFromSelectedVariant(pickerVariants, selected?.id),
     [pickerVariants, selected?.id],
@@ -175,6 +191,14 @@ export function ProductDetailCommerceView({
     selected?.compareAtPrice && selected.displayPrice
       ? discountPercent(selected.displayPrice, selected.compareAtPrice)
       : null;
+
+  const formatUnitPrice = useMemo(() => {
+    const fmt = new Intl.NumberFormat(undefined, {
+      style: "currency",
+      currency: product.currency,
+    });
+    return (amount: number) => fmt.format(amount);
+  }, [product.currency]);
 
   useEffect(() => {
     setQuantity(1);
@@ -268,7 +292,7 @@ export function ProductDetailCommerceView({
           {shopLabel ? (
             <nav className="mb-6 text-xs text-muted" aria-label="Breadcrumb">
               <Link
-                href={withBasePath(basePath, "/tienda")}
+                href={shopHref}
                 className="cursor-pointer transition-colors duration-200 hover:text-primary"
               >
                 {shopLabel}
@@ -292,21 +316,34 @@ export function ProductDetailCommerceView({
             {product.name}
           </h1>
 
-          <div className="mt-4 flex flex-wrap items-baseline gap-3">
-            <p className="font-serif text-2xl">
-              {selected?.displayPrice ?? product.variants[0]?.displayPrice}
-            </p>
-            {selected?.compareAtPrice ? (
-              <p className="text-sm text-muted line-through">
-                {selected.compareAtPrice}
+          {variantHasQuantityPricingCatalog(selected) && selected ? (
+            <ProductDetailQuantityPricingDisclosure
+              variant={selected}
+              quantity={quantity}
+              labels={defaultQuantityPricingUiLabels()}
+              formatUnitPrice={formatUnitPrice}
+              rowClassName="mt-4 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2"
+              primaryPriceClassName="font-serif text-2xl tabular-nums"
+              listStrikeClassName="font-serif text-lg text-muted line-through tabular-nums"
+              triggerClassName="shrink-0 min-w-[9.5rem] text-[11px] font-medium uppercase tracking-[0.12em] text-muted underline-offset-2 hover:text-primary hover:underline sm:text-right"
+            />
+          ) : (
+            <div className="mt-4 flex flex-wrap items-baseline gap-3">
+              <p className="font-serif text-2xl">
+                {selected?.displayPrice ?? product.variants[0]?.displayPrice}
               </p>
-            ) : null}
-            {pct != null && pct > 0 ? (
-              <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-primary">
-                −{pct}%
-              </span>
-            ) : null}
-          </div>
+              {selected?.compareAtPrice ? (
+                <p className="text-sm text-muted line-through">
+                  {selected.compareAtPrice}
+                </p>
+              ) : null}
+              {pct != null && pct > 0 ? (
+                <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-primary">
+                  −{pct}%
+                </span>
+              ) : null}
+            </div>
+          )}
 
           {isPdpFieldVisible(presentation, "shortDescription") &&
           product.shortDescription ? (
@@ -382,6 +419,20 @@ export function ProductDetailCommerceView({
                             key={val}
                             type="button"
                             disabled={disabled}
+                            {...productHeroIntentHandlers(() => {
+                              const resolved = resolveVariantForDimensionSelection(
+                                pickerVariants,
+                                dimensions,
+                                selections,
+                                dimensionIndex,
+                                val,
+                                {
+                                  maxAddQtyByVariantId: maxAddQtyMap,
+                                  preferredVariantId: selected?.id,
+                                },
+                              );
+                              if (resolved) warmVariantHero(resolved.id);
+                            })}
                             onClick={() => {
                               const resolved =
                                 resolveVariantForDimensionSelection(
@@ -429,6 +480,7 @@ export function ProductDetailCommerceView({
                     key={v.id}
                     type="button"
                     disabled={!v.available}
+                    {...productHeroIntentHandlers(() => warmVariantHero(v.id))}
                     onClick={() => actions.selectVariant(v.id)}
                     className={`cursor-pointer border px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.12em] transition-colors disabled:cursor-not-allowed disabled:opacity-40 ${
                       selected?.id === v.id
@@ -592,9 +644,16 @@ export function ProductDetailCommerceView({
             <h2 className="mb-10 font-serif text-3xl tracking-wide md:text-4xl">
               {relatedTitle}
             </h2>
-            <div className="grid grid-cols-2 gap-x-4 gap-y-10 md:grid-cols-4 md:gap-x-6">
+            <div
+              className="-mx-6 flex gap-4 overflow-x-auto px-6 pb-2 snap-x snap-mandatory [scrollbar-width:thin] md:mx-0 md:gap-6 md:px-0"
+            >
               {product.relatedProducts.map((p) => (
-                <CommerceProductCard key={p.id} product={p} />
+                <div
+                  key={p.id}
+                  className="w-[44vw] max-w-[220px] shrink-0 snap-start sm:w-[38vw] md:w-[calc(25%-1.125rem)] md:min-w-[200px] md:max-w-[240px]"
+                >
+                  <CommerceProductCard product={p} />
+                </div>
               ))}
             </div>
           </section>

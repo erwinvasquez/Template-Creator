@@ -98,9 +98,10 @@ export interface HostCheckoutOrderSummaryProps {
   deliveryGroupsSection?: ReactNode | null;
   /** Preparación separada del tránsito. */
   preparationSection?: ReactNode | null;
-  quoteExpired?: boolean;
-  /** Pago bloqueado hasta consentimiento de la cotización vigente. */
-  paymentConsentRequired?: boolean;
+  /** Aviso ya redactado por el host cuando la cotización separada caducó. */
+  quoteExpired?: ReactNode | null;
+  /** Aviso ya redactado por el host hasta consentir la cotización vigente. */
+  paymentConsentRequired?: ReactNode | null;
 }
 
 /**

@@ -84,6 +84,25 @@ export interface AccountDashboardProps {
   notices?: string | null;
 }
 
+export interface AccountOrderRowViewModel {
+  orderId: string;
+  orderNumber: string;
+  statusLabel: string;
+  placedAtDisplay: string;
+  totalDisplay: string;
+  trackingHref?: string | null;
+  trackingLabel?: string | null;
+}
+
+export interface AccountOrdersViewModel {
+  orders: AccountOrderRowViewModel[];
+  emptyMessage?: string | null;
+}
+
+export interface AccountOrdersViewProps {
+  orders: AccountOrdersViewModel;
+}
+
 export function createEmptyAccountLoginState(
   defaults?: Partial<AccountLoginState>,
 ): AccountLoginState {

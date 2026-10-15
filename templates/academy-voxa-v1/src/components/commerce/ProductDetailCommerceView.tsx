@@ -1,17 +1,17 @@
 "use client";
 
-import Image from "next/image";
+import Image, { getImageProps } from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
-import { ArrowRight, Check, Minus, Plus } from "lucide-react";
+import { Minus, Plus } from "lucide-react";
 import type {
   ProductDetailViewModel,
   ProductDetailViewProps,
-  ProductVariantViewModel,
   StockLabel,
 } from "@shopenlinea/commerce-runtime-contract";
 import {
   buildOptionDimensions,
+  canUseVariantOptionPickers,
   chipStateForOptionValue,
   resolveVariantForDimensionSelection,
   selectionsFromVariant,
@@ -21,7 +21,14 @@ import {
   shouldOpenStockToMtoModal,
   stockCap,
   useProductDetailGalleryVariantSync,
+  useProductHeroVariantIntent,
+  productHeroIntentHandlers,
+  ProductDetailQuantityPricingDisclosure,
+  defaultQuantityPricingUiLabels,
+  variantHasQuantityPricingCatalog,
 } from "@shopenlinea/commerce-runtime-contract";
+import { resolveCatalogShopNavigationHref } from "@shopenlinea/commerce-runtime-contract";
+import { useRequiredCommerceHost } from "../../lib/commerce-host";
 import { useSiteContent } from "../../lib/site-content";
 import { requireUi } from "../../lib/ui";
 import { withBasePath } from "../../content/resolve";
@@ -34,7 +41,10 @@ function parseDisplayPrice(display: string): number | null {
   return Number.isFinite(n) ? n : null;
 }
 
-function discountPercent(price: string, compareAt: string): number | null {
+function discountPercent(
+  price: string,
+  compareAt: string,
+): number | null {
   const p = parseDisplayPrice(price);
   const c = parseDisplayPrice(compareAt);
   if (p == null || c == null || c <= p || c <= 0) return null;
@@ -59,6 +69,7 @@ function stockCopy(
   if (!label || label === "available") return null;
   if (label === "out_of_stock") return ui.outOfStock;
   if (label === "contact") return ui.contact;
+  if (label === "low_stock") return ui.lowStock;
   return null;
 }
 
@@ -86,58 +97,38 @@ function selectionsFromSelectedVariant(
   return selectionsFromVariant(variant);
 }
 
-/** Academia: solo Modalidad es pickable; duración/nivel son informativos. */
-function pickableDimensions(
-  pickerVariants: VariantOptionLike[],
-  optionDefinitions?: ProductDetailViewModel["optionDefinitions"],
-): string[] {
-  const all = buildOptionDimensions(pickerVariants, optionDefinitions);
-  const modality = all.filter((d) => d === "Modalidad");
-  const base = modality.length ? modality : all.slice(0, 1);
-  return base.filter((d) => valuesForDimension(pickerVariants, d).length > 1);
-}
-
-function optionValue(
-  variant: ProductVariantViewModel | undefined,
-  name: string,
-): string | null {
-  return variant?.options.find((o) => o.name === name)?.value ?? null;
-}
-
 export function ProductDetailCommerceView({
   product,
   capabilities,
   actions,
   errorMessage,
 }: ProductDetailViewProps) {
+  const host = useRequiredCommerceHost();
   const { payload, basePath } = useSiteContent();
+  const shopHref = resolveCatalogShopNavigationHref(host, basePath);
   const ui = requireUi(payload);
   const uiProduct = ui.product;
+  const uiBadges = uiProduct.badges;
   const madeToOrderUi = ui.salesMode.madeToOrder;
   const presentation = payload.sections?.product?.presentation;
-  const uiBadges = {
-    ...uiProduct.badges,
-    limitedEdition: uiProduct.badges.limitedEdition,
-  };
-  const relatedTitle = uiProduct.relatedTitle;
   const [pending, setPending] = useState(false);
   const [localError, setLocalError] = useState<string | null>(null);
   const [quantity, setQuantity] = useState(1);
   const [upsellOpen, setUpsellOpen] = useState(false);
 
-  const shopLabel =
-    payload.navigation.primary.find(
-      (l) =>
-        (l.type === "path" && l.href.startsWith("/catalogo")) ||
-        l.type === "shopFilter",
-    )?.label ?? "Programas";
+  const relatedTitle = uiProduct.relatedTitle;
+  const shopLabel = payload.navigation.primary.find(
+    (l) =>
+      (l.type === "path" && l.href.startsWith("/tienda")) ||
+      l.type === "shopFilter",
+  )?.label;
 
   const pickerVariants = useMemo(
     () => toPickerVariants(product),
     [product.variants],
   );
   const dimensions = useMemo(
-    () => pickableDimensions(pickerVariants, product.optionDefinitions),
+    () => buildOptionDimensions(pickerVariants, product.optionDefinitions),
     [pickerVariants, product.optionDefinitions],
   );
   const maxAddQtyMap = useMemo(
@@ -156,13 +147,26 @@ export function ProductDetailCommerceView({
     dimensions,
     maxAddQtyMap,
   });
+
+  const warmVariantHero = useProductHeroVariantIntent({
+    product,
+    activeImageUrl: mainImage?.url,
+    sizes: "(max-width: 768px) 100vw, 50vw",
+    getImageProps,
+  });
+
   const selections = useMemo(
     () => selectionsFromSelectedVariant(pickerVariants, selected?.id),
     [pickerVariants, selected?.id],
   );
+  const usePickers = useMemo(
+    () => canUseVariantOptionPickers(pickerVariants),
+    [pickerVariants],
+  );
 
-  const showModalities =
-    capabilities.variantSelector !== "unsupported" && dimensions.length > 0;
+  const showVariants =
+    capabilities.variantSelector !== "unsupported" &&
+    product.variants.length > 1;
 
   const stockCapQty = stockCap(selected, product);
   const transition = resolveStockToMtoTransition(product, selected, quantity);
@@ -188,51 +192,18 @@ export function ProductDetailCommerceView({
       ? discountPercent(selected.displayPrice, selected.compareAtPrice)
       : null;
 
-  const isBook = product.categoryLabels?.some((c) =>
-    /libro/i.test(c),
-  );
-
-  const modality = optionValue(selected, "Modalidad");
-  const duration = optionValue(selected, "Duración");
-  const level = optionValue(selected, "Nivel");
-
-  const metaChips = useMemo(() => {
-    const chips: string[] = [];
-    if (isPdpFieldVisible(presentation, "categoryLabels")) {
-      chips.push(...(product.categoryLabels ?? []));
-    }
-    if (modality) chips.push(modality);
-    if (duration) chips.push(duration);
-    if (level) chips.push(level);
-    return chips.filter((v, i, arr) => arr.indexOf(v) === i);
-  }, [
-    presentation,
-    product.categoryLabels,
-    modality,
-    duration,
-    level,
-  ]);
-
-  const heroEyebrow = useMemo(() => {
-    if (
-      isPdpFieldVisible(presentation, "collectionLabels") &&
-      product.collectionLabels?.[0]
-    ) {
-      return product.collectionLabels[0];
-    }
-    if (
-      isPdpFieldVisible(presentation, "categoryLabels") &&
-      product.categoryLabels?.[0]
-    ) {
-      return product.categoryLabels[0];
-    }
-    return presentation ? null : "Programa Voxa";
-  }, [presentation, product.collectionLabels, product.categoryLabels]);
+  const formatUnitPrice = useMemo(() => {
+    const fmt = new Intl.NumberFormat(undefined, {
+      style: "currency",
+      currency: product.currency,
+    });
+    return (amount: number) => fmt.format(amount);
+  }, [product.currency]);
 
   useEffect(() => {
     setQuantity(1);
     setLocalError(null);
-  }, [product.id, selected?.id]);
+  }, [selected?.id]);
 
   async function onAdd() {
     if (!selected || !canBuy) return;
@@ -270,203 +241,274 @@ export function ProductDetailCommerceView({
     lowStock: uiProduct.lowStock,
   });
 
-  const ctaLabel = pending
-    ? uiProduct.addingToCart
-    : stockLabel === "out_of_stock" || !variantAvailable
-      ? uiProduct.outOfStock
-      : isBook
-        ? uiProduct.addToCart
-        : uiProduct.addToCart;
-
   return (
-    <div className="pb-28 md:pb-24">
-      {/* Hero editorial */}
-      <div className="relative overflow-hidden border-b border-border bg-ink">
-        <div className="absolute inset-0">
-          {mainImage?.url ? (
-            <Image
-              src={mainImage.url}
-              alt={mainImage.alt ?? product.name}
-              fill
-              priority
-              className="object-cover opacity-55 animate-soft-zoom"
-              sizes="100vw"
-            />
+    <div className="min-w-0 pb-24 pt-28 md:pt-32">
+      <div className="mx-auto grid min-w-0 max-w-7xl gap-10 px-6 md:grid-cols-2 md:gap-16 md:px-8">
+        <div className="min-w-0 w-full max-w-full">
+          <div className="relative aspect-[3/4] overflow-hidden bg-surface">
+            {mainImage?.url && (
+              <Image
+                src={mainImage.url}
+                alt={mainImage.alt ?? product.name}
+                fill
+                priority
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
+            )}
+          </div>
+          {product.gallery.length > 1 ? (
+            <div className="mt-3 w-full min-w-0 overflow-x-auto">
+              <ul className="flex gap-2 pb-1">
+                {product.gallery.map((g, i) => {
+                  const active = mainImage?.id === g.id || i === galleryIndex;
+                  return (
+                    <li key={g.id} className="shrink-0">
+                      <button
+                        type="button"
+                        onClick={() => onGalleryItemClick(i)}
+                        className={`relative h-16 w-12 cursor-pointer overflow-hidden border bg-surface transition-colors ${
+                          active ? "border-primary" : "border-transparent hover:border-border"
+                        }`}
+                        aria-label={`Imagen ${i + 1}`}
+                      >
+                        <Image
+                          src={g.url}
+                          alt={g.alt ?? ""}
+                          fill
+                          className="object-cover"
+                          sizes="48px"
+                        />
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
           ) : null}
-          <div className="voxa-hero-scrim absolute inset-0" />
-          <div className="voxa-hero-aura absolute inset-0" />
         </div>
 
-        <div className="relative mx-auto max-w-7xl px-6 pb-14 pt-10 md:px-10 md:pb-20 md:pt-14">
-          <nav
-            className="mb-8 text-[11px] font-medium uppercase tracking-[0.16em] text-white/65 animate-fade-in"
-            aria-label="Breadcrumb"
-          >
-            <Link
-              href={withBasePath(basePath, "/catalogo")}
-              className="cursor-pointer transition-colors duration-200 hover:text-white"
-            >
-              {shopLabel}
-            </Link>
-            <span className="mx-2 text-white/35">/</span>
-            <span className="text-white/90">{product.name}</span>
-          </nav>
+        <div className="flex min-w-0 flex-col md:py-8">
+          {shopLabel ? (
+            <nav className="mb-6 text-xs text-muted" aria-label="Breadcrumb">
+              <Link
+                href={shopHref}
+                className="cursor-pointer transition-colors duration-200 hover:text-primary"
+              >
+                {shopLabel}
+              </Link>
+              <span className="mx-2">/</span>
+              <span className="text-primary">{product.name}</span>
+            </nav>
+          ) : null}
 
-          <div className="grid min-w-0 items-end gap-10 lg:grid-cols-12 lg:gap-12">
-            <div className="min-w-0 lg:col-span-7 animate-fade-up">
-              {isPdpFieldVisible(presentation, "badges") &&
-              product.badges &&
-              product.badges.length > 0 ? (
-                <p className="mb-4 flex flex-wrap gap-2">
-                  {product.badges.map((b) => (
-                    <span
-                      key={b}
-                      className="rounded-full bg-primary px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-background"
-                    >
-                      {badgeLabel(b, uiBadges)}
-                    </span>
-                  ))}
+          {isPdpFieldVisible(presentation, "badges") &&
+          product.badges &&
+          product.badges.length > 0 ? (
+            <p className="mb-3 flex flex-wrap gap-x-3 gap-y-1 text-[11px] font-medium uppercase tracking-[0.18em] text-secondary">
+              {product.badges.map((b) => (
+                <span key={b}>{badgeLabel(b, uiBadges)}</span>
+              ))}
+            </p>
+          ) : null}
+
+          <h1 className="font-serif text-4xl tracking-wide md:text-5xl">
+            {product.name}
+          </h1>
+
+          {variantHasQuantityPricingCatalog(selected) && selected ? (
+            <ProductDetailQuantityPricingDisclosure
+              variant={selected}
+              quantity={quantity}
+              labels={defaultQuantityPricingUiLabels()}
+              formatUnitPrice={formatUnitPrice}
+              rowClassName="mt-4 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2"
+              primaryPriceClassName="font-serif text-2xl tabular-nums"
+              listStrikeClassName="font-serif text-lg text-muted line-through tabular-nums"
+              triggerClassName="shrink-0 min-w-[9.5rem] text-[11px] font-medium uppercase tracking-[0.12em] text-muted underline-offset-2 hover:text-primary hover:underline sm:text-right"
+            />
+          ) : (
+            <div className="mt-4 flex flex-wrap items-baseline gap-3">
+              <p className="font-serif text-2xl">
+                {selected?.displayPrice ?? product.variants[0]?.displayPrice}
+              </p>
+              {selected?.compareAtPrice ? (
+                <p className="text-sm text-muted line-through">
+                  {selected.compareAtPrice}
                 </p>
               ) : null}
-
-              {heroEyebrow ? (
-                <p className="voxa-rule text-[11px] font-semibold uppercase tracking-[0.2em] text-secondary">
-                  {heroEyebrow}
-                </p>
-              ) : null}
-
-              <h1 className="mt-3 max-w-3xl font-serif text-4xl leading-[1.1] text-balance text-white md:text-6xl">
-                {product.name}
-              </h1>
-
-              {isPdpFieldVisible(presentation, "shortDescription") &&
-              product.shortDescription ? (
-                <p className="mt-5 max-w-2xl text-base leading-relaxed text-white/80 md:text-lg">
-                  {product.shortDescription}
-                </p>
-              ) : null}
-
-              {metaChips.length > 0 ? (
-                <div className="mt-8 flex flex-wrap gap-2">
-                  {metaChips.map((chip) => (
-                    <span
-                      key={chip}
-                      className="rounded-full border border-white/25 bg-white/10 px-3 py-1 text-[11px] font-medium text-white/90 backdrop-blur-sm"
-                    >
-                      {chip}
-                    </span>
-                  ))}
-                </div>
+              {pct != null && pct > 0 ? (
+                <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-primary">
+                  −{pct}%
+                </span>
               ) : null}
             </div>
+          )}
 
-            {/* Panel de inscripción */}
-            <aside className="min-w-0 lg:col-span-5 animate-fade-up [animation-delay:120ms]">
-              <div className="rounded-2xl border border-white/15 bg-white/95 p-6 shadow-[0_24px_60px_rgba(11,18,32,0.35)] backdrop-blur-md md:p-8">
-                <div className="flex flex-wrap items-baseline gap-3">
-                  <p className="font-serif text-3xl text-primary md:text-4xl">
-                    {selected?.displayPrice ??
-                      product.variants[0]?.displayPrice}
-                  </p>
-                  {selected?.compareAtPrice ? (
-                    <p className="text-sm text-muted line-through">
-                      {selected.compareAtPrice}
+          {isPdpFieldVisible(presentation, "shortDescription") &&
+          product.shortDescription ? (
+            <p className="mt-4 max-w-md text-sm leading-relaxed text-primary md:text-base">
+              {product.shortDescription}
+            </p>
+          ) : null}
+
+          {isPdpFieldVisible(presentation, "description") &&
+          product.description ? (
+            <p className="mt-4 max-w-md text-sm leading-relaxed text-muted md:text-base">
+              {product.description}
+            </p>
+          ) : null}
+
+          {isPdpFieldVisible(presentation, "highlights") &&
+          product.highlights &&
+          product.highlights.length > 0 ? (
+            <ul className="mt-6 max-w-md space-y-1 text-sm text-primary">
+              {product.highlights.map((h) => (
+                <li key={h}>· {h}</li>
+              ))}
+            </ul>
+          ) : null}
+
+          {isPdpFieldVisible(presentation, "bulletPoints") &&
+          product.bulletPoints &&
+          product.bulletPoints.length > 0 ? (
+            <ul className="mt-4 max-w-md list-disc space-y-1 pl-5 text-sm text-muted">
+              {product.bulletPoints.map((b) => (
+                <li key={b}>{b}</li>
+              ))}
+            </ul>
+          ) : null}
+
+          {isPdpFieldVisible(presentation, "highlights") &&
+          product.keyFeatures &&
+          product.keyFeatures.length > 0 ? (
+            <ul className="mt-4 max-w-md space-y-1 text-sm text-muted">
+              {product.keyFeatures.map((f) => (
+                <li key={f}>{f}</li>
+              ))}
+            </ul>
+          ) : null}
+
+          {showVariants && usePickers ? (
+            <div className="mt-8 space-y-6">
+              {dimensions.map((dimension, dimensionIndex) => {
+                const values = valuesForDimension(pickerVariants, dimension);
+                return (
+                  <div key={dimension} className="space-y-3">
+                    <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-muted">
+                      {dimension}
                     </p>
-                  ) : null}
-                  {pct != null && pct > 0 ? (
-                    <span className="rounded-full bg-surface px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-secondary">
-                      −{pct}%
-                    </span>
-                  ) : null}
-                </div>
-
-                <p className="mt-2 text-sm text-muted">
-                  {isBook ? uiProduct.priceBookLabel : uiProduct.priceProgramLabel}
-                </p>
-
-                {showModalities
-                  ? dimensions.map((dimension, dimensionIndex) => {
-                      const values = valuesForDimension(
-                        pickerVariants,
-                        dimension,
-                      );
-                      return (
-                        <div key={dimension} className="mt-6 space-y-3">
-                          <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-secondary">
-                            {dimension}
-                          </p>
-                          <div className="flex flex-wrap gap-2">
-                            {values.map((val) => {
-                              const state = chipStateForOptionValue(
+                    <div className="flex flex-wrap gap-2">
+                      {values.map((val) => {
+                        const state = chipStateForOptionValue(
+                          pickerVariants,
+                          dimensions,
+                          selections,
+                          dimensionIndex,
+                          val,
+                          maxAddQtyMap,
+                        );
+                        const disabled =
+                          state === "impossible" || state === "soldOut";
+                        const active =
+                          state === "selected" || state === "selectedSoldOut";
+                        const soldOutChip =
+                          state === "soldOut" || state === "selectedSoldOut";
+                        return (
+                          <button
+                            key={val}
+                            type="button"
+                            disabled={disabled}
+                            {...productHeroIntentHandlers(() => {
+                              const resolved = resolveVariantForDimensionSelection(
                                 pickerVariants,
                                 dimensions,
                                 selections,
                                 dimensionIndex,
                                 val,
-                                maxAddQtyMap,
+                                {
+                                  maxAddQtyByVariantId: maxAddQtyMap,
+                                  preferredVariantId: selected?.id,
+                                },
                               );
-                              const disabled =
-                                state === "impossible" || state === "soldOut";
-                              const active =
-                                state === "selected" ||
-                                state === "selectedSoldOut";
-                              const soldOutChip =
-                                state === "soldOut" ||
-                                state === "selectedSoldOut";
-                              return (
-                                <button
-                                  key={val}
-                                  type="button"
-                                  disabled={disabled}
-                                  onClick={() => {
-                                    const resolved =
-                                      resolveVariantForDimensionSelection(
-                                        pickerVariants,
-                                        dimensions,
-                                        selections,
-                                        dimensionIndex,
-                                        val,
-                                        {
-                                          maxAddQtyByVariantId: maxAddQtyMap,
-                                          preferredVariantId: selected?.id,
-                                        },
-                                      );
-                                    if (resolved) {
-                                      actions.selectVariant(resolved.id);
-                                    }
-                                  }}
-                                  className={`cursor-pointer rounded-full border px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.12em] transition-colors duration-200 disabled:cursor-not-allowed disabled:opacity-40 ${
-                                    soldOutChip ? "line-through opacity-60" : ""
-                                  } ${
-                                    active
-                                      ? "border-primary bg-primary text-background"
-                                      : "border-border text-primary hover:border-cta hover:text-primary"
-                                  }`}
-                                >
-                                  {val}
-                                </button>
-                              );
+                              if (resolved) warmVariantHero(resolved.id);
                             })}
-                          </div>
-                        </div>
-                      );
-                    })
-                  : null}
+                            onClick={() => {
+                              const resolved =
+                                resolveVariantForDimensionSelection(
+                                  pickerVariants,
+                                  dimensions,
+                                  selections,
+                                  dimensionIndex,
+                                  val,
+                                  {
+                                    maxAddQtyByVariantId: maxAddQtyMap,
+                                    preferredVariantId: selected?.id,
+                                  },
+                                );
+                              if (resolved) {
+                                actions.selectVariant(resolved.id);
+                              }
+                            }}
+                            className={`cursor-pointer border px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.12em] transition-colors disabled:cursor-not-allowed disabled:opacity-40 ${
+                              soldOutChip ? "line-through opacity-60" : ""
+                            } ${
+                              active
+                                ? "border-primary bg-primary text-background"
+                                : "border-border text-primary hover:border-primary"
+                            }`}
+                          >
+                            {val}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          ) : null}
 
-                {isPdpFieldVisible(presentation, "stockMessage") &&
-                capabilities.stockIndicator !== "unsupported" &&
-                stockMessage ? (
-                  <p className="mt-5 text-sm text-muted">{stockMessage}</p>
-                ) : null}
+          {showVariants && !usePickers ? (
+            <div className="mt-8 space-y-3">
+              <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-muted">
+                Variante
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {product.variants.map((v) => (
+                  <button
+                    key={v.id}
+                    type="button"
+                    disabled={!v.available}
+                    {...productHeroIntentHandlers(() => warmVariantHero(v.id))}
+                    onClick={() => actions.selectVariant(v.id)}
+                    className={`cursor-pointer border px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.12em] transition-colors disabled:cursor-not-allowed disabled:opacity-40 ${
+                      selected?.id === v.id
+                        ? "border-primary bg-primary text-background"
+                        : "border-border text-primary hover:border-primary"
+                    }`}
+                  >
+                    {v.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          ) : null}
 
-                {product.madeToOrderClosed ? (
-                  <p className="mt-5 text-sm text-muted">
-                    {uiProduct.madeToOrderClosed}
-                    {product.madeToOrderReopensAtLabel
-                      ? ` ${madeToOrderUi.reopensPrefix} ${product.madeToOrderReopensAtLabel}`
-                      : ""}
-                  </p>
-                ) : null}
+          {isPdpFieldVisible(presentation, "stockMessage") &&
+          capabilities.stockIndicator !== "unsupported" &&
+          stockMessage ? (
+            <p className="mt-6 text-sm text-muted">{stockMessage}</p>
+          ) : null}
+
+          {product.madeToOrderClosed ? (
+            <p className="mt-6 text-sm text-muted">
+              {uiProduct.madeToOrderClosed}
+              {product.madeToOrderReopensAtLabel
+                ? ` ${madeToOrderUi.reopensPrefix} ${product.madeToOrderReopensAtLabel}`
+                : ""}
+            </p>
+          ) : null}
 
 
           {showInlineMto && upsell ? (
@@ -496,215 +538,123 @@ export function ProductDetailCommerceView({
             </div>
           ) : null}
 
-                {!showInlineMto && canBuy ? (
-                  <div className="mt-6 flex items-center justify-between gap-4">
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-secondary">
-                      {isBook ? "Cantidad" : "Plazas"}
-                    </p>
-                    <div className="flex items-center overflow-hidden rounded-full border border-border">
-                      <button
-                        type="button"
-                        className="cursor-pointer p-3 transition-colors hover:bg-surface disabled:opacity-40"
-                        disabled={quantity <= 1 || pending}
-                        onClick={() =>
-                          setQuantity((q) => Math.max(1, q - 1))
-                        }
-                        aria-label="Menos"
-                      >
-                        <Minus className="h-3.5 w-3.5" strokeWidth={1.5} />
-                      </button>
-                      <span className="w-10 text-center text-sm tabular-nums">
-                        {quantity}
-                      </span>
-                      <button
-                        type="button"
-                        className="cursor-pointer p-3 transition-colors hover:bg-surface disabled:opacity-40"
-                        disabled={
-                        (quantity >= stockCapQty && !(nextQtyTransition && shouldOpenStockToMtoModal(nextQtyTransition))) ||
-                        pending
-                      }
-                      onClick={onIncrementQuantity}
-                        aria-label="Más"
-                      >
-                        <Plus className="h-3.5 w-3.5" strokeWidth={1.5} />
-                      </button>
-                    </div>
-                  </div>
-                ) : null}
-
-                {!showInlineMto ? (
-                  <>
-                <button
-                  type="button"
-                  disabled={!canBuy || pending}
-                  onClick={onAdd}
-                  className="mt-6 flex w-full cursor-pointer items-center justify-center gap-2 rounded-full bg-primary px-6 py-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-background transition-colors duration-200 hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-50"
-                >
-                  {ctaLabel}
-                  {!pending && canBuy ? (
-                    <ArrowRight className="h-4 w-4" strokeWidth={1.75} />
-                  ) : null}
-                </button>
-
-                {(errorMessage || localError) && (
-                  <p className="mt-3 text-sm text-red-700" role="alert">
-                    {localError ?? errorMessage}
-                  </p>
-                )}
-
-                {isPdpFieldVisible(presentation, "preparationPromise") &&
-                product.preparationPromiseLabel ? (
-                  <p className="mt-4 text-[11px] font-medium uppercase tracking-[0.14em] text-muted">
-                    {madeToOrderUi.preparationLabel}: {product.preparationPromiseLabel}
-                  </p>
-                ) : null}
-                  </>
-                ) : null}
-              </div>
-            </aside>
-          </div>
-        </div>
-      </div>
-
-      {/* Galería secundaria (sesión / entorno) */}
-      {product.gallery.length > 1 ? (
-        <div className="border-b border-border bg-surface">
-          <div className="mx-auto max-w-7xl px-6 py-5 md:px-10 min-w-0">
-            <div className="w-full min-w-0 overflow-x-auto">
-              <div className="flex gap-3">
-                {product.gallery.map((g, i) => {
-                  const active = i === galleryIndex;
-                  return (
-                    <button
-                      key={g.id}
-                      type="button"
-                      onClick={() => onGalleryItemClick(i)}
-                      className={`relative h-20 w-28 shrink-0 cursor-pointer overflow-hidden rounded-lg border transition-colors duration-200 ${
-                        active
-                          ? "border-cta"
-                          : "border-transparent hover:border-border"
-                      }`}
-                      aria-label={`Imagen ${i + 1}`}
-                    >
-                      <Image
-                        src={g.url}
-                        alt={g.alt ?? ""}
-                        fill
-                        className="object-cover"
-                        sizes="112px"
-                      />
-                    </button>
-                  );
-                })}
-              </div>
+          {!showInlineMto && canBuy ? (
+            <div className="mt-8 flex items-center border border-border w-fit">
+              <button
+                type="button"
+                className="cursor-pointer p-3 transition-colors hover:bg-surface disabled:opacity-40"
+                disabled={quantity <= 1 || pending}
+                onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+                aria-label="Menos"
+              >
+                <Minus className="h-3.5 w-3.5" strokeWidth={1.5} />
+              </button>
+              <span className="w-10 text-center text-sm tabular-nums">
+                {quantity}
+              </span>
+              <button
+                type="button"
+                className="cursor-pointer p-3 transition-colors hover:bg-surface disabled:opacity-40"
+                disabled={
+                  (quantity >= stockCapQty && !(nextQtyTransition && shouldOpenStockToMtoModal(nextQtyTransition))) || pending
+                }
+                onClick={onIncrementQuantity}
+                aria-label="Más"
+              >
+                <Plus className="h-3.5 w-3.5" strokeWidth={1.5} />
+              </button>
             </div>
-          </div>
-        </div>
-      ) : null}
+          ) : null}
 
-      {/* Contenido del programa */}
-      <section className="mx-auto max-w-7xl px-6 py-16 md:px-10 md:py-24">
-        <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
-          <div className="lg:col-span-7 animate-fade-up">
-            <p className="voxa-rule text-[11px] font-semibold uppercase tracking-[0.2em] text-secondary">
-              {isBook ? "Sobre el libro" : "Sobre el programa"}
-            </p>
-            {isPdpFieldVisible(presentation, "description") &&
-            product.description ? (
-              <p className="mt-4 text-base leading-relaxed text-primary md:text-lg">
-                {product.description}
+          {!showInlineMto ? (
+          <div className="mt-10">
+            <button
+              type="button"
+              disabled={!canBuy || pending}
+              onClick={onAdd}
+              className="w-full cursor-pointer bg-primary px-6 py-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-background transition-colors duration-200 hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-50 md:w-auto md:min-w-[240px]"
+            >
+              {pending
+                ? uiProduct.addingToCart
+                : stockLabel === "out_of_stock" || !variantAvailable
+                  ? uiProduct.outOfStock
+                  : uiProduct.addToCart}
+            </button>
+            {(errorMessage || localError) && (
+              <p className="mt-3 text-sm text-red-700" role="alert">
+                {localError ?? errorMessage}
+              </p>
+            )}
+            {isPdpFieldVisible(presentation, "preparationPromise") &&
+            product.preparationPromiseLabel ? (
+              <p className="mt-4 text-[11px] font-medium uppercase tracking-[0.14em] text-muted">
+                {madeToOrderUi.preparationLabel}: {product.preparationPromiseLabel}
               </p>
             ) : null}
-
-            {isPdpFieldVisible(presentation, "bulletPoints") &&
-            product.bulletPoints &&
-            product.bulletPoints.length > 0 ? (
-              <ul className="mt-8 space-y-3">
-                {product.bulletPoints.map((b) => (
-                  <li
-                    key={b}
-                    className="flex gap-3 text-sm leading-relaxed text-muted md:text-base"
-                  >
-                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/15 text-secondary">
-                      <Check className="h-3 w-3" strokeWidth={2.5} />
-                    </span>
-                    {b}
-                  </li>
-                ))}
-              </ul>
-            ) : null}
           </div>
+          ) : null}
 
-          <div className="lg:col-span-5 animate-fade-up [animation-delay:100ms]">
-            {isPdpFieldVisible(presentation, "highlights") &&
-            product.highlights &&
-            product.highlights.length > 0 ? (
-              <div className="overflow-hidden rounded-xl border border-border bg-white">
-                <div className="border-b border-border bg-surface px-6 py-4">
-                  <h2 className="font-serif text-xl text-primary">
-                    {isBook ? "Ficha" : "Datos del programa"}
-                  </h2>
+          {((isPdpFieldVisible(presentation, "specifications") &&
+            product.specifications?.length) ||
+            (isPdpFieldVisible(presentation, "categoryLabels") &&
+              product.categoryLabels?.length) ||
+            (isPdpFieldVisible(presentation, "collectionLabels") &&
+              product.collectionLabels?.length) ||
+            (isPdpFieldVisible(presentation, "brandLabel") &&
+              product.brandLabel)) && (
+            <dl className="mt-12 space-y-3 border-t border-border pt-8 text-sm">
+              {isPdpFieldVisible(presentation, "brandLabel") &&
+              product.brandLabel ? (
+                <div className="flex justify-between gap-4">
+                  <dt className="text-muted">Marca</dt>
+                  <dd>{product.brandLabel}</dd>
                 </div>
-                <ul className="divide-y divide-border">
-                  {product.highlights.map((h, i) => (
-                    <li
-                      key={h}
-                      className="flex gap-4 px-6 py-4 text-sm text-primary"
-                    >
-                      <span className="font-serif text-lg text-secondary">
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                      <span className="leading-relaxed">{h}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ) : null}
-
-            {((isPdpFieldVisible(presentation, "specifications") &&
-              product.specifications?.length) ||
-              (isPdpFieldVisible(presentation, "brandLabel") &&
-                product.brandLabel)) && (
-              <dl className="mt-6 space-y-3 rounded-xl border border-border bg-white px-6 py-5 text-sm">
-                {isPdpFieldVisible(presentation, "brandLabel") &&
-                product.brandLabel ? (
-                  <div className="flex justify-between gap-4">
-                    <dt className="text-muted">Academia</dt>
-                    <dd className="text-right text-primary">
-                      {product.brandLabel}
-                    </dd>
-                  </div>
-                ) : null}
-                {isPdpFieldVisible(presentation, "specifications") &&
-                  product.specifications?.map((s) => (
-                  <div key={s.key} className="flex justify-between gap-4">
-                    <dt className="text-muted">{s.key}</dt>
-                    <dd className="text-right text-primary">{s.value}</dd>
-                  </div>
-                ))}
-              </dl>
-            )}
-          </div>
+              ) : null}
+              {isPdpFieldVisible(presentation, "categoryLabels") &&
+                product.categoryLabels?.map((c) => (
+                <div key={c} className="flex justify-between gap-4">
+                  <dt className="text-muted">Categoría</dt>
+                  <dd>{c}</dd>
+                </div>
+              ))}
+              {isPdpFieldVisible(presentation, "collectionLabels") &&
+                product.collectionLabels?.map((c) => (
+                <div key={`col-${c}`} className="flex justify-between gap-4">
+                  <dt className="text-muted">Colección</dt>
+                  <dd>{c}</dd>
+                </div>
+              ))}
+              {isPdpFieldVisible(presentation, "specifications") &&
+                product.specifications?.map((s) => (
+                <div key={s.key} className="flex justify-between gap-4">
+                  <dt className="text-muted">{s.key}</dt>
+                  <dd>{s.value}</dd>
+                </div>
+              ))}
+            </dl>
+          )}
         </div>
-      </section>
+      </div>
 
       {isPdpFieldVisible(presentation, "relatedProducts") &&
       capabilities.relatedProducts !== "unsupported" &&
       product.relatedProducts &&
       product.relatedProducts.length > 0 && (
-          <section className="border-t border-border bg-surface py-16 md:py-24">
-            <div className="mx-auto max-w-7xl px-6 md:px-10">
-              <p className="voxa-rule text-[11px] font-semibold uppercase tracking-[0.2em] text-secondary">
-                Continúa el itinerario
-              </p>
-              <h2 className="mt-3 font-serif text-3xl tracking-wide text-primary md:text-4xl">
-                {relatedTitle}
-              </h2>
-              <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {product.relatedProducts.map((p) => (
-                  <CommerceProductCard key={p.id} product={p} />
-                ))}
-              </div>
+          <section className="mx-auto mt-24 max-w-7xl px-6 md:px-8">
+            <h2 className="mb-10 font-serif text-3xl tracking-wide md:text-4xl">
+              {relatedTitle}
+            </h2>
+            <div
+              className="-mx-6 flex gap-4 overflow-x-auto px-6 pb-2 snap-x snap-mandatory [scrollbar-width:thin] md:mx-0 md:gap-6 md:px-0"
+            >
+              {product.relatedProducts.map((p) => (
+                <div
+                  key={p.id}
+                  className="w-[44vw] max-w-[220px] shrink-0 snap-start sm:w-[38vw] md:w-[calc(25%-1.125rem)] md:min-w-[200px] md:max-w-[240px]"
+                >
+                  <CommerceProductCard product={p} />
+                </div>
+              ))}
             </div>
           </section>
         )}

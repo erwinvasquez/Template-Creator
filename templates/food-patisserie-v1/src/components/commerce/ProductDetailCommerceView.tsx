@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image, { getImageProps } from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { Minus, Plus } from "lucide-react";
@@ -20,8 +20,15 @@ import {
   resolveStockToMtoTransition,
   shouldOpenStockToMtoModal,
   stockCap,
+  resolveCatalogShopNavigationHref,
   useProductDetailGalleryVariantSync,
+  useProductHeroVariantIntent,
+  productHeroIntentHandlers,
+  ProductDetailQuantityPricingDisclosure,
+  defaultQuantityPricingUiLabels,
+  variantHasQuantityPricingCatalog,
 } from "@shopenlinea/commerce-runtime-contract";
+import { useRequiredCommerceHost } from "../../lib/commerce-host";
 import { useSiteContent } from "../../lib/site-content";
 import { requireUi } from "../../lib/ui";
 import { SHOP_PATH, withBasePath } from "../../content/resolve";
@@ -96,7 +103,9 @@ export function ProductDetailCommerceView({
   actions,
   errorMessage,
 }: ProductDetailViewProps) {
+  const host = useRequiredCommerceHost();
   const { payload, basePath } = useSiteContent();
+  const shopHref = resolveCatalogShopNavigationHref(host, basePath);
   const ui = requireUi(payload);
   const uiProduct = ui.product;
   const uiBadges = uiProduct.badges;
@@ -138,6 +147,13 @@ export function ProductDetailCommerceView({
     pickerVariants,
     dimensions,
     maxAddQtyMap,
+  });
+
+  const warmVariantHero = useProductHeroVariantIntent({
+    product,
+    activeImageUrl: mainImage?.url,
+    sizes: "(max-width: 1024px) 100vw, 50vw",
+    getImageProps,
   });
 
   const selections = useMemo(
@@ -192,6 +208,14 @@ export function ProductDetailCommerceView({
       ? discountPercent(selected.displayPrice, selected.compareAtPrice)
       : null;
 
+  const formatUnitPrice = useMemo(() => {
+    const fmt = new Intl.NumberFormat(undefined, {
+      style: "currency",
+      currency: product.currency,
+    });
+    return (amount: number) => fmt.format(amount);
+  }, [product.currency]);
+
   useEffect(() => {
     setQuantity(1);
     setLocalError(null);
@@ -242,8 +266,8 @@ export function ProductDetailCommerceView({
   const quantityLabel = checkoutUi.quantityLabel;
 
   return (
-    <div className="patisserie-pdp min-w-0 bg-background pb-24 pt-28 md:pb-32 md:pt-36">
-      <div className="mx-auto min-w-0 max-w-4xl px-6 md:px-8">
+    <div className="cantina-pdp min-w-0 bg-background pb-24 pt-28 md:pb-32 md:pt-36">
+      <div className="mx-auto min-w-0 max-w-7xl px-6 md:px-10">
         <nav className="mb-8 text-xs text-muted" aria-label="Breadcrumb">
           {shopLabel ? (
             <>
@@ -262,8 +286,7 @@ export function ProductDetailCommerceView({
         <div className="grid min-w-0 gap-8 lg:grid-cols-2 lg:gap-12">
           {/* Portrait gallery */}
           <div className="min-w-0 w-full max-w-full">
-            <div className="rounded-3xl bg-surface/60 p-4 md:p-6">
-              <div className="relative aspect-square overflow-hidden rounded-2xl bg-surface shadow-[0_12px_40px_-16px_rgba(120,53,15,0.15)]">
+            <div className="relative aspect-square overflow-hidden border-4 border-primary bg-surface shadow-[8px_8px_0_0_var(--color-secondary)]">
               {mainImage?.url && (
                 <Image
                   src={mainImage.url}
@@ -277,18 +300,17 @@ export function ProductDetailCommerceView({
               {isPdpFieldVisible(presentation, "badges") &&
               product.badges &&
               product.badges.length > 0 ? (
-                <p className="absolute left-4 top-4 flex flex-wrap gap-2">
+                <p className="absolute left-0 top-0 flex flex-wrap gap-1">
                   {product.badges.map((b) => (
                     <span
                       key={b}
-                      className="rounded-full bg-primary px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-background shadow-sm"
+                      className="bg-primary px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.1em] text-background"
                     >
                       {badgeLabel(b, uiBadges)}
                     </span>
                   ))}
                 </p>
               ) : null}
-            </div>
             </div>
             {product.gallery.length > 1 ? (
               <div className="mt-4 w-full min-w-0 overflow-x-auto">
@@ -300,10 +322,10 @@ export function ProductDetailCommerceView({
                         <button
                           type="button"
                           onClick={() => onGalleryItemClick(i)}
-                          className={`relative h-20 w-20 cursor-pointer overflow-hidden rounded-xl border transition-colors duration-200 ${
+                          className={`relative h-20 w-20 cursor-pointer overflow-hidden border-2 transition-colors duration-200 ${
                             active
-                              ? "border-primary ring-2 ring-primary/20"
-                              : "border-border hover:border-primary/40"
+                              ? "border-secondary ring-2 ring-secondary/40"
+                              : "border-primary hover:border-secondary"
                           }`}
                           aria-label={`Imagen ${i + 1}`}
                         >
@@ -324,7 +346,7 @@ export function ProductDetailCommerceView({
           </div>
 
           {/* Purchase column */}
-          <div className="patisserie-pdp-panel min-w-0 rounded-3xl border border-border/60 bg-background p-7 shadow-[0_16px_48px_-16px_rgba(120,53,15,0.12)] md:p-9">
+          <div className="cantina-pdp-panel min-w-0 border-4 border-primary bg-background p-6 shadow-[8px_8px_0_0_var(--color-secondary)] md:p-8">
             {occasionChips.length > 0 ? (
               <div className="mb-5 flex flex-wrap gap-2">
                 {occasionChips.map((chip) => (
@@ -338,25 +360,38 @@ export function ProductDetailCommerceView({
               </div>
             ) : null}
 
-            <h1 className="font-serif text-3xl leading-tight text-primary md:text-4xl">
+            <h1 className="font-serif text-3xl font-bold uppercase leading-tight tracking-tight text-primary md:text-4xl lg:text-5xl">
               {product.name}
             </h1>
 
-            <div className="mt-5 flex flex-wrap items-baseline gap-3">
-              <p className="font-serif text-2xl text-primary">
-                {selected?.displayPrice ?? product.variants[0]?.displayPrice}
-              </p>
-              {selected?.compareAtPrice ? (
-                <p className="text-sm text-muted line-through">
-                  {selected.compareAtPrice}
+            {variantHasQuantityPricingCatalog(selected) && selected ? (
+              <ProductDetailQuantityPricingDisclosure
+                variant={selected}
+                quantity={quantity}
+                labels={defaultQuantityPricingUiLabels()}
+                formatUnitPrice={formatUnitPrice}
+                rowClassName="mt-5 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2"
+                primaryPriceClassName="font-serif text-2xl text-primary tabular-nums"
+                listStrikeClassName="font-serif text-lg text-muted line-through tabular-nums"
+                triggerClassName="shrink-0 min-w-[9.5rem] text-[11px] font-semibold uppercase tracking-[0.12em] text-secondary underline-offset-2 hover:text-primary hover:underline sm:text-right"
+              />
+            ) : (
+              <div className="mt-5 flex flex-wrap items-baseline gap-3">
+                <p className="font-serif text-2xl text-primary">
+                  {selected?.displayPrice ?? product.variants[0]?.displayPrice}
                 </p>
-              ) : null}
-              {pct != null && pct > 0 ? (
-                <span className="rounded-full bg-primary/12 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-secondary">
-                  −{pct}%
-                </span>
-              ) : null}
-            </div>
+                {selected?.compareAtPrice ? (
+                  <p className="text-sm text-muted line-through">
+                    {selected.compareAtPrice}
+                  </p>
+                ) : null}
+                {pct != null && pct > 0 ? (
+                  <span className="rounded-full bg-primary/12 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-secondary">
+                    −{pct}%
+                  </span>
+                ) : null}
+              </div>
+            )}
 
             {isPdpFieldVisible(presentation, "shortDescription") &&
             product.shortDescription ? (
@@ -427,6 +462,20 @@ export function ProductDetailCommerceView({
                               key={val}
                               type="button"
                               disabled={disabled}
+                              {...productHeroIntentHandlers(() => {
+                                const resolved = resolveVariantForDimensionSelection(
+                                  pickerVariants,
+                                  dimensions,
+                                  selections,
+                                  dimensionIndex,
+                                  val,
+                                  {
+                                    maxAddQtyByVariantId: maxAddQtyMap,
+                                    preferredVariantId: selected?.id,
+                                  },
+                                );
+                                if (resolved) warmVariantHero(resolved.id);
+                              })}
                               onClick={() => {
                                 const resolved =
                                   resolveVariantForDimensionSelection(
@@ -444,12 +493,12 @@ export function ProductDetailCommerceView({
                                   actions.selectVariant(resolved.id);
                                 }
                               }}
-                              className={`cursor-pointer rounded-full border px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.12em] transition-colors duration-200 disabled:cursor-not-allowed disabled:opacity-40 ${
+              className={`cursor-pointer border-2 px-4 py-2 text-[11px] font-bold uppercase tracking-[0.1em] transition-colors duration-200 disabled:cursor-not-allowed disabled:opacity-40 ${
                                 soldOutChip ? "line-through opacity-60" : ""
                               } ${
                                 active
-                                  ? "border-primary bg-primary text-background"
-                                  : "border-border bg-background text-primary hover:border-primary/50"
+                                  ? "border-secondary bg-secondary text-background"
+                                  : "border-primary bg-background text-primary hover:border-secondary"
                               }`}
                             >
                               {val}
@@ -510,7 +559,7 @@ export function ProductDetailCommerceView({
                 <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-secondary">
                   {quantityLabel}
                 </p>
-                <div className="flex items-center overflow-hidden rounded-full border border-border bg-background">
+                <div className="flex items-center overflow-hidden border-2 border-primary bg-background">
                   <button
                     type="button"
                     className="cursor-pointer p-3 transition-colors hover:bg-surface disabled:opacity-40"
@@ -544,7 +593,7 @@ export function ProductDetailCommerceView({
                   type="button"
                   disabled={!canBuy || pending}
                   onClick={onAdd}
-                  className="mt-6 w-full cursor-pointer rounded-full bg-primary px-6 py-4 text-[11px] font-semibold uppercase tracking-[0.2em] text-background transition-colors duration-200 hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-50"
+                  className="mt-6 w-full cursor-pointer border-2 border-primary bg-secondary px-6 py-4 text-[11px] font-bold uppercase tracking-[0.14em] text-background shadow-[4px_4px_0_0_var(--color-primary)] transition-transform hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0_0_var(--color-primary)] disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   {ctaLabel}
                 </button>
@@ -594,11 +643,11 @@ export function ProductDetailCommerceView({
       capabilities.relatedProducts !== "unsupported" &&
       product.relatedProducts &&
       product.relatedProducts.length > 0 && (
-          <section className="mx-auto mt-20 max-w-4xl px-6 md:px-8">
-            <h2 className="font-serif text-2xl text-primary md:text-3xl">
+          <section className="mx-auto mt-24 max-w-7xl px-6 md:px-10">
+            <h2 className="font-serif text-3xl tracking-wide text-primary md:text-4xl">
               {relatedTitle}
             </h2>
-            <div className="mt-8 flex flex-col gap-4 md:gap-5">
+            <div className="mt-10 grid grid-cols-2 gap-6 md:gap-8">
               {product.relatedProducts.map((p) => (
                 <CommerceProductCard key={p.id} product={p} />
               ))}

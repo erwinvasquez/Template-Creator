@@ -22,9 +22,9 @@ describe("catalogSalesModeEntry", () => {
     expect(showsDualCatalogSalesMode(DEFAULT_PREVIEW_CAPABILITIES)).toBe(false);
   });
 
-  it("dos catálogos sin salesMode en URL: muestra selector inicial", () => {
-    expect(shouldShowCatalogEntrySelector(dualCapabilities, null)).toBe(true);
-    expect(shouldShowCatalogEntrySelector(dualCapabilities, "")).toBe(true);
+  it("dos catálogos sin salesMode en URL: el catálogo unificado no abre selector", () => {
+    expect(shouldShowCatalogEntrySelector(dualCapabilities, null)).toBe(false);
+    expect(shouldShowCatalogEntrySelector(dualCapabilities, "")).toBe(false);
   });
 
   it("dos catálogos con salesMode en URL: no muestra selector inicial", () => {
@@ -33,6 +33,23 @@ describe("catalogSalesModeEntry", () => {
     );
     expect(
       shouldShowCatalogEntrySelector(dualCapabilities, "madeToOrder"),
+    ).toBe(false);
+  });
+
+  it("entrada nueva dual sin URL: no parte la tienda en dos catálogos", () => {
+    expect(shouldShowCatalogEntrySelector(dualCapabilities, null)).toBe(false);
+    expect(
+      shouldShowCatalogEntrySelector(dualCapabilities, null, {
+        catalogReturnNavigation: false,
+      }),
+    ).toBe(false);
+  });
+
+  it("retorno PLP←PDP con sesión: no muestra selector", () => {
+    expect(
+      shouldShowCatalogEntrySelector(dualCapabilities, null, {
+        catalogReturnNavigation: true,
+      }),
     ).toBe(false);
   });
 

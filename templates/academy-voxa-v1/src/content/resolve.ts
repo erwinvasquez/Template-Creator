@@ -1,3 +1,7 @@
+import {
+  applyCatalogFilterPatchToSearchParams,
+  type CatalogFilterPatch,
+} from "@shopenlinea/commerce-runtime-contract";
 import type {
   ContentPayload,
   MediaRef,
@@ -68,6 +72,7 @@ export const SHOP_SEARCH_CLEAR_MS = 300;
 
 export type ShopListingHrefPatch = {
   q?: string | null;
+  filters?: CatalogFilterPatch;
 };
 
 export function buildShopListingHref(
@@ -82,6 +87,9 @@ export function buildShopListingHref(
     const trimmed = patch.q?.trim();
     if (trimmed) params.set(SHOP_QUERY.search, trimmed);
     else params.delete(SHOP_QUERY.search);
+  }
+  if (patch.filters) {
+    applyCatalogFilterPatchToSearchParams(params, patch.filters);
   }
   const qs = params.toString();
   return withBasePath(basePath, qs ? `${SHOP_PATH}?${qs}` : SHOP_PATH);

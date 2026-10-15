@@ -210,16 +210,28 @@ export function OrderTrackingView({ tracking }: OrderTrackingViewProps) {
               <dt className="text-muted">{labels.subtotalLabel}</dt>
               <dd>{totals.subtotalDisplay}</dd>
             </div>
+            {totals.quantityDiscountDisplay ? (
+              <div className="flex justify-between">
+                <dt className="text-muted">{labels.quantityDiscountLabel}</dt>
+                <dd>−{totals.quantityDiscountDisplay}</dd>
+              </div>
+            ) : null}
             {totals.discountDisplay ? (
               <div className="flex justify-between">
                 <dt className="text-muted">{labels.discountLabel}</dt>
-                <dd>{totals.discountDisplay}</dd>
+                <dd>−{totals.discountDisplay}</dd>
               </div>
             ) : null}
             {totals.shippingDisplay ? (
-              <div className="flex justify-between">
-                <dt className="text-muted">{labels.shippingLabel}</dt>
-                <dd>{totals.shippingDisplay}</dd>
+              <div className="flex justify-between gap-4">
+                <dt className="shrink-0 text-muted">{labels.shippingLabel}</dt>
+                <dd className="text-right">
+                  {totals.shippingDisplay.split("\n").map((line) => (
+                    <span key={line} className="block">
+                      {line}
+                    </span>
+                  ))}
+                </dd>
               </div>
             ) : null}
             {totals.taxDisplay ? (

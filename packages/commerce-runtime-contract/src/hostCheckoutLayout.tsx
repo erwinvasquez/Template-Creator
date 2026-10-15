@@ -6,6 +6,10 @@
 /** Acota ancho en columnas grid, flex y campos full-width. */
 export const hostCheckoutContainWidthClassName = "min-w-0 max-w-full";
 
+/** ≥16px en inputs evita zoom automático en iOS sin bloquear zoom manual. */
+export const hostCheckoutInputClassName =
+  "w-full min-w-0 max-w-full border border-border bg-background px-4 py-3 text-base text-primary outline-none transition-colors duration-200 focus:border-primary disabled:opacity-50";
+
 /** Contenedor interior (padding horizontal lo define cada template). */
 export const hostCheckoutLayoutPageInnerClassName =
   "mx-auto w-full min-w-0 max-w-7xl";

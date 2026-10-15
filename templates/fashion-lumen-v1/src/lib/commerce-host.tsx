@@ -25,6 +25,8 @@ export type LumenCommerceHost = {
     filters: ProductFilterViewModel;
   }>;
   getDetail: (slug: string) => Promise<ProductDetailViewModel | null>;
+  /** Detalle ya resuelto para este slug. Evita el estado Cargando del primer render. */
+  getDetailSnapshot?: (slug: string) => ProductDetailViewModel | null;
   getCart: () => Promise<CartViewModel>;
   /** Sync cart from host cache (SaaS R2). Omit in preview bridges without snapshot. */
   getCartSnapshot?: () => CartViewModel | null;

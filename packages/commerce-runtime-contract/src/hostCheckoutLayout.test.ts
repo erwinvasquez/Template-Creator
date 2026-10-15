@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import {
   hostCheckoutContainWidthClassName,
+  hostCheckoutInputClassName,
   hostCheckoutLayoutFormColumnClassName,
   hostCheckoutLayoutGridClassName,
   hostCheckoutLayoutPageInnerClassName,
@@ -25,6 +26,10 @@ describe("hostCheckoutLayout", () => {
     expect(hostCheckoutLayoutGridClassName).toContain(
       "lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)]",
     );
+  });
+
+  it("inputs checkout usan text-base para evitar zoom iOS", () => {
+    expect(hostCheckoutInputClassName).toContain("text-base");
   });
 
   it("acota line items del resumen con clamp y min-w-0", () => {
