@@ -150,3 +150,47 @@ export interface CartViewModel {
   /** Last cart sync error code, if any. */
   syncError?: string | null;
 }
+
+export function resolveCartLineFulfillmentRole(
+  line: Pick<CartLineViewModel, "fulfillmentRole" | "salesMode">,
+  cartSalesMode: SalesMode,
+): CartFulfillmentRole {
+  if (line.fulfillmentRole === "immediate" || line.fulfillmentRole === "prepared") {
+    return line.fulfillmentRole;
+  }
+  if (line.salesMode === "madeToOrder") return "prepared";
+  if (line.salesMode === "stock") return "immediate";
+  return cartSalesMode === "madeToOrder" ? "prepared" : "immediate";
+}
+
+/**
+ * Un carrito. El encabezado único solo aparece si todas las líneas comparten rol.
+ * En un carrito mixto el encabezado queda vacío y cada línea lleva su etiqueta.
+ */
+export function resolveCartFulfillmentHeading(input: {
+  cartSalesMode: SalesMode;
+  lines: ReadonlyArray<Pick<CartLineViewModel, "fulfillmentRole" | "salesMode">>;
+  immediateLabel: string;
+  preparedLabel: string;
+}): string | null {
+  if (input.lines.length === 0) return null;
+  const roles = input.lines.map((line) =>
+    resolveCartLineFulfillmentRole(line, input.cartSalesMode),
+  );
+  if (roles.every((role) => role === "prepared")) return input.preparedLabel;
+  if (roles.every((role) => role === "immediate")) return input.immediateLabel;
+  return null;
+}
+
+export function cartLineRoleLabel(input: {
+  line: Pick<CartLineViewModel, "fulfillmentRole" | "salesMode">;
+  cartSalesMode: SalesMode;
+  immediateLabel: string;
+  preparedLabel: string;
+  mixed: boolean;
+}): string | null {
+  if (!input.mixed) return null;
+  return resolveCartLineFulfillmentRole(input.line, input.cartSalesMode) === "prepared"
+    ? input.preparedLabel
+    : input.immediateLabel;
+}

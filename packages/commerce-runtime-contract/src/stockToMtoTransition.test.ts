@@ -1,11 +1,13 @@
 import { describe, expect, it } from 'vitest'
 
 import type { ProductDetailViewModel, ProductVariantViewModel } from './product'
+import { cartLineRoleLabel, resolveCartFulfillmentHeading } from './cart'
 import {
   canTransitionStockToMto,
   immediateAvailableQty,
   interpolateCount,
   resolveStockToMtoTransition,
+  resolveStorefrontPurchaseCta,
   shouldOpenStockToMtoModal,
   stockCap,
 } from './stockToMtoTransition'
@@ -129,5 +131,91 @@ describe('shouldOpenStockToMtoModal', () => {
 describe('interpolateCount', () => {
   it('reemplaza {count} en plantilla', () => {
     expect(interpolateCount('Solo {count} unidades', 2)).toBe('Solo 2 unidades')
+  })
+})
+
+describe('resolveStorefrontPurchaseCta', () => {
+  it('stock cero con preparación usa añadir, no el enlace legacy', () => {
+    expect(
+      resolveStorefrontPurchaseCta({
+        purchaseState: 'prepared',
+        canAddToCart: true,
+        preparationPromiseLabel: '3 a 7 días',
+        hasLegacyUpsell: true,
+      }),
+    ).toEqual({
+      kind: 'add',
+      availability: 'prepared',
+      preparationPromiseLabel: '3 a 7 días',
+    })
+  })
+
+  it('stock inmediato usa añadir sin promesa', () => {
+    expect(
+      resolveStorefrontPurchaseCta({
+        purchaseState: 'immediate',
+        canAddToCart: true,
+        preparationPromiseLabel: '3 a 7 días',
+        hasLegacyUpsell: false,
+      }),
+    ).toEqual({
+      kind: 'add',
+      availability: 'immediate',
+      preparationPromiseLabel: null,
+    })
+  })
+
+  it('productor 1.1 sin estado de compra conserva el upsell', () => {
+    expect(
+      resolveStorefrontPurchaseCta({
+        canAddToCart: false,
+        hasLegacyUpsell: true,
+      }),
+    ).toEqual({ kind: 'legacy-upsell' })
+  })
+
+  it('variante bloqueada no es comprable', () => {
+    expect(
+      resolveStorefrontPurchaseCta({
+        purchaseState: 'unavailable',
+        canAddToCart: false,
+        hasLegacyUpsell: false,
+      }),
+    ).toEqual({ kind: 'blocked' })
+  })
+})
+
+describe('resolveCartFulfillmentHeading', () => {
+  const labels = { immediateLabel: 'Entrega inmediata', preparedLabel: 'Bajo pedido' }
+
+  it('no etiqueta una línea preparada como entrega inmediata', () => {
+    expect(
+      resolveCartFulfillmentHeading({
+        cartSalesMode: 'stock',
+        lines: [
+          { fulfillmentRole: 'immediate', salesMode: 'stock' },
+          { fulfillmentRole: 'prepared', salesMode: 'madeToOrder' },
+        ],
+        ...labels,
+      }),
+    ).toBeNull()
+    expect(
+      cartLineRoleLabel({
+        line: { fulfillmentRole: 'prepared', salesMode: 'madeToOrder' },
+        cartSalesMode: 'stock',
+        ...labels,
+        mixed: true,
+      }),
+    ).toBe('Bajo pedido')
+  })
+
+  it('un carrito solo preparado usa el encabezado de preparación', () => {
+    expect(
+      resolveCartFulfillmentHeading({
+        cartSalesMode: 'stock',
+        lines: [{ fulfillmentRole: 'prepared', salesMode: 'madeToOrder' }],
+        ...labels,
+      }),
+    ).toBe('Bajo pedido')
   })
 })

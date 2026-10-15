@@ -4,11 +4,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { Minus, Plus, ShoppingBag, X } from "lucide-react";
 import type { CartViewProps } from "@shopenlinea/commerce-runtime-contract";
+import { cartLineRoleLabel, resolveCartFulfillmentHeading } from "@shopenlinea/commerce-runtime-contract";
 import { useCommerceCapabilities } from "../../lib/commerce-host";
 import { useSiteContent } from "../../lib/site-content";
 import { requireUi } from "../../lib/ui";
 import { withBasePath } from "../../content/resolve";
-import { cartSalesModeLabel, showsSalesModeChrome } from "../../lib/sales-mode";
+import { showsSalesModeChrome } from "../../lib/sales-mode";
 
 function lineMaxQty(maxQuantity: number | null | undefined): number {
   return maxQuantity ?? Number.POSITIVE_INFINITY;
@@ -21,10 +22,14 @@ export function CartPageView({ cart, actions }: CartViewProps) {
   const cartUi = ui.cart;
   const capabilities = useCommerceCapabilities();
   const showSalesModeChrome = showsSalesModeChrome(capabilities);
-  const salesModeLine =
-    showSalesModeChrome && cart.lines.length > 0
-      ? cartSalesModeLabel(cart.salesMode, ui.salesMode)
-      : null;
+  const fulfillmentHeading = resolveCartFulfillmentHeading({
+    cartSalesMode: cart.salesMode,
+    lines: cart.lines,
+    immediateLabel: ui.salesMode.stock.cartLabel,
+    preparedLabel: ui.salesMode.madeToOrder.cartLabel,
+  });
+  const fulfillmentMixed = cart.lines.length > 0 && fulfillmentHeading == null;
+  const salesModeLine = showSalesModeChrome && fulfillmentHeading ? fulfillmentHeading : null;
   const cartClosedWarning =
     showSalesModeChrome &&
     cart.salesMode === "madeToOrder" &&
@@ -80,6 +85,17 @@ export function CartPageView({ cart, actions }: CartViewProps) {
                         </p>
                         <p className="mt-1 text-xs text-muted">
                           {line.variantLabel}
+                        {fulfillmentMixed ? (
+                          <span className="mt-1 block uppercase tracking-[0.12em]">
+                            {cartLineRoleLabel({
+                              line,
+                              cartSalesMode: cart.salesMode,
+                              immediateLabel: ui.salesMode.stock.cartLabel,
+                              preparedLabel: ui.salesMode.madeToOrder.cartLabel,
+                              mixed: true,
+                            })}
+                          </span>
+                        ) : null}
                         </p>
                       </div>
                       <button

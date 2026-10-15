@@ -38,10 +38,16 @@ export {
   immediateAvailableQty,
   interpolateCount,
   resolveStockToMtoTransition,
+  resolveStorefrontPurchaseCta,
   shouldOpenStockToMtoModal,
   stockCap,
 } from "./stockToMtoTransition";
-export type { StockToMtoTransitionTrigger } from "./stockToMtoTransition";
+export type { StockToMtoTransitionTrigger, StorefrontPurchaseCta } from "./stockToMtoTransition";
+export {
+  cartLineRoleLabel,
+  resolveCartFulfillmentHeading,
+  resolveCartLineFulfillmentRole,
+} from "./cart";
 export {
   catalogCardHref,
   resolveCatalogAvailabilityPresentation,

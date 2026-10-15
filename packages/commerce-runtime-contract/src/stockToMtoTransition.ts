@@ -1,4 +1,8 @@
-import type { ProductDetailViewModel, ProductVariantViewModel } from './product'
+import type {
+  ProductDetailViewModel,
+  ProductVariantViewModel,
+  VariantPurchaseState,
+} from './product'
 
 export type StockToMtoTransitionTrigger =
   | { kind: 'quantityExceedsImmediate'; immediateQty: number; requestedQty: number }
@@ -55,4 +59,41 @@ export function shouldOpenStockToMtoModal(trigger: StockToMtoTransitionTrigger):
 
 export function interpolateCount(template: string, count: number): string {
   return template.replace(/\{count\}/g, String(count))
+}
+
+export type StorefrontPurchaseCta =
+  | {
+      kind: 'add'
+      availability: 'immediate' | 'prepared' | 'immediateAndPrepared'
+      preparationPromiseLabel: string | null
+    }
+  | { kind: 'legacy-upsell' }
+  | { kind: 'blocked' }
+
+/**
+ * CTA público. Contrato 1.2 compra con la mutación unificada.
+ * El enlace `?salesMode=` solo queda para un productor 1.1 sin estado de compra.
+ */
+export function resolveStorefrontPurchaseCta(input: {
+  purchaseState?: VariantPurchaseState | null
+  canAddToCart?: boolean | null
+  preparationPromiseLabel?: string | null
+  hasLegacyUpsell: boolean
+  madeToOrderClosed?: boolean
+}): StorefrontPurchaseCta {
+  if (input.madeToOrderClosed) return { kind: 'blocked' }
+  const state = input.purchaseState
+  if (
+    input.canAddToCart === true &&
+    (state === 'immediate' || state === 'prepared' || state === 'immediateAndPrepared')
+  ) {
+    return {
+      kind: 'add',
+      availability: state,
+      preparationPromiseLabel:
+        state === 'immediate' ? null : (input.preparationPromiseLabel ?? null),
+    }
+  }
+  if (input.hasLegacyUpsell && input.canAddToCart !== true) return { kind: 'legacy-upsell' }
+  return { kind: 'blocked' }
 }

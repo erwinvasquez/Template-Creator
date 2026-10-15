@@ -18,6 +18,7 @@ import {
   valuesForDimension,
   type VariantOptionLike,
   resolveStockToMtoTransition,
+  resolveStorefrontPurchaseCta,
   shouldOpenStockToMtoModal,
   stockCap,
   resolveCatalogShopNavigationHref,
@@ -185,9 +186,16 @@ export function ProductDetailCommerceView({
   ]);
 
   const stockCapQty = stockCap(selected, product);
-  const transition = resolveStockToMtoTransition(product, selected, quantity);
-  const showInlineMto = transition?.kind === "immediateExhausted";
   const upsell = product.madeToOrderUpsell;
+  const purchaseCta = resolveStorefrontPurchaseCta({
+    purchaseState: selected?.purchaseState,
+    canAddToCart: selected?.canAddToCart,
+    preparationPromiseLabel:
+      selected?.preparationPromiseLabel ?? product.preparationPromiseLabel ?? null,
+    hasLegacyUpsell: Boolean(upsell?.productHref),
+    madeToOrderClosed: product.madeToOrderClosed === true,
+  });
+  const showInlineMto = purchaseCta.kind === "legacy-upsell";
   const nextQtyTransition = useMemo(
     () => resolveStockToMtoTransition(product, selected, quantity + 1),
     [product, selected, quantity],
@@ -195,13 +203,15 @@ export function ProductDetailCommerceView({
   const stockLabel = selected?.stockLabel ?? product.stockLabel ?? null;
   const variantAvailable = selected?.available !== false;
   const canBuy =
-    Boolean(selected) &&
-    product.canAddToCart &&
-    variantAvailable &&
-    !product.madeToOrderClosed &&
-    stockLabel !== "out_of_stock" &&
-    !showInlineMto &&
-    stockCapQty > 0;
+    purchaseCta.kind === "add"
+      ? Boolean(selected) && !product.madeToOrderClosed && stockCapQty > 0
+      : Boolean(selected) &&
+        product.canAddToCart &&
+        variantAvailable &&
+        !product.madeToOrderClosed &&
+        stockLabel !== "out_of_stock" &&
+        !showInlineMto &&
+        stockCapQty > 0;
 
   const pct =
     selected?.compareAtPrice && selected.displayPrice
@@ -223,10 +233,12 @@ export function ProductDetailCommerceView({
 
   async function onAdd() {
     if (!selected || !canBuy) return;
-    const t = resolveStockToMtoTransition(product, selected, quantity);
-    if (t && shouldOpenStockToMtoModal(t)) {
-      setUpsellOpen(true);
-      return;
+    if (purchaseCta.kind !== "add") {
+      const t = resolveStockToMtoTransition(product, selected, quantity);
+      if (t && shouldOpenStockToMtoModal(t)) {
+        setUpsellOpen(true);
+        return;
+      }
     }
     setPending(true);
     setLocalError(null);
@@ -243,10 +255,12 @@ export function ProductDetailCommerceView({
   }
 
   function onIncrementQuantity() {
-    const tInc = resolveStockToMtoTransition(product, selected, quantity + 1);
-    if (tInc && shouldOpenStockToMtoModal(tInc)) {
-      setUpsellOpen(true);
-      return;
+    if (purchaseCta.kind !== "add") {
+      const tInc = resolveStockToMtoTransition(product, selected, quantity + 1);
+      if (tInc && shouldOpenStockToMtoModal(tInc)) {
+        setUpsellOpen(true);
+        return;
+      }
     }
     setQuantity((q) => Math.min(stockCapQty, q + 1));
   }
@@ -526,6 +540,22 @@ export function ProductDetailCommerceView({
               </p>
             ) : null}
 
+
+          {purchaseCta.kind === "add" && purchaseCta.availability === "prepared" ? (
+            <div className="mt-10 rounded-lg border border-border bg-surface/60 p-6 md:p-8">
+              <p className="text-sm font-medium text-primary">
+                {uiProduct.stockExhaustedImmediateTitle}
+              </p>
+              <p className="mt-2 text-sm text-muted">
+                {uiProduct.stockExhaustedMadeToOrderAvailable}
+              </p>
+              {purchaseCta.preparationPromiseLabel ? (
+                <p className="mt-4 text-[11px] font-medium uppercase tracking-[0.14em] text-muted">
+                  {madeToOrderUi.preparationLabel}: {purchaseCta.preparationPromiseLabel}
+                </p>
+              ) : null}
+            </div>
+          ) : null}
 
           {showInlineMto && upsell ? (
             <div className="mt-10 rounded-lg border border-border bg-surface/60 p-6 md:p-8">
