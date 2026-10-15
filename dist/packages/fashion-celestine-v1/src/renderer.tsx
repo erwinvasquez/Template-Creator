@@ -20,6 +20,7 @@ import { OrderTrackingView } from "./components/commerce/OrderTrackingView";
 import { AccountLoginForm } from "./components/account/AccountLoginForm";
 import { AccountRegisterForm } from "./components/account/AccountRegisterForm";
 import { AccountDashboard } from "./components/account/AccountDashboard";
+import { AccountOrdersView } from "./components/account/AccountOrdersView";
 
 /** @deprecated Prefer TemplateAppPage */
 export type CelestineAppPage = TemplateAppProps<
@@ -45,6 +46,7 @@ export function CelestineApp({
   accountLogin,
   accountRegister,
   accountDashboard,
+  accountOrders,
   customMain,
 }: CelestineTemplateAppProps) {
   const showCart = payload.features?.cart !== false;
@@ -77,9 +79,7 @@ export function CelestineApp({
       ) : null;
       break;
     case "orderTracking":
-      view = orderTracking ? (
-        <OrderTrackingView {...orderTracking} />
-      ) : null;
+      view = orderTracking ? <OrderTrackingView {...orderTracking} /> : null;
       break;
     case "accountLogin":
       view = accountLogin ? <AccountLoginForm {...accountLogin} /> : null;
@@ -93,6 +93,9 @@ export function CelestineApp({
       view = accountDashboard ? (
         <AccountDashboard {...accountDashboard} />
       ) : null;
+      break;
+    case "accountOrders":
+      view = accountOrders ? <AccountOrdersView {...accountOrders} /> : null;
       break;
     default:
       view = null;

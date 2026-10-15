@@ -9,6 +9,22 @@ describe("OrderConfirmationView", () => {
     render(
       <SiteContentProvider payload={defaults as never} basePath="/t/atelier">
         <OrderConfirmationView
+          summaryLabels={{
+            subtotalOriginal: "Subtotal original",
+            subtotal: "Subtotal",
+            quantityDiscounts: "Descuentos por cantidad",
+            promotions: "Promociones",
+            shipping: "Envío",
+            shippingPending: "A cotizar",
+            tax: "Impuestos",
+            total: "Total",
+          }}
+          actions={{
+            trackingHref: "/seguimiento",
+            continueShoppingHref: "/tienda",
+            trackingLabel: "Seguimiento",
+            continueShoppingLabel: "Seguir",
+          }}
           order={{
             orderId: "ORD-100",
             statusLabel: "Confirmado",
@@ -33,7 +49,7 @@ describe("OrderConfirmationView", () => {
       </SiteContentProvider>,
     );
 
-    expect(screen.getByText("Gracias")).toBeInTheDocument();
+    expect(screen.getByText("Pedido confirmado")).toBeInTheDocument();
     expect(
       screen.getByRole("img", { name: "Abrigo cashmere" }),
     ).toBeInTheDocument();

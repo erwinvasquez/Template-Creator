@@ -1,15 +1,19 @@
 "use client";
 
-import { useEffect, useState, useTransition } from "react";
-import { useSearchParams } from "next/navigation";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import type {
   ProductFilterViewModel,
   ProductSearchViewModel,
+  SalesMode,
 } from "@shopenlinea/commerce-runtime-contract";
 import {
   CatalogSalesModeEntrySelector,
   buildCatalogSalesModeEntryOptions,
+  parseStorefrontCatalogAppliedQuery,
+  resolvePlpReturnHrefForRouter,
   shouldShowCatalogEntrySelector,
+  warmStorefrontCatalogGrid,
 } from "@shopenlinea/commerce-runtime-contract";
 import {
   useCatalogListingTick,
@@ -23,90 +27,134 @@ import { ProductListingView } from "./commerce/ProductListingView";
 import { modeHref } from "./commerce/SalesModeShopBanner";
 import { parseSalesModeQuery, showsSalesModeChrome } from "../lib/sales-mode";
 
+function stubFilters(
+  salesMode: SalesMode,
+  searchQuery: string | null,
+): ProductFilterViewModel {
+  return {
+    salesMode,
+    searchQuery: searchQuery ?? undefined,
+    activeCategoryIds: [],
+    activeCollectionIds: [],
+    activeBrandIds: [],
+    activeColors: [],
+    activeSizes: [],
+    activeMaterials: [],
+    activePriceMin: null,
+    activePriceMax: null,
+    hideOutOfStock: false,
+    hasDiscount: false,
+    activeFilterCount: 0,
+    facets: null,
+    categories: [],
+    collections: [],
+    brands: [],
+  };
+}
+
 export function CommerceAwareCatalog() {
   const host = useRequiredCommerceHost();
   const capabilities = useCommerceCapabilities();
   const { payload, basePath } = useSiteContent();
   const searchParams = useSearchParams();
-  const categorySlug = searchParams.get(SHOP_QUERY.category);
-  const collectionSlug = searchParams.get(SHOP_QUERY.collection);
   const salesModeSlug = searchParams.get(SHOP_QUERY.salesMode);
   const searchQuery = searchParams.get(SHOP_QUERY.search);
 
-  const [data, setData] = useState<ProductSearchViewModel | null>(null);
+  const defaultSalesMode =
+    parseSalesModeQuery(salesModeSlug) ?? host.getPersistedCatalogSalesMode?.() ?? "stock";
+  const applied = useMemo(
+    () =>
+      parseStorefrontCatalogAppliedQuery({
+        searchParams,
+        defaultSalesMode,
+        taxonomy: {
+          categories: payload.catalog.categories,
+          collections: payload.catalog.collections,
+        },
+        categorySlugParam: SHOP_QUERY.category,
+        collectionSlugParam: SHOP_QUERY.collection,
+      }),
+    [searchParams, defaultSalesMode, payload.catalog.categories, payload.catalog.collections],
+  );
+
+  const initialGrid = warmStorefrontCatalogGrid({
+    session: host.getCatalogSession?.(),
+    listingKey: host.getCatalogListingQueryKey?.() ?? "",
+  });
+  const [data, setData] = useState<ProductSearchViewModel | null>(initialGrid.data);
   const [filters, setFilters] = useState<ProductFilterViewModel | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [listingBusy, setListingBusy] = useState(!initialGrid.ready);
   const tick = useCatalogListingTick();
-  const [isPending, startTransition] = useTransition();
+  const router = useRouter();
+  const freshEntryHandled = useRef(false);
+
+  const catalogReturnNavigation = host.hasCatalogReturnNavigation?.() ?? false;
 
   const showCatalogEntry = shouldShowCatalogEntrySelector(
     capabilities,
     salesModeSlug,
+    { catalogReturnNavigation },
   );
 
   useEffect(() => {
-    const hasPayloadTaxonomy =
-      payload.catalog.categories.length > 0 ||
-      payload.catalog.collections.length > 0;
-    // Preview/demo: resolve from payload. SaaS runtime: host resolves via taxonomy API.
-    if (!hasPayloadTaxonomy) return;
-    const categoryId =
-      payload.catalog.categories.find((c) => c.slug === categorySlug)?.id ??
-      null;
-    const collectionId =
-      payload.catalog.collections.find((c) => c.slug === collectionSlug)?.id ??
-      null;
-    host.actions.setCatalogFilters({
-      categoryId,
-      collectionId,
-    });
-  }, [host, payload.catalog.categories, payload.catalog.collections, categorySlug, collectionSlug]);
+    if (freshEntryHandled.current) return;
+    freshEntryHandled.current = true;
+    if (parseSalesModeQuery(salesModeSlug)) return;
+    if (catalogReturnNavigation) return;
+    host.actions.clearCatalogNavigationSession?.();
+  }, [host, salesModeSlug, catalogReturnNavigation]);
 
   useEffect(() => {
-    if (!showsSalesModeChrome(capabilities)) return;
-    const mode = parseSalesModeQuery(salesModeSlug);
-    if (!mode) return;
-    host.actions.setCatalogFilters({ salesMode: mode });
-  }, [host, capabilities, salesModeSlug]);
+    if (showCatalogEntry) return;
+    if (salesModeSlug) return;
+    if (!catalogReturnNavigation) return;
+    const returnHref = host.getPlpReturnHref?.();
+    if (!returnHref) return;
+    router.replace(resolvePlpReturnHrefForRouter(returnHref, basePath));
+    host.actions.clearCatalogReturnNavigation?.();
+  }, [
+    showCatalogEntry,
+    salesModeSlug,
+    catalogReturnNavigation,
+    host,
+    basePath,
+    router,
+  ]);
 
   useEffect(() => {
-    const trimmed = searchQuery?.trim() || null;
-    host.actions.setCatalogFilters({ searchQuery: trimmed });
-  }, [host, searchQuery]);
+    if (showCatalogEntry) return;
+    host.actions.replaceCatalogAppliedState?.(applied.filterPatch);
+  }, [host, showCatalogEntry, applied.signature]);
 
   useEffect(() => {
     if (showCatalogEntry) return;
     let cancelled = false;
+    const warm = warmStorefrontCatalogGrid({
+      session: host.getCatalogSession?.(),
+      listingKey: host.getCatalogListingQueryKey?.() ?? "",
+    });
+    if (!warm.ready) setListingBusy(true);
     void host
       .getListing()
       .then((res) => {
         if (cancelled) return;
-        startTransition(() => {
-          setData(res.data);
-          setFilters(res.filters);
-          setError(null);
-        });
+        setData(res.data);
+        setFilters(res.filters);
+        setError(null);
       })
       .catch(() => {
         if (!cancelled) {
-          startTransition(() => {
-            setError(requireUi(payload).errors.catalogLoadFailed);
-          });
+          setError(requireUi(payload).errors.catalogLoadFailed);
         }
+      })
+      .finally(() => {
+        if (!cancelled) setListingBusy(false);
       });
     return () => {
       cancelled = true;
     };
-  }, [
-    host,
-    tick,
-    categorySlug,
-    collectionSlug,
-    salesModeSlug,
-    searchQuery,
-    payload,
-    showCatalogEntry,
-  ]);
+  }, [host, tick, applied.signature, payload, showCatalogEntry]);
 
   if (showCatalogEntry) {
     const ui = requireUi(payload);
@@ -120,26 +168,33 @@ export function CommerceAwareCatalog() {
     );
   }
 
-  if (!data || !filters) {
-    const listing = requireUi(payload).listing;
-    return (
-      <p className="py-20 text-center text-muted">
-        {error ?? listing.loading}
-      </p>
-    );
-  }
+  const listingKey = host.getCatalogListingQueryKey?.() ?? "";
+  const session = host.getCatalogSession?.();
+  const sessionStale = Boolean(session?.queryKey && session.queryKey !== listingKey);
+  const gridLoading = listingBusy || sessionStale;
+
+  const viewFilters =
+    filters ?? stubFilters(applied.filterPatch.salesMode ?? defaultSalesMode, searchQuery);
+  const viewData: ProductSearchViewModel =
+    data ?? {
+      products: [],
+      nextCursor: null,
+      query: {},
+      sortOptions: [],
+    };
 
   return (
     <ProductListingView
-      key={`${filters.searchQuery ?? ""}-${filters.activeCategoryId ?? ""}-${filters.salesMode}-${categorySlug ?? ""}-${collectionSlug ?? ""}-${salesModeSlug ?? ""}-${data.nextCursor ?? "end"}-${data.products.map((p) => p.id).join(",")}`}
-      data={data}
-      filters={filters}
+      data={viewData}
+      filters={viewFilters}
       capabilities={capabilities}
+      listingQueryKey={listingKey}
       actions={{
-        setCatalogFilters: host.actions.setCatalogFilters,
         loadMoreProducts: host.actions.loadMoreProducts,
+        restorePlpScrollPosition: host.actions.restorePlpScrollPosition,
+        preparePlpNavigation: host.actions.preparePlpNavigation,
       }}
-      loading={isPending}
+      loading={gridLoading}
       errorMessage={error}
     />
   );

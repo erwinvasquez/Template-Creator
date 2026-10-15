@@ -14,6 +14,8 @@ export interface ShippingMethodViewModel {
   description?: string | null;
   priceDisplay?: string | null;
   estimatedDaysLabel?: string | null;
+  /** Ausente = false. Solo métodos explícitos cotizan entregas separadas. */
+  supportsSplitFulfillment?: boolean;
 }
 
 export interface PickupBranchViewModel {

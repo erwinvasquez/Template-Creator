@@ -20,7 +20,9 @@ export interface OrderTrackingLineViewModel {
   quantity: number;
   unitDisplayPrice: string;
   lineDisplayPrice: string;
+  compareAtDisplay?: string | null;
   imageUrl?: string | null;
+  /** Composición congelada. No son líneas de precio. */
   kitIncludes?: ReadonlyArray<{ label: string; quantity: number }> | null;
 }
 
@@ -40,6 +42,7 @@ export interface OrderTrackingShippingViewModel {
 
 export interface OrderTrackingTotalsViewModel {
   subtotalDisplay: string;
+  quantityDiscountDisplay?: string | null;
   discountDisplay?: string | null;
   shippingDisplay?: string | null;
   taxDisplay?: string | null;
@@ -69,6 +72,8 @@ export interface OrderTrackingLabelsViewModel {
   placedAtLabel: string;
   statusLabel: string;
   shippingSectionTitle: string;
+  deliveriesSectionTitle?: string;
+  estimatedDeliveryLabel?: string;
   pickupSectionTitle: string;
   summarySectionTitle: string;
   totalsSectionTitle: string;
@@ -83,6 +88,7 @@ export interface OrderTrackingLabelsViewModel {
   unitPriceLabel: string;
   lineSubtotalLabel: string;
   subtotalLabel: string;
+  quantityDiscountLabel: string;
   discountLabel: string;
   shippingLabel: string;
   taxLabel: string;
@@ -98,6 +104,23 @@ export interface OrderTrackingLabelsViewModel {
   imagePlaceholder: string;
   continueShoppingLabel: string;
   kitIncludesLabel?: string;
+}
+
+export interface OrderTrackingDeliveryGroupViewModel {
+  groupId: string;
+  role: "together" | "immediate" | "prepared";
+  status: string;
+  lineIds: readonly string[];
+  trackingNumber?: string | null;
+  carrierName?: string | null;
+  estimatedReadyAt?: string | null;
+  estimatedDeliveryAt?: string | null;
+  title?: string;
+  statusLabel?: string;
+  methodName?: string | null;
+  destination?: string | null;
+  estimateLabel?: string | null;
+  productLines?: ReadonlyArray<{ lineId: string; label: string; quantity: number }>;
 }
 
 export interface OrderTrackingViewModel {
@@ -121,6 +144,9 @@ export interface OrderTrackingViewModel {
   contactHref?: string | null;
   contactLabel?: string | null;
   labels: OrderTrackingLabelsViewModel;
+  /** Ausente en pedidos legacy: se sigue usando el tracking plano. */
+  deliveryPolicy?: "together" | "separate";
+  deliveryGroups?: readonly OrderTrackingDeliveryGroupViewModel[];
 }
 
 export interface OrderTrackingViewProps {

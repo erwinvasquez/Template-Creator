@@ -20,7 +20,8 @@ describe("hostCheckoutSkin", () => {
     describe(id, () => {
       it("exports every HostCheckoutSkin contract key", () => {
         for (const key of HOST_CHECKOUT_SKIN_REQUIRED_KEYS) {
-          expect(skin[key], `${id} missing hostCheckoutSkin.${key}`).toBeTruthy();
+          const value = (skin as unknown as Record<string, unknown>)[key];
+          expect(value, `${id} missing hostCheckoutSkin.${key}`).toBeTruthy();
         }
       });
 

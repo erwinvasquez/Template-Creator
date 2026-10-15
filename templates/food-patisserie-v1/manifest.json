@@ -1,8 +1,8 @@
 {
   "templateId": "food-patisserie-v1",
   "name": "Patisserie",
-  "displayName": "Pâtisserie Lune",
-  "description": "Template e-commerce de pastelería francesa: Rubik + Nunito Sans, crema y ámbar, viennoiserie, temporada, celebraciones y cajas regalo. Pedidos a medida.",
+  "displayName": "P\u00e2tisserie Lune",
+  "description": "Template e-commerce de pasteler\u00eda francesa: Rubik + Nunito Sans, crema y \u00e1mbar, viennoiserie, temporada, celebraciones y cajas regalo. Pedidos a medida.",
   "category": "ecommerce-food",
   "version": "1.0.0",
   "schemaVersion": "1.0.0",
@@ -89,7 +89,7 @@
   },
   "commerce": {
     "mode": "preview-only",
-    "contractVersion": null,
+    "contractVersion": "1.2.0",
     "views": {
       "productListing": true,
       "productDetail": true,
@@ -225,6 +225,6 @@
     ],
     "command": "npm run template:export -- food-patisserie-v1",
     "output": "dist/packages/food-patisserie-v1",
-    "consumer": "IA Builder v2 — solo genera/edita Content Payload validado contra schema.json; nunca modifica el código del template."
+    "consumer": "IA Builder v2 \u2014 solo genera/edita Content Payload validado contra schema.json; nunca modifica el c\u00f3digo del template."
   }
 }

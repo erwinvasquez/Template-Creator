@@ -37,16 +37,27 @@ export function showsDualCatalogSalesMode(
   return capabilities?.salesModeSwitch === "supported";
 }
 
+export type CatalogEntrySelectorOptions = Readonly<{
+  /**
+   * Retorno PLP ← PDP con sesión de navegación válida (no entrada nueva desde home/site).
+   */
+  catalogReturnNavigation?: boolean;
+}>;
+
 /**
  * Selector inicial solo cuando hay dos catálogos y la URL aún no fija `salesMode`
  * (deep links con `?salesMode=` entran directo al listado).
  */
+/**
+ * El catálogo unificado no parte la tienda en dos entradas.
+ * `?salesMode=` sigue siendo un filtro opcional, no otro carrito.
+ */
 export function shouldShowCatalogEntrySelector(
-  capabilities: CommerceTemplateCapabilities | null | undefined,
-  salesModeQuery: string | null | undefined,
+  _capabilities: CommerceTemplateCapabilities | null | undefined,
+  _salesModeQuery: string | null | undefined,
+  _options?: CatalogEntrySelectorOptions,
 ): boolean {
-  if (!showsDualCatalogSalesMode(capabilities)) return false;
-  return parseCatalogSalesModeQuery(salesModeQuery) === null;
+  return false;
 }
 
 const SALES_MODE_ORDER: SalesMode[] = ["stock", "madeToOrder"];

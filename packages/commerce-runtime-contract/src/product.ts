@@ -1,4 +1,5 @@
 import type { ProductCardViewModel, StockLabel } from "./catalog";
+import type { VariantQuantityPricingCatalogViewModel } from "./quantityPricingPresentation";
 
 export interface ProductGalleryItemViewModel {
   id: string;
@@ -15,6 +16,12 @@ export interface ProductVariantOptionViewModel {
   value: string;
 }
 
+export type VariantPurchaseState =
+  | "immediate"
+  | "prepared"
+  | "immediateAndPrepared"
+  | "unavailable";
+
 export interface ProductVariantViewModel {
   id: string;
   label: string;
@@ -23,14 +30,23 @@ export interface ProductVariantViewModel {
   displayPrice: string;
   compareAtPrice?: string | null;
   stockLabel?: StockLabel | null;
+  /** Cantidad total comprable (stock inmediato + preparación), no solo stock. */
   maxQuantity?: number | null;
   /**
-   * Stock mode only. Units available for immediate purchase on this variant.
-   * When the shopper exceeds `maxQuantity` with upsell present, templates offer MTO navigation.
+   * Solo stock inmediato. No incluye unidades de preparación.
    */
   immediateAvailableQty?: number | null;
+  /** En contrato 1.2 equivale a `canAddToCart`. Se conserva para productores 1.1. */
   available: boolean;
+  /** Opcional para aceptar productores 1.1. SaaS 1.2 siempre lo serializa. */
+  canAddToCart?: boolean;
+  purchaseState?: VariantPurchaseState;
+  preparationAllowed?: boolean;
+  /** Valor de preparación, sin prefijo. Null si no aplica. */
+  preparationPromiseLabel?: string | null;
   imageUrl?: string | null;
+  /** Tiers públicos de la variante (sin recalcular en plantilla). */
+  quantityPricingCatalog?: VariantQuantityPricingCatalogViewModel | null;
   /** Componentes visibles del kit. Ausente en productos normales. */
   kitIncludes?: readonly KitIncludeLineViewModel[] | null;
   /** Comparación de catálogo. Ausente si no hay ahorro positivo o falta un precio. */

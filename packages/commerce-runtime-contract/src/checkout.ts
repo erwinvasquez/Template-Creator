@@ -12,6 +12,8 @@ export interface CheckoutLineViewModel {
   variantLabel: string;
   quantity: number;
   lineDisplayPrice: string;
+  /** Subtotal catálogo tachado cuando hubo descuento en el snapshot de la orden. */
+  compareAtDisplay?: string | null;
   imageUrl?: string | null;
   /** Detalle del kit. No son líneas de precio. */
   kitIncludes?: ReadonlyArray<{ label: string; quantity: number }> | null;
@@ -19,7 +21,10 @@ export interface CheckoutLineViewModel {
 
 export interface CheckoutTotalsViewModel {
   subtotalDisplay: string;
+  quantityDiscountDisplay?: string | null;
   shippingDisplay?: string | null;
+  /** Cuando el envío aún no tiene monto (cotización manual, etc.). */
+  shippingPendingLabel?: string | null;
   discountDisplay?: string | null;
   taxDisplay?: string | null;
   totalDisplay: string;
@@ -44,6 +49,32 @@ export interface CheckoutViewModel {
   fulfillmentPromise?: FulfillmentPromiseViewModel | null;
   salesMode: SalesMode;
   madeToOrderAcceptingOrders?: boolean;
+  deliveryPlan?: CheckoutDeliveryPlanViewModel | null;
+}
+
+export type DeliveryPolicy = "together" | "separate";
+
+export type DeliveryGroupRole = "together" | "immediate" | "prepared";
+
+export interface CheckoutDeliveryGroupViewModel {
+  groupId: string;
+  role: DeliveryGroupRole;
+  lineIds: readonly string[];
+  estimatedReadyAt: string | null;
+  preparationPromiseLabel?: string | null;
+  shippingMethods: readonly ShippingMethodViewModel[];
+  selectedShippingMethodId?: string | null;
+  shippingAmount: number;
+  currency: string;
+}
+
+export interface CheckoutDeliveryPlanViewModel {
+  policy: DeliveryPolicy;
+  separateAvailable: boolean;
+  groups: readonly CheckoutDeliveryGroupViewModel[];
+  fingerprint: string;
+  quotedAt: string;
+  expiresAt: string;
 }
 
 export interface CheckoutPreviewInput {
@@ -51,6 +82,13 @@ export interface CheckoutPreviewInput {
   pickupBranchId?: string | null;
   paymentMethodId?: string | null;
   customerEmail?: string | null;
+  deliveryPolicy?: DeliveryPolicy;
+  deliverySelections?: readonly {
+    groupId: string;
+    shippingMethodId: string;
+    shippingContext?: unknown;
+  }[];
+  deliveryPlanFingerprint?: string;
 }
 
 export interface CheckoutPreviewResult {
@@ -69,6 +107,13 @@ export interface PlaceOrderInput {
     fullName: string;
     phone?: string | null;
   };
+  deliveryPolicy?: DeliveryPolicy;
+  deliverySelections?: readonly {
+    groupId: string;
+    shippingMethodId: string;
+    shippingContext?: unknown;
+  }[];
+  deliveryPlanFingerprint?: string;
 }
 
 export interface PlaceOrderResult {
@@ -78,6 +123,13 @@ export interface PlaceOrderResult {
   redirectUrl?: string | null;
   errorCode?: string | null;
   errorMessage?: string | null;
+}
+
+export interface OrderConfirmationActionsViewModel {
+  trackingHref: string;
+  continueShoppingHref: string;
+  trackingLabel: string;
+  continueShoppingLabel: string;
 }
 
 export interface OrderConfirmationViewModel {

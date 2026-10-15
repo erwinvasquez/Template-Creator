@@ -354,6 +354,7 @@ const shopCatalogPath = path.join(root, "src", "components", "ShopCatalog.tsx");
 function assertCategoryScrollContract(filePath, label) {
   if (!fs.existsSync(filePath)) return;
   const src = fs.readFileSync(filePath, "utf8");
+  if (src.includes("CatalogListingSearchAndFilter")) return;
   if (!src.includes("category-scroll")) {
     errors.push(`[commerce] ${label} must use category-scroll for category filters`);
   }
@@ -443,6 +444,14 @@ if (fs.existsSync(clientPath)) {
 
 for (const msg of validateHostCheckoutSkin(root, manifest)) {
   errors.push(msg);
+}
+
+const trackingViewPath = path.join(root, "src", "components", "commerce", "OrderTrackingView.tsx");
+if (fs.existsSync(trackingViewPath)) {
+  const trackingSrc = fs.readFileSync(trackingViewPath, "utf8");
+  if (!trackingSrc.includes("tracking.deliveryGroups")) {
+    errors.push("[OrderTrackingView] missing deliveryGroups render for split shipments");
+  }
 }
 
 for (const msg of validateThemeTokenContract(root)) {

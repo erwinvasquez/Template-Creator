@@ -2,7 +2,7 @@
   "templateId": "fashion-lumen-v1",
   "name": "Lumen",
   "displayName": "Lumen",
-  "description": "Template e-commerce de moda femenina editorial minimal: Playfair Display + Inter, carbón + blush, quiet luxury daytime, guardarropa por colección, nuevas llegadas, nota de tejidos, banda editorial y tienda con dual sales mode.",
+  "description": "Template e-commerce de moda femenina editorial minimal: Playfair Display + Inter, carb\u00f3n + blush, quiet luxury daytime, guardarropa por colecci\u00f3n, nuevas llegadas, nota de tejidos, banda editorial y tienda con dual sales mode.",
   "category": "ecommerce-fashion",
   "version": "1.0.0",
   "schemaVersion": "1.0.0",
@@ -78,7 +78,7 @@
   },
   "commerce": {
     "mode": "preview-only",
-    "contractVersion": null,
+    "contractVersion": "1.2.0",
     "views": {
       "productListing": true,
       "productDetail": true,
@@ -212,6 +212,6 @@
     ],
     "command": "npm run template:export -- fashion-lumen-v1",
     "output": "dist/packages/fashion-lumen-v1",
-    "consumer": "IA Builder v2 — solo genera/edita Content Payload validado contra schema.json; nunca modifica el código del template."
+    "consumer": "IA Builder v2 \u2014 solo genera/edita Content Payload validado contra schema.json; nunca modifica el c\u00f3digo del template."
   }
 }

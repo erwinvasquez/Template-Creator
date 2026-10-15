@@ -10,12 +10,14 @@ import {
 } from "react";
 import type {
   CartViewModel,
+  CatalogSessionViewModel,
   CheckoutViewModel,
   CommerceRuntimeActions,
   CommerceTemplateCapabilities,
   ProductDetailViewModel,
   ProductFilterViewModel,
   ProductSearchViewModel,
+  SalesMode,
 } from "@shopenlinea/commerce-runtime-contract";
 import { DEFAULT_PREVIEW_CAPABILITIES } from "@shopenlinea/commerce-runtime-contract";
 
@@ -24,7 +26,10 @@ export type AtelierCommerceHost = {
     data: ProductSearchViewModel;
     filters: ProductFilterViewModel;
   }>;
+  getCatalogSession?: () => CatalogSessionViewModel;
   getDetail: (slug: string) => Promise<ProductDetailViewModel | null>;
+  /** Detalle ya resuelto para este slug. Evita el estado Cargando del primer render. */
+  getDetailSnapshot?: (slug: string) => ProductDetailViewModel | null;
   getCart: () => Promise<CartViewModel>;
   /** Sync cart from host cache (SaaS R2). Omit in preview bridges without snapshot. */
   getCartSnapshot?: () => CartViewModel | null;
@@ -39,6 +44,10 @@ export type AtelierCommerceHost = {
   /** Monotonic store version for sync subscriptions. */
   getStoreVersion?: () => number;
   capabilities?: CommerceTemplateCapabilities;
+  getPlpReturnHref?: () => string | null;
+  getPersistedCatalogSalesMode?: () => SalesMode | null;
+  hasCatalogReturnNavigation?: () => boolean;
+  getCatalogListingQueryKey?: () => string;
 };
 
 const CommerceHostContext = createContext<AtelierCommerceHost | null>(null);

@@ -14,6 +14,7 @@ import type {
   ProductDetailViewModel,
   ProductFilterViewModel,
   ProductSearchViewModel,
+  CatalogSessionViewModel,
   ProductVariantViewModel,
 } from "@shopenlinea/commerce-runtime-contract";
 import {
@@ -140,7 +141,7 @@ export function createMockCommerceBridge(
       subtotal: unit * 0.9,
       subtotalDisplay: formatEur(unit * 0.9),
       promotionLabels: ["−10% bienvenida"],
-      appliedPromotions: [{ label: "−10% bienvenida" }],
+      appliedPromotions: [{ id: "promo-welcome", label: "−10% bienvenida" }],
       lines: [
         {
           lineId: "line-1",
@@ -155,7 +156,7 @@ export function createMockCommerceBridge(
           unitDisplayPrice: formatEur(unit * 0.9),
           unitCompareAtPrice: p.displayPrice,
           lineDisplayPrice: formatEur(unit * 0.9),
-          pricingAdjustments: [{ label: "−10% bienvenida" }],
+          pricingAdjustments: [{ sourceId: "promo-welcome", label: "−10% bienvenida", kind: "percentage" }],
           options: [
             { name: "Talla", value: "M" },
             { name: "Color", value: "Stone" },
@@ -188,7 +189,7 @@ export function createMockCommerceBridge(
     };
   }
 
-  function buildListing(query: CatalogQueryViewModel): ProductSearchViewModel {
+  function buildListing(query: CatalogQueryViewModel): ProductSearchViewModel & CatalogSessionViewModel {
     let products = [...catalogSource()];
     const q = (query.searchQuery ?? filterState.searchQuery ?? "").trim().toLowerCase();
     if (q) {
@@ -233,6 +234,8 @@ export function createMockCommerceBridge(
         cursor,
       },
       sortOptions: SORT_OPTIONS,
+      queryKey: cursor ?? "catalog",
+      isLoadingMore: false,
     };
   }
 

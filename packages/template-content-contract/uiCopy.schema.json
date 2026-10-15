@@ -113,7 +113,25 @@
         "pieceSingular": { "type": "string", "minLength": 1 },
         "piecePlural": { "type": "string", "minLength": 1 },
         "collectionPrefix": { "type": "string", "minLength": 1 },
-        "clearFilter": { "type": "string", "minLength": 1 }
+        "clearFilter": { "type": "string", "minLength": 1 },
+        "filterLabel": { "type": "string", "minLength": 1 },
+        "filterTitle": { "type": "string", "minLength": 1 },
+        "filterApply": { "type": "string", "minLength": 1 },
+        "filterClear": { "type": "string", "minLength": 1 },
+        "filterClose": { "type": "string", "minLength": 1 },
+        "filterCategories": { "type": "string", "minLength": 1 },
+        "filterCollections": { "type": "string", "minLength": 1 },
+        "filterBrands": { "type": "string", "minLength": 1 },
+        "filterColors": { "type": "string", "minLength": 1 },
+        "filterSizes": { "type": "string", "minLength": 1 },
+        "filterMaterials": { "type": "string", "minLength": 1 },
+        "filterPrice": { "type": "string", "minLength": 1 },
+        "filterAvailability": { "type": "string", "minLength": 1 },
+        "filterDiscount": { "type": "string", "minLength": 1 },
+        "filterInStock": { "type": "string", "minLength": 1 },
+        "filterHasDiscount": { "type": "string", "minLength": 1 },
+        "filterPriceMin": { "type": "string", "minLength": 1 },
+        "filterPriceMax": { "type": "string", "minLength": 1 }
       }
     },
     "checkout": {

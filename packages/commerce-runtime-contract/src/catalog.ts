@@ -26,13 +26,43 @@ export interface CatalogQueryViewModel {
   cursor?: string | null;
 }
 
-export interface CatalogFilterPatch {
+export interface CatalogAdvancedFilterPatch {
+  categoryIds?: string[] | null;
+  collectionIds?: string[] | null;
+  brandIds?: string[] | null;
+  colors?: string[] | null;
+  sizes?: string[] | null;
+  materials?: string[] | null;
+  priceMin?: number | null;
+  priceMax?: number | null;
+  hideOutOfStock?: boolean | null;
+  hasDiscount?: boolean | null;
+}
+
+export interface CatalogFilterPatch extends CatalogAdvancedFilterPatch {
   searchQuery?: string | null;
   categoryId?: string | null;
   collectionId?: string | null;
   brandId?: string | null;
   sort?: string | null;
   salesMode?: SalesMode;
+}
+
+export interface CatalogFacetOptionViewModel {
+  value: string;
+  label: string;
+  count?: number;
+}
+
+export interface CatalogFacetsViewModel {
+  colors: CatalogFacetOptionViewModel[];
+  sizes: CatalogFacetOptionViewModel[];
+  materials: CatalogFacetOptionViewModel[];
+  categories?: CatalogFacetOptionViewModel[];
+  collections?: CatalogFacetOptionViewModel[];
+  brands?: CatalogFacetOptionViewModel[];
+  priceMin: number | null;
+  priceMax: number | null;
 }
 
 export interface ProductFilterViewModel {
@@ -62,6 +92,18 @@ export interface ProductFilterViewModel {
   categories: TaxonomyOptionViewModel[];
   collections: TaxonomyOptionViewModel[];
   brands: TaxonomyOptionViewModel[];
+  activeCategoryIds?: string[];
+  activeCollectionIds?: string[];
+  activeBrandIds?: string[];
+  activeColors?: string[];
+  activeSizes?: string[];
+  activeMaterials?: string[];
+  activePriceMin?: number | null;
+  activePriceMax?: number | null;
+  hideOutOfStock?: boolean;
+  hasDiscount?: boolean;
+  activeFilterCount?: number;
+  facets?: CatalogFacetsViewModel | null;
 }
 
 export interface ProductCardViewModel {
@@ -89,6 +131,19 @@ export interface ProductCardViewModel {
    * `productHref` should include `?salesMode=madeToOrder` when dual-mode applies.
    */
   madeToOrderUpsell?: MadeToOrderUpsellViewModel | null;
+  /** SEARCH-01: variante resaltada en listado cuando la consulta coincide con una opción. */
+  matchedVariantId?: string | null;
+  matchedOptionName?: string | null;
+  matchedOptionValue?: string | null;
+  /** Secundario; no sustituye `displayPrice` (qty 1). */
+  quantityPricingTeaser?: string | null;
+}
+
+export interface CatalogSessionViewModel {
+  products: ProductCardViewModel[];
+  nextCursor: string | null;
+  queryKey: string;
+  isLoadingMore: boolean;
 }
 
 export interface ProductSearchViewModel {

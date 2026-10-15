@@ -183,7 +183,33 @@ export function grepDataWbSlots(srcDir) {
   }
   if (fs.existsSync(srcDir)) walkDir(srcDir);
   registerHeroCarouselEditorSlots(slots, srcDir);
+  registerPlpShopHeaderSlots(slots, srcDir);
   return slots;
+}
+
+/**
+ * PLP shop copy lives in CatalogPlpShopHeader (contrato compartido).
+ * El registry de SaaS exige ese componente; los slots no se duplican en la plantilla.
+ */
+export function registerPlpShopHeaderSlots(wbSlots, srcDir) {
+  const shopView = path.join(srcDir, "components", "pages", "ShopView.tsx");
+  if (!fs.existsSync(shopView)) return;
+  const text = fs.readFileSync(shopView, "utf8");
+  if (!text.includes("CatalogPlpShopHeader")) return;
+  const header = path.join(
+    srcDir,
+    "..",
+    "..",
+    "..",
+    "packages",
+    "commerce-runtime-contract",
+    "src",
+    "CatalogPlpShopHeader.tsx",
+  );
+  const ids = ["shop.eyebrow", "shop.title", "shop.description"];
+  for (const id of ids) {
+    if (!wbSlots.has(id)) wbSlots.set(id, [header]);
+  }
 }
 
 /** Sprint 85: hero media slots are assigned dynamically in `hero-carousel.tsx`. */

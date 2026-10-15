@@ -15,6 +15,7 @@ import type {
   ProductFilterViewModel,
   ProductSearchViewModel,
 } from "@shopenlinea/commerce-runtime-contract";
+import { previewCatalogSessionFromListing } from "@shopenlinea/commerce-runtime-contract";
 import { DEFAULT_PREVIEW_CAPABILITIES } from "@shopenlinea/commerce-runtime-contract";
 import type { ContentPayload } from "../content/types";
 import { resolveProducts, SHOP_PATH } from "../content/resolve";
@@ -319,8 +320,27 @@ export function createPayloadCommerceBridge(
       filterState = { ...filterState, ...filters };
       notify();
     },
+    getCatalogSession() {
+      const listing = buildListing({
+        searchQuery: filterState.searchQuery ?? undefined,
+        categoryId: filterState.categoryId,
+        collectionId: filterState.collectionId,
+        brandId: filterState.brandId,
+        sort: filterState.sort ?? undefined,
+        cursor: null,
+      });
+      return {
+        products: listing.products,
+        nextCursor: listing.nextCursor,
+        queryKey: "preview",
+        isLoadingMore: false,
+      };
+    },
+    recordPlpScrollPosition() {},
+    restorePlpScrollPosition() {},
+    preparePlpNavigation() {},
     async loadMoreProducts(cursor) {
-      return buildListing({
+      const listing = buildListing({
         searchQuery: filterState.searchQuery ?? undefined,
         categoryId: filterState.categoryId,
         collectionId: filterState.collectionId,
@@ -328,6 +348,12 @@ export function createPayloadCommerceBridge(
         sort: filterState.sort ?? undefined,
         cursor,
       });
+      return {
+        products: listing.products,
+        nextCursor: listing.nextCursor,
+        queryKey: "preview",
+        isLoadingMore: false,
+      };
     },
     selectVariant(id) {
       selectedVariantId = id;

@@ -11,9 +11,11 @@ export interface CommerceManifestViews {
   /** Full typed checkout page (preferred over layout+slots). */
   checkoutPage?: boolean;
   orderConfirmation: boolean;
+  orderTracking?: boolean;
   accountLogin?: boolean;
   accountRegister?: boolean;
   accountDashboard?: boolean;
+  accountOrders?: boolean;
 }
 
 export interface CommerceManifest {

@@ -15,16 +15,24 @@ import type {
   HostCheckoutSummaryLineProps,
 } from "@shopenlinea/commerce-runtime-contract";
 import {
+  commerceLineItemBodyClassName,
+  commerceLineItemCompareAtClassName,
+  commerceLineItemFinalPriceClassName,
+  commerceLineItemHeaderRowClassName,
+  commerceLineItemImageBorderClassName,
+  commerceLineItemImageShellClassName,
+  commerceLineItemListClassName,
+  commerceLineItemPriceColumnClassName,
+  commerceLineItemQuantityClassName,
+  commerceLineItemRowClassName,
+  commerceLineItemTitleClassName,
+  commerceLineItemVariantClassName,
   hostCheckoutChoiceLabelTextClassName,
   hostCheckoutContainWidthClassName,
-  hostCheckoutLineItemPricingClassName,
-  hostCheckoutLineItemRowClassName,
-  hostCheckoutLineItemTitleClampClassName,
-  hostCheckoutLineItemVariantClampClassName,
+  hostCheckoutInputClassName,
 } from "@shopenlinea/commerce-runtime-contract";
 
-export const checkoutInputClassName =
-  `w-full ${hostCheckoutContainWidthClassName} border border-border bg-background px-4 py-3 text-sm text-primary outline-none transition-colors duration-200 focus:border-primary disabled:opacity-50`;
+export const checkoutInputClassName = hostCheckoutInputClassName;
 
 export const checkoutFieldLabelClassName =
   "mb-2 block text-[11px] font-medium uppercase tracking-[0.14em] text-secondary";
@@ -158,37 +166,32 @@ export function CheckoutLineItem({
   compareAtPriceDisplay,
 }: HostCheckoutLineItemProps) {
   return (
-    <li className={hostCheckoutLineItemRowClassName}>
-      <div className="relative h-12 w-12 shrink-0 overflow-hidden border border-border bg-background">
+    <li className={commerceLineItemRowClassName}>
+      <div
+        className={`${commerceLineItemImageShellClassName} ${commerceLineItemImageBorderClassName}`}
+      >
         {imageUrl ? (
-          <Image src={imageUrl} alt="" fill className="object-cover" sizes="48px" />
+          <Image src={imageUrl} alt="" fill className="object-cover" sizes="72px" />
         ) : null}
       </div>
-      <div className="min-w-0 flex-1">
-        <p
-          className={`${hostCheckoutLineItemTitleClampClassName} font-serif text-base leading-tight text-primary`}
-          title={title}
-        >
-          {title}
-        </p>
-        {variantLabel ? (
-          <p
-            className={`${hostCheckoutLineItemVariantClampClassName} text-xs text-muted`}
-            title={variantLabel}
-          >
-            {variantLabel}
-          </p>
-        ) : null}
-        <p className={hostCheckoutLineItemPricingClassName}>
-          <span className="tabular-nums">×{quantity}</span>
-          <span className="mx-1" aria-hidden="true">—</span>
-          <span className="inline-flex min-w-0 max-w-full flex-wrap items-baseline gap-x-1">
-            {compareAtPriceDisplay ? (
-              <span className="text-muted line-through tabular-nums">{compareAtPriceDisplay}</span>
+      <div className={commerceLineItemBodyClassName}>
+        <div className={commerceLineItemHeaderRowClassName}>
+          <div className="min-w-0 flex-1">
+            <p className={commerceLineItemTitleClassName} title={title}>{title}</p>
+            {variantLabel ? (
+              <p className={commerceLineItemVariantClassName} title={variantLabel}>
+                {variantLabel}
+              </p>
             ) : null}
-            <span className="font-medium text-primary tabular-nums">{priceDisplay}</span>
-          </span>
-        </p>
+            <p className={commerceLineItemQuantityClassName}>× {quantity}</p>
+          </div>
+          <div className={commerceLineItemPriceColumnClassName}>
+            {compareAtPriceDisplay ? (
+              <p className={commerceLineItemCompareAtClassName}>{compareAtPriceDisplay}</p>
+            ) : null}
+            <p className={commerceLineItemFinalPriceClassName}>{priceDisplay}</p>
+          </div>
+        </div>
       </div>
     </li>
   );
@@ -235,7 +238,7 @@ export function CheckoutCheckboxRow({
         disabled={disabled}
         onChange={(e) => onCheckedChange(e.target.checked)}
       />
-      <span className={`min-w-0 flex-1 text-sm text-primary ${hostCheckoutChoiceLabelTextClassName}`}>
+      <span className={`min-w-0 flex-1 text-base text-primary ${hostCheckoutChoiceLabelTextClassName}`}>
         {children}
       </span>
     </label>
@@ -269,12 +272,19 @@ export function CheckoutOrderSummary({
   fulfillmentNotice,
   totalsSection,
   statusSection,
+  deliveryPolicySection,
+  deliveryGroupsSection,
+  preparationSection,
+  quoteExpired,
+  paymentConsentRequired,
 }: HostCheckoutOrderSummaryProps) {
   return (
     <div className="space-y-4 min-w-0 text-sm">
       {statusSection ? <div className="min-w-0">{statusSection}</div> : null}
       <div className="space-y-3 min-w-0">{discountSection}</div>
-      <ul className="max-h-64 min-w-0 space-y-3 overflow-y-auto list-none pl-0">
+      <ul
+        className={`max-h-[min(24rem,50vh)] min-w-0 overflow-y-auto ${commerceLineItemListClassName}`}
+      >
         {lineItemsSection}
       </ul>
       {promotionsSection ? (
@@ -285,6 +295,11 @@ export function CheckoutOrderSummary({
       {fulfillmentNotice ? (
         <CheckoutNotice>{fulfillmentNotice}</CheckoutNotice>
       ) : null}
+      {deliveryPolicySection ? <div className="min-w-0">{deliveryPolicySection}</div> : null}
+      {deliveryGroupsSection ? <div className="min-w-0 space-y-2">{deliveryGroupsSection}</div> : null}
+      {preparationSection ? <div className="min-w-0">{preparationSection}</div> : null}
+      {quoteExpired ? <CheckoutNotice>{quoteExpired}</CheckoutNotice> : null}
+      {paymentConsentRequired ? <CheckoutNotice>{paymentConsentRequired}</CheckoutNotice> : null}
       <div className="min-w-0 max-w-full space-y-2 border-t border-border pt-4">
         {totalsSection}
       </div>

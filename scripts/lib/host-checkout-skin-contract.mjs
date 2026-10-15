@@ -104,6 +104,22 @@ export function validateHostCheckoutSkin(templateRoot, manifest) {
     if (!primitivesSrc.includes("checkoutPhoneRowClassName")) {
       errors.push("[checkout-skin] CheckoutPrimitives must export checkoutPhoneRowClassName");
     }
+    const radioStart = primitivesSrc.indexOf("export function CheckoutRadioOption");
+    const radioEnd = primitivesSrc.indexOf("export function CheckoutPaymentCard");
+    const radioBlock =
+      radioStart >= 0 && radioEnd > radioStart ? primitivesSrc.slice(radioStart, radioEnd) : "";
+    const descriptionAt = radioBlock.indexOf("description ?");
+    const descriptionBlock = descriptionAt >= 0 ? radioBlock.slice(descriptionAt) : "";
+    if (!descriptionBlock.includes("hostCheckoutChoiceLabelTextClassName")) {
+      errors.push(
+        "[checkout-skin] CheckoutRadioOption description must use hostCheckoutChoiceLabelTextClassName",
+      );
+    }
+    if (/whitespace-(pre-line|pre-wrap|normal)/.test(descriptionBlock)) {
+      errors.push(
+        "[checkout-skin] CheckoutRadioOption must not hardcode whitespace; inherit hostCheckoutChoiceLabelTextClassName",
+      );
+    }
   }
 
   if (manifest.commerce?.views?.checkoutPage !== false) {

@@ -14,9 +14,11 @@ import { withBasePath } from "../../content/resolve";
 export function CommerceProductCard({
   product,
   priority = false,
+  onNavigate,
 }: {
   product: ProductCardViewModel;
   priority?: boolean;
+  onNavigate?: () => void;
 }) {
   const { payload, basePath } = useSiteContent();
   const productUi = requireUi(payload).product;
@@ -45,7 +47,7 @@ export function CommerceProductCard({
             : null;
 
   return (
-    <Link href={href} className="group cursor-pointer block">
+    <Link href={href} className="group cursor-pointer block" onClick={() => onNavigate?.()}>
       <article>
         <div className="relative aspect-[3/4] overflow-hidden bg-surface">
           {product.imageUrl && (

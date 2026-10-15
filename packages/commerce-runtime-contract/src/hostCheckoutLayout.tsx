@@ -6,6 +6,10 @@
 /** Acota ancho en columnas grid, flex y campos full-width. */
 export const hostCheckoutContainWidthClassName = "min-w-0 max-w-full";
 
+/** ≥16px en inputs evita zoom automático en iOS sin bloquear zoom manual. */
+export const hostCheckoutInputClassName =
+  "w-full min-w-0 max-w-full border border-border bg-background px-4 py-3 text-base text-primary outline-none transition-colors duration-200 focus:border-primary disabled:opacity-50";
+
 /** Contenedor interior (padding horizontal lo define cada template). */
 export const hostCheckoutLayoutPageInnerClassName =
   "mx-auto w-full min-w-0 max-w-7xl";
@@ -29,8 +33,8 @@ export const hostCheckoutLayoutNoticesClassName = "mt-6 min-w-0 max-w-full";
 
 export const hostCheckoutLayoutSummaryInnerClassName = "mt-6 min-w-0 max-w-full";
 
-/** Texto largo en radios / métodos de envío. */
-export const hostCheckoutChoiceLabelTextClassName = "break-words whitespace-normal";
+/** Texto largo en radios. Conserva saltos de línea de la descripción sin fijar color. */
+export const hostCheckoutChoiceLabelTextClassName = "break-words whitespace-pre-line";
 
 /** Fila de línea en resumen de pedido (thumbnail + texto). */
 export const hostCheckoutLineItemRowClassName = `flex ${hostCheckoutContainWidthClassName} gap-3`;

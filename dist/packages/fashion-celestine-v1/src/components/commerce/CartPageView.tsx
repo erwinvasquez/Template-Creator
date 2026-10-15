@@ -4,19 +4,27 @@ import Image from "next/image";
 import Link from "next/link";
 import { Minus, Plus, ShoppingBag, X } from "lucide-react";
 import type { CartViewProps } from "@shopenlinea/commerce-runtime-contract";
+import { cartLineRoleLabel, resolveCartFulfillmentHeading } from "@shopenlinea/commerce-runtime-contract";
 import {
   buildCartSummaryRows,
   cartLinePromotionLabels,
+  CartLineCommercialMeta,
+  CartLineQuantityPricingColumnTotal,
+  CartLinePromotionMeta,
+  CartLineQuantityPricingUnitPrices,
+  resolveLinePromotionsMultiLabel,
   cartLineShowsPromotion,
+  cartLineShowsQuantityPricing,
   cartShowsPricingUpdating,
   defaultCartPricingUiLabels,
+  defaultQuantityPricingUiLabels,
   resolveCartEstimatedTotalDisplay,
 } from "@shopenlinea/commerce-runtime-contract";
 import { useCommerceCapabilities } from "../../lib/commerce-host";
 import { useSiteContent } from "../../lib/site-content";
 import { requireUi } from "../../lib/ui";
-import { withBasePath } from "../../content/resolve";
-import { cartSalesModeLabel, showsSalesModeChrome } from "../../lib/sales-mode";
+import { SHOP_PATH, withBasePath } from "../../content/resolve";
+import { showsSalesModeChrome } from "../../lib/sales-mode";
 
 function lineMaxQty(maxQuantity: number | null | undefined): number {
   return maxQuantity ?? Number.POSITIVE_INFINITY;
@@ -28,14 +36,19 @@ export function CartPageView({ cart, actions }: CartViewProps) {
   const ui = requireUi(payload);
   const cartUi = ui.cart;
   const pricingLabels = defaultCartPricingUiLabels(cartUi as Record<string, string | undefined>);
+  const qtyPricingLabels = defaultQuantityPricingUiLabels();
   const summaryRows = buildCartSummaryRows(cart, pricingLabels);
   const estimatedTotal = resolveCartEstimatedTotalDisplay(cart);
   const capabilities = useCommerceCapabilities();
   const showSalesModeChrome = showsSalesModeChrome(capabilities);
-  const salesModeLine =
-    showSalesModeChrome && cart.lines.length > 0
-      ? cartSalesModeLabel(cart.salesMode, ui.salesMode)
-      : null;
+  const fulfillmentHeading = resolveCartFulfillmentHeading({
+    cartSalesMode: cart.salesMode,
+    lines: cart.lines,
+    immediateLabel: ui.salesMode.stock.cartLabel,
+    preparedLabel: ui.salesMode.madeToOrder.cartLabel,
+  });
+  const fulfillmentMixed = cart.lines.length > 0 && fulfillmentHeading == null;
+  const salesModeLine = showSalesModeChrome && fulfillmentHeading ? fulfillmentHeading : null;
   const cartClosedWarning =
     showSalesModeChrome &&
     cart.salesMode === "madeToOrder" &&
@@ -55,7 +68,7 @@ export function CartPageView({ cart, actions }: CartViewProps) {
             <ShoppingBag className="h-12 w-12 text-muted" strokeWidth={1} />
             <p className="text-sm text-muted">{cartUi.empty}</p>
             <Link
-              href={withBasePath(basePath, "/coleccion")}
+              href={withBasePath(basePath, SHOP_PATH)}
               className="cursor-pointer text-sm font-medium uppercase tracking-[0.14em] text-primary transition-colors duration-200 hover:text-secondary"
             >
               {cartUi.exploreCta}
@@ -69,7 +82,8 @@ export function CartPageView({ cart, actions }: CartViewProps) {
             <ul className="mt-12 space-y-8">
               {cart.lines.map((line) => {
                 const hasPromotion = cartLineShowsPromotion(line);
-                const promotionLabel = cartLinePromotionLabels(line)[0];
+                const linePromoLabels = cartLinePromotionLabels(line);
+                const hasQuantityPricing = cartLineShowsQuantityPricing(line);
                 return (
                 <li
                   key={line.lineId}
@@ -94,12 +108,42 @@ export function CartPageView({ cart, actions }: CartViewProps) {
                         </p>
                         <p className="mt-1 text-xs text-muted">
                           {line.variantLabel}
-                        </p>
-                        {promotionLabel ? (
-                          <p className="mt-1 text-[11px] uppercase tracking-[0.12em] text-primary">
-                            {promotionLabel}
-                          </p>
+                        {fulfillmentMixed ? (
+                          <span className="mt-1 block uppercase tracking-[0.12em]">
+                            {cartLineRoleLabel({
+                              line,
+                              cartSalesMode: cart.salesMode,
+                              immediateLabel: ui.salesMode.stock.cartLabel,
+                              preparedLabel: ui.salesMode.madeToOrder.cartLabel,
+                              mixed: true,
+                            })}
+                          </span>
                         ) : null}
+                        </p>
+                        <CartLineCommercialMeta
+                          line={line}
+                          omitPromotion
+                          quantityPricingClassName="mt-1 text-[11px] text-muted"
+                          promotionClassName="mt-1 text-[11px] uppercase tracking-[0.12em] text-primary"
+                          multiPromotionsLabel={resolveLinePromotionsMultiLabel(
+                            pricingLabels,
+                            linePromoLabels.length,
+                          )}
+                        />
+                        <CartLineQuantityPricingUnitPrices
+                          line={line}
+                          perUnitSuffix={qtyPricingLabels.perUnitSuffix}
+                          wrapperClassName="mt-1 text-[11px] leading-snug"
+                          listClassName="text-muted line-through"
+                        />
+                        <CartLinePromotionMeta
+                          line={line}
+                          promotionClassName="mt-1 text-[11px] uppercase tracking-[0.12em] text-primary"
+                          multiPromotionsLabel={resolveLinePromotionsMultiLabel(
+                            pricingLabels,
+                            linePromoLabels.length,
+                          )}
+                        />
                       </div>
                       <button
                         type="button"
@@ -110,51 +154,47 @@ export function CartPageView({ cart, actions }: CartViewProps) {
                         <X className="h-4 w-4" strokeWidth={1.5} />
                       </button>
                     </div>
-                    <div className="mt-auto flex items-center justify-between pt-4">
-                      <div className="flex items-center border border-border">
-                        <button
-                          type="button"
-                          className="cursor-pointer p-2 transition-colors duration-200 hover:bg-surface"
-                          onClick={() =>
-                            actions.updateCartQuantity(
-                              line.variantId,
-                              Math.max(1, line.quantity - 1),
-                            )
-                          }
-                          aria-label="Menos"
-                        >
-                          <Minus className="h-3.5 w-3.5" strokeWidth={1.5} />
-                        </button>
-                        <span className="w-8 text-center text-sm">
-                          {line.quantity}
-                        </span>
-                        <button
-                          type="button"
-                          className="cursor-pointer p-2 transition-colors duration-200 hover:bg-surface"
-                          onClick={() =>
-                            actions.updateCartQuantity(
-                              line.variantId,
-                              Math.min(
-                                lineMaxQty(line.maxQuantity),
-                                line.quantity + 1,
-                              ),
-                            )
-                          }
-                          aria-label="Más"
-                        >
-                          <Plus className="h-3.5 w-3.5" strokeWidth={1.5} />
-                        </button>
+                    <div className="mt-auto flex items-end justify-between pt-4">
+                      <div className="flex w-fit items-center border border-border">
+                          <button
+                            type="button"
+                            className="cursor-pointer p-2 transition-colors duration-200 hover:bg-surface"
+                            onClick={() =>
+                              actions.updateCartQuantity(
+                                line.variantId,
+                                Math.max(1, line.quantity - 1),
+                              )
+                            }
+                            aria-label="Menos"
+                          >
+                            <Minus className="h-3.5 w-3.5" strokeWidth={1.5} />
+                          </button>
+                          <span className="w-8 text-center text-sm">
+                            {line.quantity}
+                          </span>
+                          <button
+                            type="button"
+                            className="cursor-pointer p-2 transition-colors duration-200 hover:bg-surface"
+                            onClick={() =>
+                              actions.updateCartQuantity(
+                                line.variantId,
+                                Math.min(
+                                  lineMaxQty(line.maxQuantity),
+                                  line.quantity + 1,
+                                ),
+                              )
+                            }
+                            aria-label="Más"
+                          >
+                            <Plus className="h-3.5 w-3.5" strokeWidth={1.5} />
+                          </button>
                       </div>
-                      <div className="text-right">
-                        {hasPromotion && line.unitCompareAtPrice ? (
-                          <p className="text-[11px] text-muted line-through">
-                            {line.unitCompareAtPrice}
-                          </p>
-                        ) : null}
-                        <p className="text-sm font-medium">
-                          {line.lineDisplayPrice}
-                        </p>
-                      </div>
+                      <CartLineQuantityPricingColumnTotal
+                        line={line}
+                        wrapperClassName="text-right"
+                        finalClassName="text-sm font-medium"
+                        compareClassName="text-[11px] text-muted line-through"
+                      />
                     </div>
                   </div>
                 </li>

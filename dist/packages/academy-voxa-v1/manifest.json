@@ -2,7 +2,7 @@
   "templateId": "academy-voxa-v1",
   "name": "Voxa",
   "displayName": "Voxa Academia",
-  "description": "Template e-commerce para academias de oratoria y comunicación estratégica que venden programas y libros. Identidad visual fija: tipografía Fraunces/Source Sans 3, navy profundo + acento teal, hero full-bleed con halo teal y wordmark dominante, programas destacados, metodología en pasos, resultados y franja editorial.",
+  "description": "Template e-commerce para academias de oratoria y comunicaci\u00f3n estrat\u00e9gica que venden programas y libros. Identidad visual fija: tipograf\u00eda Fraunces/Source Sans 3, navy profundo + acento teal, hero full-bleed con halo teal y wordmark dominante, programas destacados, metodolog\u00eda en pasos, resultados y franja editorial.",
   "category": "ecommerce-courses",
   "version": "1.0.0",
   "schemaVersion": "1.0.0",
@@ -80,7 +80,7 @@
   },
   "commerce": {
     "mode": "preview-only",
-    "contractVersion": null,
+    "contractVersion": "1.2.0",
     "views": {
       "productListing": true,
       "productDetail": true,
@@ -217,6 +217,6 @@
     ],
     "command": "npm run template:export -- academy-voxa-v1",
     "output": "dist/packages/academy-voxa-v1",
-    "consumer": "IA Builder v2 — solo genera/edita Content Payload validado contra schema.json; nunca modifica el código del template."
+    "consumer": "IA Builder v2 \u2014 solo genera/edita Content Payload validado contra schema.json; nunca modifica el c\u00f3digo del template."
   }
 }

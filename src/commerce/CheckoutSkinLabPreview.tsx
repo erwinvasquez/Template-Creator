@@ -190,7 +190,9 @@ export function CheckoutSkinLabPreview({ skin }: { skin: HostCheckoutSkin }) {
           variantLabel={line.variantLabel}
           quantity={line.quantity}
           priceDisplay={line.priceDisplay}
-          compareAtPriceDisplay={line.compareAtPriceDisplay}
+          compareAtPriceDisplay={
+            "compareAtPriceDisplay" in line ? line.compareAtPriceDisplay : undefined
+          }
         />
       ))}
       promotionsSection={

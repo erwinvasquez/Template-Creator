@@ -27,6 +27,7 @@ describe("CommerceProductCard — PLP stock→MTO (R6)", () => {
             stockLabel: "out_of_stock",
             madeToOrderUpsell: {
               productHref: "/tienda/abrigo?salesMode=madeToOrder",
+              preparationPromiseLabel: "3–5 días",
             },
           })}
         />

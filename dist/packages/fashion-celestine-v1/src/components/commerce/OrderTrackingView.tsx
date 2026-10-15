@@ -1,8 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import type { OrderTrackingViewProps } from "@shopenlinea/commerce-runtime-contract";
+import { commerceLineItemListClassName } from "@shopenlinea/commerce-runtime-contract";
+
+import { CommerceOrderLineItem } from "./CommerceOrderLineItem";
 
 function MilestoneDot({
   state,
@@ -10,9 +12,9 @@ function MilestoneDot({
   state: "done" | "current" | "pending" | "error";
 }) {
   const base = "mt-1 h-2.5 w-2.5 shrink-0 rounded-full";
-  if (state === "done") return <span className={`${base} bg-secondary`} />;
+  if (state === "done") return <span className={`${base} bg-primary`} />;
   if (state === "error") return <span className={`${base} bg-danger`} />;
-  if (state === "current") return <span className={`${base} bg-primary ring-2 ring-primary/30`} />;
+  if (state === "current") return <span className={`${base} bg-primary ring-2 ring-primary/40`} />;
   return <span className={`${base} bg-border`} />;
 }
 
@@ -99,12 +101,59 @@ export function OrderTrackingView({ tracking }: OrderTrackingViewProps) {
           </div>
         ) : null}
 
-        {shipping ? (
+        {tracking.deliveryGroups && tracking.deliveryGroups.length > 1 ? (
           <div className="mt-10 border-t border-border pt-8">
             <h2 className="text-[11px] font-medium uppercase tracking-[0.2em] text-muted">
-              {shippingTitle}
+              {labels.deliveriesSectionTitle}
             </h2>
-            <dl className="mt-4 space-y-2 text-sm">
+            <div className="mt-4 space-y-3">
+              {tracking.deliveryGroups.map((group) => (
+                <div key={group.groupId} className="border border-border bg-background px-3 py-3">
+                  <p className="text-sm font-medium">{group.title}</p>
+                  {group.statusLabel ? <p className="mt-1 text-xs text-muted">{group.statusLabel}</p> : null}
+                  {group.productLines && group.productLines.length > 0 ? (
+                    <ul className="mt-3 space-y-1 text-sm">
+                      {group.productLines.map((line) => (
+                        <li key={line.lineId}>
+                          {line.quantity} × {line.label}
+                        </li>
+                      ))}
+                    </ul>
+                  ) : null}
+                  {group.estimateLabel ? (
+                    <p className="mt-3 text-sm text-muted">
+                      {labels.estimatedDeliveryLabel}: {group.estimateLabel}
+                    </p>
+                  ) : null}
+                  {group.trackingNumber ? (
+                    <p className="mt-2 font-mono text-sm">{group.trackingNumber}</p>
+                  ) : null}
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : null}
+
+        {shipping ? (
+          <div
+            className={
+              tracking.deliveryGroups && tracking.deliveryGroups.length > 1
+                ? "mt-4"
+                : "mt-10 border-t border-border pt-8"
+            }
+          >
+            {(!tracking.deliveryGroups || tracking.deliveryGroups.length <= 1) ? (
+              <h2 className="text-[11px] font-medium uppercase tracking-[0.2em] text-muted">
+                {shippingTitle}
+              </h2>
+            ) : null}
+            <dl
+              className={
+                tracking.deliveryGroups && tracking.deliveryGroups.length > 1
+                  ? "space-y-2 text-sm"
+                  : "mt-4 space-y-2 text-sm"
+              }
+            >
               {shipping.methodName ? (
                 <div>
                   <dt className="text-muted">{labels.methodNameLabel}</dt>
@@ -152,41 +201,17 @@ export function OrderTrackingView({ tracking }: OrderTrackingViewProps) {
           <h2 className="text-[11px] font-medium uppercase tracking-[0.2em] text-muted">
             {labels.summarySectionTitle}
           </h2>
-          <ul className="mt-4 space-y-4 text-sm">
+          <ul className={`mt-4 text-sm ${commerceLineItemListClassName}`}>
             {lines.map((line) => (
-              <li
+              <CommerceOrderLineItem
                 key={line.lineId}
-                className="grid grid-cols-[auto_1fr] gap-4 border-b border-border pb-4 last:border-0 last:pb-0"
-              >
-                <div className="relative h-16 w-16 shrink-0 overflow-hidden border border-border bg-surface">
-                  {line.imageUrl ? (
-                    <Image
-                      src={line.imageUrl}
-                      alt={line.productName}
-                      fill
-                      className="object-cover"
-                      sizes="64px"
-                    />
-                  ) : (
-                    <div className="flex h-full w-full items-center justify-center p-1 text-center text-[10px] leading-tight text-muted">
-                      {labels.imagePlaceholder}
-                    </div>
-                  )}
-                </div>
-                <div className="flex min-w-0 items-start justify-between gap-4">
-                  <div className="min-w-0">
-                    <p className="font-medium text-primary">{line.productName}</p>
-                    {line.variantLabel ? (
-                      <p className="mt-0.5 text-xs text-muted">{line.variantLabel}</p>
-                    ) : null}
-                    <p className="mt-1 text-muted">
-                      {labels.unitPriceLabel}: {line.unitDisplayPrice}
-                      <span> × {line.quantity}</span>
-                    </p>
-                  </div>
-                  <span className="shrink-0 font-medium">{line.lineDisplayPrice}</span>
-                </div>
-              </li>
+                imageUrl={line.imageUrl}
+                title={line.productName}
+                variantLabel={line.variantLabel}
+                quantity={line.quantity}
+                compareAtDisplay={line.compareAtDisplay ?? null}
+              lineDisplayPrice={line.lineDisplayPrice}
+              />
             ))}
           </ul>
           {appliedCouponCode || appliedPromotionLabel ? (
@@ -210,16 +235,28 @@ export function OrderTrackingView({ tracking }: OrderTrackingViewProps) {
               <dt className="text-muted">{labels.subtotalLabel}</dt>
               <dd>{totals.subtotalDisplay}</dd>
             </div>
+            {totals.quantityDiscountDisplay ? (
+              <div className="flex justify-between">
+                <dt className="text-muted">{labels.quantityDiscountLabel}</dt>
+                <dd>−{totals.quantityDiscountDisplay}</dd>
+              </div>
+            ) : null}
             {totals.discountDisplay ? (
               <div className="flex justify-between">
                 <dt className="text-muted">{labels.discountLabel}</dt>
-                <dd>{totals.discountDisplay}</dd>
+                <dd>−{totals.discountDisplay}</dd>
               </div>
             ) : null}
             {totals.shippingDisplay ? (
-              <div className="flex justify-between">
-                <dt className="text-muted">{labels.shippingLabel}</dt>
-                <dd>{totals.shippingDisplay}</dd>
+              <div className="flex justify-between gap-4">
+                <dt className="shrink-0 text-muted">{labels.shippingLabel}</dt>
+                <dd className="text-right">
+                  {totals.shippingDisplay.split("\n").map((line) => (
+                    <span key={line} className="block">
+                      {line}
+                    </span>
+                  ))}
+                </dd>
               </div>
             ) : null}
             {totals.taxDisplay ? (
@@ -282,7 +319,7 @@ export function OrderTrackingView({ tracking }: OrderTrackingViewProps) {
                 href={payment.voucherViewUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-2 inline-block text-primary underline-offset-2 transition-colors hover:text-secondary hover:underline"
+                className="mt-2 inline-block text-primary underline-offset-2 hover:underline"
               >
                 {payment.voucherViewLabel}
               </a>

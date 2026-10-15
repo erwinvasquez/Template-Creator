@@ -8,12 +8,15 @@ import type {
 } from "./catalog";
 import type {
   CheckoutViewModel,
+  OrderConfirmationActionsViewModel,
   OrderConfirmationViewModel,
 } from "./checkout";
+import type { OrderConfirmationSummaryLabels } from "./orderConfirmationPresentation";
 import type { ProductDetailViewModel } from "./product";
 import type {
   AccountDashboardProps,
   AccountLoginFormProps,
+  AccountOrdersViewProps,
   AccountRegisterFormProps,
 } from "./account";
 
@@ -27,6 +30,9 @@ export type {
   AccountLoginFormProps,
   AccountRegisterFormProps,
   AccountDashboardProps,
+  AccountOrdersViewProps,
+  AccountOrderRowViewModel,
+  AccountOrdersViewModel,
 } from "./account";
 import type { OrderTrackingViewProps } from "./tracking";
 
@@ -34,10 +40,15 @@ export interface ProductListingViewProps {
   data: ProductSearchViewModel;
   filters: ProductFilterViewModel;
   capabilities: CommerceTemplateCapabilities;
-  actions: Pick<
-    CommerceRuntimeActions,
-    "setCatalogFilters" | "loadMoreProducts"
-  >;
+  actions: Pick<CommerceRuntimeActions, "loadMoreProducts"> &
+    Partial<
+      Pick<
+        CommerceRuntimeActions,
+        "setCatalogFilters" | "restorePlpScrollPosition" | "preparePlpNavigation"
+      >
+    >;
+  /** Query key activa del listado (URL canónica); evita mezclar sesión stale. */
+  listingQueryKey?: string;
   loading?: boolean;
   loadingMore?: boolean;
   errorMessage?: string | null;
@@ -48,7 +59,7 @@ export interface ProductDetailViewProps {
   capabilities: CommerceTemplateCapabilities;
   actions: Pick<
     CommerceRuntimeActions,
-    "selectVariant" | "addToCart" | "openCartDrawer"
+    "selectVariant" | "addToCart" | "openCartDrawer" | "confirmAddToCartSuccess"
   >;
   loading?: boolean;
   errorMessage?: string | null;
@@ -187,7 +198,10 @@ export interface CheckoutPageProps {
   notices?: string | null;
 }
 
-/** @deprecated Prefer CheckoutPage with typed subcomponents. */
+/**
+ * Slot layout for host-owned checkout. Prefer {@link HostCheckoutLayoutProps}
+ * (labels from host i18n) via {@link HostCheckoutSkin}.
+ */
 export interface CheckoutLayoutProps {
   customerForm: ReactNode;
   shippingSelector?: ReactNode;
@@ -199,6 +213,8 @@ export interface CheckoutLayoutProps {
 
 export interface OrderConfirmationViewProps {
   order: OrderConfirmationViewModel;
+  summaryLabels: OrderConfirmationSummaryLabels;
+  actions: OrderConfirmationActionsViewModel;
 }
 
 export interface CommerceTemplateViews {
@@ -219,6 +235,7 @@ export interface CommerceTemplateViews {
   AccountLoginForm?: ComponentType<AccountLoginFormProps>;
   AccountRegisterForm?: ComponentType<AccountRegisterFormProps>;
   AccountDashboard?: ComponentType<AccountDashboardProps>;
+  AccountOrders?: ComponentType<AccountOrdersViewProps>;
 }
 
 /**
@@ -236,7 +253,8 @@ export type TemplateAppPageId =
   | "orderTracking"
   | "accountLogin"
   | "accountRegister"
-  | "accountDashboard";
+  | "accountDashboard"
+  | "accountOrders";
 
 /**
  * Canonical TemplateApp props — same surface for every template package.
@@ -255,6 +273,7 @@ export interface TemplateAppProps<TPayload = unknown, THost = unknown> {
   accountLogin?: AccountLoginFormProps | null;
   accountRegister?: AccountRegisterFormProps | null;
   accountDashboard?: AccountDashboardProps | null;
+  accountOrders?: AccountOrdersViewProps | null;
   /**
    * When set, rendered inside the template shell `<main>` instead of the
    * page switch (host-owned checkout/account chrome).

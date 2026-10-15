@@ -68,6 +68,9 @@
         },
         "accountDashboard": {
           "type": "boolean"
+        },
+        "accountOrders": {
+          "type": "boolean"
         }
       }
     },

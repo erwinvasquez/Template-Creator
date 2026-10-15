@@ -3,12 +3,14 @@ import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import { DEFAULT_PREVIEW_CAPABILITIES } from "@shopenlinea/commerce-runtime-contract";
 import {
+  OrionCommerceProvider,
   ProductDetailCommerceView,
   createPayloadCommerceBridge,
   resolveNavHref,
   SHOP_PATH,
 } from "jewelry-orion-v1/client";
 import { createMockCommerceBridge } from "../mock/createMockCommerceBridge";
+import { previewCommerceHost } from "./previewCommerceHost";
 import defaults from "../../../templates/jewelry-orion-v1/defaults.json";
 import { SiteContentProvider } from "../../../templates/jewelry-orion-v1/src/lib/site-content";
 
@@ -58,6 +60,7 @@ describe("Orion commerce parity", () => {
 
     render(
       <SiteContentProvider payload={payload} basePath="/t/orion">
+        <OrionCommerceProvider host={previewCommerceHost()}>
         <ProductDetailCommerceView
           product={product!}
           capabilities={DEFAULT_PREVIEW_CAPABILITIES}
@@ -68,6 +71,7 @@ describe("Orion commerce parity", () => {
             confirmAddToCartSuccess,
           }}
         />
+        </OrionCommerceProvider>
       </SiteContentProvider>,
     );
 
@@ -86,6 +90,7 @@ describe("Orion commerce parity", () => {
 
     render(
       <SiteContentProvider payload={payload} basePath="/t/orion">
+        <OrionCommerceProvider host={previewCommerceHost()}>
         <ProductDetailCommerceView
           product={product!}
           capabilities={DEFAULT_PREVIEW_CAPABILITIES}
@@ -93,8 +98,10 @@ describe("Orion commerce parity", () => {
             selectVariant: bridge.actions.selectVariant,
             addToCart: vi.fn(async () => ({ ok: true })),
             openCartDrawer: vi.fn(),
+            confirmAddToCartSuccess: vi.fn(),
           }}
         />
+        </OrionCommerceProvider>
       </SiteContentProvider>,
     );
 
