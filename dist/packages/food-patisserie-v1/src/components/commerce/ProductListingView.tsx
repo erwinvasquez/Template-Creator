@@ -92,7 +92,6 @@ export function ProductListingView({
         onSearchChange={setSearch}
         onSubmitSearch={submitSearch}
         onApplyFilters={applyCatalogFilters}
-        
         searchInputClassName="max-w-md border border-border bg-background px-4 py-3 focus:border-primary"
       />
 
