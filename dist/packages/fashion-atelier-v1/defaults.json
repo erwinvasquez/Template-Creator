@@ -439,7 +439,8 @@
         "label": "Ver colección",
         "href": "/tienda?categoria=mujer"
       },
-      "carouselImages": []
+      "carouselImages": [],
+      "mobileCarouselImages": []
     },
     "collections": {
       "eyebrow": "Colecciones",

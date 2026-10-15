@@ -136,15 +136,15 @@ npm run dev
 
 | Namespace | Count |
 |-----------|-------|
-| sections.* slots | 41 |
-| list slots | 5 |
+| sections.* slots | 43 |
+| list slots | 6 |
 | ui.* leaves (defaults) | 107 |
-| data-wb-slot ids | 41 |
+| data-wb-slot ids | 43 |
 | catalogBindings | 3 |
 
 | Página | Sección | # slots | slotIds |
 |--------|---------|---------|---------|
-| home | hero | 6 | hero.ctaPrimary, hero.ctaSecondary, hero.headline, hero.image… |
+| home | hero | 8 | hero.ctaPrimary, hero.ctaSecondary, hero.headline, hero.image… |
 | home | soirees | 2 | soirees.eyebrow, soirees.title |
 | home | goldCraft | 4 | goldCraft.body, goldCraft.eyebrow, goldCraft.steps, goldCraft.title |
 | home | nocturne | 3 | nocturne.eyebrow, nocturne.title, nocturne.viewAll |

@@ -630,6 +630,16 @@
                 "$ref": "#/$defs/MediaRef"
               }
             },
+            "mobileImage": {
+              "$ref": "#/$defs/MediaRef"
+            },
+            "mobileCarouselImages": {
+              "type": "array",
+              "maxItems": 6,
+              "items": {
+                "$ref": "#/$defs/MediaRef"
+              }
+            },
             "imageSecondary": {
               "$ref": "#/$defs/MediaRef"
             },

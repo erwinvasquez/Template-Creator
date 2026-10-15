@@ -381,7 +381,8 @@
         "label": "Descubrir la colección",
         "href": "/coleccion"
       },
-      "carouselImages": []
+      "carouselImages": [],
+      "mobileCarouselImages": []
     },
     "signatures": {
       "eyebrow": "Piezas insignia",

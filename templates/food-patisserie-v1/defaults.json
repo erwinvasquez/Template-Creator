@@ -326,7 +326,8 @@
         "label": "Atelier",
         "href": "/atelier"
       },
-      "carouselImages": []
+      "carouselImages": [],
+      "mobileCarouselImages": []
     },
     "viennoiserie": {
       "eyebrow": "Mañanas",

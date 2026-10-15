@@ -34,5 +34,18 @@ for (const id of TEMPLATES) {
   if (carousel.fieldPath !== "sections.hero.carouselImages") {
     throw new Error(`${id}: hero.carousel fieldPath mismatch`);
   }
+  const mobileImage = slots.find((s) => s.id === "hero.mobileImage");
+  const mobileCarousel = slots.find((s) => s.id === "hero.mobileCarousel");
+  if (!mobileImage || mobileImage.kind !== "media" || mobileImage.fieldPath !== "sections.hero.mobileImage") {
+    throw new Error(`${id}: missing hero.mobileImage media slot`);
+  }
+  if (
+    !mobileCarousel ||
+    mobileCarousel.kind !== "list" ||
+    !mobileCarousel.listSchema ||
+    mobileCarousel.fieldPath !== "sections.hero.mobileCarouselImages"
+  ) {
+    throw new Error(`${id}: missing hero.mobileCarousel list slot`);
+  }
 }
 console.log("wg01-hero-editor-contract-gate OK (builder slots ×10; UI editor lives in SaaS)");

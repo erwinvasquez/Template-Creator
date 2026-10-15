@@ -175,15 +175,15 @@ npm test -- src/commerce/tests/ProductDetailCommerceView.test.tsx
 
 | Namespace | Count |
 |-----------|-------|
-| sections.* slots | 39 |
-| list slots | 4 |
+| sections.* slots | 41 |
+| list slots | 5 |
 | ui.* leaves (defaults) | 110 |
-| data-wb-slot ids | 39 |
+| data-wb-slot ids | 41 |
 | catalogBindings | 2 |
 
 | Página | Sección | # slots | slotIds |
 |--------|---------|---------|---------|
-| home | hero | 6 | hero.ctaPrimary, hero.ctaSecondary, hero.headline, hero.image… |
+| home | hero | 8 | hero.ctaPrimary, hero.ctaSecondary, hero.headline, hero.image… |
 | home | wardrobe | 3 | wardrobe.eyebrow, wardrobe.itemCtaLabel, wardrobe.title |
 | home | arrivals | 3 | arrivals.eyebrow, arrivals.title, arrivals.viewAll |
 | home | fabricNote | 5 | fabricNote.body, fabricNote.cta, fabricNote.eyebrow, fabricNote.image… |

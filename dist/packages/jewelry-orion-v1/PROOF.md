@@ -202,15 +202,15 @@ Al publicar un payload el SaaS debe:
 
 | Namespace | Count |
 |-----------|-------|
-| sections.* slots | 37 |
-| list slots | 5 |
+| sections.* slots | 39 |
+| list slots | 6 |
 | ui.* leaves (defaults) | 110 |
-| data-wb-slot ids | 37 |
+| data-wb-slot ids | 39 |
 | catalogBindings | 1 |
 
 | Página | Sección | # slots | slotIds |
 |--------|---------|---------|---------|
-| home | hero | 5 | hero.ctaPrimary, hero.headline, hero.image, hero.carousel… |
+| home | hero | 7 | hero.ctaPrimary, hero.headline, hero.image, hero.mobileImage… |
 | home | signatures | 2 | signatures.eyebrow, signatures.title |
 | home | craft | 5 | craft.body, craft.cta, craft.eyebrow, craft.image… |
 | home | materials | 3 | materials.eyebrow, materials.items, materials.title |

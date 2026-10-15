@@ -323,7 +323,8 @@
         "label": "Nosotros",
         "href": "/nosotros"
       },
-      "carouselImages": []
+      "carouselImages": [],
+      "mobileCarouselImages": []
     },
     "courses": {
       "eyebrow": "Por mesa",

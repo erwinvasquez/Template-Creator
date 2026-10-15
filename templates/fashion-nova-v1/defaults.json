@@ -373,7 +373,8 @@
         "label": "Último drop",
         "href": "/tienda?coleccion=neon-drop"
       },
-      "carouselImages": []
+      "carouselImages": [],
+      "mobileCarouselImages": []
     },
     "dropZone": {
       "eyebrow": "Drops",

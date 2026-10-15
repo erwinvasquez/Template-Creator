@@ -326,7 +326,8 @@
         "label": "Historia",
         "href": "/historia"
       },
-      "carouselImages": []
+      "carouselImages": [],
+      "mobileCarouselImages": []
     },
     "lanes": {
       "eyebrow": "La ruta",

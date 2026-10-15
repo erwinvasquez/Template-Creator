@@ -214,15 +214,15 @@ se conservan por compatibilidad del contrato de catálogo; el copy visible ya es
 
 | Namespace | Count |
 |-----------|-------|
-| sections.* slots | 38 |
-| list slots | 6 |
+| sections.* slots | 40 |
+| list slots | 7 |
 | ui.* leaves (defaults) | 110 |
-| data-wb-slot ids | 38 |
+| data-wb-slot ids | 40 |
 | catalogBindings | 2 |
 
 | Página | Sección | # slots | slotIds |
 |--------|---------|---------|---------|
-| home | hero | 6 | hero.ctaPrimary, hero.ctaSecondary, hero.headline, hero.image… |
+| home | hero | 8 | hero.ctaPrimary, hero.ctaSecondary, hero.headline, hero.image… |
 | home | programs | 2 | programs.eyebrow, programs.title |
 | home | method | 4 | method.body, method.eyebrow, method.steps, method.title |
 | home | outcomes | 5 | outcomes.body, outcomes.bullets, outcomes.eyebrow, outcomes.image… |

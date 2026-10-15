@@ -176,15 +176,15 @@ npm test -- src/commerce/tests/ProductDetailCommerceView.test.tsx
 
 | Namespace | Count |
 |-----------|-------|
-| sections.* slots | 41 |
-| list slots | 4 |
+| sections.* slots | 43 |
+| list slots | 5 |
 | ui.* leaves (defaults) | 128 |
-| data-wb-slot ids | 41 |
+| data-wb-slot ids | 43 |
 | catalogBindings | 2 |
 
 | Página | Sección | # slots | slotIds |
 |--------|---------|---------|---------|
-| home | hero | 6 | hero.ctaPrimary, hero.ctaSecondary, hero.headline, hero.image… |
+| home | hero | 8 | hero.ctaPrimary, hero.ctaSecondary, hero.headline, hero.image… |
 | home | collections | 3 | collections.eyebrow, collections.itemCtaLabel, collections.title |
 | home | featured | 3 | featured.eyebrow, featured.title, featured.viewAll |
 | home | editorial | 5 | editorial.body, editorial.cta, editorial.eyebrow, editorial.image… |

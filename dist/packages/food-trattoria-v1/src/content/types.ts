@@ -148,6 +148,10 @@ export type ContentPayload = {
       subheadline: string;
       image: MediaRef;
       carouselImages?: MediaRef[];
+      /** Hero Image Mobile. Ausente: se usa image con focalPointMobile. */
+      mobileImage?: MediaRef;
+      /** Hero Carrusel Mobile. Ausente: se usa carouselImages con focalPointMobile. */
+      mobileCarouselImages?: MediaRef[];
       carouselIntervalMs?: number;
       /** @deprecated Sprint 85 — ignored at runtime */
       imageSecondary?: MediaRef;

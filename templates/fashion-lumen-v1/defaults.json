@@ -405,7 +405,8 @@
         "label": "Primavera Suave",
         "href": "/tienda?coleccion=primavera-suave"
       },
-      "carouselImages": []
+      "carouselImages": [],
+      "mobileCarouselImages": []
     },
     "wardrobe": {
       "eyebrow": "Guardarropa",

@@ -262,7 +262,7 @@ if (!fs.existsSync(builderPath)) {
       continue;
     }
     const value = getPath(defaults, slot.fieldPath);
-    if (value === undefined) {
+    if (value === undefined && slot.id !== "hero.mobileImage") {
       errors.push(
         `[builder] fieldPath not in defaults: ${slot.fieldPath} (slot ${slot.id})`,
       );

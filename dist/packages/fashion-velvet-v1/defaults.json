@@ -377,7 +377,8 @@
         "label": "Reservar cita",
         "href": "/la-maison#cita"
       },
-      "carouselImages": []
+      "carouselImages": [],
+      "mobileCarouselImages": []
     },
     "soirees": {
       "eyebrow": "Colecciones",

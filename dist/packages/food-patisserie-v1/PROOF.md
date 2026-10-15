@@ -136,15 +136,15 @@ npm run dev
 
 | Namespace | Count |
 |-----------|-------|
-| sections.* slots | 41 |
-| list slots | 5 |
+| sections.* slots | 43 |
+| list slots | 6 |
 | ui.* leaves (defaults) | 110 |
-| data-wb-slot ids | 41 |
+| data-wb-slot ids | 43 |
 | catalogBindings | 3 |
 
 | Página | Sección | # slots | slotIds |
 |--------|---------|---------|---------|
-| home | hero | 6 | hero.ctaPrimary, hero.ctaSecondary, hero.headline, hero.image… |
+| home | hero | 8 | hero.ctaPrimary, hero.ctaSecondary, hero.headline, hero.image… |
 | home | viennoiserie | 2 | viennoiserie.eyebrow, viennoiserie.title |
 | home | seasonal | 4 | seasonal.body, seasonal.eyebrow, seasonal.steps, seasonal.title |
 | home | celebration | 3 | celebration.eyebrow, celebration.title, celebration.viewAll |
