@@ -1,8 +1,8 @@
 {
   "templateId": "jewelry-orion-v1",
   "name": "Orion",
-  "displayName": "Orion Alta Joyería",
-  "description": "Template e-commerce de alta joyería. Identidad visual fija: tipografía Bodoni Moda/Jost, negro platino + acento champán, header sticky con marca a la izquierda, hero full-bleed con wordmark inferior, piezas insignia, atelier 50/50, materiales y banda de cita privada.",
+  "displayName": "Orion Alta Joyer\u00eda",
+  "description": "Template e-commerce de alta joyer\u00eda. Identidad visual fija: tipograf\u00eda Bodoni Moda/Jost, negro platino + acento champ\u00e1n, header sticky con marca a la izquierda, hero full-bleed con wordmark inferior, piezas insignia, atelier 50/50, materiales y banda de cita privada.",
   "category": "ecommerce-jewelry",
   "version": "1.3.0",
   "schemaVersion": "1.0.0",
@@ -80,7 +80,7 @@
   },
   "commerce": {
     "mode": "preview-only",
-    "contractVersion": null,
+    "contractVersion": "1.2.0",
     "views": {
       "productListing": true,
       "productDetail": true,
@@ -202,6 +202,6 @@
     ],
     "command": "npm run template:export -- jewelry-orion-v1",
     "output": "dist/packages/jewelry-orion-v1",
-    "consumer": "IA Builder v2 — solo genera/edita Content Payload validado contra schema.json; nunca modifica el código del template."
+    "consumer": "IA Builder v2 \u2014 solo genera/edita Content Payload validado contra schema.json; nunca modifica el c\u00f3digo del template."
   }
 }

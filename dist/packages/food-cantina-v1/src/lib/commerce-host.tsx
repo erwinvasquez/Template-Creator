@@ -16,6 +16,7 @@ import type {
   ProductDetailViewModel,
   ProductFilterViewModel,
   ProductSearchViewModel,
+  SalesMode,
 } from "@shopenlinea/commerce-runtime-contract";
 import { DEFAULT_PREVIEW_CAPABILITIES } from "@shopenlinea/commerce-runtime-contract";
 
@@ -25,6 +26,10 @@ export type CantinaCommerceHost = {
     filters: ProductFilterViewModel;
   }>;
   getDetail: (slug: string) => Promise<ProductDetailViewModel | null>;
+  /** Detalle ya resuelto para este slug. Evita el estado Cargando del primer render. */
+  getDetailSnapshot?: (slug: string) => ProductDetailViewModel | null;
+  getPlpReturnHref?: () => string | null;
+  getPersistedCatalogSalesMode?: () => SalesMode | null;
   getCart: () => Promise<CartViewModel>;
   /** Sync cart from host cache (SaaS R2). Omit in preview bridges without snapshot. */
   getCartSnapshot?: () => CartViewModel | null;

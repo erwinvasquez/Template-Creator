@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image, { getImageProps } from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { Minus, Plus } from "lucide-react";
@@ -18,10 +18,18 @@ import {
   valuesForDimension,
   type VariantOptionLike,
   resolveStockToMtoTransition,
+  resolveStorefrontPurchaseCta,
   shouldOpenStockToMtoModal,
   stockCap,
+  resolveCatalogShopNavigationHref,
   useProductDetailGalleryVariantSync,
+  useProductHeroVariantIntent,
+  productHeroIntentHandlers,
+  ProductDetailQuantityPricingDisclosure,
+  defaultQuantityPricingUiLabels,
+  variantHasQuantityPricingCatalog,
 } from "@shopenlinea/commerce-runtime-contract";
+import { useRequiredCommerceHost } from "../../lib/commerce-host";
 import { useSiteContent } from "../../lib/site-content";
 import { requireUi } from "../../lib/ui";
 import { SHOP_PATH, withBasePath } from "../../content/resolve";
@@ -96,7 +104,9 @@ export function ProductDetailCommerceView({
   actions,
   errorMessage,
 }: ProductDetailViewProps) {
+  const host = useRequiredCommerceHost();
   const { payload, basePath } = useSiteContent();
+  const shopHref = resolveCatalogShopNavigationHref(host, basePath);
   const ui = requireUi(payload);
   const uiProduct = ui.product;
   const uiBadges = uiProduct.badges;
@@ -140,6 +150,13 @@ export function ProductDetailCommerceView({
     maxAddQtyMap,
   });
 
+  const warmVariantHero = useProductHeroVariantIntent({
+    product,
+    activeImageUrl: mainImage?.url,
+    sizes: "(max-width: 1024px) 100vw, 50vw",
+    getImageProps,
+  });
+
   const selections = useMemo(
     () => selectionsFromSelectedVariant(pickerVariants, selected?.id),
     [pickerVariants, selected?.id],
@@ -169,9 +186,16 @@ export function ProductDetailCommerceView({
   ]);
 
   const stockCapQty = stockCap(selected, product);
-  const transition = resolveStockToMtoTransition(product, selected, quantity);
-  const showInlineMto = transition?.kind === "immediateExhausted";
   const upsell = product.madeToOrderUpsell;
+  const purchaseCta = resolveStorefrontPurchaseCta({
+    purchaseState: selected?.purchaseState,
+    canAddToCart: selected?.canAddToCart,
+    preparationPromiseLabel:
+      selected?.preparationPromiseLabel ?? product.preparationPromiseLabel ?? null,
+    hasLegacyUpsell: Boolean(upsell?.productHref),
+    madeToOrderClosed: product.madeToOrderClosed === true,
+  });
+  const showInlineMto = purchaseCta.kind === "legacy-upsell";
   const nextQtyTransition = useMemo(
     () => resolveStockToMtoTransition(product, selected, quantity + 1),
     [product, selected, quantity],
@@ -179,18 +203,28 @@ export function ProductDetailCommerceView({
   const stockLabel = selected?.stockLabel ?? product.stockLabel ?? null;
   const variantAvailable = selected?.available !== false;
   const canBuy =
-    Boolean(selected) &&
-    product.canAddToCart &&
-    variantAvailable &&
-    !product.madeToOrderClosed &&
-    stockLabel !== "out_of_stock" &&
-    !showInlineMto &&
-    stockCapQty > 0;
+    purchaseCta.kind === "add"
+      ? Boolean(selected) && !product.madeToOrderClosed && stockCapQty > 0
+      : Boolean(selected) &&
+        product.canAddToCart &&
+        variantAvailable &&
+        !product.madeToOrderClosed &&
+        stockLabel !== "out_of_stock" &&
+        !showInlineMto &&
+        stockCapQty > 0;
 
   const pct =
     selected?.compareAtPrice && selected.displayPrice
       ? discountPercent(selected.displayPrice, selected.compareAtPrice)
       : null;
+
+  const formatUnitPrice = useMemo(() => {
+    const fmt = new Intl.NumberFormat(undefined, {
+      style: "currency",
+      currency: product.currency,
+    });
+    return (amount: number) => fmt.format(amount);
+  }, [product.currency]);
 
   useEffect(() => {
     setQuantity(1);
@@ -199,10 +233,12 @@ export function ProductDetailCommerceView({
 
   async function onAdd() {
     if (!selected || !canBuy) return;
-    const t = resolveStockToMtoTransition(product, selected, quantity);
-    if (t && shouldOpenStockToMtoModal(t)) {
-      setUpsellOpen(true);
-      return;
+    if (purchaseCta.kind !== "add") {
+      const t = resolveStockToMtoTransition(product, selected, quantity);
+      if (t && shouldOpenStockToMtoModal(t)) {
+        setUpsellOpen(true);
+        return;
+      }
     }
     setPending(true);
     setLocalError(null);
@@ -219,10 +255,12 @@ export function ProductDetailCommerceView({
   }
 
   function onIncrementQuantity() {
-    const tInc = resolveStockToMtoTransition(product, selected, quantity + 1);
-    if (tInc && shouldOpenStockToMtoModal(tInc)) {
-      setUpsellOpen(true);
-      return;
+    if (purchaseCta.kind !== "add") {
+      const tInc = resolveStockToMtoTransition(product, selected, quantity + 1);
+      if (tInc && shouldOpenStockToMtoModal(tInc)) {
+        setUpsellOpen(true);
+        return;
+      }
     }
     setQuantity((q) => Math.min(stockCapQty, q + 1));
   }
@@ -242,7 +280,7 @@ export function ProductDetailCommerceView({
   const quantityLabel = checkoutUi.quantityLabel;
 
   return (
-    <div className="trattoria-pdp min-w-0 bg-background pb-24 pt-28 md:pb-32 md:pt-36">
+    <div className="cantina-pdp min-w-0 bg-background pb-24 pt-28 md:pb-32 md:pt-36">
       <div className="mx-auto min-w-0 max-w-7xl px-6 md:px-10">
         <nav className="mb-8 text-xs text-muted" aria-label="Breadcrumb">
           {shopLabel ? (
@@ -262,7 +300,7 @@ export function ProductDetailCommerceView({
         <div className="grid min-w-0 gap-8 lg:grid-cols-2 lg:gap-12">
           {/* Portrait gallery */}
           <div className="min-w-0 w-full max-w-full">
-            <div className="relative aspect-[4/5] overflow-hidden rounded-xl border border-border bg-surface shadow-[0_20px_48px_-24px_rgba(124,45,18,0.2)]">
+            <div className="relative aspect-square overflow-hidden border-4 border-primary bg-surface shadow-[8px_8px_0_0_var(--color-secondary)]">
               {mainImage?.url && (
                 <Image
                   src={mainImage.url}
@@ -276,11 +314,11 @@ export function ProductDetailCommerceView({
               {isPdpFieldVisible(presentation, "badges") &&
               product.badges &&
               product.badges.length > 0 ? (
-                <p className="absolute left-4 top-4 flex flex-wrap gap-2">
+                <p className="absolute left-0 top-0 flex flex-wrap gap-1">
                   {product.badges.map((b) => (
                     <span
                       key={b}
-                      className="rounded-full bg-primary px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-background shadow-sm"
+                      className="bg-primary px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.1em] text-background"
                     >
                       {badgeLabel(b, uiBadges)}
                     </span>
@@ -298,10 +336,10 @@ export function ProductDetailCommerceView({
                         <button
                           type="button"
                           onClick={() => onGalleryItemClick(i)}
-                          className={`relative h-20 w-16 cursor-pointer overflow-hidden rounded-lg border transition-colors duration-200 ${
+                          className={`relative h-20 w-20 cursor-pointer overflow-hidden border-2 transition-colors duration-200 ${
                             active
-                              ? "border-secondary ring-1 ring-secondary/30"
-                              : "border-border hover:border-secondary/50"
+                              ? "border-secondary ring-2 ring-secondary/40"
+                              : "border-primary hover:border-secondary"
                           }`}
                           aria-label={`Imagen ${i + 1}`}
                         >
@@ -322,7 +360,7 @@ export function ProductDetailCommerceView({
           </div>
 
           {/* Purchase column */}
-          <div className="trattoria-pdp-panel min-w-0 rounded-xl border border-border border-l-4 border-l-secondary bg-background p-7 md:p-9">
+          <div className="cantina-pdp-panel min-w-0 border-4 border-primary bg-background p-6 shadow-[8px_8px_0_0_var(--color-secondary)] md:p-8">
             {occasionChips.length > 0 ? (
               <div className="mb-5 flex flex-wrap gap-2">
                 {occasionChips.map((chip) => (
@@ -336,25 +374,38 @@ export function ProductDetailCommerceView({
               </div>
             ) : null}
 
-            <h1 className="font-serif text-4xl leading-[1.05] tracking-wide text-primary md:text-5xl">
+            <h1 className="font-serif text-3xl font-bold uppercase leading-tight tracking-tight text-primary md:text-4xl lg:text-5xl">
               {product.name}
             </h1>
 
-            <div className="mt-5 flex flex-wrap items-baseline gap-3">
-              <p className="font-serif text-2xl text-primary">
-                {selected?.displayPrice ?? product.variants[0]?.displayPrice}
-              </p>
-              {selected?.compareAtPrice ? (
-                <p className="text-sm text-muted line-through">
-                  {selected.compareAtPrice}
+            {variantHasQuantityPricingCatalog(selected) && selected ? (
+              <ProductDetailQuantityPricingDisclosure
+                variant={selected}
+                quantity={quantity}
+                labels={defaultQuantityPricingUiLabels()}
+                formatUnitPrice={formatUnitPrice}
+                rowClassName="mt-5 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2"
+                primaryPriceClassName="font-serif text-2xl text-primary tabular-nums"
+                listStrikeClassName="font-serif text-lg text-muted line-through tabular-nums"
+                triggerClassName="shrink-0 min-w-[9.5rem] text-[11px] font-semibold uppercase tracking-[0.12em] text-secondary underline-offset-2 hover:text-primary hover:underline sm:text-right"
+              />
+            ) : (
+              <div className="mt-5 flex flex-wrap items-baseline gap-3">
+                <p className="font-serif text-2xl text-primary">
+                  {selected?.displayPrice ?? product.variants[0]?.displayPrice}
                 </p>
-              ) : null}
-              {pct != null && pct > 0 ? (
-                <span className="rounded-full bg-primary/12 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-secondary">
-                  −{pct}%
-                </span>
-              ) : null}
-            </div>
+                {selected?.compareAtPrice ? (
+                  <p className="text-sm text-muted line-through">
+                    {selected.compareAtPrice}
+                  </p>
+                ) : null}
+                {pct != null && pct > 0 ? (
+                  <span className="rounded-full bg-primary/12 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-secondary">
+                    −{pct}%
+                  </span>
+                ) : null}
+              </div>
+            )}
 
             {isPdpFieldVisible(presentation, "shortDescription") &&
             product.shortDescription ? (
@@ -425,6 +476,20 @@ export function ProductDetailCommerceView({
                               key={val}
                               type="button"
                               disabled={disabled}
+                              {...productHeroIntentHandlers(() => {
+                                const resolved = resolveVariantForDimensionSelection(
+                                  pickerVariants,
+                                  dimensions,
+                                  selections,
+                                  dimensionIndex,
+                                  val,
+                                  {
+                                    maxAddQtyByVariantId: maxAddQtyMap,
+                                    preferredVariantId: selected?.id,
+                                  },
+                                );
+                                if (resolved) warmVariantHero(resolved.id);
+                              })}
                               onClick={() => {
                                 const resolved =
                                   resolveVariantForDimensionSelection(
@@ -442,12 +507,12 @@ export function ProductDetailCommerceView({
                                   actions.selectVariant(resolved.id);
                                 }
                               }}
-                              className={`cursor-pointer rounded-full border px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.12em] transition-colors duration-200 disabled:cursor-not-allowed disabled:opacity-40 ${
+              className={`cursor-pointer border-2 px-4 py-2 text-[11px] font-bold uppercase tracking-[0.1em] transition-colors duration-200 disabled:cursor-not-allowed disabled:opacity-40 ${
                                 soldOutChip ? "line-through opacity-60" : ""
                               } ${
                                 active
                                   ? "border-secondary bg-secondary text-background"
-                                  : "border-border bg-background text-primary hover:border-secondary/60"
+                                  : "border-primary bg-background text-primary hover:border-secondary"
                               }`}
                             >
                               {val}
@@ -475,6 +540,22 @@ export function ProductDetailCommerceView({
               </p>
             ) : null}
 
+
+          {purchaseCta.kind === "add" && purchaseCta.availability === "prepared" ? (
+            <div className="mt-10 rounded-lg border border-border bg-surface/60 p-6 md:p-8">
+              <p className="text-sm font-medium text-primary">
+                {uiProduct.stockExhaustedImmediateTitle}
+              </p>
+              <p className="mt-2 text-sm text-muted">
+                {uiProduct.stockExhaustedMadeToOrderAvailable}
+              </p>
+              {purchaseCta.preparationPromiseLabel ? (
+                <p className="mt-4 text-[11px] font-medium uppercase tracking-[0.14em] text-muted">
+                  {madeToOrderUi.preparationLabel}: {purchaseCta.preparationPromiseLabel}
+                </p>
+              ) : null}
+            </div>
+          ) : null}
 
           {showInlineMto && upsell ? (
             <div className="mt-10 rounded-lg border border-border bg-surface/60 p-6 md:p-8">
@@ -508,7 +589,7 @@ export function ProductDetailCommerceView({
                 <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-secondary">
                   {quantityLabel}
                 </p>
-                <div className="flex items-center overflow-hidden rounded-full border border-border bg-background">
+                <div className="flex items-center overflow-hidden border-2 border-primary bg-background">
                   <button
                     type="button"
                     className="cursor-pointer p-3 transition-colors hover:bg-surface disabled:opacity-40"
@@ -542,7 +623,7 @@ export function ProductDetailCommerceView({
                   type="button"
                   disabled={!canBuy || pending}
                   onClick={onAdd}
-                  className="mt-6 w-full cursor-pointer rounded-full bg-primary px-6 py-4 text-[11px] font-semibold uppercase tracking-[0.2em] text-background transition-colors duration-200 hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-50"
+                  className="mt-6 w-full cursor-pointer border-2 border-primary bg-secondary px-6 py-4 text-[11px] font-bold uppercase tracking-[0.14em] text-background shadow-[4px_4px_0_0_var(--color-primary)] transition-transform hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0_0_var(--color-primary)] disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   {ctaLabel}
                 </button>
@@ -596,7 +677,7 @@ export function ProductDetailCommerceView({
             <h2 className="font-serif text-3xl tracking-wide text-primary md:text-4xl">
               {relatedTitle}
             </h2>
-            <div className="mt-10 grid grid-cols-2 gap-x-5 gap-y-12 md:grid-cols-3 md:gap-x-8">
+            <div className="mt-10 grid grid-cols-2 gap-6 md:gap-8">
               {product.relatedProducts.map((p) => (
                 <CommerceProductCard key={p.id} product={p} />
               ))}

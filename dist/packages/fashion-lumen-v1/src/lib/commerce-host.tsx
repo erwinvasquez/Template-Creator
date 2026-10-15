@@ -25,6 +25,8 @@ export type LumenCommerceHost = {
     filters: ProductFilterViewModel;
   }>;
   getDetail: (slug: string) => Promise<ProductDetailViewModel | null>;
+  /** Detalle ya resuelto para este slug. Evita el estado Cargando del primer render. */
+  getDetailSnapshot?: (slug: string) => ProductDetailViewModel | null;
   getCart: () => Promise<CartViewModel>;
   /** Sync cart from host cache (SaaS R2). Omit in preview bridges without snapshot. */
   getCartSnapshot?: () => CartViewModel | null;
@@ -38,6 +40,8 @@ export type LumenCommerceHost = {
   closeCart: () => void;
   /** Monotonic store version for sync subscriptions. */
   getStoreVersion?: () => number;
+  /** Href de retorno al listado. El host SaaS lo provee; el preview puede omitirlo. */
+  getPlpReturnHref?: () => string | null | undefined;
   capabilities?: CommerceTemplateCapabilities;
 };
 

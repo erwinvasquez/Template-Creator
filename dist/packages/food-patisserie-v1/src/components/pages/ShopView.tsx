@@ -1,13 +1,12 @@
 "use client";
 
 import { Suspense } from "react";
-import { useSearchParams } from "next/navigation";
-import { shouldShowCatalogEntrySelector } from "@shopenlinea/commerce-runtime-contract";
+import {
+  catalogPageContainerClassName,
+  CatalogPlpShopHeader,
+} from "@shopenlinea/commerce-runtime-contract";
 import { useSiteContent } from "../../lib/site-content";
-import { useCommerceCapabilities } from "../../lib/commerce-host";
-import { SHOP_QUERY } from "../../content/resolve";
 import { CommerceAwareCatalog } from "../CommerceAwareCatalog";
-import { SalesModeShopSwitch } from "../commerce/SalesModeShopBanner";
 
 function ShopCatalogSkeleton() {
   return (
@@ -23,49 +22,17 @@ function ShopCatalogSkeleton() {
   );
 }
 
-function ShopSalesModeSwitch() {
-  const capabilities = useCommerceCapabilities();
-  const searchParams = useSearchParams();
-  const showCatalogEntry = shouldShowCatalogEntrySelector(
-    capabilities,
-    searchParams.get(SHOP_QUERY.salesMode),
-  );
-  if (showCatalogEntry) return null;
-  return <SalesModeShopSwitch />;
-}
-
 export function ShopView() {
   const { payload } = useSiteContent();
   const shop = payload.sections.shop;
 
   return (
-    <div className="mx-auto max-w-7xl px-6 pb-24 pt-28 md:px-8 md:pt-32">
-      <header className="mb-12">
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-8">
-          <p
-            data-wb-slot="shop.eyebrow"
-            className="text-[11px] font-medium uppercase tracking-[0.2em] text-secondary"
-          >
-            {shop.eyebrow}
-          </p>
-          <Suspense fallback={null}>
-            <ShopSalesModeSwitch />
-          </Suspense>
-        </div>
-        <h1
-          data-wb-slot="shop.title"
-          className="mt-3 font-serif text-4xl tracking-wide md:text-5xl"
-        >
-          {shop.title}
-        </h1>
-        <p
-          data-wb-slot="shop.description"
-          className="mt-4 max-w-2xl text-sm leading-relaxed text-muted md:text-base"
-        >
-          {shop.description}
-        </p>
-      </header>
-
+    <div className={catalogPageContainerClassName} data-commerce-plp-shell>
+      <CatalogPlpShopHeader
+        eyebrow={shop.eyebrow}
+        title={shop.title}
+        description={shop.description}
+      />
       <Suspense fallback={<ShopCatalogSkeleton />}>
         <CommerceAwareCatalog />
       </Suspense>

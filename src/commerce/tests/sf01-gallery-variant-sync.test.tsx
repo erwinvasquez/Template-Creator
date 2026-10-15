@@ -6,9 +6,9 @@ import {
   DEFAULT_PREVIEW_CAPABILITIES,
   type ProductDetailViewModel,
 } from "@shopenlinea/commerce-runtime-contract";
-import { ProductDetailCommerceView } from "fashion-atelier-v1/client";
-import { ProductDetailCommerceView as FoodDetail } from "food-patisserie-v1/client";
-import { ProductDetailCommerceView as OrionDetail } from "jewelry-orion-v1/client";
+import { AtelierCommerceProvider, ProductDetailCommerceView } from "fashion-atelier-v1/client";
+import { PatisserieCommerceProvider, ProductDetailCommerceView as FoodDetail } from "food-patisserie-v1/client";
+import { OrionCommerceProvider, ProductDetailCommerceView as OrionDetail } from "jewelry-orion-v1/client";
 import defaultsAtelier from "../../../templates/fashion-atelier-v1/defaults.json";
 import defaultsFood from "../../../templates/food-patisserie-v1/defaults.json";
 import defaultsOrion from "../../../templates/jewelry-orion-v1/defaults.json";
@@ -16,6 +16,7 @@ import { SiteContentProvider as AtelierProvider } from "../../../templates/fashi
 import { SiteContentProvider as FoodProvider } from "../../../templates/food-patisserie-v1/src/lib/site-content";
 import { SiteContentProvider as OrionProvider } from "../../../templates/jewelry-orion-v1/src/lib/site-content";
 import { createMockCommerceBridge } from "../mock/createMockCommerceBridge";
+import { previewCommerceHost } from "./previewCommerceHost";
 
 const BLUE = "v-blue-silk";
 
@@ -86,6 +87,7 @@ describe("SF-01 gallery → variant sync", () => {
 
       return (
         <AtelierProvider payload={defaultsAtelier as never} basePath="/t/atelier">
+          <AtelierCommerceProvider host={previewCommerceHost()}>
           <ProductDetailCommerceView
             product={merged}
             capabilities={DEFAULT_PREVIEW_CAPABILITIES}
@@ -98,6 +100,7 @@ describe("SF-01 gallery → variant sync", () => {
               confirmAddToCartSuccess: vi.fn(),
             }}
           />
+          </AtelierCommerceProvider>
         </AtelierProvider>
       );
     }
@@ -145,6 +148,7 @@ describe("SF-01 gallery → variant sync", () => {
 
       return (
         <FoodProvider payload={defaultsFood as never} basePath="/t/patisserie">
+          <PatisserieCommerceProvider host={previewCommerceHost()}>
           <FoodDetail
             product={merged}
             capabilities={DEFAULT_PREVIEW_CAPABILITIES}
@@ -157,6 +161,7 @@ describe("SF-01 gallery → variant sync", () => {
               confirmAddToCartSuccess: vi.fn(),
             }}
           />
+          </PatisserieCommerceProvider>
         </FoodProvider>
       );
     }
@@ -173,7 +178,9 @@ describe("SF-01 gallery → variant sync", () => {
 
     render(
       <OrionProvider payload={defaultsOrion as never} basePath="/t/orion">
-        <Sf01Host View={OrionDetail} />
+        <OrionCommerceProvider host={previewCommerceHost()}>
+          <Sf01Host View={OrionDetail} />
+        </OrionCommerceProvider>
       </OrionProvider>,
     );
 

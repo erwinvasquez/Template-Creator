@@ -3,7 +3,8 @@ import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import { DEFAULT_PREVIEW_CAPABILITIES } from "@shopenlinea/commerce-runtime-contract";
 import type { ProductDetailViewModel } from "@shopenlinea/commerce-runtime-contract";
-import { ProductDetailCommerceView } from "fashion-atelier-v1/client";
+import { AtelierCommerceProvider, ProductDetailCommerceView } from "fashion-atelier-v1/client";
+import { previewCommerceHost } from "./previewCommerceHost";
 import { createMockCommerceBridge } from "../mock/createMockCommerceBridge";
 import defaults from "../../../templates/fashion-atelier-v1/defaults.json";
 import { SiteContentProvider } from "../../../templates/fashion-atelier-v1/src/lib/site-content";
@@ -19,6 +20,7 @@ describe("ProductDetailCommerceView", () => {
 
     render(
       <SiteContentProvider payload={defaults as never} basePath="/t/atelier">
+        <AtelierCommerceProvider host={previewCommerceHost()}>
         <ProductDetailCommerceView
           product={product!}
           capabilities={DEFAULT_PREVIEW_CAPABILITIES}
@@ -29,6 +31,7 @@ describe("ProductDetailCommerceView", () => {
             confirmAddToCartSuccess,
           }}
         />
+        </AtelierCommerceProvider>
       </SiteContentProvider>,
     );
 
@@ -45,6 +48,7 @@ describe("ProductDetailCommerceView", () => {
 
     render(
       <SiteContentProvider payload={defaults as never} basePath="/t/atelier">
+        <AtelierCommerceProvider host={previewCommerceHost()}>
         <ProductDetailCommerceView
           product={product!}
           capabilities={DEFAULT_PREVIEW_CAPABILITIES}
@@ -55,6 +59,7 @@ describe("ProductDetailCommerceView", () => {
             confirmAddToCartSuccess: vi.fn(),
           }}
         />
+        </AtelierCommerceProvider>
       </SiteContentProvider>,
     );
 
@@ -68,6 +73,7 @@ describe("ProductDetailCommerceView", () => {
 
     render(
       <SiteContentProvider payload={defaults as never} basePath="/t/atelier">
+        <AtelierCommerceProvider host={previewCommerceHost()}>
         <ProductDetailCommerceView
           product={product!}
           capabilities={DEFAULT_PREVIEW_CAPABILITIES}
@@ -78,6 +84,7 @@ describe("ProductDetailCommerceView", () => {
             confirmAddToCartSuccess: vi.fn(),
           }}
         />
+        </AtelierCommerceProvider>
       </SiteContentProvider>,
     );
 
@@ -85,7 +92,7 @@ describe("ProductDetailCommerceView", () => {
     expect(cta).toBeDisabled();
   });
 
-  it("opens made-to-order upsell when quantity exceeds immediate stock cap", async () => {
+  it("caps quantity at immediate stock instead of opening the legacy upsell", async () => {
     const user = userEvent.setup();
     const product: ProductDetailViewModel = {
       id: "p1",
@@ -100,6 +107,8 @@ describe("ProductDetailCommerceView", () => {
           options: [],
           displayPrice: "10,00 €",
           available: true,
+          canAddToCart: true,
+          purchaseState: "immediate",
           maxQuantity: 2,
           immediateAvailableQty: 10,
           stockLabel: "available",
@@ -116,6 +125,7 @@ describe("ProductDetailCommerceView", () => {
 
     render(
       <SiteContentProvider payload={defaults as never} basePath="/t/atelier">
+        <AtelierCommerceProvider host={previewCommerceHost()}>
         <ProductDetailCommerceView
           product={product}
           capabilities={DEFAULT_PREVIEW_CAPABILITIES}
@@ -126,6 +136,7 @@ describe("ProductDetailCommerceView", () => {
             confirmAddToCartSuccess: vi.fn(),
           }}
         />
+        </AtelierCommerceProvider>
       </SiteContentProvider>,
     );
 
@@ -133,16 +144,10 @@ describe("ProductDetailCommerceView", () => {
     await user.click(more);
     await user.click(more);
 
-    expect(
-      screen.getByText(/Opciones de compra/i),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText(/Solo tenemos 2 unidades para entrega inmediata/i),
-    ).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /comprar bajo pedido/i })).toHaveAttribute(
-      "href",
-      "/t/atelier/tienda/ribbon?salesMode=madeToOrder",
-    );
+    expect(screen.getByText("2")).toBeInTheDocument();
+    expect(screen.queryByText(/Opciones de compra/i)).toBeNull();
+    expect(screen.queryByRole("link", { name: /comprar bajo pedido/i })).toBeNull();
+    expect(screen.getByRole("button", { name: /añadir al carrito/i })).toBeEnabled();
   });
 
   it("shows inline MTO panel when immediate stock is zero (Trigger B)", async () => {
@@ -177,6 +182,7 @@ describe("ProductDetailCommerceView", () => {
 
     render(
       <SiteContentProvider payload={defaults as never} basePath="/t/atelier">
+        <AtelierCommerceProvider host={previewCommerceHost()}>
         <ProductDetailCommerceView
           product={product}
           capabilities={DEFAULT_PREVIEW_CAPABILITIES}
@@ -187,6 +193,7 @@ describe("ProductDetailCommerceView", () => {
             confirmAddToCartSuccess: vi.fn(),
           }}
         />
+        </AtelierCommerceProvider>
       </SiteContentProvider>,
     );
 
@@ -262,6 +269,7 @@ describe("ProductDetailCommerceView", () => {
 
     render(
       <SiteContentProvider payload={defaults as never} basePath="/t/atelier">
+        <AtelierCommerceProvider host={previewCommerceHost()}>
         <ProductDetailCommerceView
           product={product}
           capabilities={DEFAULT_PREVIEW_CAPABILITIES}
@@ -272,6 +280,7 @@ describe("ProductDetailCommerceView", () => {
             confirmAddToCartSuccess: vi.fn(),
           }}
         />
+        </AtelierCommerceProvider>
       </SiteContentProvider>,
     );
 

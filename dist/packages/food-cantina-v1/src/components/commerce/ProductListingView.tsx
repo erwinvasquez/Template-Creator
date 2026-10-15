@@ -103,7 +103,7 @@ export function ProductListingView({
         <div className="category-scroll -mx-6 mb-10 flex gap-1 overflow-x-auto bg-primary px-6 py-3 md:-mx-8 md:px-8">
           <button
             type="button"
-            onClick={() => actions.setCatalogFilters({ categoryId: null })}
+            onClick={() => actions.setCatalogFilters?.({ categoryId: null })}
             className={`shrink-0 cursor-pointer px-4 py-2 text-[11px] font-bold uppercase tracking-[0.1em] transition-colors ${
               !filters.activeCategoryId
                 ? "bg-secondary text-background"
@@ -119,7 +119,7 @@ export function ProductListingView({
                 key={cat.id}
                 type="button"
                 onClick={() =>
-                  actions.setCatalogFilters({ categoryId: active ? null : cat.id })
+                  actions.setCatalogFilters?.({ categoryId: active ? null : cat.id })
                 }
                 className={`shrink-0 cursor-pointer px-4 py-2 text-[11px] font-bold uppercase tracking-[0.1em] transition-colors ${
                   active

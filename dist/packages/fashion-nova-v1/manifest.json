@@ -2,7 +2,7 @@
   "templateId": "fashion-nova-v1",
   "name": "Nova",
   "displayName": "Nova",
-  "description": "Template e-commerce de moda femenina bold contemporary/street: tipografía Syne + Manrope, hot pink y cyan sobre blush, grids asimétricos y drops urbanos.",
+  "description": "Template e-commerce de moda femenina bold contemporary/street: tipograf\u00eda Syne + Manrope, hot pink y cyan sobre blush, grids asim\u00e9tricos y drops urbanos.",
   "category": "ecommerce-fashion",
   "version": "1.0.0",
   "schemaVersion": "1.0.0",
@@ -80,7 +80,7 @@
   },
   "commerce": {
     "mode": "preview-only",
-    "contractVersion": null,
+    "contractVersion": "1.2.0",
     "views": {
       "productListing": true,
       "productDetail": true,
@@ -218,6 +218,6 @@
     ],
     "command": "npm run template:export -- fashion-nova-v1",
     "output": "dist/packages/fashion-nova-v1",
-    "consumer": "IA Builder v2 — solo genera/edita Content Payload validado contra schema.json; nunca modifica el código del template."
+    "consumer": "IA Builder v2 \u2014 solo genera/edita Content Payload validado contra schema.json; nunca modifica el c\u00f3digo del template."
   }
 }

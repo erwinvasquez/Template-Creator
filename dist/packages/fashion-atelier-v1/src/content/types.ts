@@ -256,6 +256,24 @@ export type TemplateUi = {
     piecePlural: string;
     collectionPrefix: string;
     clearFilter: string;
+    filterLabel?: string;
+    filterTitle?: string;
+    filterApply?: string;
+    filterClear?: string;
+    filterClose?: string;
+    filterCategories?: string;
+    filterCollections?: string;
+    filterBrands?: string;
+    filterColors?: string;
+    filterSizes?: string;
+    filterMaterials?: string;
+    filterPrice?: string;
+    filterAvailability?: string;
+    filterDiscount?: string;
+    filterInStock?: string;
+    filterHasDiscount?: string;
+    filterPriceMin?: string;
+    filterPriceMax?: string;
   };
   checkout: {
     pageTitle: string;

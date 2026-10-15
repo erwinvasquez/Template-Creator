@@ -99,6 +99,63 @@ export function OrderTrackingView({ tracking }: OrderTrackingViewProps) {
           </div>
         ) : null}
 
+        {tracking.deliveryGroups && tracking.deliveryGroups.length > 1 ? (
+          <div className="mt-10 border-t border-border pt-8">
+            <h2 className="text-[11px] font-medium uppercase tracking-[0.2em] text-muted">
+              {labels.deliveriesSectionTitle}
+            </h2>
+            <div className="mt-4 space-y-3">
+              {tracking.deliveryGroups.map((group) => (
+                <div key={group.groupId} className="border border-border bg-background px-3 py-3">
+                  <p className="text-sm font-medium">{group.title}</p>
+                  {group.statusLabel ? <p className="mt-1 text-xs text-muted">{group.statusLabel}</p> : null}
+                  {group.productLines && group.productLines.length > 0 ? (
+                    <ul className="mt-3 space-y-1 text-sm">
+                      {group.productLines.map((line) => (
+                        <li key={line.lineId}>
+                          {line.quantity} × {line.label}
+                        </li>
+                      ))}
+                    </ul>
+                  ) : null}
+                  <dl className="mt-3 space-y-1 text-sm">
+                    {group.methodName ? (
+                      <div>
+                        <dt className="text-muted">{labels.methodNameLabel}</dt>
+                        <dd>{group.methodName}</dd>
+                      </div>
+                    ) : null}
+                    {group.destination ? (
+                      <div>
+                        <dt className="text-muted">{labels.addressLabel}</dt>
+                        <dd>{group.destination}</dd>
+                      </div>
+                    ) : null}
+                    {group.estimateLabel ? (
+                      <div>
+                        <dt className="text-muted">{labels.estimatedDeliveryLabel}</dt>
+                        <dd>{group.estimateLabel}</dd>
+                      </div>
+                    ) : null}
+                    {group.trackingNumber ? (
+                      <div>
+                        <dt className="text-muted">{labels.trackingCodeLabel}</dt>
+                        <dd className="font-mono">{group.trackingNumber}</dd>
+                      </div>
+                    ) : null}
+                    {group.carrierName ? (
+                      <div>
+                        <dt className="text-muted">{labels.carrierLabel}</dt>
+                        <dd>{group.carrierName}</dd>
+                      </div>
+                    ) : null}
+                  </dl>
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : null}
+
         {shipping ? (
           <div className="mt-10 border-t border-border pt-8">
             <h2 className="text-[11px] font-medium uppercase tracking-[0.2em] text-muted">
@@ -210,16 +267,28 @@ export function OrderTrackingView({ tracking }: OrderTrackingViewProps) {
               <dt className="text-muted">{labels.subtotalLabel}</dt>
               <dd>{totals.subtotalDisplay}</dd>
             </div>
+            {totals.quantityDiscountDisplay ? (
+              <div className="flex justify-between">
+                <dt className="text-muted">{labels.quantityDiscountLabel}</dt>
+                <dd>−{totals.quantityDiscountDisplay}</dd>
+              </div>
+            ) : null}
             {totals.discountDisplay ? (
               <div className="flex justify-between">
                 <dt className="text-muted">{labels.discountLabel}</dt>
-                <dd>{totals.discountDisplay}</dd>
+                <dd>−{totals.discountDisplay}</dd>
               </div>
             ) : null}
             {totals.shippingDisplay ? (
-              <div className="flex justify-between">
-                <dt className="text-muted">{labels.shippingLabel}</dt>
-                <dd>{totals.shippingDisplay}</dd>
+              <div className="flex justify-between gap-4">
+                <dt className="shrink-0 text-muted">{labels.shippingLabel}</dt>
+                <dd className="text-right">
+                  {totals.shippingDisplay.split("\n").map((line) => (
+                    <span key={line} className="block">
+                      {line}
+                    </span>
+                  ))}
+                </dd>
               </div>
             ) : null}
             {totals.taxDisplay ? (
