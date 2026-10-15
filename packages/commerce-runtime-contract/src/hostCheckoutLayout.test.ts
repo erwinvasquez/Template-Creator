@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import {
+  hostCheckoutChoiceLabelTextClassName,
   hostCheckoutContainWidthClassName,
   hostCheckoutInputClassName,
   hostCheckoutLayoutFormColumnClassName,
@@ -30,6 +31,12 @@ describe("hostCheckoutLayout", () => {
 
   it("inputs checkout usan text-base para evitar zoom iOS", () => {
     expect(hostCheckoutInputClassName).toContain("text-base");
+  });
+
+  it("la descripción del radio hereda el salto de línea sin un color propio", () => {
+    expect(hostCheckoutChoiceLabelTextClassName).toContain("whitespace-pre-line");
+    expect(hostCheckoutChoiceLabelTextClassName).toContain("break-words");
+    expect(hostCheckoutChoiceLabelTextClassName).not.toMatch(/text-|bg-|border-/);
   });
 
   it("acota line items del resumen con clamp y min-w-0", () => {

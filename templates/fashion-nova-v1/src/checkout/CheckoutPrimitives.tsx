@@ -89,7 +89,9 @@ export function CheckoutRadioOption({
           {label}
         </span>
         {description ? (
-          <span className="mt-1 block break-words whitespace-pre-line text-xs text-muted">
+          <span
+            className={`mt-1 block text-xs text-muted ${hostCheckoutChoiceLabelTextClassName}`}
+          >
             {description}
           </span>
         ) : null}

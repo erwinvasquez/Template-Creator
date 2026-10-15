@@ -33,8 +33,8 @@ export const hostCheckoutLayoutNoticesClassName = "mt-6 min-w-0 max-w-full";
 
 export const hostCheckoutLayoutSummaryInnerClassName = "mt-6 min-w-0 max-w-full";
 
-/** Texto largo en radios / métodos de envío. */
-export const hostCheckoutChoiceLabelTextClassName = "break-words whitespace-normal";
+/** Texto largo en radios. Conserva saltos de línea de la descripción sin fijar color. */
+export const hostCheckoutChoiceLabelTextClassName = "break-words whitespace-pre-line";
 
 /** Fila de línea en resumen de pedido (thumbnail + texto). */
 export const hostCheckoutLineItemRowClassName = `flex ${hostCheckoutContainWidthClassName} gap-3`;
