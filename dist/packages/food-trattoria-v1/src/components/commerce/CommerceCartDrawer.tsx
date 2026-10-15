@@ -4,11 +4,38 @@ import Image from "next/image";
 import Link from "next/link";
 import { Minus, Plus, ShoppingBag, X } from "lucide-react";
 import type { CartViewProps } from "@shopenlinea/commerce-runtime-contract";
+import {
+  buildCartSummaryRows,
+  cartLinePromotionLabels,
+  resolveLinePromotionsMultiLabel,
+  CartLineCommercialMeta,
+  CartLineQuantityPricingColumnTotal,
+  CartLinePromotionMeta,
+  CartLineQuantityPricingUnitPrices,
+  cartLineShowsPromotion,
+  cartLineShowsQuantityPricing,
+  cartShowsPricingUpdating,
+  commerceLineItemBodyClassName,
+  commerceLineItemCompareAtClassName,
+  commerceLineItemFinalPriceClassName,
+  commerceLineItemHeaderRowClassName,
+  commerceLineItemImageShellClassName,
+  commerceLineItemListClassName,
+  commerceLineItemPriceColumnClassName,
+  commerceLineItemPromotionClassName,
+  commerceLineItemQuantityPricingClassName,
+  commerceLineItemRowClassName,
+  commerceLineItemTitleClassName,
+  commerceLineItemVariantClassName,
+  defaultCartPricingUiLabels,
+  defaultQuantityPricingUiLabels,
+  resolveCartEstimatedTotalDisplay,
+} from "@shopenlinea/commerce-runtime-contract";
 import { useCommerceCapabilities } from "../../lib/commerce-host";
 import { useSiteContent } from "../../lib/site-content";
 import { requireUi } from "../../lib/ui";
-import { withBasePath } from "../../content/resolve";
-import { cartSalesModeLabel, showsSalesModeChrome } from "../../lib/sales-mode";
+import { SHOP_PATH, withBasePath } from "../../content/resolve";
+import { showsSalesModeChrome } from "../../lib/sales-mode";
 
 function lineMaxQty(maxQuantity: number | null | undefined): number {
   return maxQuantity ?? Number.POSITIVE_INFINITY;
@@ -23,12 +50,12 @@ export function CommerceCartDrawer({
   const { payload, basePath } = useSiteContent();
   const ui = requireUi(payload);
   const cartUi = ui.cart;
+  const pricingLabels = defaultCartPricingUiLabels(cartUi as Record<string, string | undefined>);
+  const qtyPricingLabels = defaultQuantityPricingUiLabels();
+  const summaryRows = buildCartSummaryRows(cart, pricingLabels, "drawer");
+  const estimatedTotal = resolveCartEstimatedTotalDisplay(cart);
   const capabilities = useCommerceCapabilities();
   const showSalesModeChrome = showsSalesModeChrome(capabilities);
-  const salesModeLine =
-    showSalesModeChrome && cart.lines.length > 0
-      ? cartSalesModeLabel(cart.salesMode, ui.salesMode)
-      : null;
   const cartClosedWarning =
     showSalesModeChrome &&
     cart.salesMode === "madeToOrder" &&
@@ -70,7 +97,7 @@ export function CommerceCartDrawer({
               <ShoppingBag className="h-10 w-10 text-muted" strokeWidth={1} />
               <p className="text-sm text-muted">{cartUi.empty}</p>
               <Link
-                href={withBasePath(basePath, "/menu")}
+                href={withBasePath(basePath, SHOP_PATH)}
                 onClick={onClose}
                 className="cursor-pointer text-sm font-medium uppercase tracking-[0.14em] text-primary transition-colors duration-200 hover:text-secondary"
               >
@@ -79,49 +106,74 @@ export function CommerceCartDrawer({
             </div>
           ) : (
             <>
-              {salesModeLine ? (
-                <p className="mb-4 text-xs text-muted">{salesModeLine}</p>
-              ) : null}
-              <ul className="space-y-6">
-                {cart.lines.map((line) => (
-                  <li key={line.lineId} className="flex gap-4">
-                    <div className="relative h-28 w-20 shrink-0 overflow-hidden bg-surface">
-                      {line.imageUrl && (
-                        <Image
-                          src={line.imageUrl}
-                          alt={line.productName}
-                          fill
-                          className="object-cover"
-                          sizes="80px"
-                        />
-                      )}
-                    </div>
-                    <div className="flex flex-1 flex-col">
-                      <div className="flex items-start justify-between gap-2">
-                        <div>
-                          <p className="font-serif text-lg leading-tight">
-                            {line.productName}
-                          </p>
-                          <p className="mt-1 text-xs text-muted">
-                            {line.variantLabel}
-                          </p>
-                          {line.errorMessage && (
-                            <p className="mt-1 text-xs text-red-700">
-                              {line.errorMessage}
-                            </p>
+              <ul className={commerceLineItemListClassName}>
+              {cart.lines.map((line) => {
+                const hasPromotion = cartLineShowsPromotion(line);
+                const hasQuantityPricing = cartLineShowsQuantityPricing(line);
+                const linePromoLabels = cartLinePromotionLabels(line);
+                return (
+                <li key={line.lineId} className={commerceLineItemRowClassName}>
+                  <div className={`${commerceLineItemImageShellClassName} bg-surface`}>
+                    {line.imageUrl && (
+                      <Image
+                        src={line.imageUrl}
+                        alt={line.productName}
+                        fill
+                        className="object-cover"
+                        sizes="72px"
+                      />
+                    )}
+                  </div>
+                  <div className={commerceLineItemBodyClassName}>
+                    <div className={commerceLineItemHeaderRowClassName}>
+                      <div className="min-w-0 flex-1">
+                        <p className={commerceLineItemTitleClassName}>
+                          {line.productName}
+                        </p>
+                        <p className={commerceLineItemVariantClassName}>
+                          {line.variantLabel}
+                        </p>
+                        <CartLineCommercialMeta
+                          line={line}
+                          omitPromotion
+                          quantityPricingClassName={commerceLineItemQuantityPricingClassName}
+                          promotionClassName={commerceLineItemPromotionClassName}
+                          multiPromotionsLabel={resolveLinePromotionsMultiLabel(
+                            pricingLabels,
+                            linePromoLabels.length,
                           )}
-                        </div>
-                        <button
-                          type="button"
-                          onClick={() => actions.removeCartLine(line.variantId)}
-                          className="cursor-pointer text-muted transition-colors duration-200 hover:text-primary"
-                          aria-label="Eliminar"
-                        >
-                          <X className="h-4 w-4" strokeWidth={1.5} />
-                        </button>
+                        />
+                        <CartLineQuantityPricingUnitPrices
+                          line={line}
+                          perUnitSuffix={qtyPricingLabels.perUnitSuffix}
+                          wrapperClassName="mt-1 text-[11px] leading-snug"
+                          listClassName={commerceLineItemCompareAtClassName}
+                        />
+                        <CartLinePromotionMeta
+                          line={line}
+                          promotionClassName={commerceLineItemPromotionClassName}
+                          multiPromotionsLabel={resolveLinePromotionsMultiLabel(
+                            pricingLabels,
+                            linePromoLabels.length,
+                          )}
+                        />
+                        {line.errorMessage && (
+                          <p className="mt-1 text-xs text-red-700">
+                            {line.errorMessage}
+                          </p>
+                        )}
                       </div>
-                      <div className="mt-auto flex items-center justify-between pt-3">
-                        <div className="flex items-center border border-border">
+                      <button
+                        type="button"
+                        onClick={() => actions.removeCartLine(line.variantId)}
+                        className="cursor-pointer text-muted transition-colors duration-200 hover:text-primary"
+                        aria-label="Eliminar"
+                      >
+                        <X className="h-4 w-4" strokeWidth={1.5} />
+                      </button>
+                    </div>
+                    <div className="mt-auto flex items-end justify-between pt-3">
+                      <div className="flex items-center border border-border w-fit">
                           <button
                             type="button"
                             className="cursor-pointer p-2 transition-colors duration-200 hover:bg-surface"
@@ -154,30 +206,55 @@ export function CommerceCartDrawer({
                           >
                             <Plus className="h-3.5 w-3.5" strokeWidth={1.5} />
                           </button>
-                        </div>
-                        <p className="text-sm font-medium">
-                          {line.lineDisplayPrice}
-                        </p>
                       </div>
+                      <CartLineQuantityPricingColumnTotal
+                        line={line}
+                        wrapperClassName={commerceLineItemPriceColumnClassName}
+                        finalClassName={commerceLineItemFinalPriceClassName}
+                        compareClassName={commerceLineItemCompareAtClassName}
+                      />
                     </div>
-                  </li>
-                ))}
-              </ul>
+                  </div>
+                </li>
+              )})}
+            </ul>
             </>
           )}
         </div>
 
         {cart.lines.length > 0 && (
           <div className="border-t border-border px-6 py-5">
-            {cart.promotionLabels?.map((p) => (
-              <p key={p} className="mb-2 text-xs text-primary">
-                {p}
-              </p>
-            ))}
-            <div className="mb-4 flex justify-between text-sm">
-              <span className="text-muted">Subtotal</span>
-              <span className="font-serif text-xl">{cart.subtotalDisplay}</span>
+            <div className="mb-4 space-y-2 text-sm">
+              {summaryRows.map((row) => (
+                <div key={row.key} className="flex justify-between gap-3">
+                  <span className={row.muted ? "text-muted" : "text-muted"}>
+                    {row.label}
+                  </span>
+                  <span
+                    className={
+                      row.emphasize
+                        ? "font-serif text-xl"
+                        : "tabular-nums text-foreground"
+                    }
+                  >
+                    {row.value}
+                  </span>
+                </div>
+              ))}
+              {cart.estimatedTotal ? (
+                <div className="flex justify-between gap-3 border-t border-border pt-2">
+                  <span className="text-muted">{pricingLabels.estimatedTotal}</span>
+                  <span className="font-serif text-xl tabular-nums">
+                    {estimatedTotal}
+                  </span>
+                </div>
+              ) : null}
             </div>
+            {cartShowsPricingUpdating(cart) ? (
+              <p className="mb-3 text-xs text-muted" role="status">
+                {pricingLabels.pricingUpdating}
+              </p>
+            ) : null}
             {cartClosedWarning ? (
               <p className="mb-4 text-sm text-muted" role="status">
                 {cartClosedWarning}

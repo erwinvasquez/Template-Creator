@@ -120,38 +120,14 @@ export function OrderTrackingView({ tracking }: OrderTrackingViewProps) {
                       ))}
                     </ul>
                   ) : null}
-                  <dl className="mt-3 space-y-1 text-sm">
-                    {group.methodName ? (
-                      <div>
-                        <dt className="text-muted">{labels.methodNameLabel}</dt>
-                        <dd>{group.methodName}</dd>
-                      </div>
-                    ) : null}
-                    {group.destination ? (
-                      <div>
-                        <dt className="text-muted">{labels.addressLabel}</dt>
-                        <dd>{group.destination}</dd>
-                      </div>
-                    ) : null}
-                    {group.estimateLabel ? (
-                      <div>
-                        <dt className="text-muted">{labels.estimatedDeliveryLabel}</dt>
-                        <dd>{group.estimateLabel}</dd>
-                      </div>
-                    ) : null}
-                    {group.trackingNumber ? (
-                      <div>
-                        <dt className="text-muted">{labels.trackingCodeLabel}</dt>
-                        <dd className="font-mono">{group.trackingNumber}</dd>
-                      </div>
-                    ) : null}
-                    {group.carrierName ? (
-                      <div>
-                        <dt className="text-muted">{labels.carrierLabel}</dt>
-                        <dd>{group.carrierName}</dd>
-                      </div>
-                    ) : null}
-                  </dl>
+                  {group.estimateLabel ? (
+                    <p className="mt-3 text-sm text-muted">
+                      {labels.estimatedDeliveryLabel}: {group.estimateLabel}
+                    </p>
+                  ) : null}
+                  {group.trackingNumber ? (
+                    <p className="mt-2 font-mono text-sm">{group.trackingNumber}</p>
+                  ) : null}
                 </div>
               ))}
             </div>
@@ -159,11 +135,25 @@ export function OrderTrackingView({ tracking }: OrderTrackingViewProps) {
         ) : null}
 
         {shipping ? (
-          <div className="mt-10 border-t border-border pt-8">
-            <h2 className="text-[11px] font-medium uppercase tracking-[0.2em] text-muted">
-              {shippingTitle}
-            </h2>
-            <dl className="mt-4 space-y-2 text-sm">
+          <div
+            className={
+              tracking.deliveryGroups && tracking.deliveryGroups.length > 1
+                ? "mt-4"
+                : "mt-10 border-t border-border pt-8"
+            }
+          >
+            {(!tracking.deliveryGroups || tracking.deliveryGroups.length <= 1) ? (
+              <h2 className="text-[11px] font-medium uppercase tracking-[0.2em] text-muted">
+                {shippingTitle}
+              </h2>
+            ) : null}
+            <dl
+              className={
+                tracking.deliveryGroups && tracking.deliveryGroups.length > 1
+                  ? "space-y-2 text-sm"
+                  : "mt-4 space-y-2 text-sm"
+              }
+            >
               {shipping.methodName ? (
                 <div>
                   <dt className="text-muted">{labels.methodNameLabel}</dt>

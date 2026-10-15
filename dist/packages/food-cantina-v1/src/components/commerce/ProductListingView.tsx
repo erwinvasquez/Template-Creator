@@ -2,15 +2,14 @@
 
 import { useEffect, useState, useTransition } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import type { ProductListingViewProps } from "@shopenlinea/commerce-runtime-contract";
+import type { CatalogFilterPatch, ProductListingViewProps } from "@shopenlinea/commerce-runtime-contract";
+import {
+  buildCatalogFilterPatchForNavigation,
+  CatalogListingSearchAndFilter,
+} from "@shopenlinea/commerce-runtime-contract";
 import { useSiteContent } from "../../lib/site-content";
 import { requireUi } from "../../lib/ui";
-import {
-  buildShopListingHref,
-  SHOP_QUERY,
-  SHOP_SEARCH_CLEAR_MS,
-  shouldClearShopSearchOnEmpty,
-} from "../../content/resolve";
+import { buildShopListingHref, SHOP_QUERY } from "../../content/resolve";
 import { CommerceProductCard } from "./CommerceProductCard";
 import { SalesModeShopBanner } from "./SalesModeShopBanner";
 
@@ -22,6 +21,7 @@ export function ProductListingView({
   loading,
   loadingMore,
   errorMessage,
+  listingQueryKey = "",
 }: ProductListingViewProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -41,17 +41,11 @@ export function ProductListingView({
   }, [filters.searchQuery, qFromUrl]);
 
   useEffect(() => {
-    if (!shouldClearShopSearchOnEmpty(search, qFromUrl)) return;
-    const timer = window.setTimeout(() => {
-      const target = buildShopListingHref(basePath, searchParams, { q: null });
-      startNavTransition(() => router.push(target));
-    }, SHOP_SEARCH_CLEAR_MS);
-    return () => window.clearTimeout(timer);
-  }, [search, qFromUrl, basePath, searchParams, router]);
+    setExtra(data.products);
+    setCursor(data.nextCursor);
+  }, [data.products, data.nextCursor, listingQueryKey]);
 
   function submitSearch() {
-    setExtra([]);
-    setCursor(null);
     const target = buildShopListingHref(basePath, searchParams, { q: search || null });
     startNavTransition(() => router.push(target));
   }
@@ -60,8 +54,18 @@ export function ProductListingView({
   const showSearch =
     capabilities.search !== "unsupported" &&
     (filters.categories.length > 0 || data.products.length > 0 || Boolean(filters.searchQuery));
-  const showCategories =
-    capabilities.categoryFilter !== "unsupported" && filters.categories.length > 0;
+
+  function applyCatalogFilters(patch: CatalogFilterPatch) {
+    const full = buildCatalogFilterPatchForNavigation(searchParams, filters, patch, {
+      defaultSalesMode: filters.salesMode,
+      taxonomy: {
+        categories: payload.catalog.categories,
+        collections: payload.catalog.collections,
+      },
+    });
+    const target = buildShopListingHref(basePath, searchParams, { filters: full });
+    startNavTransition(() => router.push(target));
+  }
 
   async function onLoadMore() {
     if (!cursor) return;
@@ -78,61 +82,19 @@ export function ProductListingView({
   return (
     <div className="cantina-listing">
       <SalesModeShopBanner filters={filters} capabilities={capabilities} />
-      {showSearch && (
-        <form
-          className="mb-8 border-2 border-primary bg-background p-4 shadow-[4px_4px_0_0_var(--color-secondary)]"
-          onSubmit={(e) => {
-            e.preventDefault();
-            submitSearch();
-          }}
-        >
-          <label className="sr-only" htmlFor="commerce-search">
-            {listing.searchLabel}
-          </label>
-          <input
-            id="commerce-search"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder={listing.searchPlaceholder}
-            className="w-full border-0 bg-transparent px-2 py-2 text-sm font-bold uppercase tracking-wide text-primary outline-none placeholder:text-muted"
-          />
-        </form>
-      )}
-
-      {showCategories && (
-        <div className="category-scroll -mx-6 mb-10 flex gap-1 overflow-x-auto bg-primary px-6 py-3 md:-mx-8 md:px-8">
-          <button
-            type="button"
-            onClick={() => actions.setCatalogFilters?.({ categoryId: null })}
-            className={`shrink-0 cursor-pointer px-4 py-2 text-[11px] font-bold uppercase tracking-[0.1em] transition-colors ${
-              !filters.activeCategoryId
-                ? "bg-secondary text-background"
-                : "text-background/80 hover:bg-background/10 hover:text-background"
-            }`}
-          >
-            {listing.allCategories}
-          </button>
-          {filters.categories.map((cat) => {
-            const active = filters.activeCategoryId === cat.id;
-            return (
-              <button
-                key={cat.id}
-                type="button"
-                onClick={() =>
-                  actions.setCatalogFilters?.({ categoryId: active ? null : cat.id })
-                }
-                className={`shrink-0 cursor-pointer px-4 py-2 text-[11px] font-bold uppercase tracking-[0.1em] transition-colors ${
-                  active
-                    ? "bg-secondary text-background"
-                    : "text-background/80 hover:bg-background/10 hover:text-background"
-                }`}
-              >
-                {cat.label}
-              </button>
-            );
-          })}
-        </div>
-      )}
+      <CatalogListingSearchAndFilter
+        capabilities={capabilities}
+        salesModeUi={ui.salesMode}
+        filters={filters}
+        listing={listing}
+        showSearch={showSearch}
+        search={search}
+        onSearchChange={setSearch}
+        onSubmitSearch={submitSearch}
+        onApplyFilters={applyCatalogFilters}
+        searchFormClassName="border-2 border-primary bg-background p-4 shadow-[4px_4px_0_0_var(--color-secondary)]"
+        searchInputClassName="border-0 bg-transparent px-2 py-2 font-bold uppercase tracking-wide placeholder:text-muted"
+      />
 
       {errorMessage && (
         <p className="mb-8 text-sm font-bold text-red-700" role="alert">

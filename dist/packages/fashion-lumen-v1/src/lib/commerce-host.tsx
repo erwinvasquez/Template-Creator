@@ -9,6 +9,7 @@ import {
   type ReactNode,
 } from "react";
 import type {
+  CatalogSessionViewModel,
   CartViewModel,
   CheckoutViewModel,
   CommerceRuntimeActions,
@@ -16,6 +17,7 @@ import type {
   ProductDetailViewModel,
   ProductFilterViewModel,
   ProductSearchViewModel,
+  SalesMode,
 } from "@shopenlinea/commerce-runtime-contract";
 import { DEFAULT_PREVIEW_CAPABILITIES } from "@shopenlinea/commerce-runtime-contract";
 
@@ -24,6 +26,7 @@ export type LumenCommerceHost = {
     data: ProductSearchViewModel;
     filters: ProductFilterViewModel;
   }>;
+  getCatalogSession?: () => CatalogSessionViewModel;
   getDetail: (slug: string) => Promise<ProductDetailViewModel | null>;
   /** Detalle ya resuelto para este slug. Evita el estado Cargando del primer render. */
   getDetailSnapshot?: (slug: string) => ProductDetailViewModel | null;
@@ -40,9 +43,11 @@ export type LumenCommerceHost = {
   closeCart: () => void;
   /** Monotonic store version for sync subscriptions. */
   getStoreVersion?: () => number;
-  /** Href de retorno al listado. El host SaaS lo provee; el preview puede omitirlo. */
-  getPlpReturnHref?: () => string | null | undefined;
   capabilities?: CommerceTemplateCapabilities;
+  getPlpReturnHref?: () => string | null;
+  getPersistedCatalogSalesMode?: () => SalesMode | null;
+  getCatalogListingQueryKey?: () => string;
+  hasCatalogReturnNavigation?: () => boolean;
 };
 
 const CommerceHostContext = createContext<LumenCommerceHost | null>(null);

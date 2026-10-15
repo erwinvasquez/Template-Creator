@@ -354,6 +354,7 @@ const shopCatalogPath = path.join(root, "src", "components", "ShopCatalog.tsx");
 function assertCategoryScrollContract(filePath, label) {
   if (!fs.existsSync(filePath)) return;
   const src = fs.readFileSync(filePath, "utf8");
+  if (src.includes("CatalogListingSearchAndFilter")) return;
   if (!src.includes("category-scroll")) {
     errors.push(`[commerce] ${label} must use category-scroll for category filters`);
   }

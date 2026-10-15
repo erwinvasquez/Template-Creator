@@ -2,8 +2,8 @@
   "templateId": "food-cantina-v1",
   "version": "1.0.0",
   "exportedAt": "1970-01-01T00:00:00.000Z",
-  "contentHash": "0d36c41ea1bea691d42cf933abe2a7a4a319c44af7f61fc1d8a5688525a3537c",
-  "sourceGitSha": "5b6f8b943eddc7c6c75c3fd4dfea7124a2432465",
+  "contentHash": "8522c615c08824c411fbb4b75f92c928386667ad9171a0557206e940b8cff68c",
+  "sourceGitSha": "edbedffa0f81aee6ead3d01ad7a4a313708317ad",
   "immutable": true,
   "source": "templates/food-cantina-v1"
 }

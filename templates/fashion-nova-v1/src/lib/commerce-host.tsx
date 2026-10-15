@@ -9,6 +9,7 @@ import {
   type ReactNode,
 } from "react";
 import type {
+  CatalogSessionViewModel,
   CartViewModel,
   CheckoutViewModel,
   CommerceRuntimeActions,
@@ -25,11 +26,10 @@ export type NovaCommerceHost = {
     data: ProductSearchViewModel;
     filters: ProductFilterViewModel;
   }>;
+  getCatalogSession?: () => CatalogSessionViewModel;
   getDetail: (slug: string) => Promise<ProductDetailViewModel | null>;
   /** Detalle ya resuelto para este slug. Evita el estado Cargando del primer render. */
   getDetailSnapshot?: (slug: string) => ProductDetailViewModel | null;
-  getPlpReturnHref?: () => string | null;
-  getPersistedCatalogSalesMode?: () => SalesMode | null;
   getCart: () => Promise<CartViewModel>;
   /** Sync cart from host cache (SaaS R2). Omit in preview bridges without snapshot. */
   getCartSnapshot?: () => CartViewModel | null;
@@ -44,6 +44,10 @@ export type NovaCommerceHost = {
   /** Monotonic store version for sync subscriptions. */
   getStoreVersion?: () => number;
   capabilities?: CommerceTemplateCapabilities;
+  getPlpReturnHref?: () => string | null;
+  getPersistedCatalogSalesMode?: () => SalesMode | null;
+  getCatalogListingQueryKey?: () => string;
+  hasCatalogReturnNavigation?: () => boolean;
 };
 
 const CommerceHostContext = createContext<NovaCommerceHost | null>(null);
