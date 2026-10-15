@@ -72,6 +72,8 @@ export interface OrderTrackingLabelsViewModel {
   placedAtLabel: string;
   statusLabel: string;
   shippingSectionTitle: string;
+  deliveriesSectionTitle?: string;
+  estimatedDeliveryLabel?: string;
   pickupSectionTitle: string;
   summarySectionTitle: string;
   totalsSectionTitle: string;
@@ -113,6 +115,12 @@ export interface OrderTrackingDeliveryGroupViewModel {
   carrierName?: string | null;
   estimatedReadyAt?: string | null;
   estimatedDeliveryAt?: string | null;
+  title?: string;
+  statusLabel?: string;
+  methodName?: string | null;
+  destination?: string | null;
+  estimateLabel?: string | null;
+  productLines?: ReadonlyArray<{ lineId: string; label: string; quantity: number }>;
 }
 
 export interface OrderTrackingViewModel {
