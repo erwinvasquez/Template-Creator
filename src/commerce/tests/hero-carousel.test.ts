@@ -46,17 +46,30 @@ describe("resolveHeroSlides — Sprint 85", () => {
     expect(isHeroCarouselMode(hero)).toBe(false);
   });
 
-  it("sin imagen mobile conserva la imagen de escritorio y su modo", () => {
-    const hero = { image: img("desk"), mobileCarouselImages: [img("no-aplica")] };
-    expect(resolveHeroSlides(hero, "mobile").map((s) => s.url)).toEqual(["desk"]);
+  it("carrusel mobile puede ser el hero móvil aunque escritorio sea imagen", () => {
+    const hero = { image: img("desk"), mobileCarouselImages: [img("m1"), img("m2")] };
+    expect(resolveHeroSlides(hero, "desktop").map((s) => s.url)).toEqual(["desk"]);
+    expect(resolveHeroSlides(hero, "mobile").map((s) => s.url)).toEqual(["m1", "m2"]);
     expect(isHeroCarouselMode(hero)).toBe(false);
   });
 
-  it("carrusel mobile no se mezcla con el de escritorio", () => {
+  it("imagen mobile fija el móvil aunque escritorio sea carrusel", () => {
+    const hero = {
+      image: img("desk"),
+      carouselImages: [img("d1"), img("d2")],
+      mobileImage: img("mob"),
+    };
+    expect(resolveHeroSlides(hero, "desktop").map((s) => s.url)).toEqual(["d1", "d2"]);
+    expect(resolveHeroSlides(hero, "mobile").map((s) => s.url)).toEqual(["mob"]);
+    expect(heroSlideSlotId(0, hero, "mobile")).toBe("hero.mobileImage");
+    expect(heroSlideSlotId(0, hero, "desktop")).toBe("hero.carousel.0");
+  });
+
+  it("carrusel mobile tiene prioridad sobre imagen mobile", () => {
     const hero = {
       image: img("single"),
       carouselImages: [img("d1"), img("d2")],
-      mobileImage: img("ignored"),
+      mobileImage: img("mob"),
       mobileCarouselImages: [img("m1")],
     };
     expect(resolveHeroSlides(hero, "desktop").map((s) => s.url)).toEqual(["d1", "d2"]);

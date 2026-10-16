@@ -61,7 +61,7 @@ export function usableHeroSlides(refs: readonly MediaRef[] | undefined): MediaRe
   return (refs ?? []).filter(isUsableHeroMedia);
 }
 
-/** El modo lo define solo el carrusel de escritorio. Un asset mobile no cambia el tipo. */
+/** El carrusel de escritorio define el hero de escritorio. El móvil se resuelve aparte. */
 export function isHeroCarouselMode(hero: HeroCarouselFields): boolean {
   return usableHeroSlides(hero.carouselImages).length >= 1;
 }
@@ -70,17 +70,12 @@ export function resolveHeroSlides(
   hero: HeroCarouselFields,
   viewport: HeroMediaViewport = "desktop",
 ): MediaRef[] {
-  if (isHeroCarouselMode(hero)) {
-    if (viewport === "mobile") {
-      const mobileSlides = usableHeroSlides(hero.mobileCarouselImages);
-      if (mobileSlides.length >= 1) return mobileSlides;
-    }
-    return usableHeroSlides(hero.carouselImages);
+  if (viewport === "mobile") {
+    const mobileSlides = usableHeroSlides(hero.mobileCarouselImages);
+    if (mobileSlides.length >= 1) return mobileSlides;
+    if (isUsableHeroMedia(hero.mobileImage)) return [hero.mobileImage];
   }
-
-  if (viewport === "mobile" && isUsableHeroMedia(hero.mobileImage)) {
-    return [hero.mobileImage];
-  }
+  if (isHeroCarouselMode(hero)) return usableHeroSlides(hero.carouselImages);
   if (isUsableHeroMedia(hero.image)) return [hero.image];
   return [];
 }
@@ -90,18 +85,13 @@ export function heroSlideSlotId(
   hero: HeroCarouselFields,
   viewport: HeroMediaViewport = "desktop",
 ): string {
-  if (isHeroCarouselMode(hero)) {
-    if (
-      viewport === "mobile" &&
-      usableHeroSlides(hero.mobileCarouselImages).length >= 1
-    ) {
+  if (viewport === "mobile") {
+    if (usableHeroSlides(hero.mobileCarouselImages).length >= 1) {
       return `hero.mobileCarousel.${slideIndex}`;
     }
-    return `hero.carousel.${slideIndex}`;
+    if (isUsableHeroMedia(hero.mobileImage)) return "hero.mobileImage";
   }
-  if (viewport === "mobile" && isUsableHeroMedia(hero.mobileImage)) {
-    return "hero.mobileImage";
-  }
+  if (isHeroCarouselMode(hero)) return `hero.carousel.${slideIndex}`;
   return "hero.image";
 }
 

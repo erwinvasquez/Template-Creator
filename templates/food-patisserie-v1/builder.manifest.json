@@ -563,7 +563,7 @@
             "fieldPath": "sections.hero.mobileImage",
             "kind": "media",
             "label": "Hero imagen mobile",
-            "generationHint": "Imagen solo para móvil cuando el hero es imagen única. Si falta, se usa hero.image con el encuadre móvil.",
+            "generationHint": "Imagen fija solo para móvil. En móvil gana el carrusel mobile; si no hay, esta imagen; si tampoco, el hero de escritorio con encuadre móvil.",
             "required": false,
             "localeScope": "both"
           },
@@ -572,7 +572,7 @@
             "fieldPath": "sections.hero.mobileCarouselImages",
             "kind": "list",
             "label": "Hero carrusel mobile",
-            "generationHint": "Hasta 6 imágenes solo para móvil cuando el hero es carrusel. Si falta, se usa carouselImages con el encuadre móvil.",
+            "generationHint": "Hasta 6 imágenes solo para móvil. Si hay al menos una, el móvil usa este carrusel aunque el escritorio sea una imagen.",
             "required": false,
             "localeScope": "both",
             "listSchema": {
