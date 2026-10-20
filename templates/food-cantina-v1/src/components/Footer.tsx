@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useSiteContent } from "../lib/site-content";
 import { withBasePath } from "../content/resolve";
+import { readStoreCountryCode, StorefrontFooterCountry } from "@shopenlinea/commerce-runtime-contract";
 
 export function Footer() {
   const { payload, basePath } = useSiteContent();
@@ -24,6 +25,10 @@ export function Footer() {
           >
             {footer.blurb}
           </p>
+          <StorefrontFooterCountry
+            countryCode={readStoreCountryCode(payload)}
+            locale={payload.brand.locale}
+          />
         </div>
 
         <div data-wb-slot="footer.columns" className="contents">

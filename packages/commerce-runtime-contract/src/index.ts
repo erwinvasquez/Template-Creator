@@ -297,3 +297,7 @@ export {
 } from "./productDetailVariantNavigation";
 export { useHostProductDetail } from "./useHostProductDetail";
 export type { ProductDetailHost } from "./useHostProductDetail";
+export {
+  readStoreCountryCode,
+  StorefrontFooterCountry,
+} from "./StorefrontFooterCountry";
