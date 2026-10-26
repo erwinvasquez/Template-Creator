@@ -46,6 +46,15 @@ export function validateFooterStoreCountry(templateDir) {
   if (footer.includes("Bolivia")) {
     errors.push("[footer-country] Footer must not hardcode a country name");
   }
+  if (
+    footer.includes("fromCodePoint") ||
+    /0x1f1e6/i.test(footer) ||
+    /\u{1F1E6}/u.test(footer)
+  ) {
+    errors.push(
+      "[footer-country] Footer must not render a Unicode regional-indicator flag",
+    );
+  }
 
   return errors;
 }

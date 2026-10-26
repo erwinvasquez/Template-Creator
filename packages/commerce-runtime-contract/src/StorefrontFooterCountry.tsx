@@ -1,19 +1,19 @@
+"use client";
+
 /**
  * País de la tienda en el footer. No usa geolocalización ni un país por defecto.
- * La bandera reutiliza el mismo algoritmo que `countryCodeToFlagEmoji`.
- * El nombre localizado es la fuente legible; el emoji no identifica solo.
+ * La bandera es SVG local (un chunk por ISO2). El nombre localizado es la
+ * fuente legible; si no hay recurso, no se pinta un gráfico ni letras.
  */
+
+import { Suspense, use } from "react";
+
+import { loadStorefrontCountryFlag } from "./storefrontCountryFlagSvg";
 
 function normalizeStoreCountryIso(raw: unknown): string | null {
   if (typeof raw !== "string") return null;
   const cc = raw.trim().toUpperCase();
   return /^[A-Z]{2}$/.test(cc) ? cc : null;
-}
-
-function countryCodeToFlagEmoji(countryCode: string): string {
-  return String.fromCodePoint(
-    ...[...countryCode].map((c) => 0x1f1e6 - 65 + c.charCodeAt(0)),
-  );
 }
 
 function localizedCountryName(iso: string, locale: string | undefined): string {
@@ -28,6 +28,18 @@ function localizedCountryName(iso: string, locale: string | undefined): string {
 export function readStoreCountryCode(payload: object): string | null {
   return normalizeStoreCountryIso(
     (payload as { storeCountryCode?: unknown }).storeCountryCode,
+  );
+}
+
+function StorefrontFooterFlag({ iso }: { iso: string }) {
+  const svg = use(loadStorefrontCountryFlag(iso));
+  if (!svg) return null;
+  return (
+    <span
+      aria-hidden="true"
+      className="text-[22px] leading-none"
+      dangerouslySetInnerHTML={{ __html: svg }}
+    />
   );
 }
 
@@ -47,9 +59,9 @@ export function StorefrontFooterCountry({
       className="mt-4 inline-flex max-w-full items-center gap-2"
       data-store-country={iso}
     >
-      <span aria-hidden="true" className="text-[22px] leading-none">
-        {countryCodeToFlagEmoji(iso)}
-      </span>
+      <Suspense fallback={null}>
+        <StorefrontFooterFlag iso={iso} />
+      </Suspense>
       <span className="truncate text-[15px] leading-none">{name}</span>
     </span>
   );
