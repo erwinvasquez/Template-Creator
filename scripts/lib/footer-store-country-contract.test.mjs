@@ -49,6 +49,13 @@ test("rechaza el país bajo el copyright", () => {
   assert.ok(errors.some((error) => error.includes("before footer.copyrightName")));
 });
 
+test("rechaza una bandera Unicode pintada en el footer", () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "footer-emoji-"));
+  writeFooter(dir, valid.replace("export function Footer()", "function countryCodeToFlagEmoji(){return String.fromCodePoint(0x1f1e6)}\nexport function Footer()"));
+  const errors = validateFooterStoreCountry(dir);
+  assert.ok(errors.some((error) => error.includes("Unicode regional-indicator")));
+});
+
 test("rechaza un template sin el componente", () => {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), "footer-missing-"));
   writeFooter(
