@@ -416,26 +416,6 @@ export function ProductDetailCommerceView({
             </ul>
           ) : null}
 
-          {isPdpFieldVisible(presentation, "bulletPoints") &&
-          product.bulletPoints &&
-          product.bulletPoints.length > 0 ? (
-            <ul className="mt-4 max-w-md list-disc space-y-1 pl-5 text-sm text-muted">
-              {product.bulletPoints.map((b) => (
-                <li key={b}>{b}</li>
-              ))}
-            </ul>
-          ) : null}
-
-          {isPdpFieldVisible(presentation, "highlights") &&
-          product.keyFeatures &&
-          product.keyFeatures.length > 0 ? (
-            <ul className="mt-4 max-w-md space-y-1 text-sm text-muted">
-              {product.keyFeatures.map((f) => (
-                <li key={f}>{f}</li>
-              ))}
-            </ul>
-          ) : null}
-
           {showVariants && usePickers ? (
             <div className="mt-8 space-y-6">
               {dimensions.map((dimension, dimensionIndex) => {
@@ -556,7 +536,6 @@ export function ProductDetailCommerceView({
                 : ""}
             </p>
           ) : null}
-
 
           {purchaseCta.kind === "add" && purchaseCta.availability === "prepared" ? (
             <div className="mt-10 rounded-lg border border-border bg-surface/60 p-6 md:p-8">

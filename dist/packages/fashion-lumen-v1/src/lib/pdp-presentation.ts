@@ -4,7 +4,6 @@ export type ProductDetailPresentationField =
   | "categoryLabels"
   | "collectionLabels"
   | "highlights"
-  | "bulletPoints"
   | "brandLabel"
   | "specifications"
   | "badges"
