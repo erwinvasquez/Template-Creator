@@ -42,7 +42,7 @@ export function card(
     stockLabel: "available",
     badges: [],
     categoryLabels: ["Mujer"],
-    bulletPoints: [],
+    highlights: [],
     ...partial,
   };
 }
@@ -148,8 +148,7 @@ export function detailFromCard(
     categoryLabels: c.categoryLabels,
     brandLabel: "Atelier",
     collectionLabels: ["Otoño Essentials"],
-    bulletPoints: ["Hecho en Europa", "Envío 2–4 días"],
-    keyFeatures: ["Cashmere premium", "Forro de seda"],
+    highlights: ["Hecho en Europa", "Envío 2–4 días", "Cashmere premium", "Forro de seda"],
     relatedProducts: CATALOG_PRODUCTS.filter((p) => p.id !== c.id).slice(0, 3),
     ...overrides,
   };

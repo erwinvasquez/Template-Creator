@@ -27,6 +27,13 @@ describe("applyCatalogFilterPatchToSearchParams", () => {
     expect(params.get("salesMode")).toBe("madeToOrder");
   });
 
+  it("quita salesMode cuando el filtro de canal se limpia", () => {
+    const params = new URLSearchParams("salesMode=madeToOrder&colors=rojo");
+    applyCatalogFilterPatchToSearchParams(params, { salesMode: null, colors: ["rojo"] });
+    expect(params.has("salesMode")).toBe(false);
+    expect(params.get("colors")).toBe("rojo");
+  });
+
   it("elimina slugs legacy categoria/coleccion al aplicar patch", () => {
     const params = new URLSearchParams("categoria=mujer&coleccion=otono&categoryIds=cat-1");
     applyCatalogFilterPatchToSearchParams(params, { categoryIds: ["cat-1"] });

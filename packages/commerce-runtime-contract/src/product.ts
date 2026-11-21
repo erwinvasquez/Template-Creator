@@ -135,9 +135,8 @@ export interface ProductDetailViewModel {
   madeToOrderReopensAtLabel?: string | null;
   /** Upsell stock → MTO cuando el producto vende en ambos modos (solo contexto stock). */
   madeToOrderUpsell?: MadeToOrderUpsellViewModel | null;
+  /** Puntos clave: única lista de viñetas del producto (antes también `bulletPoints` y `keyFeatures`). */
   highlights?: string[];
-  bulletPoints?: string[];
-  keyFeatures?: string[];
   specifications?: Array<{ key: string; value: string }>;
   badges?: string[];
   relatedProducts?: ProductCardViewModel[];

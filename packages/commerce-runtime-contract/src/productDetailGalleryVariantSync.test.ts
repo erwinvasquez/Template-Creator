@@ -195,4 +195,100 @@ describe('SF-01 productDetailGalleryVariantSync', () => {
       resolveVariantIdForGallerySelection(product.gallery[2]!, product, pickerVariants, ['Presentación'], qty, ALFA),
     ).toBe(GAMMA)
   })
+
+  it('una imagen con variantIds sigue a las dos variantes y una imagen suelta no cambia la variante', () => {
+    const RED = 'v-red'
+    const BLUE = 'v-blue'
+    const product: ProductDetailViewModel = {
+      id: 'p1',
+      slug: 's',
+      href: '/h',
+      name: 'N',
+      gallery: [
+        { id: 'shared', url: 'https://x/shared', variantIds: [RED, BLUE] },
+        { id: 'loose', url: 'https://x/loose' },
+      ],
+      variants: [
+        {
+          id: RED,
+          label: 'Rojo',
+          options: [{ name: 'Color', value: 'Rojo' }],
+          displayPrice: '1',
+          available: true,
+          maxQuantity: 1,
+          imageUrl: 'https://x/shared',
+        },
+        {
+          id: BLUE,
+          label: 'Azul',
+          options: [{ name: 'Color', value: 'Azul' }],
+          displayPrice: '1',
+          available: true,
+          maxQuantity: 1,
+          imageUrl: 'https://x/shared',
+        },
+      ],
+      currency: 'BOB',
+      selectedVariantId: RED,
+      canAddToCart: true,
+    }
+    const pickerVariants: VariantOptionLike[] = product.variants.map((variant) => ({
+      id: variant.id,
+      optionValues: variant.options.map((option) => ({ option: option.name, value: option.value })),
+    }))
+    expect(preferredGalleryIndexForVariant(product, BLUE)).toBe(0)
+    expect(preferredGalleryIndexForVariant(product, RED)).toBe(0)
+    expect(
+      resolveVariantIdForGallerySelection(product.gallery[0]!, product, pickerVariants, ['Color'], {}, BLUE),
+    ).toBe(BLUE)
+    expect(
+      resolveVariantIdForGallerySelection(product.gallery[1]!, product, pickerVariants, ['Color'], {}, RED),
+    ).toBeNull()
+  })
+
+  it('la portada con variantIds cambia de texto a imagen y de imagen a texto', () => {
+    const BLUE = 'v-blue'
+    const product: ProductDetailViewModel = {
+      id: 'p1',
+      slug: 's',
+      href: '/h',
+      name: 'N',
+      gallery: [
+        { id: 'cover', url: 'https://x/cover', variantIds: [BLUE] },
+        { id: 'other', url: 'https://x/other', variantId: 'v-red' },
+      ],
+      variants: [
+        {
+          id: 'v-red',
+          label: 'Rojo',
+          options: [{ name: 'Color', value: 'Rojo' }],
+          displayPrice: '1',
+          available: true,
+          maxQuantity: 1,
+          imageUrl: 'https://x/other',
+        },
+        {
+          id: BLUE,
+          label: 'Azul',
+          options: [{ name: 'Color', value: 'Azul' }],
+          displayPrice: '1',
+          available: true,
+          maxQuantity: 1,
+          imageUrl: 'https://x/cover',
+        },
+      ],
+      currency: 'BOB',
+      selectedVariantId: 'v-red',
+      canAddToCart: true,
+    }
+    const pickerVariants: VariantOptionLike[] = product.variants.map((variant) => ({
+      id: variant.id,
+      optionValues: variant.options.map((option) => ({ option: option.name, value: option.value })),
+    }))
+    expect(preferredGalleryIndexForVariant(product, BLUE)).toBe(0)
+    expect(preferredGalleryIndexForVariant(product, 'v-red')).toBe(1)
+    expect(
+      resolveVariantIdForGallerySelection(product.gallery[0]!, product, pickerVariants, ['Color'], {}, 'v-red'),
+    ).toBe(BLUE)
+  })
 })

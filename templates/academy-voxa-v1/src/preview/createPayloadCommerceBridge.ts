@@ -299,8 +299,7 @@ export function createPayloadCommerceBridge(
         isBook
           ? "Envío o descarga según formato"
           : "Feedback grabado en cada sesión",
-      ],
-      bulletPoints: isBook
+        ...(isBook
         ? [
             "Escrito por el claustro Voxa",
             "Ejercicios aplicables desde el primer capítulo",
@@ -310,7 +309,8 @@ export function createPayloadCommerceBridge(
             "Práctica en vivo con grupo reducido",
             "Feedback individual por escrito",
             "Materiales y grabaciones en el aula",
-          ],
+          ]),
+      ],
       specifications: [
         { key: "Categoría", value: p.categoryLabel },
         { key: "Itinerario", value: p.collectionName },

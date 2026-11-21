@@ -969,9 +969,6 @@
         "highlights": {
           "type": "boolean"
         },
-        "bulletPoints": {
-          "type": "boolean"
-        },
         "brandLabel": {
           "type": "boolean"
         },

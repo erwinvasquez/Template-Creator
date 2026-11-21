@@ -323,8 +323,6 @@ export function createPayloadCommerceBridge(
         `Colección: ${p.collectionName}`,
         `Tallas disponibles: ${tallaRun}`,
         `Tela: ${telaRun}`,
-      ],
-      bulletPoints: [
         "Confección a medida con ajuste en atelier",
         "Prueba incluida antes de la entrega final",
         "Presentado en funda de tul con etiqueta bordada",

@@ -54,8 +54,6 @@ function minimalProduct(selectedVariantId: string | null): ProductDetailViewMode
     maxQuantity: 5,
     canAddToCart: true,
     highlights: [],
-    bulletPoints: [],
-    keyFeatures: [],
     specifications: [],
     badges: [],
     brandLabel: null,
