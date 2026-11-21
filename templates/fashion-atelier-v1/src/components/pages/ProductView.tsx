@@ -103,6 +103,16 @@ export function ProductView({ slug }: { slug: string }) {
         addToCart: host.actions.addToCart,
         openCartDrawer: host.actions.openCartDrawer,
         confirmAddToCartSuccess: host.actions.confirmAddToCartSuccess,
+        // Sprint 119 — "Comprar ahora" y "Ver más opiniones" (si el host los ofrece).
+        ...(host.actions.navigateToCheckout
+          ? { navigateToCheckout: () => host.actions.navigateToCheckout() }
+          : {}),
+        ...(host.actions.loadMoreProductReviews
+          ? {
+              loadMoreProductReviews: (productId: string, cursor: string) =>
+                host.actions.loadMoreProductReviews!(productId, cursor),
+            }
+          : {}),
       }}
     />
   );

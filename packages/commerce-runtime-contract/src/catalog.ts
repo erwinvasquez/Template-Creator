@@ -1,3 +1,4 @@
+import type { ProductCardRatingViewModel } from "./reviews";
 import type { MadeToOrderUpsellViewModel } from "./product";
 
 /** Stock / availability labels for storefront UI. */
@@ -149,6 +150,8 @@ export interface ProductCardViewModel {
   matchedOptionValue?: string | null;
   /** Secundario; no sustituye `displayPrice` (qty 1). */
   quantityPricingTeaser?: string | null;
+  /** Sprint 119 — estrellas de compradores (ausente sin reseñas o con reseñas apagadas). */
+  rating?: ProductCardRatingViewModel | null;
 }
 
 export interface CatalogSessionViewModel {

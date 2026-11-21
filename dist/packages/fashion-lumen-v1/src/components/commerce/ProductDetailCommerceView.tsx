@@ -2,7 +2,7 @@
 
 import Image, { getImageProps } from "next/image";
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Minus, Plus } from "lucide-react";
 import type {
   ProductDetailViewModel,
@@ -34,9 +34,17 @@ import { useSiteContent } from "../../lib/site-content";
 import { requireUi } from "../../lib/ui";
 import { withBasePath } from "../../content/resolve";
 import { CommerceProductCard } from "./CommerceProductCard";
-import { KitComposition, KitSavingsBlock, kitCommercialCopy, kitCompositionQuantityCap } from "./KitCommercialBlocks";
+import { KitComposition, KitSavingsBlock, kitCommercialCopy, kitCompositionQuantityCap } from "@shopenlinea/commerce-runtime-contract";
 import { MadeToOrderUpsellDialog } from "./MadeToOrderUpsellDialog";
 import { isPdpFieldVisible } from "../../lib/pdp-presentation";
+import {
+  ProductDetailPriceSignals,
+  ProductDetailPurchaseExtras,
+  ProductDetailRatingSummary,
+  ProductDetailReviewsSection,
+  ProductDetailSizeGuideLink,
+  ProductDetailStickyPurchaseBar,
+} from "@shopenlinea/commerce-runtime-contract";
 
 function parseDisplayPrice(display: string): number | null {
   const n = Number(display.replace(/[^\d,.-]/g, "").replace(",", "."));
@@ -119,6 +127,8 @@ export function ProductDetailCommerceView({
   const [quantity, setQuantity] = useState(1);
   const [kitChoices, setKitChoices] = useState<Record<string, string>>({});
   const [upsellOpen, setUpsellOpen] = useState(false);
+  // Sprint 119 — la barra fija de celular aparece cuando el botón principal sale de pantalla.
+  const addButtonRef = useRef<HTMLButtonElement | null>(null);
 
   const relatedTitle = uiProduct.relatedTitle;
   const shopLabel = payload.navigation.primary.find(
@@ -260,6 +270,38 @@ export function ProductDetailCommerceView({
     }
   }
 
+  /** Sprint 119 — "Comprar ahora": agrega y va directo al pago. */
+  async function onBuyNow() {
+    if (!selected || !canBuy || !kitChoicesComplete) return;
+    if (purchaseCta.kind !== "add") {
+      const t = resolveStockToMtoTransition(product, selected, quantity);
+      if (t && shouldOpenStockToMtoModal(t)) {
+        setUpsellOpen(true);
+        return;
+      }
+    }
+    setPending(true);
+    setLocalError(null);
+    try {
+      const res = await actions.addToCart(selected.id, quantity, {
+        kitSelections: kitChoiceSlots.map((slot) => ({
+          slotId: slot.slotId,
+          componentProductId: slot.componentProductId,
+          componentVariantId: kitChoices[slot.slotId] ?? "",
+          quantityPerKit: slot.quantity,
+        })),
+      });
+      if (!res.ok) {
+        setLocalError(res.errorMessage ?? ui.errors.addToCartFailed);
+        return;
+      }
+      if (actions.navigateToCheckout) actions.navigateToCheckout();
+      else actions.confirmAddToCartSuccess(selected.id);
+    } finally {
+      setPending(false);
+    }
+  }
+
   function onIncrementQuantity() {
     if (purchaseCta.kind !== "add") {
       const tInc = resolveStockToMtoTransition(product, selected, quantity + 1);
@@ -352,6 +394,11 @@ export function ProductDetailCommerceView({
             {product.name}
           </h1>
 
+          <ProductDetailRatingSummary
+            product={product}
+            className="mt-3 text-sm text-muted hover:text-primary"
+          />
+
           {variantHasQuantityPricingCatalog(selected) && selected ? (
             <ProductDetailQuantityPricingDisclosure
               variant={selected}
@@ -391,6 +438,21 @@ export function ProductDetailCommerceView({
             }
           />
           <KitSavingsBlock savings={selected?.kitSavings} labels={kitCopy} />
+
+          <ProductDetailPriceSignals
+
+            variant={selected}
+
+            copy={product.salesCopy}
+
+            className="mt-2 text-sm"
+
+            savingsClassName="font-medium text-primary"
+
+            lowStockClassName="font-medium text-secondary"
+
+          />
+
 
           {isPdpFieldVisible(presentation, "shortDescription") &&
           product.shortDescription ? (
@@ -522,6 +584,9 @@ export function ProductDetailCommerceView({
             </div>
           ) : null}
 
+          <ProductDetailSizeGuideLink product={product} className="mt-4 inline-block text-xs text-muted hover:text-primary" />
+
+
           {isPdpFieldVisible(presentation, "stockMessage") &&
           capabilities.stockIndicator !== "unsupported" &&
           stockMessage ? (
@@ -613,6 +678,7 @@ export function ProductDetailCommerceView({
             <button
               type="button"
               disabled={!canBuy || pending || !kitChoicesComplete}
+              ref={addButtonRef}
               onClick={onAdd}
               className="w-full cursor-pointer bg-primary px-6 py-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-background transition-colors duration-200 hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-50 md:w-auto md:min-w-[240px]"
             >
@@ -635,6 +701,29 @@ export function ProductDetailCommerceView({
             ) : null}
           </div>
           ) : null}
+
+          {!showInlineMto ? (
+
+            <ProductDetailPurchaseExtras
+
+              product={product}
+
+              onBuyNow={canBuy && actions.navigateToCheckout ? () => void onBuyNow() : undefined}
+
+              buyNowDisabled={!canBuy || pending || !kitChoicesComplete}
+
+              className="mt-4"
+
+              buyNowClassName="w-full cursor-pointer border border-primary px-6 py-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-primary transition-colors duration-200 hover:bg-primary hover:text-background disabled:cursor-not-allowed disabled:opacity-50 md:w-auto md:min-w-[240px]"
+
+              trustClassName="mt-6 border-t border-border pt-6 text-sm text-muted"
+
+              consultClassName="text-sm text-muted hover:text-primary"
+
+            />
+
+          ) : null}
+
 
           {((isPdpFieldVisible(presentation, "specifications") &&
             product.specifications?.length) ||
@@ -678,6 +767,31 @@ export function ProductDetailCommerceView({
         </div>
       </div>
 
+      <ProductDetailReviewsSection
+
+        product={product}
+
+        actions={actions}
+
+        className="mx-auto mt-24 max-w-7xl px-6 md:px-8"
+
+        headingClassName="font-serif text-3xl tracking-wide text-primary md:text-4xl"
+
+        averageClassName="font-serif text-4xl text-primary"
+
+        metaClassName="text-muted"
+
+        itemClassName="border-b border-border pb-6 text-sm text-primary"
+
+        verifiedClassName="text-primary"
+
+        replyClassName="text-muted"
+
+        loadMoreClassName="cursor-pointer border border-primary px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-primary hover:bg-primary hover:text-background"
+
+      />
+
+
       {isPdpFieldVisible(presentation, "relatedProducts") &&
       capabilities.relatedProducts !== "unsupported" &&
       product.relatedProducts &&
@@ -700,6 +814,18 @@ export function ProductDetailCommerceView({
             </div>
           </section>
         )}
+      {!showInlineMto && canBuy ? (
+        <ProductDetailStickyPurchaseBar
+          anchorRef={addButtonRef}
+          title={product.name}
+          priceLabel={selected?.displayPrice ?? product.variants[0]?.displayPrice ?? ""}
+          actionLabel={pending ? uiProduct.addingToCart : uiProduct.addToCart}
+          onAction={() => void onAdd()}
+          disabled={!canBuy || pending || !kitChoicesComplete}
+          className="border-t border-border bg-background text-primary shadow-[0_-8px_24px_rgba(0,0,0,0.08)]"
+          buttonClassName="shrink-0 cursor-pointer bg-primary px-5 py-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-background disabled:opacity-50"
+        />
+      ) : null}
       {product.madeToOrderUpsell ? (
         <MadeToOrderUpsellDialog
           open={upsellOpen}

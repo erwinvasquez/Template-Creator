@@ -1,18 +1,53 @@
 "use client";
 
+/**
+ * Kits en la ficha (Sprint 119): qué incluye, elegir variante de cada pieza y ahorro frente a comprar por separado.
+ * Antes vivía solo en Lumen; ahora es común a todos los templates. Textos según `brand.locale` del contenido.
+ */
+
 import { useEffect, useId, useRef, useState } from "react";
 import type {
   KitChoiceOptionViewModel,
   KitChoiceSlotViewModel,
   KitIncludeLineViewModel,
   KitSavingsViewModel,
-} from "@shopenlinea/commerce-runtime-contract";
+} from "./product";
 
-import type { KitCommercialCopy } from "./kitCommercialCopy";
-import { kitCommercialCopy } from "./kitCommercialCopy";
+export type KitCommercialCopy = {
+  includes: string;
+  kitPrice: string;
+  separate: string;
+  savings: string;
+  choose: string;
+  choosePrompt: string;
+  outOfStock: string;
+};
 
-export type { KitCommercialCopy };
-export { kitCommercialCopy };
+/** Textos de los bloques de kit según el locale publicado en el contenido. */
+export function kitCommercialCopy(locale: string | null | undefined): KitCommercialCopy {
+  if ((locale ?? "").toLowerCase().startsWith("en")) {
+    return {
+      includes: "Includes",
+      kitPrice: "Kit price",
+      separate: "Bought separately",
+      savings: "You save",
+      choose: "Choose a variant",
+      choosePrompt: "Choose variant",
+      outOfStock: "Sold out",
+    };
+  }
+  return {
+    includes: "Incluye",
+    kitPrice: "Precio del kit",
+    separate: "Comprados por separado",
+    savings: "Ahorras",
+    choose: "Elige una variante",
+    choosePrompt: "Elegir variante",
+    outOfStock: "Agotado",
+  };
+}
+
+
 
 function splitCommercialLabel(label: string): { name: string; detail: string | null } {
   const separator = " — ";

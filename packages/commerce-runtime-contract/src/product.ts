@@ -1,3 +1,4 @@
+import type { ProductDetailSalesCopy, ProductReviewsViewModel, ProductTrustViewModel } from "./reviews";
 import type { ProductCardViewModel, StockLabel } from "./catalog";
 import type { VariantQuantityPricingCatalogViewModel } from "./quantityPricingPresentation";
 
@@ -53,6 +54,10 @@ export interface ProductVariantViewModel {
   kitSavings?: KitSavingsViewModel | null;
   /** Slots que el cliente debe resolver antes de añadir el kit. */
   kitChoiceSlots?: readonly KitChoiceSlotViewModel[] | null;
+  /** Sprint 119 — "Ahorras 60,00 €" frente al precio tachado. Ausente sin precio tachado mayor. */
+  savingsLabel?: string | null;
+  /** Sprint 119 — stock inmediato cuando es bajo (umbral de la tienda). Ausente si no aplica. */
+  lowStockQuantity?: number | null;
 }
 
 export interface KitIncludeLineViewModel {
@@ -148,4 +153,16 @@ export interface ProductDetailViewModel {
    * Fallback in templates: first appearance in variants.
    */
   optionDefinitions?: ProductOptionDefinitionViewModel[];
+  /** Sprint 119 — reseñas de compradores. Ausente si la tienda las apagó; `count: 0` si aún no hay. */
+  reviews?: ProductReviewsViewModel | null;
+  /** Sprint 119 — envío, devoluciones y medios de pago junto al botón. */
+  trust?: ProductTrustViewModel | null;
+  /** Sprint 119 — enlace "Consultar por WhatsApp" (solo si la tienda lo encendió; apagado por defecto). */
+  whatsAppConsultHref?: string | null;
+  /** Sprint 119 — página de guía de tallas, junto a la opción de talla. */
+  sizeGuideHref?: string | null;
+  /** Sprint 119 — mostrar "Comprar ahora" (agrega y va al pago). */
+  buyNowEnabled?: boolean;
+  /** Sprint 119 — textos de los bloques de venta. */
+  salesCopy?: ProductDetailSalesCopy | null;
 }

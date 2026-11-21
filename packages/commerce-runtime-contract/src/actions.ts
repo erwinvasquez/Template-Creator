@@ -1,3 +1,4 @@
+import type { ProductReviewItemViewModel } from "./reviews";
 import type { CatalogFilterPatch, CatalogSessionViewModel, SalesMode } from "./catalog";
 import type {
   CheckoutPreviewInput,
@@ -66,6 +67,12 @@ export interface CommerceRuntimeActions {
   confirmAddToCartSuccess(variantId?: string): void;
 
   navigateToCheckout(): void;
+
+  /** Sprint 119 — siguiente página de reseñas de un producto. Opcional: sin ella no se muestra "Ver más". */
+  loadMoreProductReviews?(
+    productId: string,
+    cursor: string,
+  ): Promise<{ items: ProductReviewItemViewModel[]; nextCursor: string | null } | null>;
 
   previewCheckout(input: CheckoutPreviewInput): Promise<CheckoutPreviewResult>;
 

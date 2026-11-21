@@ -2,7 +2,7 @@
 
 import Image, { getImageProps } from "next/image";
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Minus, Plus } from "lucide-react";
 import type {
   ProductDetailViewModel,
@@ -36,6 +36,20 @@ import { SHOP_PATH, withBasePath } from "../../content/resolve";
 import { CommerceProductCard } from "./CommerceProductCard";
 import { MadeToOrderUpsellDialog } from "./MadeToOrderUpsellDialog";
 import { isPdpFieldVisible } from "../../lib/pdp-presentation";
+import {
+  KitComposition,
+  KitSavingsBlock,
+  kitCommercialCopy,
+  kitCompositionQuantityCap,
+} from "@shopenlinea/commerce-runtime-contract";
+import {
+  ProductDetailPriceSignals,
+  ProductDetailPurchaseExtras,
+  ProductDetailRatingSummary,
+  ProductDetailReviewsSection,
+  ProductDetailSizeGuideLink,
+  ProductDetailStickyPurchaseBar,
+} from "@shopenlinea/commerce-runtime-contract";
 
 function parseDisplayPrice(display: string): number | null {
   const n = Number(display.replace(/[^\d,.-]/g, "").replace(",", "."));
@@ -117,6 +131,11 @@ export function ProductDetailCommerceView({
   const [localError, setLocalError] = useState<string | null>(null);
   const [quantity, setQuantity] = useState(1);
   const [upsellOpen, setUpsellOpen] = useState(false);
+  // Sprint 119 — kits: variante elegida por pieza (antes solo en Lumen).
+  const [kitChoices, setKitChoices] = useState<Record<string, string>>({});
+  const kitCopy = kitCommercialCopy(payload.brand.locale);
+  // Sprint 119 — la barra fija de celular aparece cuando el botón principal sale de pantalla.
+  const addButtonRef = useRef<HTMLButtonElement | null>(null);
 
   const relatedTitle = uiProduct.relatedTitle;
   const shopLabel = payload.navigation.primary.find(
@@ -185,7 +204,14 @@ export function ProductDetailCommerceView({
     product.categoryLabels,
   ]);
 
-  const stockCapQty = stockCap(selected, product);
+  const kitChoiceSlots = selected?.kitChoiceSlots ?? [];
+  const kitChoicesComplete = kitChoiceSlots.every((slot) => Boolean(kitChoices[slot.slotId]));
+  const stockCapQty = kitCompositionQuantityCap({
+    fallback: stockCap(selected, product),
+    includes: selected?.kitIncludes,
+    slots: kitChoiceSlots,
+    selections: kitChoices,
+  });
   const upsell = product.madeToOrderUpsell;
   const purchaseCta = resolveStorefrontPurchaseCta({
     purchaseState: selected?.purchaseState,
@@ -228,11 +254,20 @@ export function ProductDetailCommerceView({
 
   useEffect(() => {
     setQuantity(1);
+    setKitChoices({});
     setLocalError(null);
   }, [selected?.id]);
 
+  /** Piezas elegidas del kit (vacío en productos normales). */
+  const kitSelections = kitChoiceSlots.map((slot) => ({
+    slotId: slot.slotId,
+    componentProductId: slot.componentProductId,
+    componentVariantId: kitChoices[slot.slotId] ?? "",
+    quantityPerKit: slot.quantity,
+  }));
+
   async function onAdd() {
-    if (!selected || !canBuy) return;
+    if (!selected || !canBuy || !kitChoicesComplete) return;
     if (purchaseCta.kind !== "add") {
       const t = resolveStockToMtoTransition(product, selected, quantity);
       if (t && shouldOpenStockToMtoModal(t)) {
@@ -243,12 +278,43 @@ export function ProductDetailCommerceView({
     setPending(true);
     setLocalError(null);
     try {
-      const res = await actions.addToCart(selected.id, quantity);
+      const res =
+        kitSelections.length > 0
+          ? await actions.addToCart(selected.id, quantity, { kitSelections })
+          : await actions.addToCart(selected.id, quantity);
       if (!res.ok) {
         setLocalError(res.errorMessage ?? ui.errors.addToCartFailed);
         return;
       }
       actions.confirmAddToCartSuccess(selected.id);
+    } finally {
+      setPending(false);
+    }
+  }
+
+  /** Sprint 119 — "Comprar ahora": agrega y va directo al pago. */
+  async function onBuyNow() {
+    if (!selected || !canBuy || !kitChoicesComplete) return;
+    if (purchaseCta.kind !== "add") {
+      const t = resolveStockToMtoTransition(product, selected, quantity);
+      if (t && shouldOpenStockToMtoModal(t)) {
+        setUpsellOpen(true);
+        return;
+      }
+    }
+    setPending(true);
+    setLocalError(null);
+    try {
+      const res =
+        kitSelections.length > 0
+          ? await actions.addToCart(selected.id, quantity, { kitSelections })
+          : await actions.addToCart(selected.id, quantity);
+      if (!res.ok) {
+        setLocalError(res.errorMessage ?? ui.errors.addToCartFailed);
+        return;
+      }
+      if (actions.navigateToCheckout) actions.navigateToCheckout();
+      else actions.confirmAddToCartSuccess(selected.id);
     } finally {
       setPending(false);
     }
@@ -378,6 +444,11 @@ export function ProductDetailCommerceView({
               {product.name}
             </h1>
 
+            <ProductDetailRatingSummary
+              product={product}
+              className="mt-3 text-sm text-muted hover:text-primary"
+            />
+
             {variantHasQuantityPricingCatalog(selected) && selected ? (
               <ProductDetailQuantityPricingDisclosure
                 variant={selected}
@@ -406,6 +477,42 @@ export function ProductDetailCommerceView({
                 ) : null}
               </div>
             )}
+
+            <KitComposition
+
+              includes={selected?.kitIncludes}
+
+              slots={selected?.kitChoiceSlots}
+
+              value={kitChoices}
+
+              labels={kitCopy}
+
+              onChange={(slotId, variantId) =>
+
+                setKitChoices((current) => ({ ...current, [slotId]: variantId }))
+
+              }
+
+            />
+
+            <KitSavingsBlock savings={selected?.kitSavings} labels={kitCopy} />
+
+
+            <ProductDetailPriceSignals
+
+              variant={selected}
+
+              copy={product.salesCopy}
+
+              className="mt-2 text-sm"
+
+              savingsClassName="font-medium text-primary"
+
+              lowStockClassName="font-medium text-secondary"
+
+            />
+
 
             {isPdpFieldVisible(presentation, "shortDescription") &&
             product.shortDescription ? (
@@ -512,6 +619,9 @@ export function ProductDetailCommerceView({
                 })
               : null}
 
+            <ProductDetailSizeGuideLink product={product} className="mt-4 inline-block text-xs text-muted hover:text-primary" />
+
+
             {isPdpFieldVisible(presentation, "stockMessage") &&
             capabilities.stockIndicator !== "unsupported" &&
             stockMessage ? (
@@ -607,8 +717,9 @@ export function ProductDetailCommerceView({
               <>
                 <button
                   type="button"
-                  disabled={!canBuy || pending}
-                  onClick={onAdd}
+                  disabled={!canBuy || pending || !kitChoicesComplete}
+                  ref={addButtonRef}
+              onClick={onAdd}
                   className="mt-6 w-full cursor-pointer border-2 border-primary bg-secondary px-6 py-4 text-[11px] font-bold uppercase tracking-[0.14em] text-background shadow-[4px_4px_0_0_var(--color-primary)] transition-transform hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0_0_var(--color-primary)] disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   {ctaLabel}
@@ -627,6 +738,29 @@ export function ProductDetailCommerceView({
                 ) : null}
               </>
             ) : null}
+
+            {!showInlineMto ? (
+
+              <ProductDetailPurchaseExtras
+
+                product={product}
+
+                onBuyNow={canBuy && actions.navigateToCheckout ? () => void onBuyNow() : undefined}
+
+                buyNowDisabled={!canBuy || pending || !kitChoicesComplete}
+
+                className="mt-4"
+
+                buyNowClassName="w-full cursor-pointer border-2 border-primary bg-background px-6 py-4 text-[11px] font-bold uppercase tracking-[0.14em] text-primary transition-colors hover:bg-primary hover:text-background disabled:cursor-not-allowed disabled:opacity-50"
+
+                trustClassName="mt-6 border-t border-border pt-6 text-sm text-muted"
+
+                consultClassName="text-sm text-muted hover:text-primary"
+
+              />
+
+            ) : null}
+
 
             {((isPdpFieldVisible(presentation, "specifications") &&
               product.specifications?.length) ||
@@ -655,6 +789,31 @@ export function ProductDetailCommerceView({
         </div>
       </div>
 
+      <ProductDetailReviewsSection
+
+        product={product}
+
+        actions={actions}
+
+        className="mx-auto mt-24 max-w-7xl px-6 md:px-10"
+
+        headingClassName="font-serif text-3xl tracking-wide text-primary md:text-4xl"
+
+        averageClassName="font-serif text-4xl text-primary"
+
+        metaClassName="text-muted"
+
+        itemClassName="border-b border-border pb-6 text-sm text-primary"
+
+        verifiedClassName="text-primary"
+
+        replyClassName="text-muted"
+
+        loadMoreClassName="cursor-pointer border border-primary px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-primary hover:bg-primary hover:text-background"
+
+      />
+
+
       {isPdpFieldVisible(presentation, "relatedProducts") &&
       capabilities.relatedProducts !== "unsupported" &&
       product.relatedProducts &&
@@ -670,6 +829,18 @@ export function ProductDetailCommerceView({
             </div>
           </section>
         )}
+      {!showInlineMto && canBuy ? (
+        <ProductDetailStickyPurchaseBar
+          anchorRef={addButtonRef}
+          title={product.name}
+          priceLabel={selected?.displayPrice ?? product.variants[0]?.displayPrice ?? ""}
+          actionLabel={pending ? uiProduct.addingToCart : uiProduct.addToCart}
+          onAction={() => void onAdd()}
+          disabled={!canBuy || pending || !kitChoicesComplete}
+          className="border-t border-border bg-background text-primary shadow-[0_-8px_24px_rgba(0,0,0,0.08)]"
+          buttonClassName="shrink-0 cursor-pointer border-2 border-primary bg-secondary px-5 py-3 text-[11px] font-bold uppercase tracking-[0.12em] text-background disabled:opacity-50"
+        />
+      ) : null}
       {product.madeToOrderUpsell ? (
         <MadeToOrderUpsellDialog
           open={upsellOpen}

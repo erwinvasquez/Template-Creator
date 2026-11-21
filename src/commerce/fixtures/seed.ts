@@ -43,6 +43,7 @@ export function card(
     badges: [],
     categoryLabels: ["Mujer"],
     highlights: [],
+    rating: { average: 4.6, count: 23, averageLabel: "4,6" },
     ...partial,
   };
 }
