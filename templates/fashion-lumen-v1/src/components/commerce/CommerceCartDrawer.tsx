@@ -36,7 +36,7 @@ import { useSiteContent } from "../../lib/site-content";
 import { requireUi } from "../../lib/ui";
 import { withBasePath } from "../../content/resolve";
 import { showsSalesModeChrome } from "../../lib/sales-mode";
-import { KitIncludesList, kitCommercialCopy } from "./KitCommercialBlocks";
+import { KitIncludesList, kitCommercialCopy } from "@shopenlinea/commerce-runtime-contract";
 
 function lineMaxQty(maxQuantity: number | null | undefined): number {
   return maxQuantity ?? Number.POSITIVE_INFINITY;

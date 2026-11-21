@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { ProductCardRating } from "@shopenlinea/commerce-runtime-contract";
 import Link from "next/link";
 import type { ProductCardViewModel } from "@shopenlinea/commerce-runtime-contract";
 import {
@@ -100,6 +101,7 @@ export function CommerceProductCard({
             <span className="font-serif text-xl text-primary">
               {product.displayPrice}
             </span>
+            <ProductCardRating rating={product.rating} className="mt-1 text-muted" />
             {product.compareAtPrice ? (
               <span className="line-through opacity-60">
                 {product.compareAtPrice}

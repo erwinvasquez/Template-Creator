@@ -14,7 +14,8 @@ export type ProductDetailHost = Readonly<{
   actions: Pick<
     CommerceRuntimeActions,
     'selectVariant' | 'addToCart' | 'openCartDrawer' | 'confirmAddToCartSuccess'
-  >
+  > &
+    Partial<Pick<CommerceRuntimeActions, 'navigateToCheckout' | 'loadMoreProductReviews'>>
 }>
 
 export function useHostProductDetail(host: ProductDetailHost, slug: string) {
@@ -63,6 +64,13 @@ export function useHostProductDetail(host: ProductDetailHost, slug: string) {
       addToCart: host.actions.addToCart,
       openCartDrawer: host.actions.openCartDrawer,
       confirmAddToCartSuccess: host.actions.confirmAddToCartSuccess,
+      // Sprint 119 — "Comprar ahora" y "Ver más opiniones" (opcionales según el host).
+      ...(host.actions.navigateToCheckout
+        ? { navigateToCheckout: host.actions.navigateToCheckout.bind(host.actions) }
+        : {}),
+      ...(host.actions.loadMoreProductReviews
+        ? { loadMoreProductReviews: host.actions.loadMoreProductReviews.bind(host.actions) }
+        : {}),
     }),
     [host.actions, selectVariant],
   )

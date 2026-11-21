@@ -60,7 +60,9 @@ export interface ProductDetailViewProps {
   actions: Pick<
     CommerceRuntimeActions,
     "selectVariant" | "addToCart" | "openCartDrawer" | "confirmAddToCartSuccess"
-  >;
+  > &
+    /** Sprint 119 — opcionales: "Comprar ahora" y "Ver más opiniones". Sin ellas, el template degrada. */
+    Partial<Pick<CommerceRuntimeActions, "navigateToCheckout" | "loadMoreProductReviews">>;
   loading?: boolean;
   errorMessage?: string | null;
 }

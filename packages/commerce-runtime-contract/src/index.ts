@@ -301,3 +301,32 @@ export {
   readStoreCountryCode,
   StorefrontFooterCountry,
 } from "./StorefrontFooterCountry";
+
+// Sprint 119 — ficha que vende y reseñas
+export type {
+  ProductCardRatingViewModel,
+  ProductDetailSalesCopy,
+  ProductReviewItemViewModel,
+  ProductReviewReplyViewModel,
+  ProductReviewsViewModel,
+  ProductTrustViewModel,
+} from "./reviews";
+export {
+  ProductCardRating,
+  ProductDetailPriceSignals,
+  ProductDetailPurchaseExtras,
+  ProductDetailRatingSummary,
+  ProductDetailReviewsSection,
+  ProductDetailSizeGuideLink,
+  ProductDetailStickyPurchaseBar,
+  RatingStars,
+} from "./productDetailSales";
+export {
+  KitChoiceFields,
+  KitComposition,
+  KitIncludesList,
+  KitSavingsBlock,
+  kitCommercialCopy,
+  kitCompositionQuantityCap,
+  type KitCommercialCopy,
+} from "./kitCommercialBlocks";
