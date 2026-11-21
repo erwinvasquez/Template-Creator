@@ -434,19 +434,6 @@ export function ProductDetailCommerceView({
               </ul>
             ) : null}
 
-            {isPdpFieldVisible(presentation, "bulletPoints") &&
-            product.bulletPoints &&
-            product.bulletPoints.length > 0 ? (
-              <ul className="mt-4 space-y-1.5 text-sm text-muted">
-                {product.bulletPoints.map((b) => (
-                  <li key={b} className="flex items-start gap-2.5">
-                    <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-primary/60" />
-                    <span>{b}</span>
-                  </li>
-                ))}
-              </ul>
-            ) : null}
-
             {showVariants && usePickers
               ? dimensions.map((dimension, dimensionIndex) => {
                   const values = valuesForDimension(pickerVariants, dimension);
@@ -539,7 +526,6 @@ export function ProductDetailCommerceView({
                   : ""}
               </p>
             ) : null}
-
 
           {purchaseCta.kind === "add" && purchaseCta.availability === "prepared" ? (
             <div className="mt-10 rounded-lg border border-border bg-surface/60 p-6 md:p-8">

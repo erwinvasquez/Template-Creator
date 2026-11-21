@@ -30,6 +30,7 @@ export function applyCatalogFilterPatchToSearchParams(
   if (patch.hasDiscount) params.set("hasDiscount", "1");
   else params.delete("hasDiscount");
   if (patch.salesMode) params.set("salesMode", patch.salesMode);
+  else if (patch.salesMode === null) params.delete("salesMode");
   params.delete("categoryId");
   params.delete("collectionId");
   params.delete("brandId");

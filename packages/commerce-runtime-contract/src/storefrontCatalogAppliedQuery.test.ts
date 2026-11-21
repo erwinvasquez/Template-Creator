@@ -14,6 +14,15 @@ describe("parseStorefrontCatalogAppliedQuery", () => {
     });
     expect(applied.filterPatch.colors).toEqual(["rojo"]);
     expect(applied.filterPatch.categoryIds).toEqual(["broche", "diadema"]);
+    expect(applied.filterPatch.salesMode).toBeUndefined();
+  });
+
+  it("solo copia salesMode cuando la URL lo trae", () => {
+    const applied = parseStorefrontCatalogAppliedQuery({
+      searchParams: new URLSearchParams("salesMode=madeToOrder"),
+      defaultSalesMode: "stock",
+    });
+    expect(applied.filterPatch.salesMode).toBe("madeToOrder");
   });
 
   it("buildCatalogFilterPatchForNavigation conserva color al aplicar categorías", () => {

@@ -78,7 +78,7 @@ export function CatalogFilterSheet({
   useEffect(() => {
     if (!open) return;
     setDraft({
-      salesMode: filters.salesMode,
+      salesMode: filters.channelFilter !== undefined ? filters.channelFilter : filters.salesMode,
       categoryIds: filters.activeCategoryIds ?? [],
       collectionIds: filters.activeCollectionIds ?? [],
       brandIds: filters.activeBrandIds ?? [],
@@ -200,7 +200,12 @@ function PanelBody({
   onClose,
   onApply,
 }: PanelBodyProps) {
-  const activeSalesMode = draft.salesMode ?? filters.salesMode;
+  const activeSalesMode =
+    draft.salesMode !== undefined
+      ? draft.salesMode
+      : filters.channelFilter !== undefined
+        ? filters.channelFilter
+        : filters.salesMode;
 
   return (
     <>
@@ -223,7 +228,12 @@ function PanelBody({
                     type="button"
                     className={`${catalogFilterSalesModeCardClassName} ${catalogFilterSalesModeCardStateClassName(active)}`}
                     aria-pressed={active}
-                    onClick={() => setDraft((d) => ({ ...d, salesMode: opt.salesMode }))}
+                    onClick={() =>
+                      setDraft((d) => ({
+                        ...d,
+                        salesMode: activeSalesMode === opt.salesMode ? null : opt.salesMode,
+                      }))
+                    }
                   >
                     {opt.label}
                   </button>
@@ -399,7 +409,7 @@ function PanelBody({
           className="flex-1 border border-border py-3 text-sm font-medium"
           onClick={() => {
             onApply({
-              salesMode: draft.salesMode,
+              salesMode: filters.channelFilter !== undefined ? null : draft.salesMode,
               categoryIds: [],
               collectionIds: [],
               brandIds: [],

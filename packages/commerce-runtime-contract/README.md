@@ -27,45 +27,54 @@ Purchase actions, valid variant selection, unavailability/errors, cart and check
 - Do **not** render generic `ui.salesMode.*.shopBanner` copy next to the switch — labels from `ui.salesMode.nav` are enough. Show prep / closed / reopen lines only when the host sends those fields.
 - `maxQuantity` limits +/- controls only — never show “Máx. N” copy.
 - Host fields: `preparationPromiseLabel`, `madeToOrderClosed` / `madeToOrderAcceptingOrders`, `madeToOrderReopensAtLabel` — **values only** (no “Preparación:” / “Volvemos” prefixes; templates own prefixes via `ui.salesMode`).
-- **Stock → MTO upsell (PDP):** when `madeToOrderUpsell` is set and `variant.immediateAvailableQty > 0`, templates show a modal if the shopper requests more than `maxQuantity` (immediate cap). CTA navigates to `madeToOrderUpsell.productHref` (host includes `?salesMode=madeToOrder`). Copy: `ui.product.stockInsufficientImmediate` (`{count}`), `stockInsufficientMadeToOrderHint`, `buyMadeToOrderCta`.
+- PDP stock mode: optional `madeToOrderUpsell` (`preparationPromiseLabel` value + `productHref` with `?salesMode=madeToOrder`) when the product also sells MTO; variant `immediateAvailableQty` for upsell copy.
 - Query convention: `?salesMode=stock|madeToOrder` from template `ui.salesMode.nav` (host does not inject nav links). Host sets capability only.
 - Handoff: `docs/handoffs/sales-mode-saas-integration.md`.
 - **No** `CatalogContextViewModel` / `catalogContext` in this contract.
 
-## Variant option picker (PDP)
+## Product detail — variant option picker
 
-- `ProductDetailViewModel.optionDefinitions` — canonical dimension order (`name`, optional `values`). Host sends from product catalog.
-- Pure helpers in `variantOptionPicker.ts` (exported from package):
+- `ProductDetailViewModel.optionDefinitions` — orden canónico de dimensiones (`name`, `values?`). El host lo envía desde `product.optionDefinitions` (paridad legacy PDP).
+- Algoritmo puro en `variantOptionPicker.ts` (exportado desde el paquete):
   - `buildOptionDimensions`, `valuesForDimension`, `selectionsFromVariant`
   - `isOptionValueSelectable`, `resolveVariantForDimensionSelection`, `chipStateForOptionValue`
-  - `canUseVariantOptionPickers`, `sortOptionValuesAsc`
-- Templates map `variant.options` → `optionValues` `{ option, value }` and `maxAddQtyByVariantId` from `available` + `maxQuantity`.
+  - Tipo variante: `{ id, optionValues: { option, value }[] }` — adaptar desde `variant.options` (`name` → `option`).
+- `maxAddQtyByVariantId` en template: `(variant.available && (variant.maxQuantity ?? 0) > 0) ? (variant.maxQuantity ?? 0) : 0`
+- Regla clave: un chip es selectable si existe variante con ese valor y las dimensiones **anteriores** ya elegidas; no exigir match en dimensiones posteriores.
 
-## Stock → MTO transition (PDP)
+## Stock → MTO transition (PDP stock mode)
 
-Import from `stockToMtoTransition.ts` — **do not** duplicate in `lib/made-to-order-upsell`.
+Cuando el host envía `madeToOrderUpsell` y `immediateAvailableQty`, los templates **deben** importar desde `stockToMtoTransition.ts` (no helpers locales en `lib/made-to-order-upsell`).
 
-- **Trigger A** (`quantityExceedsImmediate`): modal (`shouldOpenStockToMtoModal`) when requested qty exceeds immediate cap.
-- **Trigger B** (`immediateExhausted`): inline panel when `immediateAvailableQty === 0` but `madeToOrderUpsell` is set.
-- `resolveStockToMtoTransition(product, selected, requestedQty)` — `null` or trigger A/B.
-- Copy: `ui.product.stockExhaustedImmediateTitle`, `stockExhaustedMadeToOrderAvailable`, `buyMadeToOrderCta`.
+| Trigger | Condición | Presentación WG |
+|---------|-----------|-----------------|
+| **A** `quantityExceedsImmediate` | `immediate > 0` y `requestedQty > stockCap` | Modal upsell (R1) |
+| **B** `immediateExhausted` | `immediate === 0` y upsell disponible | Panel inline + CTA a `productHref` |
 
-## Stock → MTO hint (PLP / catalog cards)
+Funciones:
 
-Import from `catalogAvailabilityPresentation.ts` — **do not** duplicate locally.
+- `canTransitionStockToMto(product, selected?)` — gate común (`productHref` + no `madeToOrderClosed`)
+- `resolveStockToMtoTransition(product, selected, requestedQty)` — `null` o trigger A/B
+- `shouldOpenStockToMtoModal(trigger)` — solo `true` para trigger A
+- `stockCap`, `immediateAvailableQty`, `interpolateCount`
 
-- `ProductCardViewModel.madeToOrderUpsell` — same shape as PDP upsell; host sends in **stock** catalog when dual-mode and MTO channel is open.
-- `resolveCatalogAvailabilityPresentation(product)` → `available` | `contact` | `sold_out` | `made_to_order_available`.
-- `catalogCardHref(product)` — prefer `madeToOrderUpsell.productHref` when `made_to_order_available`.
-- Templates: `sold_out` → overlay `ui.product.outOfStock` + dim image; `made_to_order_available` → label `ui.product.buyMadeToOrderCta`, no sold-out overlay/dim.
+**Orden:** si `immediate === 0`, siempre trigger B (aunque `requestedQty > cap`). No modal con count=0.
 
-## Order tracking (public `/track`)
+## PLP stock → MTO (catálogo)
 
-- Types in `tracking.ts`: `OrderTrackingViewModel`, `OrderTrackingViewProps`.
-- `CommerceTemplateViews.OrderTracking` + `TemplateAppPageId` `orderTracking`.
-- Host maps order + labels → `tracking` prop; template **does not fetch**.
-- Layout offset matches template Cart/Confirmation (under fixed/sticky header).
-- Voucher: link `payment.voucherViewUrl` only — no upload in template.
+Cuando el host envía `ProductCardViewModel` en listado con `catalogSalesMode=stock`:
+
+- `stockLabel` sigue siendo `out_of_stock` si no hay inventario inmediato (verdad del canal stock).
+- Opcional `madeToOrderUpsell` (mismo tipo que PDP) cuando el producto también vende en MTO.
+- Templates importan `resolveCatalogAvailabilityPresentation`, `catalogCardHref`, `shouldHideFromCatalog` desde `catalogStockToMtoHint.ts` (no helpers locales).
+
+| Presentación | Condición | Copy card |
+|--------------|-----------|-----------|
+| `sold_out` | `out_of_stock` sin upsell | `ui.product.outOfStock` |
+| `made_to_order_available` | `out_of_stock` + upsell | `ui.product.buyMadeToOrderCta` |
+| `available` / `contact` | resto | sin overlay agotado |
+
+`catalogCardHref(card)` enlaza al PDP MTO (`madeToOrderUpsell.productHref`) cuando aplica. Filtro “ocultar agotados”: `shouldHideFromCatalog` no oculta cards con upsell.
 
 ## Category filters (shop listing)
 

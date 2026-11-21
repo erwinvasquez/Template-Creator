@@ -26,6 +26,8 @@ export type CatalogListingSearchAndFilterProps = Readonly<{
     searchLabel: string;
     searchPlaceholder: string;
     collectionPrefix?: string;
+    /** Aviso de sugerencias; `{query}` se reemplaza por la búsqueda. */
+    searchSuggestionsNotice?: string;
   };
   showSearch: boolean;
   search: string;
@@ -105,6 +107,14 @@ export function CatalogListingSearchAndFilter({
           {activeFilters > 0 ? ` (${activeFilters})` : ""}
         </button>
       </div>
+      {filters.searchSuggestionsOnly && filters.searchQuery ? (
+        <p className="mt-4 text-sm text-muted" data-commerce-plp-search-suggestions role="status">
+          {(listing.searchSuggestionsNotice ?? "No encontramos «{query}». Te puede interesar:").replace(
+            "{query}",
+            filters.searchQuery,
+          )}
+        </p>
+      ) : null}
       {afterToolbar}
       <CatalogFilterSheet
         open={filterOpen}

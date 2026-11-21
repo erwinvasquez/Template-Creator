@@ -112,10 +112,10 @@ export function parseStorefrontCatalogAppliedQuery(input: Readonly<{
   });
 
   const salesModeRaw = input.searchParams.get("salesMode");
-  const salesMode: SalesMode =
+  const salesMode: SalesMode | undefined =
     salesModeRaw === "madeToOrder" || salesModeRaw === "stock"
       ? salesModeRaw
-      : input.defaultSalesMode;
+      : undefined;
 
   const filterPatch: CatalogFilterPatch = {
     searchQuery: input.searchParams.get("q")?.trim() || null,
@@ -176,7 +176,10 @@ export function buildCatalogFilterPatchForNavigation(
   const merged: CatalogFilterPatch = {
     searchQuery: applied.searchQuery ?? current.searchQuery ?? null,
     sort: patch.sort ?? applied.sort ?? current.activeSort ?? "featured",
-    salesMode: patch.salesMode ?? applied.salesMode ?? current.salesMode,
+    salesMode:
+      patch.salesMode !== undefined
+        ? patch.salesMode
+        : (applied.salesMode ?? current.salesMode),
     categoryId: null,
     collectionId: null,
     brandId: null,

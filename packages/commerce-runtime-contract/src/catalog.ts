@@ -45,7 +45,8 @@ export interface CatalogFilterPatch extends CatalogAdvancedFilterPatch {
   collectionId?: string | null;
   brandId?: string | null;
   sort?: string | null;
-  salesMode?: SalesMode;
+  /** null quita el filtro de canal de la URL. */
+  salesMode?: SalesMode | null;
 }
 
 export interface CatalogFacetOptionViewModel {
@@ -67,11 +68,21 @@ export interface CatalogFacetsViewModel {
 
 export interface ProductFilterViewModel {
   searchQuery?: string;
+  /**
+   * Hubo búsqueda y ningún producto coincide por palabras: los resultados son sugerencias por significado.
+   * Las plantillas muestran "No encontramos «…». Te puede interesar:" (CatalogListingSearchAndFilter).
+   */
+  searchSuggestionsOnly?: boolean;
   activeCategoryId?: string | null;
   activeCollectionId?: string | null;
   activeBrandId?: string | null;
   activeSort?: string;
   salesMode: SalesMode;
+  /**
+   * Canal que realmente filtra el listado.
+   * null: catálogo único. Ausente: hosts antiguos preseleccionan `salesMode`.
+   */
+  channelFilter?: SalesMode | null;
   /**
    * Dual-mode + madeToOrder only. Whether the MTO channel accepts orders now.
    * When `false`, templates show closed warning (listing/cart).
@@ -121,7 +132,8 @@ export interface ProductCardViewModel {
   defaultVariantId?: string | null;
   stockLabel?: StockLabel | null;
   shortDescription?: string | null;
-  bulletPoints?: string[];
+  /** Primeros puntos clave del producto (antes `bulletPoints`). */
+  highlights?: string[];
   categoryLabels?: string[];
   badges?: string[];
   /** Optional card-level prep hint from host (made-to-order listings). */
