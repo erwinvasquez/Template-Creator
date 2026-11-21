@@ -31,7 +31,7 @@ import {
   hostCheckoutContainWidthClassName,
   hostCheckoutInputClassName,
 } from "@shopenlinea/commerce-runtime-contract";
-import { KitIncludesList, kitCommercialCopy } from "../components/commerce/KitCommercialBlocks";
+import { KitIncludesList, kitCommercialCopy } from "@shopenlinea/commerce-runtime-contract";
 import { useSiteContent } from "../lib/site-content";
 
 export const checkoutInputClassName = hostCheckoutInputClassName;

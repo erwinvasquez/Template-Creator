@@ -1,7 +1,7 @@
 {
   "packageId": "template-content-contract",
   "version": "1.0.0",
-  "exportedAt": "2026-11-21T00:49:45.671Z",
+  "exportedAt": "2026-11-21T02:06:16.320Z",
   "contentHash": "473ebf3b7600f1c43bbf7f49bd98d36870ed3fe821a7bd5fa594da5f4f60f031",
   "immutable": true,
   "source": "packages/template-content-contract",
