@@ -330,3 +330,5 @@ export {
   kitCompositionQuantityCap,
   type KitCommercialCopy,
 } from "./kitCommercialBlocks";
+export { homeGridFitProps } from "./homeGridFit";
+export type { HomeGridColumns } from "./homeGridFit";

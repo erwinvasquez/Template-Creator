@@ -1,9 +1,9 @@
 {
   "templateId": "jewelry-orion-v1",
   "version": "1.3.0",
-  "exportedAt": "2026-11-21T02:06:19.420Z",
-  "contentHash": "c67c0f40386415190b6672cc841e8d2416c89b872921b1c9694b843ac6e0c990",
-  "sourceGitSha": "d49965173aa9284b9f233daebc57d3f7ba715294",
+  "exportedAt": "2026-11-24T01:11:00.114Z",
+  "contentHash": "a1d69b7588c157259402fd34fb77eb7e5a51f979fffcdd22f7f351c459c618d1",
+  "sourceGitSha": "29ca622486bbf4bb87a6537b8a6ae6495db52746",
   "immutable": true,
   "source": "templates/jewelry-orion-v1"
 }

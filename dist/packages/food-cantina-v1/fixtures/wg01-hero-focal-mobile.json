@@ -108,7 +108,7 @@
         "name": "Ruta del taco",
         "description": "Recorre barbacoa, pollo y vegetales en un solo pedido.",
         "image": {
-          "url": "https://images.unsplash.com/photo-1565299585323-38174c4a6bce?w=1600&q=80",
+          "url": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=1600&q=80",
           "alt": "Tacos en bandeja con limón y cilantro"
         }
       },
@@ -118,7 +118,7 @@
         "name": "Picante nivel",
         "description": "Salsas que suben de intensidad: verde, roja y habanero.",
         "image": {
-          "url": "https://images.unsplash.com/photo-1606491956689-2ea86650f4a6?w=1600&q=80",
+          "url": "https://images.unsplash.com/photo-1598866594230-a7c12756260f?w=1600&q=80",
           "alt": "Salsas picantes en tarros"
         }
       },
@@ -159,7 +159,7 @@
           "Único"
         ],
         "image": {
-          "url": "https://images.unsplash.com/photo-1565299585323-38174c4a6bce?w=1200&q=80",
+          "url": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=1200&q=80",
           "alt": "Tacos de barbacoa"
         },
         "badges": [
@@ -181,7 +181,7 @@
           "Único"
         ],
         "image": {
-          "url": "https://images.unsplash.com/photo-1599974579688-e7a6e9beb0c0?w=1200&q=80",
+          "url": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200&q=80",
           "alt": "Tacos de pollo"
         }
       },
@@ -200,7 +200,7 @@
           "Único"
         ],
         "image": {
-          "url": "https://images.unsplash.com/photo-1613514785940-d59007712a31?w=1200&q=80",
+          "url": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=1200&q=80",
           "alt": "Tacos vegetarianos"
         },
         "badges": [
@@ -222,7 +222,7 @@
           "Único"
         ],
         "image": {
-          "url": "https://images.unsplash.com/photo-1606491956689-2ea86650f4a6?w=1200&q=80",
+          "url": "https://images.unsplash.com/photo-1598866594230-a7c12756260f?w=1200&q=80",
           "alt": "Salsa verde en tarro"
         }
       },
@@ -241,7 +241,7 @@
           "Único"
         ],
         "image": {
-          "url": "https://images.unsplash.com/photo-1588137378633-dea1336ce1e9?w=1200&q=80",
+          "url": "https://images.unsplash.com/photo-1598866594230-a7c12756260f?w=1200&q=80",
           "alt": "Salsa habanero"
         },
         "badges": [
@@ -263,7 +263,7 @@
           "Único"
         ],
         "image": {
-          "url": "https://images.unsplash.com/photo-1622483563222-3bf4fdebf7f5?w=1200&q=80",
+          "url": "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=1200&q=80",
           "alt": "Agua de jamaica"
         }
       },

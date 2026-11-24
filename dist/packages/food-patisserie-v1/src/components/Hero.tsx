@@ -15,11 +15,11 @@ export function Hero() {
       data-storefront-home-hero=""
       className="patisserie-hero relative flex h-[100svh] min-h-[640px] w-full flex-col items-center justify-center overflow-hidden bg-background px-6 pt-24 pb-12 md:px-10 md:pt-28"
     >
-      <p className="patisserie-wordmark animate-fade-up text-center text-lg text-secondary md:text-xl">
+      <p className="patisserie-wordmark text-center text-lg text-secondary md:text-xl">
         {wordmark}
       </p>
 
-      <div className="patisserie-hero-frame relative mt-8 h-[38svh] min-h-[220px] w-full max-w-3xl animate-fade-up overflow-hidden rounded-[2rem] shadow-[0_24px_60px_-12px_rgba(120,53,15,0.25)] [animation-delay:80ms] md:mt-10 md:h-[42svh] md:rounded-[2.5rem]">
+      <div className="patisserie-hero-frame relative mt-8 h-[38svh] min-h-[220px] w-full max-w-3xl overflow-hidden rounded-[2rem] shadow-[0_24px_60px_-12px_rgba(120,53,15,0.25)] md:mt-10 md:h-[42svh] md:rounded-[2.5rem]">
         <HeroCarouselMedia
 
           hero={hero}
@@ -33,7 +33,7 @@ export function Hero() {
         />
 </div>
 
-      <div className="mt-10 max-w-2xl text-center animate-fade-up [animation-delay:160ms] md:mt-12">
+      <div className="mt-10 max-w-2xl text-center md:mt-12">
         <h1
           data-wb-slot="hero.headline"
           className="font-serif text-3xl leading-tight text-balance text-primary md:text-5xl lg:text-6xl"

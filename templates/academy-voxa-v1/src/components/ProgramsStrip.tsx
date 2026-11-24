@@ -12,6 +12,7 @@ import {
   withBasePath,
 } from "../content/resolve";
 import { Reveal } from "./Reveal";
+import { homeGridFitProps } from "@shopenlinea/commerce-runtime-contract";
 
 export function ProgramsStrip() {
   const { payload, basePath } = useSiteContent();
@@ -55,7 +56,7 @@ export function ProgramsStrip() {
         </div>
       </Reveal>
 
-      <div className="grid gap-6 md:grid-cols-3">
+      <div {...homeGridFitProps(products.length, { md: 3 }, "grid gap-6 md:grid-cols-3")}>
         {products.map((product, i) => {
           const badgeLabel = product.isNew
             ? badges.new

@@ -1,9 +1,9 @@
 {
   "templateId": "food-patisserie-v1",
   "version": "1.0.0",
-  "exportedAt": "2026-11-21T02:06:21.517Z",
-  "contentHash": "2fbef0084e0641180e910156de66835ddc0326c8fd037b4fb9468e3ee174bd5d",
-  "sourceGitSha": "d49965173aa9284b9f233daebc57d3f7ba715294",
+  "exportedAt": "2026-11-24T01:11:02.309Z",
+  "contentHash": "07e9bc4b46bb313851b16a7df8d069364308c7e6af4ef4471b9251961cde245f",
+  "sourceGitSha": "29ca622486bbf4bb87a6537b8a6ae6495db52746",
   "immutable": true,
   "source": "templates/food-patisserie-v1"
 }

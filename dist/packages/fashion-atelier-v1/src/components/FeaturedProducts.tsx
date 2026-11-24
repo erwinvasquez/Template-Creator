@@ -5,6 +5,7 @@ import { useSiteContent } from "../lib/site-content";
 import { getFeaturedProducts, withBasePath } from "../content/resolve";
 import { ProductCard } from "./ProductCard";
 import { Reveal } from "./Reveal";
+import { homeGridFitProps } from "@shopenlinea/commerce-runtime-contract";
 
 export function FeaturedProducts() {
   const { payload, basePath } = useSiteContent();
@@ -43,7 +44,7 @@ export function FeaturedProducts() {
           </div>
         </Reveal>
 
-        <div className="grid grid-cols-2 gap-x-4 gap-y-10 md:grid-cols-3 lg:grid-cols-4 md:gap-x-6">
+        <div {...homeGridFitProps(products.length, { md: 3, lg: 4 }, "grid grid-cols-2 gap-x-4 gap-y-10 md:grid-cols-3 lg:grid-cols-4 md:gap-x-6")}>
           {products.map((product, i) => (
             <Reveal key={product.id} delay={(i % 4) * 80}>
               <ProductCard product={product} priority={i < 2} />

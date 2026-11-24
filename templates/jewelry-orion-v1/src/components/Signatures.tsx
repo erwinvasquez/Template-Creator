@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useSiteContent } from "../lib/site-content";
 import { formatPrice, getSignatureProducts, withBasePath } from "../content/resolve";
 import { Reveal } from "./Reveal";
+import { homeGridFitProps } from "@shopenlinea/commerce-runtime-contract";
 
 export function Signatures() {
   const { payload, basePath } = useSiteContent();
@@ -31,7 +32,7 @@ export function Signatures() {
         </div>
       </Reveal>
 
-      <div className="grid gap-5 md:grid-cols-3">
+      <div {...homeGridFitProps(products.length, { md: 3 }, "grid gap-5 md:grid-cols-3")}>
         {products.map((product, i) => (
           <Reveal key={product.id} delay={i * 100}>
             <Link
