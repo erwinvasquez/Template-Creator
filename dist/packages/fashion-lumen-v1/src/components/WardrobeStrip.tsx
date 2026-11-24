@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useSiteContent } from "../lib/site-content";
 import { getWardrobeCollections, withBasePath } from "../content/resolve";
 import { Reveal } from "./Reveal";
+import { homeGridFitProps } from "@shopenlinea/commerce-runtime-contract";
 
 export function WardrobeStrip() {
   const { payload, basePath } = useSiteContent();
@@ -31,7 +32,7 @@ export function WardrobeStrip() {
         </div>
       </Reveal>
 
-      <div className="grid gap-6 md:grid-cols-3">
+      <div {...homeGridFitProps(collections.length, { md: 3 }, "grid gap-6 md:grid-cols-3")}>
         {collections.map((collection, i) => (
           <Reveal key={collection.slug} delay={i * 100}>
             <Link

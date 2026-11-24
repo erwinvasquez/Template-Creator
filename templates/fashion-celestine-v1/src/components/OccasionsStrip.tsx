@@ -9,6 +9,7 @@ import {
   withBasePath,
 } from "../content/resolve";
 import { Reveal } from "./Reveal";
+import { homeGridFitProps } from "@shopenlinea/commerce-runtime-contract";
 
 export function OccasionsStrip() {
   const { payload, basePath } = useSiteContent();
@@ -32,7 +33,7 @@ export function OccasionsStrip() {
         </div>
       </Reveal>
 
-      <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div {...homeGridFitProps(items.length, { sm: 2, lg: 4 }, "mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4")}>
         {items.map((item, i) => (
           <Reveal key={item.id} delay={i * 80}>
             <Link

@@ -9,6 +9,7 @@ import {
 } from "../content/resolve";
 import { ProductCard } from "./ProductCard";
 import { Reveal } from "./Reveal";
+import { homeGridFitProps } from "@shopenlinea/commerce-runtime-contract";
 
 export function SignatureLooks() {
   const { payload, basePath } = useSiteContent();
@@ -47,7 +48,7 @@ export function SignatureLooks() {
         </div>
       </Reveal>
 
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <div {...homeGridFitProps(products.length, { sm: 2, lg: 4 }, "grid gap-6 sm:grid-cols-2 lg:grid-cols-4")}>
         {products.map((product, i) => (
           <Reveal key={product.id} delay={i * 70}>
             <ProductCard product={product} priority={i < 2} />

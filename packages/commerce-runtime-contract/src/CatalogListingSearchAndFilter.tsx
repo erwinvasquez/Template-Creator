@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, type FormEvent, type ReactNode } from "react";
+import { useEffect, useMemo, useRef, useState, type FormEvent, type ReactNode } from "react";
 
 import type { CatalogFilterPatch, ProductFilterViewModel } from "./catalog";
 import type { CommerceTemplateCapabilities } from "./capabilities";
@@ -17,6 +17,9 @@ import { resolveCatalogFilterSalesModeOptions } from "./catalogFilterSalesMode";
 import type { CatalogSalesModeUiCopy } from "./catalogSalesModeEntry";
 import { CatalogListingPageHeading } from "./CatalogListingPageHeading";
 import { hostCatalogFilterTriggerClassName, hostCatalogSearchInputClassName } from "./hostCatalogLayout";
+
+/** Hash de la lupa de la cabecera (`/tienda#buscar`). */
+export const CATALOG_SEARCH_HASH = "buscar";
 
 export type CatalogListingSearchAndFilterProps = Readonly<{
   filters: ProductFilterViewModel;
@@ -60,6 +63,23 @@ export function CatalogListingSearchAndFilter({
   afterToolbar,
 }: CatalogListingSearchAndFilterProps) {
   const [filterOpen, setFilterOpen] = useState(false);
+  const searchInputRef = useRef<HTMLInputElement | null>(null);
+
+  // La lupa de la cabecera lleva a la tienda con `#buscar`: el buscador queda enfocado (en el celular
+  // abre el teclado). También si ya estaba en la tienda y solo cambia el hash.
+  useEffect(() => {
+    if (!showSearch) return;
+    const focusIfRequested = () => {
+      if (window.location.hash !== `#${CATALOG_SEARCH_HASH}`) return;
+      const input = searchInputRef.current;
+      if (!input) return;
+      input.focus({ preventScroll: true });
+      input.scrollIntoView({ block: "center" });
+    };
+    focusIfRequested();
+    window.addEventListener("hashchange", focusIfRequested);
+    return () => window.removeEventListener("hashchange", focusIfRequested);
+  }, [showSearch]);
   const activeFilters = filters.activeFilterCount ?? 0;
   const sheetLabels = resolveCatalogFilterSheetLabels(listing);
   const filterLabel = resolveCatalogFilterTriggerLabel(listing);
@@ -89,7 +109,10 @@ export function CatalogListingSearchAndFilter({
               {listing.searchLabel}
             </label>
             <input
+              ref={searchInputRef}
               id="commerce-search"
+              type="search"
+              enterKeyHint="search"
               value={search}
               onChange={(e) => onSearchChange(e.target.value)}
               placeholder={listing.searchPlaceholder}

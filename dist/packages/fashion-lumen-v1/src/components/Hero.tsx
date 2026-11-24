@@ -20,7 +20,7 @@ export function Hero() {
 
         media={payload.media}
 
-        className="object-cover animate-ken-burns"
+        className="object-cover animate-ken-burns max-md:![animation:none]"
 
         sizes="100vw"
 
@@ -30,17 +30,17 @@ export function Hero() {
       <div className="relative z-10 flex h-full flex-col items-center justify-end px-6 pb-16 text-center md:pb-24">
         <p
           data-wb-slot="hero.headline"
-          className="animate-fade-up font-serif text-5xl font-normal italic leading-[1.05] tracking-wide text-white drop-shadow-[0_2px_16px_rgba(0,0,0,0.35)] md:text-7xl lg:text-8xl"
+          className="font-serif text-5xl font-normal italic leading-[1.05] tracking-wide text-white drop-shadow-[0_2px_16px_rgba(0,0,0,0.35)] md:text-7xl lg:text-8xl"
         >
           {hero.headline}
         </p>
         <h1
           data-wb-slot="hero.subheadline"
-          className="mt-5 max-w-xl animate-fade-up text-balance text-base font-light leading-relaxed text-white/90 drop-shadow-[0_1px_10px_rgba(0,0,0,0.45)] md:text-lg [animation-delay:120ms]"
+          className="mt-5 max-w-xl text-balance text-base font-light leading-relaxed text-white/90 drop-shadow-[0_1px_10px_rgba(0,0,0,0.45)] md:text-lg"
         >
           {hero.subheadline}
         </h1>
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-4 animate-fade-up [animation-delay:220ms]">
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
           <Link
             href={withBasePath(basePath, hero.ctaPrimary.href)}
             data-wb-slot="hero.ctaPrimary"

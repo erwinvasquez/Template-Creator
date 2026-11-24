@@ -16,26 +16,26 @@ export function Hero() {
       className="trattoria-hero-split relative h-[100svh] min-h-[640px] w-full overflow-hidden bg-background"
     >
       <div className="trattoria-hero-panel relative z-10 flex flex-col justify-between px-6 pb-12 pt-28 md:px-10 md:pb-16 md:pt-32 lg:px-14">
-        <p className="trattoria-wordmark animate-fade-up text-xl text-primary md:text-2xl">
+        <p className="trattoria-wordmark text-xl text-primary md:text-2xl">
           {wordmark}
         </p>
 
         <div className="mt-auto max-w-lg">
           <h1
             data-wb-slot="hero.headline"
-            className="animate-fade-up font-serif text-4xl leading-[1.08] text-balance text-primary md:text-5xl lg:text-6xl [animation-delay:80ms]"
+            className="font-serif text-4xl leading-[1.08] text-balance text-primary md:text-5xl lg:text-6xl"
           >
             {hero.headline}
           </h1>
 
           <p
             data-wb-slot="hero.subheadline"
-            className="mt-5 max-w-md animate-fade-up text-base leading-relaxed text-muted md:text-lg [animation-delay:160ms]"
+            className="mt-5 max-w-md text-base leading-relaxed text-muted md:text-lg"
           >
             {hero.subheadline}
           </p>
 
-          <div className="mt-8 flex animate-fade-up flex-wrap items-center gap-3 [animation-delay:240ms]">
+          <div className="mt-8 flex flex-wrap items-center gap-3">
             <Link
               href={withBasePath(basePath, hero.ctaPrimary.href)}
               data-wb-slot="hero.ctaPrimary"

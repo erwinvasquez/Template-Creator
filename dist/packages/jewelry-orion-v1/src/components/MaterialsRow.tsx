@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useSiteContent } from "../lib/site-content";
 import { getMaterialItems } from "../content/resolve";
 import { Reveal } from "./Reveal";
+import { homeGridFitProps } from "@shopenlinea/commerce-runtime-contract";
 
 export function MaterialsRow() {
   const { payload } = useSiteContent();
@@ -31,7 +32,7 @@ export function MaterialsRow() {
         </Reveal>
 
         <div
-          className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6"
+          {...homeGridFitProps(items.length, { md: 4 }, "grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6")}
           data-wb-slot="materials.items"
         >
           {items.map((item, i) => (

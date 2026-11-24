@@ -29,22 +29,22 @@ export function Hero() {
 <div className="pointer-events-none z-[1] cantina-hero-scrim absolute inset-0" />
 
       <div className="cantina-hero-block absolute bottom-0 left-0 z-10 max-w-2xl px-6 py-10 md:px-10 md:py-14 lg:max-w-3xl lg:px-14">
-        <p className="cantina-wordmark animate-fade-up text-2xl text-background md:text-4xl">
+        <p className="cantina-wordmark text-2xl text-background md:text-4xl">
           {wordmark}
         </p>
         <h1
           data-wb-slot="hero.headline"
-          className="mt-4 animate-fade-up font-serif text-4xl font-bold uppercase leading-[0.95] tracking-tight text-balance text-background md:text-6xl lg:text-7xl [animation-delay:100ms]"
+          className="mt-4 font-serif text-4xl font-bold uppercase leading-[0.95] tracking-tight text-balance text-background md:text-6xl lg:text-7xl"
         >
           {hero.headline}
         </h1>
         <p
           data-wb-slot="hero.subheadline"
-          className="mt-5 max-w-md animate-fade-up text-base leading-relaxed text-background/85 [animation-delay:180ms]"
+          className="mt-5 max-w-md text-base leading-relaxed text-background/85"
         >
           {hero.subheadline}
         </p>
-        <div className="mt-8 flex animate-fade-up flex-wrap items-center gap-3 [animation-delay:260ms]">
+        <div className="mt-8 flex flex-wrap items-center gap-3">
           <Link
             href={withBasePath(basePath, hero.ctaPrimary.href)}
             data-wb-slot="hero.ctaPrimary"

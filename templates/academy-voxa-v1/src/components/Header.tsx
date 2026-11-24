@@ -3,11 +3,11 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Menu, ShoppingBag, User, X } from "lucide-react";
+import { Menu, Search, ShoppingBag, User, X } from "lucide-react";
 import { useHostCart } from "../lib/commerce-host";
 import { useSiteContent } from "../lib/site-content";
 import { requireUi } from "../lib/ui";
-import { accountPath, resolveNavHref, withBasePath } from "../content/resolve";
+import { accountPath, resolveNavHref, SHOP_PATH, withBasePath } from "../content/resolve";
 
 function cartAriaLabel(
   openCart: string,
@@ -66,6 +66,31 @@ function HeaderCartButton({
   );
 }
 
+/** Lupa: abre la tienda con el buscador enfocado. */
+function HeaderSearchLink({
+  useDark,
+  searchLabel,
+}: {
+  useDark: boolean;
+  searchLabel: string;
+}) {
+  const { basePath } = useSiteContent();
+
+  return (
+    <Link
+      href={withBasePath(basePath, `${SHOP_PATH}#buscar`)}
+      className={`cursor-pointer rounded-full p-2 transition-colors duration-200 ${
+        useDark
+          ? "text-white hover:bg-white/10"
+          : "text-secondary hover:text-primary"
+      }`}
+      aria-label={searchLabel}
+    >
+      <Search className="h-5 w-5" strokeWidth={1.5} />
+    </Link>
+  );
+}
+
 function HeaderAccountLink({
   useDark,
   myAccountLabel,
@@ -92,7 +117,8 @@ function HeaderAccountLink({
 
 export function Header() {
   const { payload, basePath } = useSiteContent();
-  const chrome = requireUi(payload).chrome;
+  const ui = requireUi(payload);
+  const chrome = ui.chrome;
   const pathname = usePathname();
   const showCart = payload.features?.cart !== false;
   const showAccount = payload.features?.account !== false;
@@ -162,6 +188,12 @@ export function Header() {
           </nav>
 
           <div className="flex items-center gap-2 md:gap-4">
+            {showCart ? (
+              <HeaderSearchLink
+                useDark={useDark}
+                searchLabel={ui.listing.searchLabel}
+              />
+            ) : null}
             {showAccount ? (
               <HeaderAccountLink
                 useDark={useDark}

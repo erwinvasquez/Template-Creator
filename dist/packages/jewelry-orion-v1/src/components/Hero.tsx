@@ -20,7 +20,7 @@ export function Hero() {
 
         media={payload.media}
 
-        className="animate-soft-zoom object-cover"
+        className="animate-soft-zoom object-cover max-md:![animation:none]"
 
         sizes="100vw"
 
@@ -30,17 +30,17 @@ export function Hero() {
       <div className="relative z-10 flex h-full flex-col justify-end px-6 pb-14 md:px-10 md:pb-20">
         <p
           data-wb-slot="hero.headline"
-          className="animate-fade-up font-serif text-6xl tracking-[0.16em] text-white md:text-8xl lg:text-9xl"
+          className="font-serif text-6xl tracking-[0.16em] text-white md:text-8xl lg:text-9xl"
         >
           {hero.headline}
         </p>
         <p
           data-wb-slot="hero.subheadline"
-          className="mt-5 max-w-md animate-fade-up text-balance text-sm font-light leading-relaxed text-white/85 md:text-base [animation-delay:120ms]"
+          className="mt-5 max-w-md text-balance text-sm font-light leading-relaxed text-white/85 md:text-base"
         >
           {hero.subheadline}
         </p>
-        <div className="mt-8 animate-fade-up [animation-delay:220ms]">
+        <div className="mt-8">
           <Link
             href={withBasePath(basePath, hero.ctaPrimary.href)}
             data-wb-slot="hero.ctaPrimary"

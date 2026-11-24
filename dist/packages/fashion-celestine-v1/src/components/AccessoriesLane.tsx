@@ -9,6 +9,7 @@ import {
 } from "../content/resolve";
 import { ProductCard } from "./ProductCard";
 import { Reveal } from "./Reveal";
+import { homeGridFitProps } from "@shopenlinea/commerce-runtime-contract";
 
 export function AccessoriesLane() {
   const { payload, basePath } = useSiteContent();
@@ -53,7 +54,7 @@ export function AccessoriesLane() {
         </div>
       </Reveal>
 
-      <div className="grid gap-6 sm:grid-cols-3">
+      <div {...homeGridFitProps(products.length, { sm: 3 }, "grid gap-6 sm:grid-cols-3")}>
         {products.map((product, i) => (
           <Reveal key={product.id} delay={i * 80}>
             <ProductCard product={product} />

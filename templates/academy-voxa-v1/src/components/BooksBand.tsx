@@ -10,6 +10,7 @@ import {
   withBasePath,
 } from "../content/resolve";
 import { Reveal } from "./Reveal";
+import { homeGridFitProps } from "@shopenlinea/commerce-runtime-contract";
 
 export function BooksBand() {
   const { payload, basePath } = useSiteContent();
@@ -48,7 +49,7 @@ export function BooksBand() {
           </div>
         </Reveal>
 
-        <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div {...homeGridFitProps(products.length, { sm: 2, lg: 3 }, "mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3")}>
           {products.map((product, i) => (
             <Reveal key={product.id} delay={i * 90}>
               <Link

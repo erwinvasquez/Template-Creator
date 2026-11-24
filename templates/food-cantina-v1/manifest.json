@@ -9,7 +9,7 @@
   "locale": "es-ES",
   "preview": {
     "path": "/t/cantina",
-    "thumbnail": "https://images.unsplash.com/photo-1565299585323-38174c4a6bce?w=1200&q=80"
+    "thumbnail": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=1200&q=80"
   },
   "runtime": {
     "framework": "nextjs-app-router",

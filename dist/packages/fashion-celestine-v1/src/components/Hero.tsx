@@ -21,7 +21,7 @@ export function Hero() {
 
         media={payload.media}
 
-        className="animate-soft-drift object-cover opacity-80"
+        className="animate-soft-drift object-cover opacity-80 max-md:![animation:none]"
 
         sizes="100vw"
 
@@ -30,25 +30,25 @@ export function Hero() {
       <div className="celestine-hero-veil pointer-events-none z-[1] absolute inset-0" />
 
       <div className="relative z-10 mx-auto flex h-full max-w-7xl flex-col justify-end px-6 pb-16 pt-32 md:px-10 md:pb-24">
-        <p className="celestine-wordmark animate-fade-up text-4xl text-white/95 md:text-6xl lg:text-7xl">
+        <p className="celestine-wordmark text-4xl text-white/95 md:text-6xl lg:text-7xl">
           {wordmark}
         </p>
 
         <h1
           data-wb-slot="hero.headline"
-          className="mt-8 max-w-2xl animate-fade-up font-serif text-3xl leading-[1.15] text-balance text-white md:text-5xl [animation-delay:100ms]"
+          className="mt-8 max-w-2xl font-serif text-3xl leading-[1.15] text-balance text-white md:text-5xl"
         >
           {hero.headline}
         </h1>
 
         <p
           data-wb-slot="hero.subheadline"
-          className="mt-5 max-w-lg animate-fade-up text-base leading-relaxed text-white/75 [animation-delay:180ms]"
+          className="mt-5 max-w-lg text-base leading-relaxed text-white/75"
         >
           {hero.subheadline}
         </p>
 
-        <div className="mt-9 flex animate-fade-up flex-wrap items-center gap-3 [animation-delay:260ms]">
+        <div className="mt-9 flex flex-wrap items-center gap-3">
           <Link
             href={withBasePath(basePath, hero.ctaPrimary.href)}
             data-wb-slot="hero.ctaPrimary"
